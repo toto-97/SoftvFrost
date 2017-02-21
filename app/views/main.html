@@ -46,14 +46,13 @@
                     <li><a href="dashboard-v2.html">Terminales</a></li>
                 </ul>
               </li>
-              <li class="ripple">
-                <a class="tree-toggle nav-header">
-                  <span class="fa-diamond fa"></span> Layout
+              <li class="active ripple">
+                <a class="tree-toggle nav-header"><span class="fa fa-bug"></span> Incidencias
                   <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                  <li><a href="topnav.html">Top Navigation</a></li>
-                  <li><a href="boxed.html">Boxed</a></li>
+                    <li><a ui-sref="home.provision.suscriptores" ui-sref-active="active">Registro </a></li>
+                    <li><a href="dashboard-v2.html">Terminales</a></li>
                 </ul>
               </li>
               <li class="ripple">
@@ -146,7 +145,7 @@
 
 
     <!-- start: content -->
-      <div id="content"> 
+      <div id="content">
           <div ui-view></div>
         </div>
     <!-- end: content -->
