@@ -42,7 +42,7 @@
                   <span class="fa-angle-right fa right-arrow text-right"></span>
                 </a>
                 <ul class="nav nav-list tree">
-                    <li><a href="dashboard-v1.html">Suscriptores</a></li>
+                    <li><a ui-sref="home.provision.suscriptores" ui-sref-active="active">Suscriptores</a></li>
                     <li><a href="dashboard-v2.html">Terminales</a></li>
                 </ul>
               </li>
@@ -146,15 +146,8 @@
 
 
     <!-- start: content -->
-      <div id="content">
-          <div class="panel">
-            <div class="panel-body">
-                <div class="col-md-6 col-sm-12">
-                  <h3 class="animated fadeInLeft">Customer Service</h3>
-                  <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span> Batavia,Indonesia</p>
-              </div>
-            </div>
-          </div>
+      <div id="content"> 
+          <div ui-view></div>
         </div>
     <!-- end: content -->
 
