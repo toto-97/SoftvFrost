@@ -11,10 +11,11 @@
 angular.module('softvFrostApp', [
 		'ngAnimate',
 		'ngSanitize',
-		'ui.router'
+		'ui.router',
+		'angularUtils.directives.dirPagination'
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider', function($provide, $urlRouterProvider, $httpProvider, $qProvider) {
-		$urlRouterProvider.otherwise('/auth/login');
+		$urlRouterProvider.otherwise('/home');
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector) {
 			function notifyError(rejection) {
 				console.log(rejection);

@@ -14,7 +14,7 @@ function provisionConf($stateProvider) {
 			},
 			url: '/provision/suscriptores',
 			templateUrl: 'views/provision/suscriptores.html',
-			controller: 'SuscriptoresCtrl',
+			controller: 'SuscriptorCtrl',
 			controllerAs: '$ctrl'
 		}
 	];

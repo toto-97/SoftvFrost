@@ -1,9 +1,50 @@
 <div class="panel">
-  <div class="panel-body">
+  <div class="panel">
+    <div class="panel-body">
       <div class="col-md-6 col-sm-12">
-        <h3 class="animated fadeInLeft">Customer Service</h3>
-        <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span> Batavia,Indonesia</p>
+        <h3 class="animated fadeInLeft">Suscriptores</h3>
+        <p class="animated fadeInDown"><i class="fa fa-home" aria-hidden="true"></i> Provisión>Nuevo Suscriptor</p>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Id suscriptor</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Ciudad</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr dir-paginate="x in $ctrl.ticketsSucuarsales|itemsPerPage:8">
+                <td>{{ x.STATUS }}</td>
+                <td>{{ x.Serie }}</td>
+                <td>{{ x.Folio }}</td>
+                <td>{{ x.FECHA }}</td>
+                <td>{{ x.FECHA }}</td>
+                <td>
+                  <button class="btn ink-reaction btn-floating-action btn-xs btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reimprimir Ticket" ng-click="$ctrl.reimprimirTicket(x,'N')">
+  										<i class="fa fa-print" aria-hidden="true"></i>
+  									</button>
+                  <button class="btn ink-reaction btn-floating-action btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancelar Ticket" ng-click="$ctrl.cancelarTicket(x,'N')">
+  										<i class="fa fa-ban" aria-hidden="true"></i>
+  									</button>
+                  <button class="btn ink-reaction btn-floating-action btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Enviar Ticket"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+          </div>
+        </div>
+
+
+      </div>
     </div>
   </div>
 </div>
-<h1>MERA BEBE</h1>
