@@ -11,13 +11,20 @@
 angular.module('softvFrostApp', [
 		'ngAnimate',
 		'ngSanitize',
-		'ui.router'
+		'ui.router',
+		'ngNotify',
+		'angularValidator'
 	])
-	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider', function($provide, $urlRouterProvider, $httpProvider, $qProvider) {
+	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
 		$urlRouterProvider.otherwise('/auth/login');
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector) {
 			function notifyError(rejection) {
-				console.log(rejection);
+				var notify = $injector.get('ngNotify');
+				var content = '¡Se ha generado un error! \n' + rejection.data;
+				notify.set(content, {
+					type: 'error',
+					duration: 4000
+				});
 			}
 			return {
 				requestError: function(rejection) {
@@ -36,7 +43,7 @@ angular.module('softvFrostApp', [
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}])
 	.constant('APP_CONFIG', window.appConfig)
-	.run(['$rootScope', '$state', '$stateParams', '$location', function($rootScope, $state, $stateParams, $location) {
+	.run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 	}]);
