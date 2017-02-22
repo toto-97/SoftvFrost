@@ -1,11 +1,14 @@
 'use strict';
 angular.module('softvFrostApp').controller('LoginCtrl', LoginCtrl);
 
-function LoginCtrl(authFactory) {
+function LoginCtrl(authFactory, ngNotify, $state) {
 	function login() {
-		console.log('asdfdsf');
 		authFactory.login(vm.user, vm.password).then(function(data) {
-			console.log(data);
+			if (data) {
+				$state.go('home');
+			} else {
+				ngNotify.set('Datos de acceso erroneos', 'error');
+			}
 		});
 	}
 
