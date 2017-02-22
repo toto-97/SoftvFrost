@@ -45,6 +45,16 @@ function provisionConf($stateProvider) {
 			templateUrl: 'views/provision/MovimientosTerminales.html',
 			controller: 'TerminalMovimientosCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.suscriptoresNuevo',
+			data: {
+				pageTitle: 'SOFTV | NUEVO SUSCRIPTOR',
+			},
+			url: '/provision/nuevo/suscriptor',
+			templateUrl: 'views/provision/nuevoSuscriptor.html',
+			controller: 'NuevoSuscriptorCtrl',
+			controllerAs: '$ctrl'
 		}
 	];
 

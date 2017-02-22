@@ -26,7 +26,13 @@ module.exports = function(config) {
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
+<<<<<<< HEAD
       'bower_components/angularUtils-pagination/dirPagination.js',
+=======
+      'bower_components/ng-notify/src/scripts/ng-notify.js',
+      'bower_components/tg-angular-validator/dist/angular-validator.js',
+      'bower_components/angular-base64/angular-base64.js',
+>>>>>>> develop
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
