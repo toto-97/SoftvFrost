@@ -14,6 +14,9 @@ angular.module('softvFrostApp')
 			'AngularJS',
 			'Karma'
 		];
+		this.$onInit = function() {
+			vm.usuario = $localStorage.currentUser.usuario;
+		}
 
 		function logOut() {
 			delete $localStorage.currentUser;
