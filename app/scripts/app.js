@@ -49,12 +49,12 @@ angular.module('softvFrostApp', [
 	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', function($rootScope, $state, $stateParams, $localStorage, $location) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
-		$rootScope.$on('$locationChangeStart', function() {
-			if ($localStorage.currentUser) {
-				$location.path('/home');
-			} else {
-				$location.path('/auth/login');
-			}
-		});
+		// $rootScope.$on('$locationChangeStart', function() {
+		// 	if ($localStorage.currentUser) {
+		// 		$location.path('/home');
+		// 	} else {
+		// 		$location.path('/auth/login');
+		// 	}
+		// });
 
 	}]);
