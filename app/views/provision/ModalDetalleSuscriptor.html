@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Detalle de suscriptor #{{ctrl.suscriptor.IdSuscriptor}}</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+   <div class="row form-group">
+    <div class="col-md-3"><b>Nombre:</b></div>
+    <div class="col-md-9">{{ctrl.suscriptor.Nombre}} {{ctrl.Apellido}}</div>
+    <div class="col-md-3"><b>Telefono</b></div>
+    <div class="col-md-3">{{ctrl.suscriptor.Telefono}}</div>
+    <div class="col-md-3"><b>E-mail:</b></div>
+    <div class="col-md-3">{{ctrl.suscriptor.Email}}</div>
+
+    <hr>
+    <div class="col-md-12"><b>Dirección</b></div>
+    <div class="col-md-3"><b>Calle:</b></div>
+    <div class="col-md-3">{{ctrl.suscriptor.Calle}}</div>
+    <div class="col-md-3"><b>Número:</b></div>
+    <div class="col-md-3">#{{ctrl.suscriptor.Numero}}</div>
+    <div class="col-md-3"><b>Colonia:</b></div>
+    <div class="col-md-3">{{ctrl.suscriptor.Colonia}}</div>
+    <div class="col-md-3"><b>C.P</b></div>
+    <div class="col-md-3">{{ctrl.suscriptor.CP}}</div>
+    <div class="col-md-3"><b>Ciudad:</b></div>
+    <div class="col-md-3">{{ctrl.suscriptor.Ciudad}}</div>
+    <div class="col-md-3"><b>Estado:</b></div>
+    <div class="col-md-3">{{ctrl.suscriptor.Estado}}</div>
+
+   		
+   </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary" type="button" ng-click="ctrl.ok()">Aceptar</button>
+</div>
