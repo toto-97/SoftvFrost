@@ -11,10 +11,11 @@
 angular.module('softvFrostApp', [
 		'ngAnimate',
 		'ngSanitize',
-		'ui.router',
 		'ngNotify',
 		'angularValidator',
 		'base64',
+		'ui.router',
+		'angularUtils.directives.dirPagination',
 		'ngStorage'
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {

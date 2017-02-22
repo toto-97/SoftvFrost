@@ -14,7 +14,36 @@ function provisionConf($stateProvider) {
 			},
 			url: '/provision/suscriptores',
 			templateUrl: 'views/provision/suscriptores.html',
-			controller: 'SuscriptoresCtrl',
+			controller: 'SuscriptorCtrl',
+			controllerAs: '$ctrl'
+		}, {
+			name: 'home.provision.terminales',
+			data: {
+				pageTitle: 'SOFTV | Terminales',
+			},
+			url: '/provision/terminales',
+			templateUrl: 'views/provision/Terminales.html',
+			controller: 'TerminalCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.terminalesgestion',
+			data: {
+				pageTitle: 'SOFTV | Gestionar Terminal',
+			},
+			url: '/provision/terminales/gestion',
+			templateUrl: 'views/provision/GestionTerminales.html',
+			controller: 'TerminalGestionCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.terminalesmovimientos',
+			data: {
+				pageTitle: 'SOFTV | Terminales',
+			},
+			url: '/provision/terminales/movimientos',
+			templateUrl: 'views/provision/MovimientosTerminales.html',
+			controller: 'TerminalMovimientosCtrl',
 			controllerAs: '$ctrl'
 		},
 		{
