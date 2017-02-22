@@ -13,9 +13,12 @@ angular.module('softvFrostApp', [
 		'ngSanitize',
 		'ngNotify',
 		'angularValidator',
+		'ngStorage',
 		'base64',
 		'ui.router',
-		'angularUtils.directives.dirPagination'
+		'angularUtils.directives.dirPagination',
+		'ngStorage'
+
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
 		$urlRouterProvider.otherwise('/auth/login');
@@ -45,7 +48,15 @@ angular.module('softvFrostApp', [
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}])
 	.constant('APP_CONFIG', window.appConfig)
-	.run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
+	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', function($rootScope, $state, $stateParams, $localStorage, $location) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
+		$rootScope.$on('$locationChangeStart', function() {
+			if ($localStorage.currentUser) {
+				$location.path('/home');
+			} else {
+				$location.path('/auth/login');
+			}
+		});
+
 	}]);

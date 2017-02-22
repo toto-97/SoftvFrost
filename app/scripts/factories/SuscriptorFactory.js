@@ -1,27 +1,28 @@
 'use strict';
-angular.module('softvApp')
+angular.module('softvFrostApp')
 	.factory('SuscriptorFactory', function($http, $q, $window, globalService, $localStorage, $location) {
-			var factory = {};
-			var paths = {
-				getSuscriptorList: '/Suscriptor/GetSuscriptorList'
+		var factory = {};
+		var paths = {
+			getSuscriptorList: '/Suscriptor/GetSuscriptorList'
+		};
+		factory.getSuscriptorList = function() {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
 			};
-			factory.getSuscriptorList = function() {
-				var deferred = $q.defer();
-				var config = {
-					headers: {
-						'Authorization': ''
-					}
-				};
-				$http.get(globalService.getUrl() + paths.getSuscriptorList, config).then(function(response) {
+			console.log(config);
+			$http.get(globalService.getUrl() + paths.getSuscriptorList, config).then(function(response) {
 
-				}).catch(function(data) {
-					deferred.reject(data);
-				});
-
-				return deferred.promise;
-
-
+			}).catch(function(data) {
+				deferred.reject(data);
 			});
+
+			return deferred.promise;
+
+
+		};
 
 
 		// factory.getSuscriptorList = function() {
