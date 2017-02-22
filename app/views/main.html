@@ -11,16 +11,16 @@
         <b>SOFTV</b>
       </a>
 
-      <ul class="nav navbar-nav navbar-right user-nav">
-        <li class="user-name"><span>Akihiko Avaron</span></li>
-        <li class="dropdown avatar-dropdown">
-          <img src="libs/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" />
-          <ul class="dropdown-menu user-dropdown">
-            <li><a href="#"><span class="fa fa-user"></span> My Profile</a></li>
-            <li><a href=""><span class="fa fa-power-off "></span> Salir</a></li>
-          </ul>
-        </li>
-      </ul>
+        <ul class="nav navbar-nav navbar-right user-nav">
+          <li class="user-name"><span>Akihiko Avaron</span></li>
+            <li class="dropdown avatar-dropdown">
+             <img src="libs/img/avatar.jpg" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
+             <ul class="dropdown-menu user-dropdown">
+               <li><a href="" ng-click="$ctrl.logOut()"><span class="fa fa-power-off "></span> Salir</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
@@ -148,11 +148,11 @@
   <!-- end: Left Menu -->
 
 
-  <!-- start: content -->
-  <div id="content">
-    <div ui-view></div>
-  </div>
-  <!-- end: content -->
+    <!-- start: content -->
+      <div id="content"> 
+          <div ui-view></div>
+        </div>
+    <!-- end: content -->
 
 </div>
 
