@@ -11,13 +11,23 @@
 angular.module('softvFrostApp', [
 		'ngAnimate',
 		'ngSanitize',
-		'ui.router'
+		'ngNotify',
+		'angularValidator',
+		'base64',
+		'ui.router',
+		'angularUtils.directives.dirPagination',
+		'ngStorage'
 	])
-	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider', function($provide, $urlRouterProvider, $httpProvider, $qProvider) {
+	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
 		$urlRouterProvider.otherwise('/auth/login');
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector) {
 			function notifyError(rejection) {
-				console.log(rejection);
+				var notify = $injector.get('ngNotify');
+				var content = '¡Se ha generado un error! \n' + rejection.data;
+				notify.set(content, {
+					type: 'error',
+					duration: 4000
+				});
 			}
 			return {
 				requestError: function(rejection) {
@@ -36,7 +46,15 @@ angular.module('softvFrostApp', [
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}])
 	.constant('APP_CONFIG', window.appConfig)
-	.run(['$rootScope', '$state', '$stateParams', '$location', function($rootScope, $state, $stateParams, $location) {
+	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', function($rootScope, $state, $stateParams, $localStorage, $location) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
+		// $rootScope.$on('$locationChangeStart', function() {
+		// 	if ($localStorage.currentUser) {
+		// 		$location.path('/home');
+		// 	} else {
+		// 		$location.path('/auth/login');
+		// 	}
+		// });
+
 	}]);
