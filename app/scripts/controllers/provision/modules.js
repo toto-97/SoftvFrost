@@ -13,7 +13,7 @@ function provisionConf($stateProvider) {
 				pageTitle: 'SOFTV | SUSCRIPTORES',
 			},
 			url: '/provision/suscriptores',
-			templateUrl: 'views/provision/Suscriptor/suscriptores.html',
+			templateUrl: 'views/provision/suscriptores.html',
 			controller: 'SuscriptorCtrl',
 			controllerAs: '$ctrl'
 		}, {

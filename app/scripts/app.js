@@ -13,7 +13,7 @@ angular.module('softvFrostApp', [
 		'ngSanitize',
 		'ngNotify',
 		'angularValidator',
-		'base64'
+		'base64',
 		'ui.router',
 		'angularUtils.directives.dirPagination'
 	])
