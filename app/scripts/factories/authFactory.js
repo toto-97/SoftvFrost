@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-	.factory('authFactory', function($http, $q, globalService, $base64) {
+	.factory('authFactory', function($http, $q, globalService, $base64, $localStorage) {
 		var factory = {};
 		var paths = {
 			login: '/Usuario/LogOn'
@@ -12,13 +12,23 @@ angular.module('softvFrostApp')
 			var Parametros = {};
 			var config = {
 				headers: {
-					'Authorization': "Basic " + token
+					'Authorization': 'Basic ' + token
 				}
 			};
-			console.log(config);
 			$http.post(globalService.getUrl() + paths.login, JSON.stringify(Parametros), config)
 				.then(function(response) {
-					deferred.resolve(response);
+					if (response.data.LogOnResult.Token) {
+						$localStorage.currentUser = {
+							token: response.data.LogOnResult.Token,
+							nombre: response.data.LogOnResult.Nombre,
+							idRol: response.data.LogOnResult.IdRol,
+							idUsuario: response.data.LogOnResult.IdUsuario,
+							usuario: response.data.LogOnResult.Usuario
+						};
+						deferred.resolve(true);
+					} else {
+						deferred.resolve(false);
+					}
 				})
 				.catch(function(response) {
 					deferred.reject(response);
