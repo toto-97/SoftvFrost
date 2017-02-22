@@ -4,7 +4,7 @@ angular.module('softvFrostApp').controller('SuscriptorCtrl', SuscriptorCtrl);
 function SuscriptorCtrl(SuscriptorFactory,$uibModal) {
 
 	function Init() {
-		alert('si');
+		
 		SuscriptorFactory.getSuscriptorList().then(function(data) {
 			vm.suscriptores=data.GetSuscriptorListResult;
 		});
