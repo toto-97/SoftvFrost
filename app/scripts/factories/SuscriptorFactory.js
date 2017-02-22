@@ -14,14 +14,12 @@ angular.module('softvFrostApp')
 			};
 			console.log(config);
 			$http.get(globalService.getUrl() + paths.getSuscriptorList, config).then(function(response) {
-
+            deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
 			});
 
 			return deferred.promise;
-
-
 		};
 
 

@@ -17,7 +17,8 @@ angular.module('softvFrostApp', [
 		'base64',
 		'ui.router',
 		'angularUtils.directives.dirPagination',
-		'ngStorage'
+		'ngStorage',
+		'ui.bootstrap'
 
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
