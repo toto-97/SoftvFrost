@@ -16,7 +16,9 @@ angular.module('softvFrostApp', [
 		'ngStorage',
 		'base64',
 		'ui.router',
-		'angularUtils.directives.dirPagination'
+		'angularUtils.directives.dirPagination',
+		'ngStorage'
+
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
 		$urlRouterProvider.otherwise('/auth/login');
