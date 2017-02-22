@@ -103,9 +103,9 @@ body {
 <div class="login-page">
   <div class="form">
     <form class="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button ui-sref="home">login</button>
+      <input type="text" placeholder="username" ng-model="$ctrl.user"/>
+      <input type="password" placeholder="password" ng-model="$ctrl.password"/>
+      <button ng-click="$ctrl.login()">login</button>
       <p class="message">No estas registrado? <a href="">Contacta al Administrador</a></p>
     </form>
   </div>
