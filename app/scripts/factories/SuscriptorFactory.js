@@ -6,18 +6,18 @@ angular.module('softvApp')
 			getSuscriptorList: '/DameSessionW/GetDameSessionWList'
 		};
 
-		factory.getAuthentication = function(token) {
+		factory.getSuscriptorList = function() {
 			var deferred = $q.defer();
 			var Parametros = {
 				'Id': 0,
-				'Codigo': token
+				'Codigo': 0
 			};
 			var config = {
 				headers: {
 					'Authorization': token
 				}
 			};
-			$http.post(globalService.getUrl() + paths.getAuthentication, JSON.stringify(Parametros), config).then(function(response) {
+			$http.post(globalService.getUrl() + paths.getSuscriptorList, JSON.stringify(Parametros), config).then(function(response) {
 
 			}).catch(function(data) {
 				deferred.reject(data);
