@@ -6,87 +6,52 @@
     </div>
   </div>
 </div>
-<div class="col-md-12">
-  <div class="panel form-element-padding">
-       <form angular-validator-submit="submitMyForm()" name="myForm" class="form-horizontal" novalidate angular-validator>
-          <div class="panel-heading">
-              <div class="tools">
-                  <p class="text-right">
-                      <button class="btn btn-raised btn-default btn-sm" type="button">Cancelar</button>
-                      <button class="btn btn-raised btn-success btn-sm" type="submit">Guardar</button>
-                  </p>
+<div class="row">
+    <div class="col-md-12">
+      <div class="panel form-element-padding">
+           <form angular-validator-submit="submitMyForm()" name="myForm" class="form-horizontal" novalidate angular-validator>
+              <div class="panel-heading">
+                  <div class="tools">
+                      <h4 class="text-muted">Información Técnica</h4>
+                  </div>
               </div>
-          </div>
-          <div class="panel-body" style="padding-bottom:30px;">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Nombre</label>
-                        <div class="col-sm-6">
-                            <input  type = "text"
-                            name = "nombre"
-                            validate-on="dirty"
-                            class = "form-control"
-                            ng-model = "form.dirty"
-                            required-message="'Error!, Este campo es obligatorio.'"
-                            required>
+              <div class="panel-body" style="padding-bottom:30px;">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label text-right">Terminal</label>
+                            <div class="col-sm-5">
+                                <input  type = "text"
+                                name = "nombre"
+                                validate-on="dirty"
+                                class = "form-control"
+                                ng-model = "form.dirty"
+                                required-message="'Error!, Este campo es obligatorio.'"
+                                required>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Apellidos</label>
-                        <div class="col-sm-6"><input type="text" class="form-control"></div>
+                    <div class="row" style="padding-top:10px;">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label text-right">Motivo</label>
+                            <div class="col-sm-5"><select type="text" class="form-control"></select></div>
+                        </div>
                     </div>
-                </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Teléfono</label>
-                        <div class="col-sm-4"><input type="text" class="form-control"></div>
+                    <div class="row" style="padding-top:10px;">
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label text-right">Sintoma</label>
+                            <div class="col-sm-5"><select type="text" class="form-control"></select></div>
+                        </div>
                     </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="tools">
+                          <h4 class="text-muted">Datos del Contacto</h4>
+                          <hr>
+                      </div>
+                  </div>
                 </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Email</label>
-                        <div class="col-sm-5"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Ciudad</label>
-                        <div class="col-sm-5"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Colonia</label>
-                        <div class="col-sm-5"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Calle</label>
-                        <div class="col-sm-5"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Número</label>
-                        <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        <label class="col-sm-1 control-label text-left">CP</label>
-                        <div class="col-sm-3"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-                <div class="row" style="padding-top:10px;">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label text-right">Referencia</label>
-                        <div class="col-sm-5"><input type="text" class="form-control"></div>
-                    </div>
-                </div>
-
-              </div>
-            </div>
-      </form>
-    </div>
-  </div>
+          </form>
+        </div>
+      </div>
 </div>
