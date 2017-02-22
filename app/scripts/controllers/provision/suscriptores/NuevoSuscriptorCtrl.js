@@ -1,13 +1,32 @@
 'use strict';
 
-function NuevoSuscriptorCtrl(nuevoSuscriptorFactory) {
-	function cancel() {
-		nuevoSuscriptorFactory.addSuscriptor().then(function(data) {
-			console.log(data);
+function NuevoSuscriptorCtrl(nuevoSuscriptorFactory, ngNotify, $state) {
+	function guardar() {
+		var susc = {
+			nombre: vm.nombre,
+			apellidos: vm.apellidos,
+			telefono: vm.telefono,
+			email: vm.email,
+			cp: vm.cp,
+			calle: vm.calle,
+			numero: vm.numero,
+			colonia: vm.colonia,
+			ciudad: vm.ciudad,
+			referencia: vm.referencia,
+		};
+		nuevoSuscriptorFactory.addSuscriptor(susc).then(function(data) {
+			if (data.AddSuscriptorResult > 0) {
+				ngNotify.set('Suscriptor agregado correctamente.', 'success');
+				$state.go('home.provision.suscriptores');
+			} else {
+				ngNotify.set('Error al agregar el suscriptor.', 'error');
+			}
 		});
 	}
 
 	var vm = this;
-	vm.cancel = cancel;
+	vm.guardar = guardar;
+	vm.email = '';
+	vm.referencia = '';
 }
 angular.module('softvFrostApp').controller('NuevoSuscriptorCtrl', NuevoSuscriptorCtrl);

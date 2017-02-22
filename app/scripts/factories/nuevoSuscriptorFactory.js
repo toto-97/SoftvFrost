@@ -5,32 +5,33 @@ angular.module('softvFrostApp')
 		var paths = {
 			addSuscriptor: '/Suscriptor/AddSuscriptor'
 		};
-		factory.addSuscriptor = function() {
+		factory.addSuscriptor = function(obj) {
 			var deferred = $q.defer();
 			var Parametros = {
-				'Apellido': 'APELLIDO SUSCRIPTOR 2',
-				'CP': '20580',
-				'Calle': 'calle 2',
-				'Ciudad': 'ciudad2',
-				'Colonia': 'colonia 2',
-				'Email': 'email@email.com',
-				'Estado': 1,
-				'FechaAlta': 1,
-				'IdEstado': 1,
-				'IdSuscriptor': 4,
-				'Nombre': 'SUSCRIPTOR 2',
-				'Numero': '25',
-				'Referencia': 'sin ref',
-				'Telefono': '4651258989',
-				'Terminal': 1
+				'objSuscriptor': {
+					'IdEstado': 1,
+					'Nombre': obj.nombre,
+					'Apellido': obj.apellidos,
+					'Telefono': obj.telefono,
+					'Email': obj.email,
+					'CP': obj.cp,
+					'Calle': obj.calle,
+					'Numero': obj.numero,
+					'Colonia': obj.colonia,
+					'Ciudad': obj.ciudad,
+					'Referencia': obj.referencia,
+					'FechaAlta': ''
+				}
+
 			};
+			console.log(Parametros);
 			var config = {
 				headers: {
 					'Authorization': $localStorage.currentUser.token
 				}
 			};
 			$http.post(globalService.getUrl() + paths.addSuscriptor, JSON.stringify(Parametros), config).then(function(response) {
-
+				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
 			});
