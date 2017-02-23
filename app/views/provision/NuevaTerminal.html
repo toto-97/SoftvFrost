@@ -10,6 +10,68 @@
 <div class="panel">
   <div class="panel">
     <div class="panel-body">
+<div class="row form-group">
+<div class="col-md-6">
+  <b>Suscriptor</b>
+<input type="text" class="form-control" >
+</div>
+<div class="col-md-6">
+<button class="btn btn-primary btn-sm" ng-click="$ctrl.BuscaSuscriptor()"><i class="fa fa-search"></i> Buscar</button>
+</div>
+<div class="col-md-12">
+<b>Servicio</b>
+<br>
+<select ng-model="$ctrl.Servicio" ng-options="item as item.Nombre for item in $ctrl.Servicios track by item.IdServicio
+" >
+<option value="">selecciona</option>
+</select>
+
+</div>
+<div class="col-md-6">
+  <b>Latitud</b>
+<input type="text" class="form-control" placeholder="Latitud" ng-model="$ctrl.Latidud" >
+
+</div>
+
+<div class="col-md-6">
+  <b>Longuitud</b><br>
+<input type="text" class="form-control" placeholder="Longuitud" ng-model="$ctrl.Longuitud" >
+
+</div>
+
+
+<div class="col-md-6">
+  <b>ESN</b><br>
+<input type="text" class="form-control" placeholder="ESN" ng-model="$ctrl.ESN" >
+
+</div>
+<div class="col-md-6">
+  <b>Status</b><br>
+<input type="text" class="form-control" placeholder="status de terminal" ng-model="$ctrl.Status" >
+
+</div>
+
+<div class="col-md-6">
+  <b>Fecha de alta</b><br>
+<input type="date" class="form-control" placeholder="" ng-model="$ctrl.FechaAlta" >
+
+</div>
+
+<div class="col-md-6">
+    <b>Fecha de suspensión</b><br>
+<input type="date" class="form-control" placeholder="fecha suspension" ng-model="$ctrl.FechaSuspencion" >
+
+</div>
+
+<div class="col-md-6">
+  <b>Fecha de cancelación</b><br>
+<input type="date" class="form-control" placeholder="fecha cancelación" ng-model="$ctrl.FechaCancelacion" >
+
+</div>
+
+</div>
+
+
 
 
     </div>
