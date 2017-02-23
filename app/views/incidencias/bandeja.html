@@ -1,9 +1,55 @@
-<div class="panel">
-  <div class="panel-body">
-      <div class="col-md-6 col-sm-12">
-        <h3 class="animated fadeInLeft">Customer Service</h3>
-        <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span> Batavia,Indonesia</p>
+<div class="panel" style="height:100px;">
+  <div class="panel-body" style="margin-top:-20px;">
+    <div class="col-md-6 col-sm-12">
+      <h4 style="margin-top: 20px;" class="animated fadeInLeft">Bandeja de Tickets</h4>
+      <p class="animated fadeInDown"><i class="fa fa-home" aria-hidden="true"></i> Incidencias>Bandeja Tickets</p>
     </div>
   </div>
 </div>
-<h1>bandeja</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel form-element-padding">
+            <form angular-validator-submit="submitMyForm()" name="myForm" class="form-horizontal" novalidate angular-validator>
+                <div class="panel-heading">
+                    <div class="tools">
+                        <h4 class="text-muted">Bandeja</h4>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding-bottom:30px;">
+                    <div class="col-md-12">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>N De Ticket</th>
+                              <th>Prioridad</th>
+                              <th>Estado</th>
+                              <th>Tipo De Ticket</th>
+                              <th>Cliente</th>
+                              <th>Siteid</th>
+                              <th>Descripción</th>
+                              <th>Nivel</th>
+                              <th>Usuario Asignado</th>
+                              <th>Fecha Registro</th>
+                              <th>Último Usuario</th>
+                              <th>Última Actualización</th>
+                              <th>Fecha Vencimiento</th>
+                              <th>Área</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <!-- dir-paginate="x in $ctrl.ticketsSucuarsales|itemsPerPage:8" -->
+                            <tr>
+                              <td>1</td>
+                              <td>Eric Chavez Gomez</td>
+                              <td>erictics@gmail.com </td>
+                              <td>4651038908</td>
+                              <td>Aguascalientes</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -27,20 +27,20 @@
                                 class = "form-control"
                                 ng-model = "form.dirty"
                                 required-message="'Error!, Este campo es obligatorio.'"
-                                required>
+                                required placeholder="Buscar por siteid, serial o codigo">
                             </div>
                         </div>
                     </div>
                     <div class="row" style="padding-top:10px;">
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Motivo</label>
-                            <div class="col-sm-5"><select type="text" class="form-control"></select></div>
+                            <div class="col-sm-5"><select class="form-control"><option>Seleccione motivo</option></select></div>
                         </div>
                     </div>
                     <div class="row" style="padding-top:10px;">
                         <div class="form-group">
-                            <label class="col-sm-1 control-label text-right">Sintoma</label>
-                            <div class="col-sm-5"><select type="text" class="form-control"></select></div>
+                            <label class="col-sm-1 control-label text-right">Síntoma</label>
+                            <div class="col-sm-5"><select class="form-control"><option>Seleccione síntoma</option></select></div>
                         </div>
                     </div>
                   </div>
@@ -48,6 +48,71 @@
                       <div class="tools">
                           <h4 class="text-muted">Datos del Contacto</h4>
                           <hr>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="row">
+                              <div class="form-group">
+                                  <div class="col-sm-4">
+                                      <select class="form-control" required><option>Seleccione tipo contrato</option></select>
+                                  </div>
+                                  <div class="col-sm-8">
+                                      <input  type = "text"
+                                      name = "nombre"
+                                      validate-on="dirty"
+                                      class = "form-control"
+                                      ng-model = "form.dirty"
+                                      required-message="'Error!, Este campo es obligatorio.'"
+                                      required placeholder="Nombre del contrato que notificó la incidencia">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="form-group">
+                                  <div class="col-sm-4">
+                                      <select class = "form-control" required><option>Seleccione medio de comunicación</option></select>
+                                  </div>
+                                  <div class="col-sm-8">
+                                      <input  type = "text"
+                                      name = "nombre"
+                                      validate-on="dirty"
+                                      class = "form-control"
+                                      ng-model = "form.dirty"
+                                      required-message="'Error!, Este campo es obligatorio.'"
+                                      required placeholder="Nombre del contrato que notificó la incidencia">
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="tools">
+                          <h4 class="text-muted">Descripción</h4>
+                          <hr>
+                      </div>
+                      <div class="col-md-12">
+                         <div class="row">
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <textarea  type = "text"
+                                      name = "nombre"
+                                      validate-on="dirty"
+                                      class = "form-control"
+                                      ng-model = "form.dirty"
+                                      required-message="'Error!, Este campo es obligatorio.'"
+                                      required></textarea>
+                                  </div>
+                              </div>
+                          </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="tools">
+                          <p class="text-right">
+                              <button class="btn btn-raised btn-primary btn-sm" type="button"><i class="fa fa-eraser" aria-hidden="true"></i>Limpiar</button>
+                              <button class="btn btn-raised btn-primary btn-sm" type="submit"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i>Aplicar Árbol</button>
+                              <button class="btn btn-raised btn-primary btn-sm" type="button"><i class="fa fa-ban" aria-hidden="true"></i>Cerrar Atención</button>
+                              <button class="btn btn-raised btn-primary btn-sm" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i>Guardar Atención</button>
+                          </p>
                       </div>
                   </div>
                 </div>
