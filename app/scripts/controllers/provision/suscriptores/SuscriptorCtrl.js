@@ -1,10 +1,8 @@
 'use strict';
-angular.module('softvFrostApp').controller('SuscriptorCtrl', SuscriptorCtrl);
 
 function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state) {
 
-	function Init() {
-
+	this.$onInit = function() {
 		SuscriptorFactory.getSuscriptorList().then(function(data) {
 			vm.suscriptores = data.GetSuscriptorListResult;
 		});
@@ -19,11 +17,10 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state) {
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalDetalleSuscriptor.html',
 			controller: 'ModalDetalleSuscriptorCtrl',
-			controllerAs: 'ctrl',
+			controllerAs: '$ctrl',
 			backdrop: 'static',
 			keyboard: false,
 			size: 'md',
-			windowClass: 'app-modal-window',
 			resolve: {
 				suscriptor: function() {
 					return object;
@@ -51,9 +48,9 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state) {
 
 
 	var vm = this;
-	Init();
 	vm.DetalleSuscriptor = DetalleSuscriptor;
 	vm.DetalleTerminales = DetalleTerminales;
 	vm.DetalleMovimientos = DetalleMovimientos;
 	vm.editarSuscriptor = editarSuscriptor;
 }
+angular.module('softvFrostApp').controller('SuscriptorCtrl', SuscriptorCtrl);

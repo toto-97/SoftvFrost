@@ -61,13 +61,10 @@ function provisionConf($stateProvider) {
 			data: {
 				pageTitle: 'SOFTV | EDITAR SUSCRIPTOR',
 			},
-			url: '/provision/editar/suscriptor/',
+			url: '/provision/editar/suscriptor/:id',
 			templateUrl: 'views/provision/editarSuscriptor.html',
 			controller: 'EditarSuscriptorCtrl',
-			controllerAs: '$ctrl',
-			params: {
-				suscriptor: {},
-			}
+			controllerAs: '$ctrl'
 		}
 	];
 
