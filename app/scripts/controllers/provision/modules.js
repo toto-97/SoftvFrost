@@ -27,6 +27,16 @@ function provisionConf($stateProvider) {
 			controllerAs: '$ctrl'
 		},
 		{
+			name: 'home.provision.terminalesNueva',
+			data: {
+				pageTitle: 'SOFTV | Terminales',
+			},
+			url: '/provision/terminales/nueva',
+			templateUrl: 'views/provision/NuevaTerminal.html',
+			controller: 'NuevaTerminalCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
 			name: 'home.provision.terminalesgestion',
 			data: {
 				pageTitle: 'SOFTV | Gestionar Terminal',

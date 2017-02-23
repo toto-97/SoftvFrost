@@ -16,6 +16,8 @@ angular.module('softvFrostApp')
 		];
 		this.$onInit = function() {
 			vm.usuario = $localStorage.currentUser.usuario;
+			console.log($localStorage.currentUser);
+			console.log($localStorage);
 		}
 
 		function logOut() {

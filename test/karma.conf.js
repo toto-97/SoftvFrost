@@ -31,6 +31,7 @@ module.exports = function(config) {
       'bower_components/tg-angular-validator/dist/angular-validator.js',
       'bower_components/angular-base64/angular-base64.js',
       'bower_components/ngstorage/ngStorage.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
