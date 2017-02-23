@@ -15,7 +15,13 @@ angular.module('softvFrostApp')
 			'Karma'
 		];
 		this.$onInit = function() {
-			vm.usuario = $localStorage.currentUser.usuario;
+			if ($localStorage.currentUser) {
+				vm.menus = $localStorage.currentUser.menu;
+				vm.usuario = $localStorage.currentUser.usuario;
+			} else {
+				location.href === '/auth/login';
+			}
+
 		}
 
 		function logOut() {
