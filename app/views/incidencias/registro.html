@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Terminal</label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-4 input-group">
                                 <input  type = "text"
                                 name = "nombre"
                                 validate-on="dirty"
@@ -28,19 +28,46 @@
                                 ng-model = "form.dirty"
                                 required-message="'Error!, Este campo es obligatorio.'"
                                 required placeholder="Buscar por siteid, serial o codigo">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Buscar">Buscar</button>
+                                </span>
                             </div>
                         </div>
                     </div>
                     <div class="row" style="padding-top:10px;">
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Motivo</label>
-                            <div class="col-sm-5"><select class="form-control"><option>Seleccione motivo</option></select></div>
+                            <div class="col-sm-5">
+                                <select class="form-control">
+                                    <option>Seleccione motivo</option>
+                                    <option>Falla de Software</option>
+                                    <option>Configuración</option>
+                                    <option>Upgrade</option>
+                                    <option>Condiciones climáticas</option>
+                                    <option>Interferencia Solar</option>
+                                    <option>Trabajo de Mantenimiento</option>
+                                    <option>LAN Usuario</option>
+                                    <option>Falla Información</option>
+                                    <option>Falla en Hardwere</option>
+                                    <option>Otros</option>
+                                    <option>Alimentación Energía</option>
+                                    <option>Migración Tecnológica</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="row" style="padding-top:10px;">
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Síntoma</label>
-                            <div class="col-sm-5"><select class="form-control"><option>Seleccione síntoma</option></select></div>
+                            <div class="col-sm-5">
+                                <select class="form-control">
+                                    <option>Seleccione síntoma</option>
+                                    <option>Sin servicio de internet</option>
+                                    <option>Servicio degradado</option>
+                                    <option>Cuota no renovada</option>
+                                    <option>Consumos no efectuados</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                   </div>

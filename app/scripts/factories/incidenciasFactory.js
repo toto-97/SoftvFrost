@@ -4,7 +4,6 @@ angular.module('softvFrostApp')
 		var factory = {};
 		var paths = {
 			addTicket: '/Ticket/AddTicket',
-			updateTicket: '/Ticket/UpdateTicket'
 		};
 		factory.addTicket = function(obj) {
 			var deferred = $q.defer();
