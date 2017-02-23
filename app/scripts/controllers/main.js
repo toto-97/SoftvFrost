@@ -25,4 +25,5 @@ angular.module('softvFrostApp')
 
 		var vm = this;
 		vm.logOut = logOut;
+		vm.usuario = $localStorage.currentUser.usuario;
 	});

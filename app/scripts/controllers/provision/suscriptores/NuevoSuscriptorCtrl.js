@@ -1,6 +1,13 @@
 'use strict';
 
 function NuevoSuscriptorCtrl(nuevoSuscriptorFactory, ngNotify, $state) {
+
+	this.$onInit = function() {
+		nuevoSuscriptorFactory.getEstados().then(function(data) {
+			vm.estados = data.GetEstadoListResult;
+		});
+	}
+
 	function guardar() {
 		var susc = {
 			nombre: vm.nombre,
@@ -13,6 +20,7 @@ function NuevoSuscriptorCtrl(nuevoSuscriptorFactory, ngNotify, $state) {
 			colonia: vm.colonia,
 			ciudad: vm.ciudad,
 			referencia: vm.referencia,
+			IdEstado: vm.estado.IdEstado
 		};
 		nuevoSuscriptorFactory.addSuscriptor(susc).then(function(data) {
 			if (data.AddSuscriptorResult > 0) {

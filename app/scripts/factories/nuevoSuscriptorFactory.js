@@ -3,13 +3,30 @@ angular.module('softvFrostApp')
 	.factory('nuevoSuscriptorFactory', function($http, $q, $window, globalService, $localStorage) {
 		var factory = {};
 		var paths = {
-			addSuscriptor: '/Suscriptor/AddSuscriptor'
+			addSuscriptor: '/Suscriptor/AddSuscriptor',
+			getEstados: '/Estado/GetEstadoList'
 		};
+
+		factory.getEstados = function() {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.get(globalService.getUrl() + paths.getEstados, config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		}
+
 		factory.addSuscriptor = function(obj) {
 			var deferred = $q.defer();
 			var Parametros = {
 				'objSuscriptor': {
-					'IdEstado': 1,
+					'IdEstado': obj.IdEstado,
 					'Nombre': obj.nombre,
 					'Apellido': obj.apellidos,
 					'Telefono': obj.telefono,
@@ -24,7 +41,6 @@ angular.module('softvFrostApp')
 				}
 
 			};
-			console.log(Parametros);
 			var config = {
 				headers: {
 					'Authorization': $localStorage.currentUser.token

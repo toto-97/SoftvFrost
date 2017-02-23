@@ -12,9 +12,8 @@ angular.module('softvFrostApp')
 					'Authorization': $localStorage.currentUser.token
 				}
 			};
-			console.log(config);
 			$http.get(globalService.getUrl() + paths.getSuscriptorList, config).then(function(response) {
-            deferred.resolve(response.data);
+				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
 			});
