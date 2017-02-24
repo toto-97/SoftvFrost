@@ -37,13 +37,13 @@ function provisionConf($stateProvider) {
 			controllerAs: '$ctrl'
 		},
 		{
-			name: 'home.provision.terminalesgestion',
+			name: 'home.provision.terminalesEdita',
 			data: {
-				pageTitle: 'SOFTV | Gestionar Terminal',
+				pageTitle: 'SOFTV | Terminales',
 			},
-			url: '/provision/terminales/gestion',
-			templateUrl: 'views/provision/GestionTerminales.html',
-			controller: 'TerminalGestionCtrl',
+			url: '/provision/terminales/edita/:Id',
+			templateUrl: 'views/provision/NuevaTerminal.html',
+			controller: 'EditaTerminalCtrl',
 			controllerAs: '$ctrl'
 		},
 		{

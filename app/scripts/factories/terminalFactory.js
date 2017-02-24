@@ -5,7 +5,8 @@ angular.module('softvFrostApp')
 		var paths = {
 			getTerminalList: '/Terminal/GetTerminalList',
 			getServicioList: '/Servicio/GetServicioList',
-			GuardaTerminal: '/Terminal/AddTerminal'
+			GuardaTerminal: '/Terminal/AddTerminal',
+			getTerminalById:'/Terminal/GetByTerminal'
 
 		};
 
@@ -70,6 +71,26 @@ angular.module('softvFrostApp')
 			});
 			return deferred.promise;
 		};
+
+		factory.getTerminalById=function(id){
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			var parametros = {
+				'SAN': id
+			}
+			$http.post(globalService.getUrl() + paths.getTerminalById, JSON.stringify(parametros
+			), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		}
 
 		return factory;
 
