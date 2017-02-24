@@ -1,15 +1,23 @@
 'use strict';
 angular.module('softvFrostApp').controller('TerminalCtrl', TerminalCtrl);
 
-function TerminalCtrl(terminalFactory,$uibModal,$state) {
+function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory) {
 	this.$onInit = function() {
 		terminalFactory.getTerminalList().then(function(data) {
 			console.log(data);
 			vm.terminales = data.GetTerminalListResult;
 		});
+		nuevoSuscriptorFactory.getEstados().then(function(data) {
+			data.GetEstadoListResult.unshift({
+				'Nombre': '----------------',
+				'IdEstado': 0
+			});
+			vm.estados = data.GetEstadoListResult;
+			vm.estado = vm.estados[0];
+		});
 	}
 
-	function GestionTerminal(object){
+	function GestionTerminal(object) {
 		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
 			animation: vm.animationsEnabled,
@@ -29,12 +37,15 @@ function TerminalCtrl(terminalFactory,$uibModal,$state) {
 		});
 
 	}
- function EditarTerminal(obj){
-	 $state.go('home.provision.terminalesEdita',{'Id':obj.SAN });
- }
+
+	function EditarTerminal(obj) {
+		$state.go('home.provision.terminalesEdita', {
+			'Id': obj.SAN
+		});
+	}
 
 	var vm = this;
-	vm.GestionTerminal=GestionTerminal;
-	vm.EditarTerminal=EditarTerminal;
+	vm.GestionTerminal = GestionTerminal;
+	vm.EditarTerminal = EditarTerminal;
 	vm.titulo = "Terminales";
 }

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('softvFrostApp').controller('NuevaTerminalCtrl', TerminalCtrl);
 
-function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify) {
+function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
 	this.$onInit = function() {
 		terminalFactory.getServicioList().then(function(data) {
 			vm.Servicios = data.GetServicioListResult;
@@ -38,9 +38,8 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify) {
 		});
 	}
 	$rootScope.$on('cliente_seleccionado', function(e, detalle) {
-		console.log(detalle.IdSuscriptor);
 		vm.IdSuscriptor = detalle.IdSuscriptor;
-		vm.NombreSuscriptor = detalle.Nombre + detalle.Apellido;
+		vm.NombreSuscriptor = detalle.Nombre + ' ' + detalle.Apellido;
 	});
 
 	$rootScope.$on('get_LatLong', function(e, detalle) {
@@ -65,13 +64,9 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify) {
 			'ESN': vm.ESN,
 			'Comentarios': vm.Comentarios
 		};
-		console.log(parametros);
-
-
-
 		terminalFactory.GuardaTerminal(parametros).then(function(data) {
-			console.log(data);
-			ngNotify.set('La terminal se ha guardado correctamente', 'grimace');
+			ngNotify.set('La terminal se ha guardado correctamente', 'success');
+			$state.go('home.provision.terminales');
 		});
 	}
 

@@ -20,7 +20,7 @@ angular.module('softvFrostApp', [
 		'ngStorage',
 		'ui.bootstrap',
 		'blockUI',
-		'ngMap'
+		'ngMap',
 		'permission', 'permission.ui'
 
 	])
