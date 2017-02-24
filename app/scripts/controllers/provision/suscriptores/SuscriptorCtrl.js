@@ -9,7 +9,6 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state) {
 	}
 
 	function DetalleSuscriptor(object) {
-
 		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
 			animation: vm.animationsEnabled,
@@ -27,11 +26,26 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state) {
 				}
 			}
 		});
-
 	}
 
-	function DetalleTerminales() {
-		alert('terminales');
+	function DetalleTerminales(suscriptor) {
+		vm.animationsEnabled = true;
+		var modalInstance = $uibModal.open({
+			animation: vm.animationsEnabled,
+			ariaLabelledBy: 'modal-title',
+			ariaDescribedBy: 'modal-body',
+			templateUrl: 'views/provision/terminalesSuscriptor.html',
+			controller: 'terminaleseSuscriptorCtrl',
+			controllerAs: '$ctrl',
+			backdrop: 'static',
+			keyboard: false,
+			size: 'md',
+			resolve: {
+				suscriptor: function() {
+					return suscriptor;
+				}
+			}
+		});
 	}
 
 	function DetalleMovimientos() {

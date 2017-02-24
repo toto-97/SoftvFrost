@@ -72,7 +72,7 @@ angular.module('softvFrostApp')
 				deferred.reject(data);
 			});
 			return deferred.promise;
-		}
+		};
 
 		factory.addSuscriptor = function(obj) {
 			var deferred = $q.defer();
