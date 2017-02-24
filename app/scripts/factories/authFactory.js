@@ -17,14 +17,19 @@ angular.module('softvFrostApp')
 			};
 			$http.post(globalService.getUrl() + paths.login, JSON.stringify(Parametros), config)
 				.then(function(response) {
+<<<<<<< HEAD
 					console.log(response);
+=======
+					console.log(response.data);
+>>>>>>> develop
 					if (response.data.LogOnResult.Token) {
 						$localStorage.currentUser = {
 							token: response.data.LogOnResult.Token,
 							nombre: response.data.LogOnResult.Nombre,
 							idRol: response.data.LogOnResult.IdRol,
 							idUsuario: response.data.LogOnResult.IdUsuario,
-							usuario: response.data.LogOnResult.Usuario
+							usuario: response.data.LogOnResult.Usuario,
+							menu: response.data.LogOnResult.Menu
 						};
 						deferred.resolve(true);
 					} else {

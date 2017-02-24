@@ -1,10 +1,32 @@
 'use strict';
 angular.module('softvFrostApp')
-	.factory('SuscriptorFactory', function($http, $q, $window, globalService, $localStorage, $location) {
+	.factory('SuscriptorFactory', function($http, $q, $window, globalService, $localStorage) {
 		var factory = {};
 		var paths = {
-			getSuscriptorList: '/Suscriptor/GetSuscriptorList'
+			getSuscriptorList: '/Suscriptor/GetSuscriptorList',
+			getTerminals: '/Terminal/GetDeepIdSuscriptor'
 		};
+
+		factory.getTerminals = function(id) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'IdSuscriptor': id
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.getTerminals, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+
+			return deferred.promise;
+		};
+
+
 		factory.getSuscriptorList = function() {
 			var deferred = $q.defer();
 			var config = {
@@ -12,9 +34,8 @@ angular.module('softvFrostApp')
 					'Authorization': $localStorage.currentUser.token
 				}
 			};
-			console.log(config);
 			$http.get(globalService.getUrl() + paths.getSuscriptorList, config).then(function(response) {
-            deferred.resolve(response.data);
+				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
 			});

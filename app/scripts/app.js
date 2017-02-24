@@ -19,6 +19,7 @@ angular.module('softvFrostApp', [
 		'angularUtils.directives.dirPagination',
 		'ngStorage',
 		'ui.bootstrap',
+		'blockUI'
 		'ngMap'
 
 	])
@@ -51,15 +52,12 @@ angular.module('softvFrostApp', [
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}])
 	.constant('APP_CONFIG', window.appConfig)
-	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', function($rootScope, $state, $stateParams, $localStorage, $location) {
+	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', 'permissionsFactory', function($rootScope, $state, $stateParams, $localStorage, $location, permissionsFactory) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
-		// $rootScope.$on('$locationChangeStart', function() {
-		// 	if ($localStorage.currentUser) {
-		// 		$location.path('/home');
-		// 	} else {
-		// 		$location.path('/auth/login');
-		// 	}
-		// });
+		if ($localStorage.currentUser) {
+			var permissions = permissionsFactory.on();
+			console.log(permissions);
+		}
 
 	}]);
