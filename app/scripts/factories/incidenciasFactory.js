@@ -4,6 +4,7 @@ angular.module('softvFrostApp')
 		var factory = {};
 		var paths = {
 			addTicket: '/Ticket/AddTicket',
+			getTickets: 'Ticket/GetTicketList'
 		};
 		factory.addTicket = function(obj) {
 			var deferred = $q.defer();
@@ -25,6 +26,24 @@ angular.module('softvFrostApp')
 				}
 			};
 			$http.post(globalService.getUrl() + paths.addTicket, JSON.stringify(Parametros), config).then(function(response) {
+
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		}
+
+		factory.getTickets = function(obj) {
+			var deferred = $q.defer();
+			var Parametros = {
+                
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.getTickets, JSON.stringify(), config).then(function(response) {
 
 			}).catch(function(data) {
 				deferred.reject(data);

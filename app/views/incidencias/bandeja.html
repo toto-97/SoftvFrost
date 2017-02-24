@@ -8,13 +8,13 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel form-element-padding">
+        <diav class="panel form-element-padding">
             <form angular-validator-submit="submitMyForm()" name="myForm" class="form-horizontal" novalidate angular-validator>
                 <div class="panel-heading">
                     <div class="tools">
                         <h4 class="text-muted">Bandeja</h4>
                         <p class="text-right">
-                            <button class="btn btn-raised btn-primary btn-sm" type="button"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            <a class="btn btn-raised btn-primary btn-sm" type="button" ui-sref="home.incidencias.registro"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             <button class="btn btn-raised btn-primary btn-sm" type="submit"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                         </p>
                     </div>
@@ -43,11 +43,13 @@
                           <tbody>
                             <!-- dir-paginate="x in $ctrl.ticketsSucuarsales|itemsPerPage:8" -->
                             <tr>
-                              <td>1</td>
-                              <td>Eric Chavez Gomez</td>
-                              <td>erictics@gmail.com </td>
-                              <td>4651038908</td>
-                              <td>Aguascalientes</td>
+                                <td>
+                                  <a href="" ng-click="$ctrl.verDetalle(x.ticketId)">2562456</a>
+                                </td>
+                                <td>Eric Chavez Gomez</td>
+                                <td>erictics@gmail.com </td>
+                                <td>4651038908</td>
+                                <td>Aguascalientes</td>
                             </tr>
                           </tbody>
                         </table>

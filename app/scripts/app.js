@@ -13,10 +13,13 @@ angular.module('softvFrostApp', [
 		'ngSanitize',
 		'ngNotify',
 		'angularValidator',
+		'ngStorage',
 		'base64',
 		'ui.router',
 		'angularUtils.directives.dirPagination',
-		'ngStorage'
+		'ngStorage',
+		'ui.bootstrap',
+		'blockUI'
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
 		$urlRouterProvider.otherwise('/auth/login');

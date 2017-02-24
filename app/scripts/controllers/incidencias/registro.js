@@ -20,7 +20,16 @@ function RegistroCtrl(ngNotify, incidenciasFactory, $state) {
 		});
 	}
 
+	function limpiar() {
+		vm.terminal = '';
+		vm.motivo = '';
+		vm.sintoma = '';
+		vm.tipoContacto = '';
+		vm.medioComun = '';
+	}
+
 	var vm = this;
 	vm.guardar = guardar;
+	vm.limpiar = limpiar;
 }
 angular.module('softvFrostApp').controller('RegistroCtrl', RegistroCtrl);
