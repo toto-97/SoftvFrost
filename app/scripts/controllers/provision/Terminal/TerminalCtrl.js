@@ -4,6 +4,7 @@ angular.module('softvFrostApp').controller('TerminalCtrl', TerminalCtrl);
 function TerminalCtrl(terminalFactory) {
 	this.$onInit = function() {
 		terminalFactory.getTerminalList().then(function(data) {
+			console.log(data);
 			vm.terminales = data.GetTerminalListResult;
 		});
 	}

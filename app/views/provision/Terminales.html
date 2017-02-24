@@ -43,25 +43,22 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Site ID</th>
-          <th>ESN</th>
-          <th>Estado</th>
+          <th>SAN ID</th>
           <th>Suscriptor</th>
-          <th>Banda</th>
-          <th>BEAM</th>
+          <th>ESN</th>
           <th>Servicio</th>
-          <th>Acciones</th>
+          <th>Estatus</th>
+
         </tr>
       </thead>
       <tbody>
         <tr dir-paginate="x in $ctrl.terminales|itemsPerPage:5">
           <td>{{ x.SAN }}</td>
+          <td>{{ x.Suscriptor }}</td>
           <td>{{ x.ESN }}</td>
-          <td>{{ x.Estatus }}</td>
-          <td>Eric Alejandro Chavez Gomez</td>
-          <td>KA</td>
-          <td>BEAM-3 México DF</td>
-          <td>INTERNET_RESI_B3_3M_0.5M</td>
+          <td>{{x.Servicio}}</td>
+          <td>{{x.Estatus}}</td>
+
           <td>
             <a ui-sref="home.provision.terminalesgestion" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gestionar Terminal"><i class="fa fa-laptop" aria-hidden="true"></i></a>
             <a ui-sref="home.provision.terminalesmovimientos" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Movimientos"><i class="fa fa-exchange" aria-hidden="true"></i></a>
@@ -69,5 +66,9 @@
         </tr>
       </tbody>
     </table>
+    <div style="padding-left: 20px;" ng-show="true">
+      <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+      </dir-pagination-controls>
+    </div>
   </div>
 </div>

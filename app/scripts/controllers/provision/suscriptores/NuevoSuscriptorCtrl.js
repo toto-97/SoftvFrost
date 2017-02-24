@@ -1,13 +1,11 @@
 'use strict';
+angular.module('softvFrostApp').controller('NuevoSuscriptorCtrl', NuevoSuscriptorCtrl);
 
-function NuevoSuscriptorCtrl(nuevoSuscriptorFactory) {
-	function cancel() {
-		nuevoSuscriptorFactory.addSuscriptor().then(function(data) {
-			console.log(data);
-		});
-	}
+function NuevoSuscriptorCtrl(nuevoSuscriptorFactory, $rootScope) {
+
+
 
 	var vm = this;
-	vm.cancel = cancel;
+
+
 }
-angular.module('softvFrostApp').controller('NuevoSuscriptorCtrl', NuevoSuscriptorCtrl);
