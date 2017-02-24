@@ -25,11 +25,11 @@
                                 name = "nombre"
                                 validate-on="dirty"
                                 class = "form-control"
-                                ng-model = "$ctrl.terminal"
+                                ng-model = "$ctrl.san"
                                 required-message="'Error!, Este campo es obligatorio.'"
                                 required placeholder="Buscar por siteid, serial o codigo">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Buscar">Buscar</button>
+                                    <button class="btn btn-primary" type="button"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Buscar" ng-click="$ctrl.getTerminal()">Buscar</button>
                                 </span>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Motivo</label>
                             <div class="col-sm-5">
-                                <select class="form-control" ng-model="$ctrl.motivo">
+                                <select class="form-control" ng-model="$ctrl.prioridad">
                                     <option value="" disabled selected>Seleccione motivo</option>
                                     <option>Falla de Software</option>
                                     <option>Configuración</option>
@@ -92,7 +92,7 @@
                                       name = "nombre"
                                       validate-on="dirty"
                                       class = "form-control"
-                                      ng-model = "$ctrl.notifico1"
+                                      ng-model = "$ctrl.nombreContrato"
                                       required-message="'Error!, Este campo es obligatorio.'"
                                       required placeholder="Nombre del contrato que notificó la incidencia">
                                   </div>
@@ -115,7 +115,7 @@
                                       name = "nombre"
                                       validate-on="dirty"
                                       class = "form-control"
-                                      ng-model = "$ctrl.notifico2"
+                                      ng-model = "$ctrl.numeroContrato"
                                       required-message="'Error!, Este campo es obligatorio.'"
                                       required placeholder="Nombre del contrato que notificó la incidencia">
                                   </div>
@@ -136,7 +136,7 @@
                                       name = "nombre"
                                       validate-on="dirty"
                                       class = "form-control"
-                                      ng-model = "form.dirty"
+                                      ng-model = "$ctrl.descripcion"
                                       required-message="'Error!, Este campo es obligatorio.'"
                                       required></textarea>
                                   </div>
@@ -148,8 +148,7 @@
                       <div class="tools">
                           <p class="text-right">
                               <button class="btn btn-raised btn-primary btn-sm" type="button" ng-click="$ctrl.limpiar()"><i class="fa fa-eraser" aria-hidden="true"></i>Limpiar</button>
-                              <button class="btn btn-raised btn-primary btn-sm" type="button"><i class="fa fa-ban" aria-hidden="true"></i>Cerrar Atención</button>
-                              <button class="btn btn-raised btn-primary btn-sm" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i>Guardar Atención</button>
+                              <button class="btn btn-raised btn-primary btn-sm" type="submit" ng-click="$ctrl.guardar()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Guardar Atención</button>
                           </p>
                       </div>
                   </div>

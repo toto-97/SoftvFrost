@@ -3,20 +3,30 @@
 function RegistroCtrl(ngNotify, incidenciasFactory, $state) {
 	function guardar() {
 		var addTi = {
-			ticketPadre: 0,
-			san: 1,
+			san: vm.san,
 			fecha: vm.fecha,
 			sintoma: vm.sintoma,
 			prioridad: vm.prioridad,
-			descripcion: vm.descripcion
+			descripcion: vm.descripcion,
+			nombreContrato: vm.nombreContrato,
+			numeroContrato: vm.numeroContrato
 		};
-		incidenciasFactory.addSuscriptor(addTi).then(function(data) {
-			if (data.AddTicketResult > 0) {
-				ngNotify.set('Suscriptor agregado correctamente.', 'success');
-				$state.go('home.incidiencias.registro');
-			} else {
-				ngNotify.set('Error al agregar el suscriptor.', 'error');
-			}
+		console.log(addTi);
+		// incidenciasFactory.addSuscriptor(addTi).then(function(data) {
+		// 	if (data.AddTicketResult > 0) {
+		// 		ngNotify.set('Suscriptor agregado correctamente.', 'success');
+		// 		$state.go('home.incidiencias.registro');
+		// 	} else {
+		// 		ngNotify.set('Error al agregar el suscriptor.', 'error');
+		// 	}
+		// });
+	}
+
+	function getTerminal() {
+		console.log(vm.terminal);
+		incidenciasFactory.getTerminal(vm.terminal).then(function(data) {
+			vm.terminalDatos = data.GetByTerminalResult;
+			console.log(vm.terminalDatos);
 		});
 	}
 
@@ -31,5 +41,6 @@ function RegistroCtrl(ngNotify, incidenciasFactory, $state) {
 	var vm = this;
 	vm.guardar = guardar;
 	vm.limpiar = limpiar;
+	vm.getTerminal = getTerminal;
 }
 angular.module('softvFrostApp').controller('RegistroCtrl', RegistroCtrl);
