@@ -21,6 +21,7 @@ angular.module('softvFrostApp', [
 		'ui.bootstrap',
 		'blockUI',
 		'ngMap'
+		'permission', 'permission.ui'
 
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
@@ -52,12 +53,23 @@ angular.module('softvFrostApp', [
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}])
 	.constant('APP_CONFIG', window.appConfig)
-	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', 'permissionsFactory', function($rootScope, $state, $stateParams, $localStorage, $location, permissionsFactory) {
+	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', 'permissionsFactory', 'PermPermissionStore', function($rootScope, $state, $stateParams, $localStorage, $location, permissionsFactory, PermPermissionStore) {
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 		if ($localStorage.currentUser) {
+			$location.path('/home');
 			var permissions = permissionsFactory.on();
-			console.log(permissions);
+			PermPermissionStore.definePermission('anonymous', function() {
+				return false;
+			});
+			PermPermissionStore.defineManyPermissions(permissions, function() {
+				return true;
+			});
+		} else {
+			$location.path('/auth/login');
+			PermPermissionStore.definePermission('anonymous', function() {
+				return true;
+			});
 		}
 
 	}]);

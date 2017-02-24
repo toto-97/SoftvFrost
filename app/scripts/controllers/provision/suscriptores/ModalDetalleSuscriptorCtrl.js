@@ -2,12 +2,11 @@
 angular
 	.module('softvFrostApp')
 	.controller('ModalDetalleSuscriptorCtrl', function($uibModalInstance, $uibModal, suscriptor, SuscriptorFactory, $rootScope, ngNotify) {
-
-		function initialData() {
-			vm.suscriptor = suscriptor;
+		this.$onInit = function() {
+			SuscriptorFactory.getTerminals(suscriptor.IdSuscriptor).then(function(data) {
+				vm.terminales = data.GetDeepIdSuscriptorResult;
+			});
 		}
-
-		function ok() {}
 
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
@@ -17,10 +16,6 @@ angular
 
 		var vm = this;
 		vm.cancel = cancel;
-
-		vm.ok = ok;
-		initialData();
-
 		vm.suscriptor = suscriptor;
 
 	})
