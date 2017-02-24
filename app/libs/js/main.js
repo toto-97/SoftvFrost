@@ -1,6 +1,7 @@
 (function($) {
 	$.fn.ripple = function() {
 		$(this).click(function(e) {
+			console.log('ripe');
 			e.preventDefault();
 			var $rippler = $(this);
 			$rippler.find(".ink").remove();
@@ -28,6 +29,7 @@
 				top: y + 'px',
 				left: x + 'px'
 			}).addClass("animate");
+
 		});
 	};
 
@@ -68,7 +70,7 @@
 		$('.tree-toggle').click(function(e) {
 			e.preventDefault();
 			var $this = $(this).parent().children('ul.tree');
-			$(".tree").not($this).slideUp(600);
+			// $(".tree").not($this).slideUp(600);
 			$this.toggle(700);
 
 			$(".tree").not($this).parent("li").find(".tree-toggle .right-arrow").removeClass("fa-angle-down").addClass("fa-angle-right");
@@ -311,7 +313,7 @@
 	});
 
 	$('.mail-wrapper').find('.mail-left').css('height', $('.mail-wrapper').innerHeight());
-	$("#left-menu ul li a").ripple();
+	$("#left-menu").ripple();
 	$(".ripple div").ripple();
 	$("#carousel-example3").carouselAnimate();
 	$("#left-menu .sub-left-menu").niceScroll();
@@ -344,7 +346,7 @@
 		datetime.html(date.format('HH:mm'));
 		datetime2.html(date.format('dddd, MMMM Do YYYY'));
 	};
-
+	var vm = this;
 	$(document).ready(function() {
 		datetime = $('.time h1');
 		datetime2 = $('.time p');
