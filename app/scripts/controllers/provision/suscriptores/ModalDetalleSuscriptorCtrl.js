@@ -12,7 +12,10 @@ angular
 			$uibModalInstance.dismiss('cancel');
 		}
 
+
+
 		var vm = this;
 		vm.cancel = cancel;
 		vm.suscriptor = suscriptor;
+
 	})
