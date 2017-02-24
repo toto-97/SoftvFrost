@@ -11,6 +11,12 @@ function provisionConf($stateProvider) {
 			name: 'home.provision.suscriptores',
 			data: {
 				pageTitle: 'SOFTV | SUSCRIPTORES',
+				permissions: {
+					only: ['suscriptoresSelect'],
+					options: {
+						reload: true
+					}
+				}
 			},
 			url: '/provision/suscriptores',
 			templateUrl: 'views/provision/suscriptores.html',
@@ -20,6 +26,12 @@ function provisionConf($stateProvider) {
 			name: 'home.provision.terminales',
 			data: {
 				pageTitle: 'SOFTV | Terminales',
+				permissions: {
+					only: ['terminalesSelect'],
+					options: {
+						reload: true
+					}
+				}
 			},
 			url: '/provision/terminales',
 			templateUrl: 'views/provision/Terminales.html',
@@ -50,6 +62,12 @@ function provisionConf($stateProvider) {
 			name: 'home.provision.suscriptoresNuevo',
 			data: {
 				pageTitle: 'SOFTV | NUEVO SUSCRIPTOR',
+				permissions: {
+					only: ['suscriptoresAdd'],
+					options: {
+						reload: true
+					}
+				}
 			},
 			url: '/provision/nuevo/suscriptor',
 			templateUrl: 'views/provision/nuevoSuscriptor.html',
@@ -60,6 +78,12 @@ function provisionConf($stateProvider) {
 			name: 'home.provision.suscriptoresEditar',
 			data: {
 				pageTitle: 'SOFTV | EDITAR SUSCRIPTOR',
+				permissions: {
+					only: ['suscriptoresUpdate'],
+					options: {
+						reload: true
+					}
+				}
 			},
 			url: '/provision/editar/suscriptor/:id',
 			templateUrl: 'views/provision/editarSuscriptor.html',

@@ -1,10 +1,18 @@
 'use strict';
 
-function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state) {
+function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFactory) {
 
 	this.$onInit = function() {
 		SuscriptorFactory.getSuscriptorList().then(function(data) {
 			vm.suscriptores = data.GetSuscriptorListResult;
+		});
+		nuevoSuscriptorFactory.getEstados().then(function(data) {
+			data.GetEstadoListResult.unshift({
+				'Nombre': '----------------',
+				'IdEstado': 0
+			});
+			vm.estados = data.GetEstadoListResult;
+			vm.estado = vm.estados[0];
 		});
 	}
 

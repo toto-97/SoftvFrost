@@ -1,3 +1,11 @@
+<style type="text/css">
+	.scrollDiv{
+	    height: 300px;
+	    overflow: auto;
+	    overflow-x: hidden;
+	}
+
+</style>
 <div class="modal-header">
   <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
   <h4 class="modal-title">Terminales Ligadas</h4>
@@ -9,7 +17,7 @@
       <h5><strong>San: </strong>{{$ctrl.suscriptor.IdSuscriptor}}</h5>
       <hr>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 scrollDiv">
         <table class="table">
             <thead>
               <tr>
@@ -20,11 +28,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>{{ $ctrl.terminales.SAN }}</td>
-                <td>{{ $ctrl.terminales.ESN }}</td>
-                <td>{{ $ctrl.terminales.Estatus }}</td>
-                <td>{{ $ctrl.terminales.Servicio }}</td>
+              <tr ng-repeat="x in $ctrl.terminales">
+                <td>{{ x.SAN }}</td>
+                <td>{{ x.ESN }}</td>
+                <td>{{ x.Estatus }}</td>
+                <td>{{ x.Servicio }}</td>
               </tr>
             </tbody>
         </table>

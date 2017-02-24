@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-	.factory('authFactory', function($http, $q, globalService, $base64, $localStorage) {
+	.factory('authFactory', function($http, $q, globalService, $base64, $localStorage, $location, $window) {
 		var factory = {};
 		var paths = {
 			login: '/Usuario/LogOn'
@@ -27,9 +27,9 @@ angular.module('softvFrostApp')
 							usuario: response.data.LogOnResult.Usuario,
 							menu: response.data.LogOnResult.Menu
 						};
-						deferred.resolve(true);
+						$window.location.reload();
 					} else {
-						deferred.resolve(false);
+						$location.path('/auth/login');
 					}
 				})
 				.catch(function(response) {
