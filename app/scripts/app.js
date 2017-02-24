@@ -19,7 +19,7 @@ angular.module('softvFrostApp', [
 		'angularUtils.directives.dirPagination',
 		'ngStorage',
 		'ui.bootstrap',
-		'blockUI'
+		'blockUI',
 		'ngMap'
 
 	])

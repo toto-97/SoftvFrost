@@ -20,14 +20,14 @@ angular.module('softvFrostApp')
 			var parametros = {
 				'IdSuscriptor': objeto.IdSuscriptor,
 				'IdServicio': objeto.IdServicio,
-				"Latitud": '' + objeto.Latitud + '',
-				"Longitud": '' + objeto.Longitud + '',
-				"Estatus": objeto.Estatus,
-				"FechaAlta": objeto.FechaAlta,
-				"FechaSuspension": objeto.FechaSuspension,
-				"ESN": objeto.ESN,
-				"Comentarios": objeto.Comentarios
-			}
+				'Latitud': '' + objeto.Latitud + '',
+				'Longitud': '' + objeto.Longitud + '',
+				'Estatus': objeto.Estatus,
+				'FechaAlta': objeto.FechaAlta,
+				'FechaSuspension': objeto.FechaSuspension,
+				'ESN': objeto.ESN,
+				'Comentarios': objeto.Comentarios
+			};
 			console.log(JSON.stringify({
 				'objTerminal': parametros
 			}));
@@ -81,7 +81,7 @@ angular.module('softvFrostApp')
 			};
 			var parametros = {
 				'SAN': id
-			}
+			};
 			$http.post(globalService.getUrl() + paths.getTerminalById, JSON.stringify(parametros
 			), config).then(function(response) {
 				deferred.resolve(response.data);
@@ -90,7 +90,7 @@ angular.module('softvFrostApp')
 			});
 			return deferred.promise;
 
-		}
+		};
 
 		return factory;
 
