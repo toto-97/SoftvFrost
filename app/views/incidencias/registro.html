@@ -21,37 +21,60 @@
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Terminal</label>
                             <div class="col-sm-4 input-group">
-                                <input  type = "text"
-                                name = "nombre"
+                                <input type="number"
+                                name="nombre"
                                 validate-on="dirty"
-                                class = "form-control"
-                                ng-model = "$ctrl.san"
+                                class="form-control"
+                                ng-model="$ctrl.san"
                                 required-message="'Error!, Este campo es obligatorio.'"
-                                required placeholder="Buscar por siteid, serial o codigo">
+                                required placeholder="Buscar por terminal">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="button"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Buscar" ng-click="$ctrl.getTerminal()">Buscar</button>
                                 </span>
                             </div>
                         </div>
                     </div>
+                    <div class="row" ng-show="$ctrl.busqueda">
+                        <div class="col-md-6">
+                            <table class="table">
+                                <thead style="background:#2C3F8E">
+                                    <tr>
+                                      <th colspan="5" class="text-center"><span style="color:white">Búsqueda del terminal</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr class="text-center">
+                                    <td>S/N</td>
+                                    <td>Estado</td>
+                                    <td>MAC</td>
+                                    <td>Site Id</td>
+                                    <td>Subscriptor</td>
+                                  </tr>
+                                  <tr>
+                                    <td>{{ $ctrl.terminalDatos.ESN }}</td>
+                                    <td>{{ $ctrl.terminalDatos.Estatus }}</td>
+                                    <td>{{  }}</td>
+                                    <td>{{ $ctrl.terminalDatos.SAN }}</td>
+                                    <td>{{ $ctrl.terminalDatos.Suscriptor }}</td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="row" style="padding-top:10px;">
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Motivo</label>
                             <div class="col-sm-5">
+                                <select id="idmotivo" ng-change="$ctrl.cambioMotivo()" class="form-control" ng-model="$ctrl.selectedMotivo" ng-options="v.Descripcion for v in $ctrl.motivo track by v.IdMotivoTicket">
+                                </select>
+                            </div>
+                            <label class="col-sm-1 control-label text-right">Prioridad</label>
+                            <div class="col-sm-4">
                                 <select class="form-control" ng-model="$ctrl.prioridad">
-                                    <option value="" disabled selected>Seleccione motivo</option>
-                                    <option>Falla de Software</option>
-                                    <option>Configuración</option>
-                                    <option>Upgrade</option>
-                                    <option>Condiciones climáticas</option>
-                                    <option>Interferencia Solar</option>
-                                    <option>Trabajo de Mantenimiento</option>
-                                    <option>LAN Usuario</option>
-                                    <option>Falla Información</option>
-                                    <option>Falla en Hardwere</option>
-                                    <option>Otros</option>
-                                    <option>Alimentación Energía</option>
-                                    <option>Migración Tecnológica</option>
+                                    <option value="" disabled selected>Seleccione prioridad</option>
+                                    <option>Alta</option>
+                                    <option>Media</option>
+                                    <option>Baja</option>
                                 </select>
                             </div>
                         </div>
@@ -60,12 +83,7 @@
                         <div class="form-group">
                             <label class="col-sm-1 control-label text-right">Síntoma</label>
                             <div class="col-sm-5">
-                                <select class="form-control" ng-model="$ctrl.sintoma">
-                                    <option value="" disabled selected>Seleccione síntoma</option>
-                                    <option>Sin servicio de internet</option>
-                                    <option>Servicio degradado</option>
-                                    <option>Cuota no renovada</option>
-                                    <option>Consumos no efectuados</option>
+                                <select id="idsintoma" ng-change="$ctrl.cambioSintoma()" class="form-control" ng-model="$ctrl.selectedSintoma" ng-options="v.Descripcion for v in $ctrl.sintoma track by v.IdSintoma">
                                 </select>
                             </div>
                         </div>
@@ -80,11 +98,7 @@
                           <div class="row">
                               <div class="form-group">
                                   <div class="col-sm-4">
-                                      <select class="form-control" required ng-model = "$ctrl.tipoContacto">
-                                          <option value="" disabled selected>Seleccione tipo contrato</option>
-                                          <option>Cliente</option>
-                                          <option>Técnico</option>
-                                          <option>Tercero</option>
+                                      <select id="idtipoContacto" ng-change="$ctrl.cambioTipoContacto()" class="form-control" ng-model="$ctrl.selectedTipoContacto" ng-options="v.Nombre for v in $ctrl.tipoContacto track by v.IdTipoContacto">
                                       </select>
                                   </div>
                                   <div class="col-sm-8">
@@ -92,7 +106,7 @@
                                       name = "nombre"
                                       validate-on="dirty"
                                       class = "form-control"
-                                      ng-model = "$ctrl.nombreContrato"
+                                      ng-model = "$ctrl.nombreContacto"
                                       required-message="'Error!, Este campo es obligatorio.'"
                                       required placeholder="Nombre del contrato que notificó la incidencia">
                                   </div>
@@ -101,13 +115,7 @@
                           <div class="row">
                               <div class="form-group">
                                   <div class="col-sm-4">
-                                      <select class = "form-control" required ng-model = "$ctrl.medioComun">
-                                          <option value="" disabled selected>Seleccione medio de comunicación</option>
-                                          <option>e-Mail</option>
-                                          <option>Llamada</option>
-                                          <option>Tercero</option>
-                                          <option>Precencial</option>
-                                          <option>Proactivo</option>
+                                      <select id="idtipoMedio" ng-change="$ctrl.cambioTipoContacto()" class="form-control" ng-model="$ctrl.selectedMedioComun" ng-options="v.Nombre for v in $ctrl.medioComun track by v.IdMedioComunicacion">
                                       </select>
                                   </div>
                                   <div class="col-sm-8">
@@ -115,7 +123,7 @@
                                       name = "nombre"
                                       validate-on="dirty"
                                       class = "form-control"
-                                      ng-model = "$ctrl.numeroContrato"
+                                      ng-model = "$ctrl.numeroContacto"
                                       required-message="'Error!, Este campo es obligatorio.'"
                                       required placeholder="Nombre del contrato que notificó la incidencia">
                                   </div>

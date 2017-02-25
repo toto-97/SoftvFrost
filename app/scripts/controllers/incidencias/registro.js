@@ -1,17 +1,58 @@
 'use strict';
 
-function RegistroCtrl(ngNotify, incidenciasFactory, $state) {
+function RegistroCtrl(ngNotify, incidenciasFactory, $state, $filter) {
+	function initial() {
+		incidenciasFactory.getMotivo().then(function(data) {
+			data.GetMotivoTicketListResult.unshift({
+				'Descripcion': 'Seleccione motivo',
+				'IdMotivoTicket': 0
+			});
+			vm.motivo = data.GetMotivoTicketListResult;
+			vm.selectedMotivo = vm.motivo[0];
+		});
+		incidenciasFactory.getSintoma().then(function(data) {
+			data.GetSintomaListResult.unshift({
+				'Descripcion': 'Seleccione síntoma',
+				'IdSintoma': 0
+			});
+			vm.sintoma = data.GetSintomaListResult;
+			vm.selectedSintoma = vm.sintoma[0];
+		});
+		incidenciasFactory.getTipoContrato().then(function(data) {
+			data.GetTipoContactoListResult.unshift({
+				'Nombre': 'Seleccione tipo contacto',
+				'IdTipoContacto': 0
+			});
+			vm.tipoContacto = data.GetTipoContactoListResult;
+			vm.selectedTipoContacto = vm.tipoContacto[0];
+		});
+		incidenciasFactory.getMedio().then(function(data) {
+			data.GetMedioComunicacionListResult.unshift({
+				'Nombre': 'Seleccione medio de comunicación',
+				'IdMedioComunicacion': 0
+			});
+			vm.medioComun = data.GetMedioComunicacionListResult;
+			vm.selectedMedioComun = vm.medioComun[0];
+		});
+	}
+
 	function guardar() {
+		vm.auxFecha = $filter('date')(vm.fechaRegistro, 'dd/MM/yyyy');
 		var addTi = {
 			san: vm.san,
-			fecha: vm.fecha,
+			fecha: vm.auxFecha,
 			sintoma: vm.sintoma,
+			motivo: vm.selectedMotivo.IdMotivoTicket,
 			prioridad: vm.prioridad,
 			descripcion: vm.descripcion,
-			nombreContrato: vm.nombreContrato,
-			numeroContrato: vm.numeroContrato
+			tipoContacto: vm.selectedTipoContacto.IdTipoContacto,
+			nombreContacto: vm.nombreContacto,
+			medioComun: vm.selectedMedioComun.IdMedioComunicacion,
+			numeroContacto: vm.numeroContacto
 		};
 		console.log(addTi);
+		console.log(vm.selectedMotivo.IdMotivoTicket);
+
 		// incidenciasFactory.addSuscriptor(addTi).then(function(data) {
 		// 	if (data.AddTicketResult > 0) {
 		// 		ngNotify.set('Suscriptor agregado correctamente.', 'success');
@@ -23,24 +64,37 @@ function RegistroCtrl(ngNotify, incidenciasFactory, $state) {
 	}
 
 	function getTerminal() {
-		console.log(vm.terminal);
-		incidenciasFactory.getTerminal(vm.terminal).then(function(data) {
-			vm.terminalDatos = data.GetByTerminalResult;
-			console.log(vm.terminalDatos);
-		});
+		if (vm.san == undefined) {
+			ngNotify.set('Inserte número de terminal.', 'error');
+		}else {
+			vm.busqueda = true;
+			incidenciasFactory.getTerminal(vm.san).then(function(data) {
+				vm.terminalDatos = data.GetByTerminalResult;
+				console.log(vm.terminalDatos);
+				console.log(data);
+			});
+		}
 	}
 
 	function limpiar() {
-		vm.terminal = '';
+		vm.san = '';
 		vm.motivo = '';
 		vm.sintoma = '';
 		vm.tipoContacto = '';
 		vm.medioComun = '';
+		vm.prioridad = '';
+		vm.nombreContacto = '';
+		vm.numeroContacto = '';
+		vm.descripcion = '';
+		vm.busqueda = false;
+		initial();
 	}
 
 	var vm = this;
 	vm.guardar = guardar;
 	vm.limpiar = limpiar;
 	vm.getTerminal = getTerminal;
+	vm.fechaRegistro = new Date();
+	initial();
 }
 angular.module('softvFrostApp').controller('RegistroCtrl', RegistroCtrl);

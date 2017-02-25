@@ -5,7 +5,7 @@ cxdb1x
 
 ec2-52-26-45-49.us-west-2.compute.amazonaws.com
 User name: Administrator
-Password: CdQ7Ja?Q=G4
+Password: CdQ7Ja?Q=G400
 
 http://52.26.45.49/
 con L
