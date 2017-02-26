@@ -1,17 +1,37 @@
-
-
 'use strict';
 angular.module('softvFrostApp').controller('EditaTerminalCtrl', TerminalCtrl);
 
-function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify,$stateParams,$state) {
+function TerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $rootScope, ngNotify, $stateParams, $state) {
 	this.$onInit = function() {
-		terminalFactory.getServicioList().then(function(data) {
-			vm.Servicios = data.GetServicioListResult;
-    terminalFactory.getTerminalById($stateParams.Id).then(function(data){
-    var sus= data.GetByTerminalResult;
-
-
-    });
+		terminalFactory.getTerminalById($stateParams.Id).then(function(data) {
+			vm.terminal = data.GetByTerminalResult;
+			console.log(data);
+			vm.IdSuscriptor = vm.terminal.IdSuscriptor;
+			vm.ESN = vm.terminal.ESN;
+			vm.Latitud = vm.terminal.Latitud;
+			vm.Longuitud = vm.terminal.Longitud;
+			nuevoSuscriptorFactory.getSuscriptor(vm.terminal.IdSuscriptor).then(function(data) {
+				vm.suscriptor = data.GetSuscriptorResult;
+				vm.NombreSuscriptor = vm.suscriptor.Nombre + ' ' + vm.suscriptor.Apellido
+			});
+			terminalFactory.getServicioList().then(function(data) {
+				vm.Servicios = data.GetServicioListResult;
+				vm.Servicios.forEach(function(entry, index) {
+					if (entry.IdServicio == vm.terminal.IdServicio) {
+						vm.Servicio = vm.Servicios[index];
+					}
+				});
+			});
+			vm.ListaStatus.forEach(function(entry, index) {
+				if (entry.clave == vm.terminal.Estatus) {
+					vm.Status = vm.ListaStatus[index];
+				}
+			});
+			var date = vm.terminal.FechaAlta.replace(/[^0-9\.]+/g, '');
+			var pattern = /(\d{2})(\d{2})(\d{4})/;
+			date = new Date(date.replace(pattern, '$2/$1/$3'));
+			vm.FechaAlta = date;
+			vm.Comentarios = vm.terminal.Comentarios;
 		});
 	}
 
@@ -45,9 +65,8 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify,$statePar
 		});
 	}
 	$rootScope.$on('cliente_seleccionado', function(e, detalle) {
-		console.log(detalle.IdSuscriptor);
 		vm.IdSuscriptor = detalle.IdSuscriptor;
-		vm.NombreSuscriptor = detalle.Nombre + detalle.Apellido;
+		vm.NombreSuscriptor = detalle.Nombre + '' + detalle.Apellido;
 	});
 
 	$rootScope.$on('get_LatLong', function(e, detalle) {
@@ -56,24 +75,24 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify,$statePar
 	});
 
 	function EditaTerminal() {
-		var parametros = {
-			'IdSuscriptor': vm.IdSuscriptor,
-			'IdServicio': vm.Servicio.IdServicio,
-			'Latitud': vm.Latitud,
-			'Longitud': vm.Longuitud,
-			'Estatus': vm.Status.clave,
-			'FechaAlta': vm.FechaAlta,
-			'FechaSuspension': '',
-			'ESN': vm.ESN,
-			'Comentarios': vm.Comentarios
+		var obj = {
+			'objTerminal': {
+				'SAN': vm.terminal.SAN,
+				'IdSuscriptor': vm.IdSuscriptor,
+				'IdServicio': vm.Servicio.IdServicio,
+				'Latitud': vm.Latitud,
+				'Longitud': vm.Longuitud,
+				'Estatus': vm.Status.clave,
+				'FechaAlta': vm.FechaAlta,
+				'FechaSuspension': '',
+				'ESN': vm.ESN,
+				'Comentarios': vm.Comentarios
+			}
 		};
-		console.log(parametros);
-
-
-
-		terminalFactory.GuardaTerminal(parametros).then(function(data) {
-			console.log(data);
-			ngNotify.set('La terminal se ha guardado correctamente', 'grimace');
+		console.log(obj);
+		terminalFactory.updateTerminal(obj).then(function(data) {
+			ngNotify.set('La terminal se ha actualizado correctamente', 'success');
+			$state.go('home.provision.terminales');
 		});
 	}
 

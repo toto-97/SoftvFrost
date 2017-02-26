@@ -211,10 +211,9 @@ function provisionConf($stateProvider) {
       controller: 'NuevoRolCtrl',
       controllerAs: '$ctrl'
     }
+	];
 
-  ];
-
-  states.forEach(function(state) {
-    $stateProvider.state(state);
-  });
+	states.forEach(function(state) {
+		$stateProvider.state(state);
+	});
 }
