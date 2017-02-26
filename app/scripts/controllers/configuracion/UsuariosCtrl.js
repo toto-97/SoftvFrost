@@ -9,6 +9,11 @@ function Init(){
   });
 }
 
+function AddUsuario(){
+  
+}
+
   var vm=this;
   Init();
+  vm.AddUsuario=AddUsuario;
 }
