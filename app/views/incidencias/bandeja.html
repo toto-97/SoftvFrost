@@ -27,41 +27,34 @@
                               <th>N De Ticket</th>
                               <th>Prioridad</th>
                               <th>Estado</th>
-                              <th>Tipo De Ticket</th>
-                              <th>Cliente</th>
                               <th>Siteid</th>
                               <th>Descripción</th>
-                              <th>Nivel</th>
                               <th>Usuario Asignado</th>
                               <th>Fecha Registro</th>
-                              <th>Último Usuario</th>
-                              <th>Última Actualización</th>
-                              <th>Fecha Vencimiento</th>
-                              <th>Área</th>
                             </tr>
                           </thead>
                           <tbody>
                             <!-- dir-paginate="x in $ctrl.ticketsSucuarsales|itemsPerPage:8" -->
-                            <tr>
+                            <tr dir-paginate="x in $ctrl.tickets | itemsPerPage:5">
                                 <td>
-                                  <a href="" ng-click="$ctrl.verDetalle(x.ticketId)">2562456</a>
+                                  <a href="" ng-click="$ctrl.verDetalle(x.IdTicket)">{{x.IdTicket}}</a>
                                 </td>
-                                <td>Eric Chavez Gomez</td>
-                                <td>erictics@gmail.com </td>
-                                <td>4651038908</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
-                                <td>Aguascalientes</td>
+                                <td>{{x.Prioridad}}</td>
+                                <td>{{x.Estado}}</td>
+                                <td>{{x.SAN}}</td>
+                                <td>{{x.Descripcion}}</td>
+                                <td>{{x.Usuario}}</td>
+                                <td>{{x.Fecha}}</td>
                             </tr>
                           </tbody>
                         </table>
+                        <div style="padding-left: 20px;" ng-show="$ctrl.showPaginator">
+                            <dir-pagination-controls
+                            max-size="8"
+                            direction-links="true"
+                            boundary-links="true" >
+                            </dir-pagination-controls>
+                        </div>
                     </div>
                 </div>
             </form>

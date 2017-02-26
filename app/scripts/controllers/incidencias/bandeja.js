@@ -1,11 +1,13 @@
 'use strict';
 
-function BandejaCtrl($uibModal) {
+function BandejaCtrl($uibModal,incidenciasFactory) {
 	function initial() {
-		
+		incidenciasFactory.getTickets().then(function(data) {
+			vm.tickets = data.GetTicketListResult;
+		});
 	}
 
-	function verDetalle() {
+	function verDetalle(ticket) {
 		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
 			animation: vm.animationsEnabled,
@@ -16,12 +18,18 @@ function BandejaCtrl($uibModal) {
 			controllerAs: '$ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'lg'
+			size: 'lg',
+			resolve: {
+				ticket: function() {
+					return ticket;
+				}
+			}
 		});
 	}
 
 	var vm = this;
 	vm.verDetalle = verDetalle;
+	initial();
 }
 
 angular.module('softvFrostApp').controller('BandejaCtrl', BandejaCtrl);

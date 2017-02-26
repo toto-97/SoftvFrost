@@ -37,30 +37,32 @@ function RegistroCtrl(ngNotify, incidenciasFactory, $state, $filter) {
 	}
 
 	function guardar() {
-		vm.auxFecha = $filter('date')(vm.fechaRegistro, 'dd/MM/yyyy');
-		var addTi = {
-			san: vm.san,
-			fecha: vm.auxFecha,
-			sintoma: vm.sintoma,
-			motivo: vm.selectedMotivo.IdMotivoTicket,
-			prioridad: vm.prioridad,
-			descripcion: vm.descripcion,
-			tipoContacto: vm.selectedTipoContacto.IdTipoContacto,
-			nombreContacto: vm.nombreContacto,
-			medioComun: vm.selectedMedioComun.IdMedioComunicacion,
-			numeroContacto: vm.numeroContacto
-		};
-		console.log(addTi);
-		console.log(vm.selectedMotivo.IdMotivoTicket);
-
-		// incidenciasFactory.addSuscriptor(addTi).then(function(data) {
-		// 	if (data.AddTicketResult > 0) {
-		// 		ngNotify.set('Suscriptor agregado correctamente.', 'success');
-		// 		$state.go('home.incidiencias.registro');
-		// 	} else {
-		// 		ngNotify.set('Error al agregar el suscriptor.', 'error');
-		// 	}
-		// });
+		if (vm.san == undefined) {
+			ngNotify.set('Inserte todos los campos para generar el ticket.', 'error');
+		}else {
+			vm.auxFecha = $filter('date')(vm.fechaRegistro, 'yyyy/MM/dd');
+			var addTi = {
+				san: vm.san,
+				fecha: vm.auxFecha,
+				sintoma: vm.selectedSintoma.IdSintoma,
+				motivo: vm.selectedMotivo.IdMotivoTicket,
+				prioridad: vm.prioridad,
+				descripcion: vm.descripcion,
+				tipoContacto: vm.selectedTipoContacto.IdTipoContacto,
+				nombreContacto: vm.nombreContacto,
+				medioComun: vm.selectedMedioComun.IdMedioComunicacion,
+				numeroContacto: vm.numeroContacto
+			};
+			incidenciasFactory.addTicket(addTi).then(function(data) {
+				console.log(data);
+				if (data.AddTicketResult > 0) {
+					ngNotify.set('Suscriptor agregado correctamente.', 'success');
+					$state.go('home.incidencias.registro');
+				} else {
+					ngNotify.set('Error al agregar el suscriptor.', 'error');
+				}
+			});
+		}
 	}
 
 	function getTerminal() {
@@ -70,8 +72,6 @@ function RegistroCtrl(ngNotify, incidenciasFactory, $state, $filter) {
 			vm.busqueda = true;
 			incidenciasFactory.getTerminal(vm.san).then(function(data) {
 				vm.terminalDatos = data.GetByTerminalResult;
-				console.log(vm.terminalDatos);
-				console.log(data);
 			});
 		}
 	}

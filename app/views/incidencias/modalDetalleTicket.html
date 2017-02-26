@@ -19,34 +19,28 @@
                                     <p>Cliente:     {{}}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Terminal:     {{}}</p>
+                                    <p>Terminal:     {{$ctrl.detalleTicket.Terminal}}</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <p>Usuario:     {{}}</p>
+                                    <p>Usuario:     {{$ctrl.detalleTicket.Usuario}}</p>
                                 </div>
                             </div>
                             <hr>
                             <div class="row" style="margin-top: 30px;">
                                 <h4 class="text-muted" style="padding-left: 15px;">Detalle</h4>
                                 <div class="col-md-4 col-md-offset-1">
-                                    <p>Síntoma:     {{}}</p>
+                                    <p>Síntoma:     {{$ctrl.detalleTicket.IdSintoma}}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Prioridad:     {{}}</p>
+                                    <p>Prioridad:     {{$ctrl.detalleTicket.Prioridad}}</p>
                                 </div>
                                 <div class="col-md-3">
-                                    <p>Fecha de Registro:     {{}}</p>
+                                    <p>Fecha de Registro:     {{$ctrl.detalleTicket.Fecha}}</p>
                                 </div>
                                 <div style="padding-top: 30px;">
                                     <h4 class="text-muted" style="padding-left: 15px;">Descripción</h4>
                                     <div class="col-sm-12">
-                                        <textarea  type = "text"
-                                        name = "nombre"
-                                        validate-on="dirty"
-                                        class = "form-control"
-                                        ng-model = "form.dirty"
-                                        required-message="'Error!, Este campo es obligatorio.'"
-                                        required></textarea>
+                                        <textarea type="text" disabled>{{$ctrl.detalleTicket.Descripcion}}</textarea>
                                     </div>
                                 </div>
                             </div>
