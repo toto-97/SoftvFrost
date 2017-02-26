@@ -1,19 +1,22 @@
 'use strict';
 angular.module('softvFrostApp').controller('UsuariosCtrl', UsuariosCtrl);
 
-function UsuariosCtrl(usuarioFactory){
+function UsuariosCtrl(usuarioFactory, $state) {
 
-function Init(){
-  usuarioFactory.getUsuarioList().then(function(data){
-    vm.Usuarios=data.GetUsuarioListResult;
-  });
-}
+  function Init() {
+    usuarioFactory.getUsuarioList().then(function(data) {
+      vm.Usuarios = data.GetUsuarioListResult;
+    });
+  }
 
-function AddUsuario(){
-  
-}
+  function EditaUsuario(x) {
 
-  var vm=this;
+    $state.go('home.provision.editausuario', {
+      obj: x
+    });
+  }
+
+  var vm = this;
   Init();
-  vm.AddUsuario=AddUsuario;
+  vm.EditaUsuario = EditaUsuario;
 }

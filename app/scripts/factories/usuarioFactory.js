@@ -34,9 +34,6 @@ angular.module('softvFrostApp')
           'Usuario': object.Usuario,
           'Password': object.Password
         }
-
-
-
       };
       var config = {
         headers: {
@@ -44,6 +41,32 @@ angular.module('softvFrostApp')
         }
       };
       $http.post(globalService.getUrl() + paths.AddUsuario, JSON.stringify(Parametros), config).then(function(response) {
+        deferred.resolve(response.data);
+      }).catch(function(data) {
+        deferred.reject(data);
+      });
+      return deferred.promise;
+
+    };
+    factory.UpdateUsuario = function(object) {
+      var deferred = $q.defer();
+      var Parametros = {
+
+        'objUsuario': {
+          'IdUsuario': object.IdUsuario,
+          'IdRol': object.IdRol,
+          'Nombre': object.Nombre,
+          'Email': object.Email,
+          'Usuario': object.Usuario,
+          'Password': object.Password
+        }
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.UpdateUsuario, JSON.stringify(Parametros), config).then(function(response) {
         deferred.resolve(response.data);
       }).catch(function(data) {
         deferred.reject(data);
