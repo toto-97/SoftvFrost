@@ -159,6 +159,22 @@ function provisionConf($stateProvider) {
 			templateUrl: 'views/configuracion/permisos.html',
 			controller: 'PermisosCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.nuevousuario',
+			data: {
+				pageTitle: 'SOFTV | NUEVO USUARIO',
+				permissions: {
+					only: ['usuariosAdd'],
+					options: {
+						reload: true
+					}
+				}
+			},
+			url: '/provision/usuario/nuevo/',
+			templateUrl: 'views/configuracion/NuevoUsuario.html',
+			controller: 'NuevoUsuarioCtrl',
+			controllerAs: '$ctrl'
 		}
 
 	];

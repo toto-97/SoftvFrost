@@ -1,0 +1,58 @@
+<div class="panel" style="height:100px;">
+  <div class="panel-body" style="margin-top:-20px;">
+    <div class="col-md-6 col-sm-12">
+      <h3 class="animated fadeInLeft">Nuevo Usuario</h3>
+      <p class="animated fadeInDown"><i class="fa fa-home" aria-hidden="true"></i> Configuración>usuarios</p>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="panel-heading">
+    <div class="tools">
+      <div class="row">
+
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row form-group">
+          <div class="col-md-6">
+            <b>Nombre de usuario</b>
+            <input type="text" class="form-control" ng-model="$ctrl.Nombre">
+          </div>
+          <div class="col-md-6">
+            <b>Descripción de usuario</b>
+            <input type="text" class="form-control" ng-model="$ctrl.Descripcion">
+          </div>
+          <div class="col-md-6">
+            <b>Correo</b>
+            <input type="text" class="form-control" ng-model="$ctrl.Correo">
+          </div>
+          <div class="col-md-6">
+            <b>seleccioa Rol</b>
+            <select class="form-control" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" ng-model="$ctrl.Rol">
+                                <option value="">selecciona</option>
+                                  </select>
+          </div>
+          <div class="col-md-6">
+            <b>contraseña</b>
+            <input type="Password" class="form-control" ng-model="$ctrl.Contrasena">
+          </div>
+          <div class="col-md-6">
+            <b>Repite la contraseña</b>
+            <input type="Password" class="form-control" ng-model="$ctrl.Contrasena2">
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer text-right">
+        <button class="btn btn-success btn-sm" ng-click="$ctrl.GuardarUsuario();">Guardar</button>
+
+      </div>
+    </div>
+
+
+
+
+
+  </div>
