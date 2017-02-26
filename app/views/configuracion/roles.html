@@ -17,13 +17,13 @@
           <input type="text" class="form-control" placeholder="buscar por nombre">
         </div>
         <div class="col-md-3">
-        <button type="button" class="btn btn-raised btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+          <button type="button" class="btn btn-raised btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
         </div>
         <div class="col-md-4">
-            <div class="panel-body" style="margin-top:25px;">
+          <div class="panel-body" style="margin-top:25px;">
 
-                <button type="button" class="btn pull-right btn-raised btn-success"  permission permission-only="'terminalesAdd'" ui-sref="home.provision.terminalesNueva"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
-            </div>
+            <button type="button" class="btn pull-right btn-raised btn-success" permission permission-only="'rolesAdd'" ui-sref="home.provision.nuevorol"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+          </div>
         </div>
       </div>
     </div>
@@ -48,9 +48,9 @@
           <td ng-if="x.Estado==true">
             <span class="label label-outline label-success">Activo</span>
           </td>
-<td ng-if="x.Estado==false">
-<span class="label label-outline label-danger">Desactivado</span>
-</td>
+          <td ng-if="x.Estado==false">
+            <span class="label label-outline label-danger">Desactivado</span>
+          </td>
 
           <td>
 
