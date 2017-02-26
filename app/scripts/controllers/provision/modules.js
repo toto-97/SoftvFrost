@@ -111,7 +111,56 @@ function provisionConf($stateProvider) {
 			templateUrl: 'views/provision/editarSuscriptor.html',
 			controller: 'EditarSuscriptorCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.usuarios',
+			data: {
+				pageTitle: 'SOFTV | USUARIOS',
+				permissions: {
+					only: ['usuariosSelect'],
+					options: {
+						reload: true
+					}
+				}
+			},
+			url: '/provision/usuarios',
+			templateUrl: 'views/configuracion/usuarios.html',
+			controller: 'UsuariosCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.roles',
+			data: {
+				pageTitle: 'SOFTV | ROLES',
+				permissions: {
+					only: ['rolesSelect'],
+					options: {
+						reload: true
+					}
+				}
+			},
+			url: '/provision/roles',
+			templateUrl: 'views/configuracion/roles.html',
+			controller: 'RolesCtrl',
+			controllerAs: '$ctrl'
+		}	,
+		{
+			name: 'home.provision.permisos',
+			data: {
+				pageTitle: 'SOFTV | PERMISOS',
+				permissions: {
+					only: ['permisosSelect'],
+					options: {
+						reload: true
+					}
+				}
+			},
+			url: '/provision/permisos',
+			templateUrl: 'views/configuracion/permisos.html',
+			controller: 'PermisosCtrl',
+			controllerAs: '$ctrl'
 		}
+
 	];
 
 	states.forEach(function(state) {

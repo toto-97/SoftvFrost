@@ -15,6 +15,7 @@ angular.module('softvFrostApp')
 			'Karma'
 		];
 		this.$onInit = function() {
+			console.log($localStorage);
 			if ($localStorage.currentUser) {
 				vm.menus = $localStorage.currentUser.menu;
 				vm.usuario = $localStorage.currentUser.usuario;
