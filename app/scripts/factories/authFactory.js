@@ -19,6 +19,7 @@ angular.module('softvFrostApp')
 				.then(function(response) {
 					console.log(response.data);
 					if (response.data.LogOnResult.Token) {
+						console.log($localStorage);
 						$localStorage.currentUser = {
 							token: response.data.LogOnResult.Token,
 							nombre: response.data.LogOnResult.Nombre,
