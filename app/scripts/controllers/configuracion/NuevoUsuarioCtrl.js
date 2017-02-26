@@ -6,28 +6,32 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
   function init() {
     rolFactory.GetRoleList().then(function(data) {
       vm.Roles = data.GetRoleListResult;
-      console.log(data);
+
     });
   };
 
   function GuardarUsuario() {
-    var obj = {};
-    obj.IdRol = vm.Rol.IdRol;
-    obj.Nombre = vm.Nombre;
-    obj.Email = vm.Correo;
-    obj.Usuario = vm.Descripcion;
-    obj.Password = vm.Contrasena;
-    console.log(obj);
-
-
-    usuarioFactory.AddUsuario(obj).then(function(data) {
-      $state.go('home.provision.usuarios');
-      ngNotify.set('Usuario agregado correctamente.', 'success');
-    });
+    if (vm.Contrasena === vm.Contrasena2) {
+      var obj = {};
+      obj.IdRol = vm.Rol.IdRol;
+      obj.Nombre = vm.Nombre;
+      obj.Email = vm.Correo;
+      obj.Usuario = vm.Descripcion;
+      obj.Password = vm.Contrasena;
+      usuarioFactory.AddUsuario(obj).then(function(data) {
+        $state.go('home.provision.usuarios');
+        ngNotify.set('Usuario agregado correctamente.', 'success');
+      });
+    } else {
+      ngNotify.set('Las contraseña no coincide.', 'error');
+    }
   }
 
 
   var vm = this;
   init();
   vm.GuardarUsuario = GuardarUsuario;
+  vm.titulo = 'Nuevo usuario';
+  vm.passwordPanel = true;
+  vm.ValidatePanel = false;
 }

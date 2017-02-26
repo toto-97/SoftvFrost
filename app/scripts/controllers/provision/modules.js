@@ -177,6 +177,25 @@ function provisionConf($stateProvider) {
       controllerAs: '$ctrl'
     },
     {
+      name: 'home.provision.editausuario',
+      data: {
+        pageTitle: 'SOFTV | NUEVO USUARIO',
+        permissions: {
+          only: ['usuariosUpdate'],
+          options: {
+            reload: true
+          }
+        }
+      },
+      url: '/provision/usuario/edita/',
+      params: {
+        obj: null
+      },
+      templateUrl: 'views/configuracion/NuevoUsuario.html',
+      controller: 'EditaUsuarioCtrl',
+      controllerAs: '$ctrl'
+    },
+    {
       name: 'home.provision.nuevorol',
       data: {
         pageTitle: 'SOFTV | NUEVO ROL',
