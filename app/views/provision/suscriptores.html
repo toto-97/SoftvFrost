@@ -13,24 +13,22 @@
         <div class="col-md-2">
           <div class="panel-body">
             <label class="control-label text-left">San</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" ng-change="$ctrl.cambiarBusqueda(1)" ng-model="$ctrl.bsan">
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="panel-body">
             <label class="control-label text-left">Nombre</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" ng-change="$ctrl.cambiarBusqueda(2)" ng-model="$ctrl.bnombre">
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="panel-body">
-            <label class="control-label text-left">Estado</label>
-            <select class="form-control" ng-model="$ctrl.estado" ng-options="v.Nombre for v in $ctrl.estados track by v.IdEstado"></select>
+        <div class="col-md-2">
+          <div class="panel-body" style="margin-top:25px;">
+              <button type="button" class="btn btn-raised btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
           </div>
         </div>
         <div class="col-md-4">
           <div class="panel-body" style="margin-top:25px;">
-              <button type="button" class="btn btn-raised btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
               <button type="button" class="btn pull-right btn-raised btn-success"  permission permission-only="'suscriptoresAdd'" ui-sref="home.provision.suscriptoresNuevo"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
           </div>
         </div>

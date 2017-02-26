@@ -4,7 +4,24 @@ angular.module('softvFrostApp')
 		var factory = {};
 		var paths = {
 			getSuscriptorList: '/Suscriptor/GetSuscriptorList',
-			getTerminals: '/Terminal/GetDeepIdSuscriptor'
+			getTerminals: '/Terminal/GetDeepIdSuscriptor',
+			buscarSuscriptor: '/Suscriptor/GetFilterSuscriptorList'
+		};
+
+		factory.buscarSuscriptor = function(obj) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.buscarSuscriptor, JSON.stringify(obj), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+
+			return deferred.promise;
 		};
 
 		factory.getTerminals = function(id) {
