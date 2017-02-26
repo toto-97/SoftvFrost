@@ -6,9 +6,34 @@ angular.module('softvFrostApp')
 			getTerminalList: '/Terminal/GetTerminalList',
 			getServicioList: '/Servicio/GetServicioList',
 			GuardaTerminal: '/Terminal/AddTerminal',
-			getTerminalById:'/Terminal/GetByTerminal'
+			getTerminalById: '/Terminal/GetByTerminal',
+			buscarTerminal: '/Terminal/GetFilterTerminalList'
 
 		};
+
+		factory.buscarTerminal = function(obj) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			var parametros = {
+				'SAN': obj.san,
+				'Suscriptor': obj.suscriptor,
+				'Estatus': obj.estatus,
+				'Servicio': obj.servicio,
+				'Op': obj.op
+			};
+			$http.post(globalService.getUrl() + paths.buscarTerminal, JSON.stringify(parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
 
 		factory.GuardaTerminal = function(objeto) {
 			var deferred = $q.defer();
@@ -72,7 +97,7 @@ angular.module('softvFrostApp')
 			return deferred.promise;
 		};
 
-		factory.getTerminalById=function(id){
+		factory.getTerminalById = function(id) {
 			var deferred = $q.defer();
 			var config = {
 				headers: {
@@ -82,8 +107,7 @@ angular.module('softvFrostApp')
 			var parametros = {
 				'SAN': id
 			};
-			$http.post(globalService.getUrl() + paths.getTerminalById, JSON.stringify(parametros
-			), config).then(function(response) {
+			$http.post(globalService.getUrl() + paths.getTerminalById, JSON.stringify(parametros), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
