@@ -86,6 +86,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory
 				op: 4
 			};
 		}
+		console.log(vm.obj);
 		terminalFactory.buscarTerminal(vm.obj).then(function(data) {
 			vm.terminales = data.GetFilterTerminalListResult;
 			console.log(data);
