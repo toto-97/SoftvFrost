@@ -18,7 +18,7 @@ angular.module('softvFrostApp')
 			if ($localStorage.currentUser) {
 				vm.menus = $localStorage.currentUser.menu;
 				vm.usuario = $localStorage.currentUser.usuario;
-				$location.path('/home/provision/suscriptores');
+				//$location.path('/home/provision/suscriptores');
 			} else {
 				$location.path('/auth/login');
 			}

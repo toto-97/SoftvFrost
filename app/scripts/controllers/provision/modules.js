@@ -42,6 +42,12 @@ function provisionConf($stateProvider) {
 			name: 'home.provision.terminalesNueva',
 			data: {
 				pageTitle: 'SOFTV | Terminales',
+				permissions: {
+					only: ['terminalesAdd'],
+					options: {
+						reload: true
+					}
+				}
 			},
 			url: '/provision/terminales/nueva',
 			templateUrl: 'views/provision/NuevaTerminal.html',
@@ -52,6 +58,12 @@ function provisionConf($stateProvider) {
 			name: 'home.provision.terminalesEdita',
 			data: {
 				pageTitle: 'SOFTV | Terminales',
+				permissions: {
+					only: ['terminalesUpdate'],
+					options: {
+						reload: true
+					}
+				}
 			},
 			url: '/provision/terminales/edita/:Id',
 			templateUrl: 'views/provision/NuevaTerminal.html',
