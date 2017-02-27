@@ -48,5 +48,30 @@ angular.module('softvFrostApp')
 
     }
 
+    factory.UpdateRole = function(object) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'objRole': {
+          'IdRol': object.IdRol,
+          'Nombre': object.Nombre,
+          'Descripcion': object.Descripcion,
+          "Estado": object.Estado
+
+        }
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.UpdateRole, JSON.stringify(Parametros), config).then(function(response) {
+        deferred.resolve(response.data);
+      }).catch(function(data) {
+        deferred.reject(data);
+      });
+      return deferred.promise;
+
+    }
+
     return factory;
   });

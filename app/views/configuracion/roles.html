@@ -10,14 +10,19 @@
   <div class="panel-heading">
     <div class="tools">
       <div class="row">
-        <div class="col-md-2">
 
-        </div>
         <div class="col-md-3">
-          <input type="text" class="form-control" placeholder="buscar por nombre">
+          <div class="input-group">
+            <input type="text" class="form-control" aria-label="...">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i></button>
+
+            </div>
+            <!-- /btn-group -->
+          </div>
         </div>
-        <div class="col-md-3">
-          <button type="button" class="btn btn-raised btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+        <div class="col-md-5">
+
         </div>
         <div class="col-md-4">
           <div class="panel-body" style="margin-top:25px;">
@@ -54,7 +59,7 @@
 
           <td>
 
-            <a ng-click="$ctrl.Editar(x)" permission permission-only="'rolesUpdate'" class="btn  btn-xs btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar Rol"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <a ng-click="$ctrl.EditaRol(x)" permission permission-only="'rolesUpdate'" class="btn  btn-xs btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar Rol"><i class="fa fa-pencil" aria-hidden="true"></i></a>
           </td>
         </tr>
       </tbody>
