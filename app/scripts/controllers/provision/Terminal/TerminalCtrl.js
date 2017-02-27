@@ -8,7 +8,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory
 		});
 		terminalFactory.getServicioList().then(function(data) {
 			data.GetServicioListResult.unshift({
-				'Nombre': '----------------',
+				'Nombre': 'Todos los Servicios',
 				'IdServicio': 0
 			});
 			vm.servicios = data.GetServicioListResult;
@@ -46,17 +46,30 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory
 	function busquedaCambio(x) {
 		vm.tipoBusqueda = 0;
 		if (x == 1) {
-			vm.tipoBusqueda = 1;
-			vm.bsus = '';
-			vm.bservicio = vm.servicios[0];
+			if (vm.bsan == '') {
+				vm.tipoBusqueda = 0;
+			} else {
+				vm.tipoBusqueda = 1;
+				vm.bsus = '';
+				vm.bservicio = vm.servicios[0];
+			}
 		} else if (x == 2) {
-			vm.tipoBusqueda = 2;
-			vm.bsan = '';
-			vm.bservicio = vm.servicios[0];
+			if (vm.bsus == '') {
+				vm.tipoBusqueda = 0;
+			} else {
+				vm.tipoBusqueda = 2;
+				vm.bsan = '';
+				vm.bservicio = vm.servicios[0];
+			}
 		} else if (x == 3) {
-			vm.tipoBusqueda = 3;
-			vm.bsan = '';
-			vm.bsus = '';
+			if (vm.servicios.IdServicio == 0) {
+				vm.tipoBusqueda = 0;
+			} else {
+				vm.tipoBusqueda = 3;
+				vm.bsan = '';
+				vm.bsus = '';
+			}
+
 		}
 	}
 
@@ -86,11 +99,16 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory
 				op: 4
 			};
 		}
-		console.log(vm.obj);
-		terminalFactory.buscarTerminal(vm.obj).then(function(data) {
-			vm.terminales = data.GetFilterTerminalListResult;
-			console.log(data);
-		});
+		if (vm.tipoBusqueda == 0) {
+			terminalFactory.getTerminalList().then(function(data) {
+				vm.terminales = data.GetTerminalListResult;
+			});
+		} else {
+			terminalFactory.buscarTerminal(vm.obj).then(function(data) {
+				vm.terminales = data.GetFilterTerminalListResult;
+				console.log(data);
+			});
+		}
 	}
 
 	var vm = this;

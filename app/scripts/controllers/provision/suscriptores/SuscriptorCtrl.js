@@ -6,14 +6,6 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 		SuscriptorFactory.getSuscriptorList().then(function(data) {
 			vm.suscriptores = data.GetSuscriptorListResult;
 		});
-		nuevoSuscriptorFactory.getEstados().then(function(data) {
-			data.GetEstadoListResult.unshift({
-				'Nombre': '----------------',
-				'IdEstado': 0
-			});
-			vm.estados = data.GetEstadoListResult;
-			vm.estado = vm.estados[0];
-		});
 	}
 
 	function DetalleSuscriptor(object) {
@@ -68,11 +60,72 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 		});
 	}
 
+	function cambiarBusqueda(id) {
+		vm.tipoBusqueda = 0;
+		if (id == 1) {
+			if (vm.bsan == '') {
+				vm.tipoBusqueda = 0;
+			} else {
+				vm.bnombre = ''
+				vm.tipoBusqueda = 1;
+			}
+		} else {
+			if (vm.bnombre == '') {
+				vm.tipoBusqueda = 0;
+			} else {
+				vm.bsan = '';
+				vm.tipoBusqueda = 2;
+			}
+		}
+	}
+
+	function buscar() {
+		if (vm.tipoBusqueda == 1) {
+			vm.busObj = {
+				'IdSuscriptor': vm.bsan,
+				'Nombre': '',
+				'Apellido': '',
+				'Telefono': '',
+				'Email': '',
+				'Calle': '',
+				'Numero': '',
+				'Colonia': '',
+				'Ciudad': '',
+				'Op': 1
+			};
+		} else if (vm.tipoBusqueda == 2) {
+			vm.busObj = {
+				'IdSuscriptor': 0,
+				'Nombre': vm.bnombre,
+				'Apellido': '',
+				'Telefono': '',
+				'Email': '',
+				'Calle': '',
+				'Numero': '',
+				'Colonia': '',
+				'Ciudad': '',
+				'Op': 2
+			};
+		}
+		if (vm.tipoBusqueda == 0) {
+			SuscriptorFactory.getSuscriptorList().then(function(data) {
+				vm.suscriptores = data.GetSuscriptorListResult;
+			});
+		} else {
+			SuscriptorFactory.buscarSuscriptor(vm.busObj).then(function(data) {
+				console.log(data);
+				vm.suscriptores = data.GetFilterSuscriptorListResult;
+			});
+		}
+	}
+
 
 	var vm = this;
 	vm.DetalleSuscriptor = DetalleSuscriptor;
 	vm.DetalleTerminales = DetalleTerminales;
 	vm.DetalleMovimientos = DetalleMovimientos;
 	vm.editarSuscriptor = editarSuscriptor;
+	vm.cambiarBusqueda = cambiarBusqueda;
+	vm.buscar = buscar;
 }
 angular.module('softvFrostApp').controller('SuscriptorCtrl', SuscriptorCtrl);
