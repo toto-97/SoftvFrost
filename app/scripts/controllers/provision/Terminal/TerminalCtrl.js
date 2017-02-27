@@ -4,16 +4,15 @@ angular.module('softvFrostApp').controller('TerminalCtrl', TerminalCtrl);
 function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory) {
 	this.$onInit = function() {
 		terminalFactory.getTerminalList().then(function(data) {
-			console.log(data);
 			vm.terminales = data.GetTerminalListResult;
 		});
-		nuevoSuscriptorFactory.getEstados().then(function(data) {
-			data.GetEstadoListResult.unshift({
+		terminalFactory.getServicioList().then(function(data) {
+			data.GetServicioListResult.unshift({
 				'Nombre': '----------------',
-				'IdEstado': 0
+				'IdServicio': 0
 			});
-			vm.estados = data.GetEstadoListResult;
-			vm.estado = vm.estados[0];
+			vm.servicios = data.GetServicioListResult;
+			vm.bservicio = vm.servicios[0];
 		});
 	}
 
@@ -44,8 +43,60 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory
 		});
 	}
 
+	function busquedaCambio(x) {
+		vm.tipoBusqueda = 0;
+		if (x == 1) {
+			vm.tipoBusqueda = 1;
+			vm.bsus = '';
+			vm.bservicio = vm.servicios[0];
+		} else if (x == 2) {
+			vm.tipoBusqueda = 2;
+			vm.bsan = '';
+			vm.bservicio = vm.servicios[0];
+		} else if (x == 3) {
+			vm.tipoBusqueda = 3;
+			vm.bsan = '';
+			vm.bsus = '';
+		}
+	}
+
+	function buscar() {
+		if (vm.tipoBusqueda == 1) {
+			vm.obj = {
+				san: vm.bsan,
+				suscriptor: '',
+				estatus: '',
+				servicio: '',
+				op: 1
+			};
+		} else if (vm.tipoBusqueda == 2) {
+			vm.obj = {
+				san: 0,
+				suscriptor: vm.bsus,
+				estatus: '',
+				servicio: '',
+				op: 3
+			};
+		} else if (vm.tipoBusqueda == 3) {
+			vm.obj = {
+				san: 0,
+				suscriptor: '',
+				estatus: '',
+				servicio: vm.bservicio.IdServicio,
+				op: 4
+			};
+		}
+		console.log(vm.obj);
+		terminalFactory.buscarTerminal(vm.obj).then(function(data) {
+			vm.terminales = data.GetFilterTerminalListResult;
+			console.log(data);
+		});
+	}
+
 	var vm = this;
 	vm.GestionTerminal = GestionTerminal;
 	vm.EditarTerminal = EditarTerminal;
 	vm.titulo = "Terminales";
+	vm.busquedaCambio = busquedaCambio;
+	vm.buscar = buscar;
 }

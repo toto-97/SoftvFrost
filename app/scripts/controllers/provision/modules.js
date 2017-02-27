@@ -230,10 +230,9 @@ function provisionConf($stateProvider) {
       controller: 'EditaRolCtrl',
       controllerAs: '$ctrl'
     }
+	];
 
-  ];
-
-  states.forEach(function(state) {
-    $stateProvider.state(state);
-  });
+	states.forEach(function(state) {
+		$stateProvider.state(state);
+	});
 }
