@@ -22,68 +22,61 @@
       <div class="panel-body" style="padding-bottom:30px;">
         <div class="col-md-12">
           <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Nombre</label>
-              <div class="col-sm-6">
-                <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.nombre" required-message="'Error!, Este campo es obligatorio.'" required>
-              </div>
+            <div class="col-md-6">
+              <b>Nombre</b>
+              <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.nombre" required-message="'Error!, Este campo es obligatorio.'" required>
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Apellidos</label>
-              <div class="col-sm-6"><input type="text" class="form-control" name="apellidos" validate-on="dirty" class="form-control" ng-model="$ctrl.apellidos" required-message="'Error!, Este campo es obligatorio.'" required></div>
+            <div class="col-md-6">
+              <b>Apellidos</b>
+             <input type="text" class="form-control" name="apellidos" validate-on="dirty" class="form-control" ng-model="$ctrl.apellidos" required-message="'Error!, Este campo es obligatorio.'" required>
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Teléfono</label>
-              <div class="col-sm-3"><input type="number" ng-model="$ctrl.telefono" class="form-control mask-phone_us"></div>
+            <div class="col-md-3">
+              <b>Teléfono</label>
+              <input type="number" ng-model="$ctrl.telefono" class="form-control mask-phone_us">
+            </div>
+            <div class="col-md-3">
+                <b>Email</b>
+                <input type="email" ng-model="$ctrl.email" validate-on="dirty" name="email" invalid-message="'Formato de correo no valido.'" class="form-control">
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Email</label>
-              <div class="col-sm-4"><input type="email" ng-model="$ctrl.email" validate-on="dirty" name="email" invalid-message="'Formato de correo no valido.'" class="form-control"></div>
+            <div class="col-md-3">
+              <b>Estado</b>
+              <select validate-on="dirty" name="estado" class="form-control" ng-model="$ctrl.estado" ng-options="v.Nombre for v in $ctrl.estados track by v.IdEstado" required-message="'Error!, Este campo es obligatorio.'" required></select>
+            </div>
+            <div class="col-md-3">
+              <b>Ciudad</b>
+              <input type="text" class="form-control" validate-on="dirty" name="ciudad" class="form-control" ng-model="$ctrl.ciudad" required-message="'Error!, Este campo es obligatorio.'" required>
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Estado</label>
-              <div class="col-sm-4"><select validate-on="dirty" name="estado" class="form-control" ng-model="$ctrl.estado" ng-options="v.Nombre for v in $ctrl.estados track by v.IdEstado" required-message="'Error!, Este campo es obligatorio.'" required></select>
-              </div>
+            <div class="col-md-3">
+              <b>Colonia</b>
+              <input type="text" class="form-control" validate-on="dirty" name="colonia" class="form-control" ng-model="$ctrl.colonia" required-message="'Error!, Este campo es obligatorio.'" required>
+            </div>
+            <div class="col-md-3">
+              <b>Calle</b>
+              <input type="text" class="form-control" validate-on="dirty" name="calle" class="form-control" ng-model="$ctrl.calle" required-message="'Error!, Este campo es obligatorio.'" required />
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Ciudad</label>
-              <div class="col-sm-5"><input type="text" class="form-control" validate-on="dirty" name="ciudad" class="form-control" ng-model="$ctrl.ciudad" required-message="'Error!, Este campo es obligatorio.'" required></div>
+            <div class="col-md-3">
+              <b>Número</b>
+              <input type="text" class="form-control" validate-on="dirty" class="form-control" name="numero" ng-model="$ctrl.numero" required-message="'Error!, Este campo es obligatorio.'" required>
+            </div>
+            <div class="col-md-3">
+                <b>CP</b>
+                <input type="text" ng-model="$ctrl.cp" validate-on="dirty" name="cp" required-message="'Error!, Este campo es obligatorio.'" class="form-control" required>
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Colonia</label>
-              <div class="col-sm-5"><input type="text" class="form-control" validate-on="dirty" name="colonia" class="form-control" ng-model="$ctrl.colonia" required-message="'Error!, Este campo es obligatorio.'" required></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Calle</label>
-              <div class="col-sm-5"><input type="text" class="form-control" validate-on="dirty" name="calle" class="form-control" ng-model="$ctrl.calle" required-message="'Error!, Este campo es obligatorio.'" required></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Número</label>
-              <div class="col-sm-3"><input type="text" class="form-control" validate-on="dirty" class="form-control" name="numero" ng-model="$ctrl.numero" required-message="'Error!, Este campo es obligatorio.'" required></div>
-              <label class="col-sm-1 control-label text-left">CP</label>
-              <div class="col-sm-3"><input type="text" ng-model="$ctrl.cp" validate-on="dirty" name="cp" required-message="'Error!, Este campo es obligatorio.'" class="form-control" required></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group">
-              <label class="col-sm-2 control-label text-right">Referencia</label>
-              <div class="col-sm-5"><input type="text" ng-model="$ctrl.referencia" class="form-control"></div>
+            <div class="col-md-6">
+              <b>Referencia</b>
+              <textarea ng-model="$ctrl.referencia" class="form-control"</textarea>
             </div>
           </div>
 

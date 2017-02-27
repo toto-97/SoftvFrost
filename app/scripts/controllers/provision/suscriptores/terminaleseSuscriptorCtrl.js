@@ -5,6 +5,7 @@ angular
 		this.$onInit = function() {
 			SuscriptorFactory.getTerminals(suscriptor.IdSuscriptor).then(function(data) {
 				vm.terminales = data.GetDeepIdSuscriptorResult;
+				console.log(vm.terminales);
 			});
 		}
 
