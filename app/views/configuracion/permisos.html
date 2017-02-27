@@ -1,8 +1,8 @@
 <div class="panel" style="height:100px;">
   <div class="panel-body" style="margin-top:-20px;">
     <div class="col-md-6 col-sm-12">
-      <h3 class="animated fadeInLeft">Terminales</h3>
-      <p class="animated fadeInDown"><i class="fa fa-home" aria-hidden="true"></i> Provisión>Terminales</p>
+      <h3 class="animated fadeInLeft">Permisos</h3>
+      <p class="animated fadeInDown"><i class="fa fa-home" aria-hidden="true"></i> Configuración>Permisos</p>
     </div>
   </div>
 </div>
@@ -13,24 +13,24 @@
         <div class="col-md-2">
           <div class="panel-body">
             <label class="control-label text-left">San</label>
-            <input type="text" class="form-control" ng-model="$ctrl.bsan" ng-change="$ctrl.busquedaCambio(1)">
+            <input type="text" class="form-control">
           </div>
         </div>
         <div class="col-md-3">
           <div class="panel-body">
             <label class="control-label text-left">Suscriptor</label>
-            <input type="text" class="form-control" ng-model="$ctrl.bsus" ng-change="$ctrl.busquedaCambio(2)">
+            <input type="text" class="form-control">
           </div>
         </div>
         <div class="col-md-3">
           <div class="panel-body">
-            <label class="control-label text-left">Servicio</label>
-            <select class="form-control" ng-model="$ctrl.bservicio" ng-change="$ctrl.busquedaCambio(3)" ng-options="v.Nombre for v in $ctrl.servicios track by v.IdServicio"></select>
+            <label class="control-label text-left">Estado</label>
+            <select class="form-control" ng-model="$ctrl.estado" ng-options="v.Nombre for v in $ctrl.estados track by v.IdEstado"></select>
           </div>
         </div>
         <div class="col-md-4">
             <div class="panel-body" style="margin-top:25px;">
-                <button type="button" class="btn btn-raised btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                <button type="button" class="btn btn-raised btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
                 <button type="button" class="btn pull-right btn-raised btn-success"  permission permission-only="'terminalesAdd'" ui-sref="home.provision.terminalesNueva"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
             </div>
         </div>
