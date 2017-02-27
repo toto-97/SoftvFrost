@@ -210,6 +210,25 @@ function provisionConf($stateProvider) {
       templateUrl: 'views/configuracion/NuevoRol.html',
       controller: 'NuevoRolCtrl',
       controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.provision.editarol',
+      data: {
+        pageTitle: 'SOFTV | EDITA ROL',
+        permissions: {
+          only: ['rolesUpdate'],
+          options: {
+            reload: true
+          }
+        }
+      },
+      params: {
+        obj: null
+      },
+      url: '/provision/rol/Edita/',
+      templateUrl: 'views/configuracion/NuevoRol.html',
+      controller: 'EditaRolCtrl',
+      controllerAs: '$ctrl'
     }
 	];
 

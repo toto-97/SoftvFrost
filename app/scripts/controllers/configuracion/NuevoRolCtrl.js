@@ -21,4 +21,5 @@ function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
   init();
   vm.Estatus = false;
   vm.GuardarRol = GuardarRol;
+  vm.titulo = 'Nuevo Rol';
 }
