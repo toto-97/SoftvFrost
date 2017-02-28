@@ -69,9 +69,14 @@ function RegistroCtrl(ngNotify, incidenciasFactory, $state, $filter) {
 		if (vm.san == undefined) {
 			ngNotify.set('Inserte número de terminal.', 'error');
 		}else {
-			vm.busqueda = true;
 			incidenciasFactory.getTerminal(vm.san).then(function(data) {
-				vm.terminalDatos = data.GetByTerminalResult;
+				if (data.GetByTerminalResult == null) {
+					vm.busqueda = false;
+					ngNotify.set('No se encontro registro.', 'error');
+				}else {
+					vm.busqueda = true;
+					vm.terminalDatos = data.GetByTerminalResult;
+				}
 			});
 		}
 	}

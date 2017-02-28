@@ -19,7 +19,7 @@
                                     <p>Cliente:     {{}}</p>
                                 </div>
                                 <div class="col-md-4">
-                                    <p>Terminal:     {{$ctrl.detalleTicket.Terminal}}</p>
+                                    <p>Terminal:     {{$ctrl.detalleTicket.SAN}}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <p>Usuario:     {{$ctrl.detalleTicket.Usuario}}</p>
@@ -29,7 +29,7 @@
                             <div class="row" style="margin-top: 30px;">
                                 <h4 class="text-muted" style="padding-left: 15px;">Detalle</h4>
                                 <div class="col-md-4 col-md-offset-1">
-                                    <p>Síntoma:     {{$ctrl.detalleTicket.IdSintoma}}</p>
+                                    <p>Síntoma:     {{$ctrl.sintoma}}</p>
                                 </div>
                                 <div class="col-md-4">
                                     <p>Prioridad:     {{$ctrl.detalleTicket.Prioridad}}</p>
@@ -132,18 +132,20 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <h5 class="text-muted">Descripción del Avance</h5>
+                                <h5 class="text-muted">Descripción de la solución</h5>
                                 <div class="col-md-12">
-                                    <textarea type = "text"
-                                    name = "nombre"
-                                    validate-on="dirty"
-                                    class = "form-control"
-                                    ng-model = "$ctrl.descripcionSolucion"
-                                    required-message="'Error!, Este campo es obligatorio.'"
-                                    required></textarea>
+                                    <textarea class="form-control" ng-model="$ctrl.descripcionSolucion"></textarea>
                                 </div>
                                 <div class="col-md-12 text-right">
-                                    <button class="btn btn-raised btn-primary btn-sm" type="submit" ng-click="$ctrl.closeTicket()"><i class="fa fa-minus-circle" aria-hidden="true" ng-click="$ctrl.closeTicket()"></i>  Cerrar Avance</button>
+                                    <div class="col-md-6">
+                                        <form action="">
+                                            <input type="file" file-model="imagen">
+                                            <button type="button" ng-click="enviar()">Enviar</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-raised btn-primary btn-sm" type="submit" ng-click="$ctrl.closeTicket()"><i class="fa fa-minus-circle" aria-hidden="true" ng-click="$ctrl.closeTicket()"></i>  Cerrar Avance</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
