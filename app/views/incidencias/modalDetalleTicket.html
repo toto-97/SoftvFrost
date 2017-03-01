@@ -118,7 +118,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 col-md-offset-1 control-label text-left">Solución</label>
                                     <div class="col-sm-8">
-                                        <select id="idsolucion" class="form-control" ng-model="$ctrl.selectedSolucion" ng-options="v.Descripcion for v in $ctrl.solucion track by v.IdSolucion">
+                                        <select validate-on="dirty" name="motivo" class="form-control" ng-model="$ctrl.selectedSolucion" ng-options="v.Descripcion for v in $ctrl.solucion track by v.IdSolucion" required-message="'Error!, Este campo es obligatorio.'" required>
                                         </select>
                                     </div>
                                 </div>

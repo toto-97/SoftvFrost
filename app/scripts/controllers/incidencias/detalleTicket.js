@@ -8,21 +8,21 @@ function DetalleTicketCtrl($uibModalInstance, $localStorage, ticket, incidencias
         }
         incidenciasFactory.getTicketDetalle(ticket).then(function(data) {
 			vm.detalleTicket = data.GetDeepTicketResult;
-		});
-        incidenciasFactory.getSintoma().then(function(data) {
-			vm.sintomas = data.GetSintomaListResult;
-            console.log(vm.sintomas);
-            // for (var i = 0; i < vm.sintomas.length; i++) {
-            //     if (vm.sintomas[i].IdSintoma == vm.detalleTicket.IdSintoma) {
-            //         vm.sintoma = vm.sintomas[i].Descripcion;
-            //         console.log(vm.sintoma);
-            //     }
-            // }
-            vm.sintomas.forEach(function(entry, index) {
-                if (entry.IdSintoma == vm.detalleTicket.IdSintoma) {
-                    vm.sintoma = vm.sintomas[index];
-                }
-            });
+            incidenciasFactory.getSintoma().then(function(data) {
+    			vm.sintomas = data.GetSintomaListResult;
+                console.log(vm.sintomas);
+                // for (var i = 0; i < vm.sintomas.length; i++) {
+                //     if (vm.sintomas[i].IdSintoma == vm.detalleTicket.IdSintoma) {
+                //         vm.sintoma = vm.sintomas[i].Descripcion;
+                //         console.log(vm.sintoma);
+                //     }
+                // }
+                vm.sintomas.forEach(function(entry, index) {
+                    if (entry.IdSintoma == vm.detalleTicket.IdSintoma) {
+                        vm.sintoma = vm.sintomas[index].Descripcion;
+                    }
+                });
+    		});
 		});
         incidenciasFactory.getSolucion().then(function(data) {
 			data.GetSolucionTicketListResult.unshift({
