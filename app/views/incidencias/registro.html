@@ -72,7 +72,7 @@
                             <label class="col-sm-1 control-label text-right">Prioridad</label>
                             <div class="col-sm-4">
                                 <select name="prioridad" validate-on="dirty" class="form-control" ng-model="$ctrl.prioridad" required-message="'Error!, Este campo es obligatorio.'" required>
-                                    <option value>Seleccione prioridad</option>
+                                    <option value disabled>Seleccione prioridad</option>
                                     <option>Alta</option>
                                     <option>Media</option>
                                     <option>Baja</option>
@@ -85,7 +85,7 @@
                             <label class="col-sm-1 control-label text-right">Síntoma</label>
                             <div class="col-sm-5">
                                 <select validate-on="dirty" name="sintoma" class="form-control" ng-model="$ctrl.selectedSintoma" ng-options="v.Descripcion for v in $ctrl.sintoma track by v.IdSintoma" required-message="'Error!, Este campo es obligatorio.'" required>
-                                    <option value="">Seleccione síntoma</option>
+                                    <option value="" disabled selected>Seleccione síntoma</option>
                                 </select>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                               <div class="form-group">
                                   <div class="col-sm-4">
                                       <select validate-on="dirty" name="tipo" class="form-control" ng-model="$ctrl.selectedTipoContacto" ng-options="v.Nombre for v in $ctrl.tipoContacto track by v.IdTipoContacto" required-message="'Error!, Este campo es obligatorio.'" required>
-                                          <option value="">Seleccione tipo contacto</option>
+                                          <option value="" disabled selected>Seleccione tipo contacto</option>
                                       </select>
                                   </div>
                                   <div class="col-sm-8">
@@ -119,7 +119,7 @@
                               <div class="form-group">
                                   <div class="col-sm-4">
                                       <select validate-on="dirty" name="medioCom" class="form-control" class="form-control" ng-model="$ctrl.selectedMedioComun" ng-options="v.Nombre for v in $ctrl.medioComun track by v.IdMedioComunicacion" required-message="'Error!, Este campo es obligatorio.'" required>
-                                          <option value="">Seleccione medio de comunicación</option>
+                                          <option value="" disabled selected>Seleccione medio de comunicación</option>
                                       </select>
                                   </div>
                                   <div class="col-sm-8">
@@ -159,8 +159,8 @@
                   <div class="col-md-12">
                       <div class="tools">
                           <p class="text-right">
-                              <button class="btn btn-raised btn-primary btn-sm" type="button" ng-click="myForm.reset()"><i class="fa fa-eraser" aria-hidden="true"></i>Limpiar</button>
-                              <button class="btn btn-raised btn-primary btn-sm" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i>Guardar Atención</button>
+                              <button class="btn btn-raised btn-primary btn-sm" type="button" ng-click="myForm.reset()"><i class="fa fa-eraser"></i>Limpiar</button>
+                              <button class="btn btn-raised btn-primary btn-sm" type="submit"><i class="fa fa-floppy-o"></i>Guardar Atención</button>
                           </p>
                       </div>
                   </div>
