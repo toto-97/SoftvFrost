@@ -29,9 +29,9 @@ angular.module('softvFrostApp')
 						"Prioridad": obj.prioridad,
                         "Descripcion": obj.descripcion,
 						"IdTipoContacto":obj.tipoContacto,
-						"NombreContacto": obj.nombreContrato,
+						"NombreContacto": obj.nombreContacto,
 						"IdMedioComunicacion":obj.medioComun,
-						"NumeroContacto": obj.numeroContrato,
+						"NumeroContacto": obj.numeroContacto,
 						"FechaCierre": "",
 						"Estado": "P"
                     }
