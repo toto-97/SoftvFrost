@@ -8,8 +8,8 @@ angular.module('softvFrostApp')
 			GuardaTerminal: '/Terminal/AddTerminal',
 			getTerminalById: '/Terminal/GetByTerminal',
 			buscarTerminal: '/Terminal/GetFilterTerminalList',
-			updateTerminal: '/Terminal/UpdateTerminal'
-
+			updateTerminal: '/Terminal/UpdateTerminal',
+			getComandoList: '/Comando/GetComandoList'
 		};
 
 		factory.updateTerminal = function(obj) {
@@ -131,6 +131,21 @@ angular.module('softvFrostApp')
 			});
 			return deferred.promise;
 
+		};
+
+		factory.getComandoList = function() {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.get(globalService.getUrl() + paths.getComandoList, config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
 		};
 
 		return factory;

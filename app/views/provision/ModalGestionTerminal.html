@@ -46,7 +46,21 @@
 <div class="row form-group text-center">
 <b><h5>Transacciones</h5></b>
 <table class="table">
-
+  <div class="col-md-6">
+    <b>Comando</b>
+    <br>
+    <select ng-model="ctrl.Comando" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Comandos track by item.IdComando" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+      <option value="">Selecciona un comando</option>
+      </select>
+  </div>
+   <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 5">
+      <b>Cantidad</b>
+      <input type="text" name="cantidadToken" validate-on="dirty" class="form-control" ng-model="ctrl.cantidadToken" required-message="'Error!, Este campo es obligatorio.'" required>
+    </div>
+  <div class="col-md-2" >
+    <br>
+    <button class="btn pull-right btn-raised btn-success" type="button" >Aplicar</button>
+  </div>
 </table>
 </div>
 

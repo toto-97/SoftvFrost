@@ -4,8 +4,12 @@ angular
 	.controller('ModalGestionTerminalCtrl', function($uibModalInstance, $uibModal, terminalFactory,terminal, $rootScope, ngNotify) {
 
 		function initialData() {
-    vm.Terminal=terminal;
-    console.log(terminal);
+		    vm.Terminal=terminal;
+		    console.log(terminal);
+		    terminalFactory.getComandoList().then(function(data) {
+				vm.Comandos = data.GetComandoListResult;
+				console.log(vm.Comandos[0]);
+			});
 		}
 
 		function ok() {
