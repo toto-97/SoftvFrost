@@ -82,5 +82,5 @@ angular.module('softvFrostApp')
 		// };
 
 
-		return factory;
-	});
+    return factory;
+  });
