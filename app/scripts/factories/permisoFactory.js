@@ -20,7 +20,7 @@ angular.module('softvFrostApp')
 				deferred.reject(data);
 			});
 			return deferred.promise;
-		}
+		};
 
 
 		factory.GetPermisoList = function(idrol) {
@@ -41,7 +41,7 @@ angular.module('softvFrostApp')
 				deferred.reject(data);
 			});
 			return deferred.promise;
-		}
+		};
 
 		factory.GuardaPermisos = function(idrol, modulos) {
 			var deferred = $q.defer();
@@ -64,7 +64,7 @@ angular.module('softvFrostApp')
 				deferred.reject(data);
 			});
 			return deferred.promise;
-		}
+		};
 
 
 		return factory;

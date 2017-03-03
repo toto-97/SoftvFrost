@@ -22,7 +22,7 @@ angular.module('softvFrostApp')
 				deferred.reject(data);
 			});
 			return deferred.promise;
-		}
+		};
 
 		factory.AddUsuario = function(object) {
 			var deferred = $q.defer();
@@ -74,10 +74,10 @@ angular.module('softvFrostApp')
 			});
 			return deferred.promise;
 
-		}
+		};
 
 		factory.BuscaUsuario = function(name) {
-			ar deferred = $q.defer();
+			var deferred = $q.defer();
 			var Parametros = {
 				'Nombre': '',
 				'Email': '',
@@ -96,7 +96,7 @@ angular.module('softvFrostApp')
 			});
 			return deferred.promise;
 
-		}
+		};
 
 
 		return factory;
