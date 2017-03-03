@@ -52,7 +52,7 @@ angular.module('softvFrostApp')
       var deferred = $q.defer();
       var Parametros = {
         'objRole': {
-          'IdRol': object.IdRol,
+          'IdRol':object.IdRol,
           'Nombre': object.Nombre,
           'Descripcion': object.Descripcion,
           "Estado": object.Estado
