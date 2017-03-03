@@ -9,7 +9,10 @@ angular.module('softvFrostApp')
 			getTerminalById: '/Terminal/GetByTerminal',
 			buscarTerminal: '/Terminal/GetFilterTerminalList',
 			updateTerminal: '/Terminal/UpdateTerminal',
-			getComandoList: '/Comando/GetComandoList'
+			getComandoList: '/Comando/GetComandoList',
+			getEstadoById: '/Estado/GetEstado',
+			getSequenceId: '/SequenceId/GetSequenceId',
+			hughesValidaServicio: '/ValidaServicio'
 		};
 
 		factory.updateTerminal = function(obj) {
@@ -146,6 +149,57 @@ angular.module('softvFrostApp')
 				deferred.reject(data);
 			});
 			return deferred.promise;
+		};
+
+		factory.getEstadoById = function (id) {
+		    var deferred = $q.defer();
+		    var config = {
+		        headers: {
+		            'Authorization': $localStorage.currentUser.token
+		        }
+		    };
+		    var parametros = {
+		        'IdEstado': id
+		    };
+		    $http.post(globalService.getUrl() + paths.getEstadoById, JSON.stringify(parametros), config).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.getSequenceId = function () {
+		    var deferred = $q.defer();
+		    var config = {
+		        headers: {
+		            'Authorization': $localStorage.currentUser.token
+		        }
+		    };
+
+		    $http.get(globalService.getUrl() + paths.getSequenceId, config).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+
+		factory.hughesValidaServicio = function (obj) {
+		    var deferred = $q.defer();
+		    var config = '';
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.hughesValidaServicio, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
 		};
 
 		return factory;

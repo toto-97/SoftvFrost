@@ -33,6 +33,23 @@
                 </div>
               </div>
               <div class="row">
+                  <br>
+                  <div class="col-md-4">
+                    <b>Latitud</b>
+                    <input type="text" class="form-control" name="latitus" validate-on="dirty" required-message="'Este campo es obligatorio.'" required validate-on="dirty" placeholder="Latitud" ng-model="$ctrl.Latitud">
+                  </div>
+                  <div class="col-md-4">
+                    <b>Longuitud</b><br>
+                    <input type="text" name="longitud" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" class="form-control" placeholder="Longuitud" ng-model="$ctrl.Longuitud">
+                  </div>
+                  <div class="col-md-1" style="margin-top:20px;">
+                      <a class="btn btn-warning btn-sm" ng-click="$ctrl.BuscaLatLong()"><i class="fa fa-globe"></i></a>
+                  </div>
+                  <div class="col-md-2" style="margin-top:20px;">
+                      <a class="btn btn-primary btn-sm" ng-click="$ctrl.ValidarServicio()"><i class="fa fa-check-square"></i> Validar Servicio</a>
+                  </div>
+              </div>
+              <div class="row">
                 <div class="col-md-6">
                   <b>Servicio</b>
                   <br>
@@ -44,21 +61,7 @@
                   <b>ESN</b><br>
                   <input type="text" class="form-control" placeholder="ESN" name="esn" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.ESN">
                 </div>
-              </div>
-              <div class="row">
-                  <br>
-                  <div class="col-md-5">
-                    <b>Latitud</b>
-                    <input type="text" class="form-control" name="latitus" validate-on="dirty" required-message="'Este campo es obligatorio.'" required validate-on="dirty" placeholder="Latitud" ng-model="$ctrl.Latitud">
-                  </div>
-                  <div class="col-md-5">
-                    <b>Longuitud</b><br>
-                    <input type="text" name="longitud" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" class="form-control" placeholder="Longuitud" ng-model="$ctrl.Longuitud">
-                  </div>
-                  <div class="col-md-2" style="margin-top:20px;">
-                      <a class="btn btn-warning btn-sm" ng-click="$ctrl.BuscaLatLong()"><i class="fa fa-globe"></i></a>
-                  </div>
-              </div>
+              </div>              
               <div class="row form-group">
                 <div class="col-md-6">
                   <b>Status</b><br>

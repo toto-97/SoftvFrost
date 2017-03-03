@@ -9,7 +9,7 @@ angular
 		    terminalFactory.getComandoList().then(function(data) {
 				vm.Comandos = data.GetComandoListResult;
 				console.log(vm.Comandos[0]);
-			});
+		    });
 		}
 
 		function ok() {
