@@ -12,7 +12,13 @@ angular.module('softvFrostApp')
 			getComandoList: '/Comando/GetComandoList',
 			getEstadoById: '/Estado/GetEstado',
 			getSequenceId: '/SequenceId/GetSequenceId',
-			hughesValidaServicio: '/ValidaServicio'
+			hughesValidaServicio: '/ValidaServicio',
+			hughesCambiarStatusServicio: '/CambiarStatusServicio',
+			hughesActivarTerminal: '/ActivarTerminal',
+			hughesToken: '/Token',
+			hughesCambioServicio: '/CambioServicio',
+			hughesConsumoDeTerminal: '/ConsumoDeTerminal',
+			hughesFapStatus: '/FapStatus'
 		};
 
 		factory.updateTerminal = function(obj) {
@@ -194,6 +200,90 @@ angular.module('softvFrostApp')
 		    var parametros = JSON.stringify(obj);
 				jQuery.support.cors = true;
 		    $http.post(globalService.getUrlHughesService() + paths.hughesValidaServicio, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.hughesCambiarStatusServicio = function (obj) {
+		    var deferred = $q.defer();
+		    var config = '';
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.CambiarStatusServicio, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.hughesActivarTerminal = function (obj) {
+		    var deferred = $q.defer();
+		    var config = '';
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.ActivarTerminal, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.hughesToken = function (obj) {
+		    var deferred = $q.defer();
+		    var config = '';
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.Token, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.hughesCambioServicio = function (obj) {
+		    var deferred = $q.defer();
+		    var config = '';
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.CambioServicio, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.hughesConsumoDeTerminal = function (obj) {
+		    var deferred = $q.defer();
+		    var config = '';
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.ConsumoDeTerminal, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.hughesFapStatus = function (obj) {
+		    var deferred = $q.defer();
+		    var config = '';
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.FapStatus, JSON.stringify(parametros)).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
