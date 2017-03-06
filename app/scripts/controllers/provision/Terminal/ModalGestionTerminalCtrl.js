@@ -24,6 +24,9 @@ angular
 						vm.Comandos.splice(6,1);
 						vm.Comandos.splice(2,1);
 						vm.Comandos.splice(0,1);
+						terminalFactory.getServicioList().then(function(data) {
+							vm.Servicios = data.GetServicioListResult;
+						});
 					}
 					else if(vm.Terminal.Estatus == "Suspendida"){//Suspendida
 						vm.Comandos.splice(8,1);
@@ -125,6 +128,7 @@ angular
 					console.log(hughesData);
 				});
 			}
+			console.log("");
 		}
 
 		function ok() {

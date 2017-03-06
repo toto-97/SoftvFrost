@@ -18,7 +18,8 @@ angular.module('softvFrostApp')
 			hughesToken: '/Token',
 			hughesCambioServicio: '/CambioServicio',
 			hughesConsumoDeTerminal: '/ConsumoDeTerminal',
-			hughesFapStatus: '/FapStatus'
+			hughesFapStatus: '/FapStatus',
+			addMovimiento: '/Movimiento/AddMovimiento'
 		};
 
 		factory.updateTerminal = function(obj) {
@@ -284,6 +285,24 @@ angular.module('softvFrostApp')
 		    var parametros = JSON.stringify(obj);
 				jQuery.support.cors = true;
 		    $http.post(globalService.getUrlHughesService() + paths.FapStatus, JSON.stringify(parametros)).then(function (response) {
+		        deferred.resolve(response.data);
+		    }).catch(function (data) {
+		        deferred.reject(data);
+		    });
+		    return deferred.promise;
+
+		};
+
+		factory.addMovimiento = function (obj) {
+		    var deferred = $q.defer();
+				var config = {
+		        headers: {
+		            'Authorization': $localStorage.currentUser.token
+		        }
+		    };
+		    var parametros = JSON.stringify(obj);
+				jQuery.support.cors = true;
+		    $http.post(globalService.getUrl() + paths.addMovimiento, JSON.stringify(parametros), config).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
