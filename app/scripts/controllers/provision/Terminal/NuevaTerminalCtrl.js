@@ -1,7 +1,7 @@
 'use strict';
-angular.module('softvFrostApp').controller('NuevaTerminalCtrl', TerminalCtrl);
+angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtrl);
 
-function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
+function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
 	this.$onInit = function() {
 		terminalFactory.getServicioList().then(function(data) {
 			vm.Servicios = data.GetServicioListResult;
@@ -74,7 +74,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 
 
 	var vm = this;
-	vm.titulo = "Nueva Terminal";
+	vm.titulo = 'Nueva Terminal';
 	vm.BuscaSuscriptor = BuscaSuscriptor;
 	vm.BuscaLatLong = BuscaLatLong;
 	vm.GuardaTerminal = GuardaTerminal;
