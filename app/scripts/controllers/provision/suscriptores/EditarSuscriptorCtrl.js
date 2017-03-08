@@ -13,7 +13,7 @@ angular.module('softvFrostApp').controller('EditarSuscriptorCtrl', function(nuev
 			});
 
 			if (vm.suscriptor.Telefono) {
-				vm.telefono = parseInt(vm.suscriptor.Telefono);
+				vm.suscriptor.Telefono = parseInt(vm.suscriptor.Telefono);
 			}
 		});
 	}

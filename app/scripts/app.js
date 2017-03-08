@@ -21,7 +21,8 @@ angular.module('softvFrostApp', [
 		'ui.bootstrap',
 		'blockUI',
 		'ngMap',
-		'permission', 'permission.ui'
+		'permission', 'permission.ui',
+		'ui.mask'
 
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {

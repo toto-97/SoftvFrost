@@ -28,15 +28,9 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-10">
-                        <b>Apellidos</b>
-                        <input type="text" class="form-control" name="apellidos" validate-on="dirty" class="form-control" ng-model="$ctrl.apellidos" required-message="'Este campo es obligatorio.'" required>
-                      </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-5">
-                        <b>Teléfono</label>
-                            <input type="number" ng-model="$ctrl.telefono" class="form-control mask-phone_us">
+                        <b>Teléfono</b>
+                            <input type="text" ui-mask="(999) 999-9999" minlength="10" name="telefono"  validate-on="dirty" invalid-message="'Formato de teléfono no valido.'"   ui-mask-placeholder ui-mask-placeholder-char="_" ng-model="$ctrl.telefono" class="form-control">
                           </div>
                           <div class="col-md-5">
                               <b>Email</b>

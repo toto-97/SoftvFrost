@@ -30,7 +30,7 @@
                       <div class="row">
                         <div class="col-md-5">
                             <b>Teléfono</b>
-                            <input type="number" ng-model="$ctrl.telefono" class="form-control mask-phone_us">
+                            <input type="text" ui-mask="(999) 999-9999" minlength="10" name="telefono"  validate-on="dirty" invalid-message="'Formato de teléfono no valido.'" ui-mask-placeholder ui-mask-placeholder-char="_" ng-model="$ctrl.suscriptor.Telefono" class="form-control mask-phone_us">
                         </div>
                         <div class="col-md-5">
                             <b>Email</b>
