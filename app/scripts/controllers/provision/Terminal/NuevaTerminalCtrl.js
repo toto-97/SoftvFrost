@@ -3,9 +3,9 @@ angular.module('softvFrostApp').controller('NuevaTerminalCtrl', TerminalCtrl);
 
 function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
 	this.$onInit = function() {
-		terminalFactory.getServicioList().then(function(data) {
+		/*terminalFactory.getServicioList().then(function(data) {
 			vm.Servicios = data.GetServicioListResult;
-		});
+		});*/
 	}
 
 	function BuscaSuscriptor() {
@@ -25,8 +25,10 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 
 	function ValidarServicio() {
 		var parametros = new Object();
+		//Obtiene 	transactionSequenceId necesario para las peticiones a Hughes
 		terminalFactory.getSequenceId().then(function(Sequence) {
 			parametros.transactionSequenceId=Sequence.GetSequenceIdResult.TransactionSequenceId;
+			//Obtiene el código del estado para hughes
 			terminalFactory.getEstadoById(vm.IdEstado).then(function(data) {
 				vm.estado = data.GetEstadoResult;
 				parametros.direccion = vm.Calle+' '+vm.Numero;
@@ -35,14 +37,32 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 				parametros.codigoPostal = vm.CP;
 				parametros.latitud = vm.Latitud;
 				parametros.longitud = vm.Longuitud;
-				console.log(JSON.stringify(parametros));
-				jQuery.support.cors = true;
+				//Obtiene el nombre del frupo de servicios disponibles en esa área
 				terminalFactory.hughesValidaServicio(parametros).then(function(hughesData){
 					console.log(hughesData);
+					if (hughesData.EnhancedServicePrequalResponse.Code!='682') {
+					    ngNotify.set('Sin área de cobertura', 'error');
+					    vm.Servicios ='';
+					} else {
+						//Filtra los servicios por las disponibilidad en Hughes
+						terminalFactory.getServicioListByProgramCode(hughesData.EnhancedServicePrequalResponse.ProductList.Product.ProgramCode).then(function(dataServicios) {
+							console.log(dataServicios);
+							vm.Servicios = dataServicios.GetServicioListByProgramCodeResult;
+						});
+					}
 				});
 			});
 		});
 	}
+
+	function hughesGetSanCompuesto(obj) {
+		var a=obj.toString();
+		var i;
+		for (i = a.length; i < 9; i++) {
+			a='0'+a;
+		}
+	    return 'TEV'+a;
+	};
 
 	function BuscaLatLong() {
 		vm.animationsEnabled = true;
@@ -95,11 +115,13 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 			'ESN': vm.ESN,
 			'Comentarios': vm.Comentarios
 		};
+		//Guarda la terminal en la base y obtiene el SAN
 		terminalFactory.GuardaTerminal(parametros).then(function(data) {
 			var obj =new Object();
+			//Crea la terminal en la plataforma de Hughes
 			terminalFactory.getSequenceId().then(function(Sequence) {
 				obj.transactionSequenceId=Sequence.GetSequenceIdResult.TransactionSequenceId;
-				obj.SAN="TEV"+	data.AddTerminalResult;
+				obj.SAN=hughesGetSanCompuesto(data.AddTerminalResult);
 				obj.nombre=vm.FirstNameSuscriptor;
 				obj.apellido=vm.LastNameSuscriptor;
 				obj.direccion=vm.Calle+' '+vm.Numero;
@@ -111,10 +133,31 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 				obj.telefono=vm.Telefono;
 				obj.email=vm.Email;
 				obj.servicio=vm.Servicio.Nombre;
-				alert(JSON.stringify(obj));
-			});
+				//alert(JSON.stringify(obj));
+				terminalFactory.hughesCrearTerminal(obj).then(function(hughesData){
+					console.log(hughesData);
+					if (hughesData.StandardResponse.Code!='5') {
+					    ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
+					} else {
+						var Obj2=new Object();
+						Obj2.objMovimiento = new Object();
+						Obj2.objMovimiento.SAN=data.AddTerminalResult;
+						Obj2.objMovimiento.IdComando=1;//Hardcodeado a la tabla de Comando
+						Obj2.objMovimiento.IdUsuario=0;
+						Obj2.objMovimiento.IdTicket=0;
+						Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
+						Obj2.objMovimiento.Fecha=hughesData.StandardResponse.MessageHeader.TransactionDateTime;
+						Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
+						Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+						Obj2.objMovimiento.Detalle1='';
+						Obj2.objMovimiento.Detalle2='';
 
-			ngNotify.set('La terminal se ha guardado correctamente', 'success');
+						terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+							ngNotify.set('La terminal se ha guardado correctamente', 'success');
+						});
+					}
+				});
+			});
 			$state.go('home.provision.terminales');
 		});
 	}
@@ -129,20 +172,20 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 	vm.BuscaLatLong = BuscaLatLong;
 	vm.GuardaTerminal = GuardaTerminal;
 	vm.ListaStatus = [{
-			'clave': 'A',
-			'Nombre': 'Activo'
+			'clave': 'Pendiente',
+			'Nombre': 'Pendiente'
 		},
 		{
-			'clave': 'S',
-			'Nombre': 'Supendido'
+			'clave': 'Activa',
+			'Nombre': 'Activa'
 		},
 		{
-			'clave': 'B',
-			'Nombre': 'Baja'
+			'clave': 'Suspendida',
+			'Nombre': 'Suspendida'
 		},
 		{
-			'clave': 'C',
-			'Nombre': 'Cancelado'
+			'clave': 'Cancelada',
+			'Nombre': 'Cancelada'
 		}
 	];
 }

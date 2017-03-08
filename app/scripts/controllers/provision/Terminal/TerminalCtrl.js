@@ -27,7 +27,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, nuevoSuscriptorFactory
 			controllerAs: 'ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'md',
+			size: 'lg',
 			resolve: {
 				terminal: function() {
 					return object;

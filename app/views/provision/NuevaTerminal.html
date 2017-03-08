@@ -54,19 +54,18 @@
                   <b>Servicio</b>
                   <br>
                   <select ng-model="$ctrl.Servicio" class="form-control" name="servicio" ng-options="item as item.Nombre for item in $ctrl.Servicios track by item.IdServicio" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
-                    <option value="">selecciona</option>
+                   <option value="">selecciona</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                   <b>ESN</b><br>
                   <input type="text" class="form-control" placeholder="ESN" name="esn" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.ESN">
                 </div>
-              </div>              
+              </div>
               <div class="row form-group">
                 <div class="col-md-6">
                   <b>Status</b><br>
-                  <select type="text" validate-on="dirty" name="status" required-message="'Este campo es obligatorio.'" required validate-on="dirty" ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave" class="form-control" ng-model="$ctrl.Status">
-                    <option value="">selecciona</option>
+                  <select type="text" validate-on="dirty" name="status" required-message="'Este campo es obligatorio.'" required validate-on="dirty" ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave" class="form-control" ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'" ng-disabled="true">
                     </select>
                 </div>
                 <div class="col-md-6">

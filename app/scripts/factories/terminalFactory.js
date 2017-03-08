@@ -12,6 +12,7 @@ angular.module('softvFrostApp')
 			getComandoList: '/Comando/GetComandoList',
 			getEstadoById: '/Estado/GetEstado',
 			getSequenceId: '/SequenceId/GetSequenceId',
+			getServicioListByProgramCode: '/Servicio/GetServicioListByProgramCode',
 			hughesValidaServicio: '/ValidaServicio',
 			hughesCambiarStatusServicio: '/CambiarStatusServicio',
 			hughesActivarTerminal: '/ActivarTerminal',
@@ -19,7 +20,9 @@ angular.module('softvFrostApp')
 			hughesCambioServicio: '/CambioServicio',
 			hughesConsumoDeTerminal: '/ConsumoDeTerminal',
 			hughesFapStatus: '/FapStatus',
-			addMovimiento: '/Movimiento/AddMovimiento'
+			addMovimiento: '/Movimiento/AddMovimiento',
+			getSuscriptorById: '/Suscriptor/GetSuscriptor',
+			hughesCrearTerminal: '/CrearTerminal'
 		};
 
 		factory.updateTerminal = function(obj) {
@@ -200,7 +203,7 @@ angular.module('softvFrostApp')
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
 				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.hughesValidaServicio, JSON.stringify(parametros)).then(function (response) {
+		    $http.post(globalService.getUrlHughesService() + paths.hughesValidaServicio, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
@@ -213,8 +216,7 @@ angular.module('softvFrostApp')
 		    var deferred = $q.defer();
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
-				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.CambiarStatusServicio, JSON.stringify(parametros)).then(function (response) {
+		    $http.post(globalService.getUrlHughesService() + paths.hughesCambiarStatusServicio, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
@@ -227,8 +229,9 @@ angular.module('softvFrostApp')
 		    var deferred = $q.defer();
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
-				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.ActivarTerminal, JSON.stringify(parametros)).then(function (response) {
+				alert(parametros);
+				//jQuery.support.cors = true;
+		    $http.post(globalService.getUrlHughesService() + paths.hughesActivarTerminal, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
@@ -242,7 +245,7 @@ angular.module('softvFrostApp')
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
 				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.Token, JSON.stringify(parametros)).then(function (response) {
+		    $http.post(globalService.getUrlHughesService() + paths.hughesToken, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
@@ -256,7 +259,7 @@ angular.module('softvFrostApp')
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
 				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.CambioServicio, JSON.stringify(parametros)).then(function (response) {
+		    $http.post(globalService.getUrlHughesService() + paths.hughesCambioServicio, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
@@ -270,7 +273,7 @@ angular.module('softvFrostApp')
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
 				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.ConsumoDeTerminal, JSON.stringify(parametros)).then(function (response) {
+		    $http.post(globalService.getUrlHughesService() + paths.hughesConsumoDeTerminal, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
@@ -284,7 +287,7 @@ angular.module('softvFrostApp')
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
 				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.FapStatus, JSON.stringify(parametros)).then(function (response) {
+		    $http.post(globalService.getUrlHughesService() + paths.FapStatus, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
@@ -294,20 +297,71 @@ angular.module('softvFrostApp')
 		};
 
 		factory.addMovimiento = function (obj) {
+      var deferred = $q.defer();
+	    var config = {
+	          headers: {
+	              'Authorization': $localStorage.currentUser.token
+	          }
+	      };
+      obj.objMovimiento.IdUsuario=$localStorage.currentUser.idUsuario;
+      var parametros = obj;
+      $http.post(globalService.getUrl() + paths.addMovimiento, JSON.stringify(parametros), config).then(function (response) {
+          deferred.resolve(response.data);
+      }).catch(function (data) {
+          deferred.reject(data);
+      });
+      return deferred.promise;
+  	};
+
+		factory.getSuscriptorById = function (id) {
 		    var deferred = $q.defer();
-				var config = {
+		    var config = {
 		        headers: {
 		            'Authorization': $localStorage.currentUser.token
 		        }
 		    };
-		    var parametros = JSON.stringify(obj);
-				jQuery.support.cors = true;
-		    $http.post(globalService.getUrl() + paths.addMovimiento, JSON.stringify(parametros), config).then(function (response) {
+		    var parametros = {
+		        'IdSuscriptor': id
+		    };
+		    $http.post(globalService.getUrl() + paths.getSuscriptorById, JSON.stringify(parametros), config).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
 		    });
 		    return deferred.promise;
+
+		};
+
+		factory.getServicioListByProgramCode = function(id) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			var parametros = {
+				"ProgramCode":id,
+					"Op":0
+			};
+			$http.post(globalService.getUrl() + paths.getServicioListByProgramCode, JSON.stringify(parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.hughesCrearTerminal = function(obj) {
+			var deferred = $q.defer();
+			var config = '';
+			var parametros = obj;
+			$http.post(globalService.getUrlHughesService() + paths.hughesCrearTerminal, JSON.stringify(parametros)).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
 
 		};
 

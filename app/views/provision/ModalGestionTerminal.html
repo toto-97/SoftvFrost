@@ -48,7 +48,7 @@
 <div class="row form-group text-center">
   <b><h5>Transacciones</h5></b>
   <table class="table">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <b>Comando</b>
       <br>
       <select ng-model="ctrl.Comando" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Comandos track by item.IdComando" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
@@ -68,7 +68,7 @@
     </div>
     <div class="col-md-2" >
       <br>
-      <button class="btn pull-right btn-raised btn-success" type="button" >Aplicar</button>
+      <button class="btn pull-right btn-raised btn-success" type="button" ng-click="ctrl.aplicaComando()">Aplicar</button>
     </div>
   </table>
 </div>

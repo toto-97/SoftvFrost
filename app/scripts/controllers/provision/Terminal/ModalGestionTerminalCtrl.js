@@ -1,11 +1,10 @@
 'use strict';
 angular
 	.module('softvFrostApp')
-	.controller('ModalGestionTerminalCtrl', function($uibModalInstance, $uibModal, terminalFactory,terminal, $rootScope, ngNotify) {
+	.controller('ModalGestionTerminalCtrl', function($filter, $uibModalInstance, $uibModal, terminalFactory,terminal, $rootScope, ngNotify) {
 
 		function initialData() {
 		    vm.Terminal=terminal;
-		    console.log(terminal);
 		    terminalFactory.getComandoList().then(function(data) {
 					vm.Comandos = data.GetComandoListResult;
 					//Vamos a dejar los comandos dependiendo del estado de la terminal
@@ -27,6 +26,7 @@ angular
 						terminalFactory.getServicioList().then(function(data) {
 							vm.Servicios = data.GetServicioListResult;
 						});
+						console.log(vm.Comandos);
 					}
 					else if(vm.Terminal.Estatus == "Suspendida"){//Suspendida
 						vm.Comandos.splice(8,1);
@@ -48,29 +48,32 @@ angular
 						vm.Comandos.splice(1,1);
 						vm.Comandos.splice(0,1);
 					}
-					console.log(vm.Comandos);
 		    });
 		}
 
-		function AplicaComando() {
+		function aplicaComando() {
+			console.log(vm.Terminal);
 			var parametros = new Object();
-			if(vm.Comando.IdComando == 1)//Suspender terminal
+			if(vm.Comando.IdComando == 1)//
 			{
+				alert("1");
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-					parametros.SAN = vm.Terminal;
+					parametros.SAN = "TLVPG0000001";//vm.Terminal;
 					parametros.status = 2;
+					alert("2");
 					terminalFactory.hughesCambiarStatusServicio(parametros).then(function(hughesData){
 						console.log(hughesData);
 					});
 				});
 			}
-			else if(vm.Comando.IdComando == 2)//Reactivar terminal
+			else if(vm.Comando.IdComando == 2)//Suspender terminal
 			{
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-					parametros.SAN = vm.Terminal;
-					parametros.status = 1;
+					parametros.SAN = hughesGetSanCompuesto(vm.Terminal);
+					parametros.status = 2;
+					alert(JSON.stringify(parametros));
 					terminalFactory.hughesCambiarStatusServicio(parametros).then(function(hughesData){
 						console.log(hughesData);
 					});
@@ -119,16 +122,57 @@ angular
 					});
 				});
 			}
-			else if(vm.Comando.IdComando == 8)//Ver estatus de movimiento
+			else if(vm.Comando.IdComando == 9)//Activar
 			{
-				parametros.SAN = vm.Terminal;
-				parametros.telefono = vm.Terminal.suscriptor.telefono;
-				parametros.ESN = vm.Terminal.ESN;
-				terminalFactory.hughesCambiarStatusServicio(parametros).then(function(hughesData){
-					console.log(hughesData);
+				terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data){
+					var suscriptor = data.GetSuscriptorResult;
+					parametros.telefono = suscriptor.Telefono;
+					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+					parametros.ESN = vm.Terminal.ESN;
+					alert(JSON.stringify(parametros));
+					terminalFactory.hughesActivarTerminal(parametros).then(function(hughesData){
+						console.log(hughesData);
+						if(hughesData.envEnvelope.envBody.cmcActivationResponseMsg.Status == "FAILED"){
+							var Obj2=new Object();
+				      Obj2.objMovimiento = new Object();
+				      Obj2.objMovimiento.SAN=vm.Terminal.SAN;
+				      Obj2.objMovimiento.IdComando=9;//Hardcodeado a la tabla de Comando
+				      Obj2.objMovimiento.IdUsuario=0;
+				      Obj2.objMovimiento.IdTicket=0;
+				      Obj2.objMovimiento.OrderId=0;
+							vm.fechaAuxiliar = new Date();
+				      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+				      Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
+				      Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+				      Obj2.objMovimiento.Detalle1='';
+				      Obj2.objMovimiento.Detalle2='';
+							terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+				       ngNotify.set('Error al activar la terminal. Consulte el detalle del movimiento para más detalle', 'error');
+				      });
+
+						}
+						else{
+							var Obj2=new Object();
+				      Obj2.objMovimiento = new Object();
+				      Obj2.objMovimiento.SAN=vm.Terminal.SAN;
+				      Obj2.objMovimiento.IdComando=9;//Hardcodeado a la tabla de Comando
+				      Obj2.objMovimiento.IdUsuario=0;
+				      Obj2.objMovimiento.IdTicket=0;
+				      Obj2.objMovimiento.OrderId=0;
+							vm.fechaAuxiliar = new Date();
+				      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+				      Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
+				      Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+				      Obj2.objMovimiento.Detalle1='';
+				      Obj2.objMovimiento.Detalle2='';
+
+				      terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+				       ngNotify.set('La terminal se ha activado correctamente', 'success');
+				      });
+						}
+					});
 				});
 			}
-			console.log("");
 		}
 
 		function ok() {
@@ -138,10 +182,20 @@ angular
 			$uibModalInstance.dismiss('cancel');
 		}
 
+		function hughesGetSanCompuesto(obj) {
+		 var a=obj.toString();
+		 var i;
+		 for (i = a.length; i < 9; i++) {
+			a='0'+a;
+		 }
+				return 'TEV'+a;
+		};
+
 		var vm = this;
 		vm.cancel = cancel;
 		vm.ok = ok;
 		initialData();
+		vm.aplicaComando = aplicaComando;
 
 
 	})
