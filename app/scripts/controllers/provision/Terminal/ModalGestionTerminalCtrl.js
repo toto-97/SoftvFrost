@@ -132,43 +132,45 @@ angular
 					alert(JSON.stringify(parametros));
 					terminalFactory.hughesActivarTerminal(parametros).then(function(hughesData){
 						console.log(hughesData);
+						//Guarda el movimiento
+						var Obj2=new Object();
+		      	Obj2.objMovimiento = new Object();
+			     	Obj2.objMovimiento.SAN=vm.Terminal.SAN;
+			     	Obj2.objMovimiento.IdComando=9;//Hardcodeado a la tabla de Comando
+			     	Obj2.objMovimiento.IdUsuario=0;
+			     	Obj2.objMovimiento.IdTicket=0;
+			     	Obj2.objMovimiento.OrderId=0;
+						vm.fechaAuxiliar = new Date();
+	      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+	      		Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
+		     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+	      		Obj2.objMovimiento.Detalle1='';
+	      		Obj2.objMovimiento.Detalle2='';
+						terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+		      	});
+						//Vamos a procesar dependiendo del status obtenido de hughes
 						if(hughesData.envEnvelope.envBody.cmcActivationResponseMsg.Status == "FAILED"){
-							var Obj2=new Object();
-				      Obj2.objMovimiento = new Object();
-				      Obj2.objMovimiento.SAN=vm.Terminal.SAN;
-				      Obj2.objMovimiento.IdComando=9;//Hardcodeado a la tabla de Comando
-				      Obj2.objMovimiento.IdUsuario=0;
-				      Obj2.objMovimiento.IdTicket=0;
-				      Obj2.objMovimiento.OrderId=0;
-							vm.fechaAuxiliar = new Date();
-				      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
-				      Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
-				      Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
-				      Obj2.objMovimiento.Detalle1='';
-				      Obj2.objMovimiento.Detalle2='';
-							terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
-				       ngNotify.set('Error al activar la terminal. Consulte el detalle del movimiento para más detalle', 'error');
-				      });
-
+							ngNotify.set('Error al activar la terminal. Consulte el detalle del movimiento para más detalle', 'error');
 						}
 						else{
-							var Obj2=new Object();
-				      Obj2.objMovimiento = new Object();
-				      Obj2.objMovimiento.SAN=vm.Terminal.SAN;
-				      Obj2.objMovimiento.IdComando=9;//Hardcodeado a la tabla de Comando
-				      Obj2.objMovimiento.IdUsuario=0;
-				      Obj2.objMovimiento.IdTicket=0;
-				      Obj2.objMovimiento.OrderId=0;
-							vm.fechaAuxiliar = new Date();
-				      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
-				      Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
-				      Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
-				      Obj2.objMovimiento.Detalle1='';
-				      Obj2.objMovimiento.Detalle2='';
+							//Actualiza el estatus en la base en caso de que haya activado en Hughes
+							var Obj3=new Object();
+		      		Obj3.objTerminal=new Object();
+		      		Obj3.objTerminal.SAN=vm.Terminal.SAN;
+		      		Obj3.objTerminal.IdSuscriptor=vm.Terminal.IdSuscriptor;
+		      		Obj3.objTerminal.IdServicio=vm.Terminal.IdServicio;
+		      		Obj3.objTerminal.Latitud=vm.Terminal.Latitud;
+		      		Obj3.objTerminal.Longitud=vm.Terminal.Longitud;
+		      		Obj3.objTerminal.Estatus='Activa';
+		      		Obj3.objTerminal.FechaAlta=vm.Terminal.FechaAlta;
+		      		Obj3.objTerminal.FechaSuspension=vm.Terminal.FechaSuspension;
+		      		Obj3.objTerminal.ESN=vm.Terminal.ESN;
+		      		Obj3.objTerminal.Comentarios=vm.Terminal.Comentarios;
+		      		console.log(Obj3);
+							terminalFactory.updateTerminal(Obj3).then(function(data) {
+								ngNotify.set('La terminal se ha activado correctamente', 'success');
+							});
 
-				      terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
-				       ngNotify.set('La terminal se ha activado correctamente', 'success');
-				      });
 						}
 					});
 				});
