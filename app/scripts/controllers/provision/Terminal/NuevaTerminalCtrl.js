@@ -9,9 +9,8 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 	}
 
 	function BuscaSuscriptor() {
-		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
-			animation: vm.animationsEnabled,
+			animation: true,
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalBusquedaSuscriptor.html',
@@ -24,9 +23,12 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 	}
 
 	function BuscaLatLong() {
-		vm.animationsEnabled = true;
+		var obj = {
+			lat: 23.96617587126503,
+			long: -101.953125
+		};
 		var modalInstance = $uibModal.open({
-			animation: vm.animationsEnabled,
+			animation: true,
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalGetLatLong.html',
@@ -34,7 +36,12 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 			controllerAs: 'ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'lg'
+			size: 'lg',
+			resolve: {
+				datosGis: function() {
+					return obj;
+				}
+			}
 		});
 	}
 	$rootScope.$on('cliente_seleccionado', function(e, detalle) {

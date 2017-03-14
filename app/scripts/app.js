@@ -31,10 +31,12 @@ angular.module('softvFrostApp', [
 			function notifyError(rejection) {
 				var notify = $injector.get('ngNotify');
 				var content = '¡Se ha generado un error! \n' + rejection.data;
-				notify.set(content, {
-					type: 'error',
-					duration: 4000
-				});
+				if (rejection.status === 404) {
+					notify.set(content, {
+						type: 'error',
+						duration: 4000
+					});
+				}
 			}
 			return {
 				requestError: function(rejection) {
@@ -43,7 +45,6 @@ angular.module('softvFrostApp', [
 				},
 				responseError: function(rejection) {
 					notifyError(rejection);
-					sessionStorage.clear();
 					return $q.reject(rejection);
 				}
 			};

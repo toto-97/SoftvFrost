@@ -53,9 +53,12 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 	}
 
 	function BuscaLatLong() {
-		vm.animationsEnabled = true;
+		var obj = {
+			lat: vm.Latitud,
+			long: vm.Longuitud
+		};
 		var modalInstance = $uibModal.open({
-			animation: vm.animationsEnabled,
+			animation: true,
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalGetLatLong.html',
@@ -63,7 +66,12 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 			controllerAs: 'ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'lg'
+			size: 'lg',
+			resolve: {
+				datosGis: function() {
+					return obj;
+				}
+			}
 		});
 	}
 	$rootScope.$on('cliente_seleccionado', function(e, detalle) {

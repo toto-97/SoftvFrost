@@ -3,10 +3,10 @@ angular
 	.module('softvFrostApp')
 	.controller('ModalGetLatLongCtrl', ModalGetLatLongCtrl);
 
-function ModalGetLatLongCtrl($uibModalInstance, $uibModal, SuscriptorFactory, $rootScope, ngNotify, NgMap) {
+function ModalGetLatLongCtrl($uibModalInstance, $uibModal, SuscriptorFactory, $rootScope, ngNotify, NgMap, datosGis) {
 	function initialData() {
 		NgMap.getMap().then(function(map) {
-			vm.latlng = [23.96617587126503, -101.953125];
+			vm.latlng = [parseFloat(datosGis.lat), parseFloat(datosGis.long)];
 			vm.map = map;
 			google.maps.event.trigger(vm.map, 'resize');
 		});

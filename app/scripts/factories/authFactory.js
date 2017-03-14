@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-	.factory('authFactory', function($http, $q, globalService, $base64, $localStorage, $location, $window) {
+	.factory('authFactory', function($http, $q, globalService, $base64, $localStorage, $location, $window, ngNotify) {
 		var factory = {};
 		var paths = {
 			login: '/Usuario/LogOn'
@@ -33,7 +33,8 @@ angular.module('softvFrostApp')
 					}
 				})
 				.catch(function(response) {
-					deferred.reject(response);
+					ngNotify.set('Autenticación inválida, credenciales no válidas.', 'error');
+					deferred.reject(response.statusText);
 				});
 			return deferred.promise;
 		};
