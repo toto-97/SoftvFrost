@@ -1,7 +1,7 @@
 'use strict';
-angular.module('softvFrostApp').controller('NuevaTerminalCtrl', TerminalCtrl);
+angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtrl);
 
-function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
+function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
 	this.$onInit = function() {
 		/*terminalFactory.getServicioList().then(function(data) {
 			vm.Servicios = data.GetServicioListResult;
@@ -9,9 +9,8 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 	}
 
 	function BuscaSuscriptor() {
-		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
-			animation: vm.animationsEnabled,
+			animation: true,
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalBusquedaSuscriptor.html',
@@ -65,9 +64,12 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 	};
 
 	function BuscaLatLong() {
-		vm.animationsEnabled = true;
+		var obj = {
+			lat: 23.96617587126503,
+			long: -101.953125
+		};
 		var modalInstance = $uibModal.open({
-			animation: vm.animationsEnabled,
+			animation: true,
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalGetLatLong.html',
@@ -75,7 +77,12 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 			controllerAs: 'ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'lg'
+			size: 'lg',
+			resolve: {
+				datosGis: function() {
+					return obj;
+				}
+			}
 		});
 	}
 	$rootScope.$on('cliente_seleccionado', function(e, detalle) {
@@ -187,7 +194,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 
 
 	var vm = this;
-	vm.titulo = "Nueva Terminal";
+	vm.titulo = 'Nueva Terminal';
 	vm.BuscaSuscriptor = BuscaSuscriptor;
 	vm.ValidarServicio=ValidarServicio;
 	vm.BuscaLatLong = BuscaLatLong;
