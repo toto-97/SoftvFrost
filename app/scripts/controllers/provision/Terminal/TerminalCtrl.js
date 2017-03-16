@@ -34,7 +34,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 			controllerAs: 'ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'md',
+			size: 'lg',
 			resolve: {
 				terminal: function() {
 					return object;
