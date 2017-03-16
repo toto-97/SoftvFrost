@@ -61,7 +61,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 		for (i = a.length; i < 9; i++) {
 			a='0'+a;
 		}
-	    return 'TEV'+a;
+	    return 'TLV'+a;
 	};
 
 	function BuscaLatLong() {
@@ -136,26 +136,47 @@ function TerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) 
 				//alert(JSON.stringify(obj));
 				terminalFactory.hughesCrearTerminal(obj).then(function(hughesData){
 					console.log(hughesData);
-					if (hughesData.StandardResponse.Code!='5') {
-					    ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
-					} else {
-						var Obj2=new Object();
-						Obj2.objMovimiento = new Object();
-						Obj2.objMovimiento.SAN=data.AddTerminalResult;
-						Obj2.objMovimiento.IdComando=1;//Hardcodeado a la tabla de Comando
-						Obj2.objMovimiento.IdUsuario=0;
-						Obj2.objMovimiento.IdTicket=0;
-						Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
-						Obj2.objMovimiento.Fecha=hughesData.StandardResponse.MessageHeader.TransactionDateTime;
-						Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
-						Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
-						Obj2.objMovimiento.Detalle1='';
-						Obj2.objMovimiento.Detalle2='';
+					var Obj2=new Object();
+					Obj2.objMovimiento = new Object();
+					Obj2.objMovimiento.SAN=data.AddTerminalResult;
+					Obj2.objMovimiento.IdComando=1;//Hardcodeado a la tabla de Comando
+					Obj2.objMovimiento.IdUsuario=0;
+					Obj2.objMovimiento.IdTicket=0;
+					Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
+					Obj2.objMovimiento.Fecha=hughesData.StandardResponse.MessageHeader.TransactionDateTime;
+					Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
+					Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+					Obj2.objMovimiento.Detalle1='';
+					Obj2.objMovimiento.Detalle2='';
 
-						terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
-							ngNotify.set('La terminal se ha guardado correctamente', 'success');
+					if (hughesData.StandardResponse.Code!='5') {
+							//----------------------------------
+						var Obj3=new Object();
+								Obj3.objTerminal=new Object();
+								Obj3.objTerminal.SAN=data.AddTerminalResult;
+								Obj3.objTerminal.IdSuscriptor=vm.IdSuscriptor;
+								Obj3.objTerminal.IdServicio=vm.Servicio.IdServicio;
+
+								Obj3.objTerminal.Latitud=vm.Latitud;
+								Obj3.objTerminal.Longitud=vm.Longuitud;
+								Obj3.objTerminal.Estatus='Incompleta';
+								Obj3.objTerminal.FechaAlta=vm.FechaAlta;
+								Obj3.objTerminal.FechaSuspension='';
+								Obj3.objTerminal.ESN=vm.ESN;
+								Obj3.objTerminal.Comentarios=vm.Comentarios;
+								console.log(Obj3);
+						terminalFactory.updateTerminal(Obj3).then(function(data) {
+							ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
 						});
+							//--------------------------------------------------
+
+					} else {
+						ngNotify.set('La terminal se ha guardado correctamente', 'success');
 					}
+
+					terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+
+					});
 				});
 			});
 			$state.go('home.provision.terminales');

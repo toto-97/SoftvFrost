@@ -229,7 +229,6 @@ angular.module('softvFrostApp')
 		    var deferred = $q.defer();
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
-				alert(parametros);
 				//jQuery.support.cors = true;
 		    $http.post(globalService.getUrlHughesService() + paths.hughesActivarTerminal, parametros).then(function (response) {
 		        deferred.resolve(response.data);
@@ -286,8 +285,7 @@ angular.module('softvFrostApp')
 		    var deferred = $q.defer();
 		    var config = '';
 		    var parametros = JSON.stringify(obj);
-				jQuery.support.cors = true;
-		    $http.post(globalService.getUrlHughesService() + paths.FapStatus, parametros).then(function (response) {
+		    $http.post(globalService.getUrlHughesService() + paths.hughesFapStatus, parametros).then(function (response) {
 		        deferred.resolve(response.data);
 		    }).catch(function (data) {
 		        deferred.reject(data);
