@@ -70,16 +70,6 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 			controllerAs: '$ctrl'
 		},
 		{
-			name: 'home.provision.terminalesmovimientos',
-			data: {
-				pageTitle: 'SOFTV | Terminales',
-			},
-			url: '/provision/terminales/movimientos',
-			templateUrl: 'views/provision/MovimientosTerminales.html',
-			controller: 'TerminalMovimientosCtrl',
-			controllerAs: '$ctrl'
-		},
-		{
 			name: 'home.provision.suscriptoresNuevo',
 			data: {
 				pageTitle: 'SOFTV | NUEVO SUSCRIPTOR',

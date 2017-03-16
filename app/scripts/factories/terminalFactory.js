@@ -22,7 +22,47 @@ angular.module('softvFrostApp')
 			hughesFapStatus: '/FapStatus',
 			addMovimiento: '/Movimiento/AddMovimiento',
 			getSuscriptorById: '/Suscriptor/GetSuscriptor',
-			hughesCrearTerminal: '/CrearTerminal'
+			hughesCrearTerminal: '/CrearTerminal',
+			getMovimientosBySan: '/Movimiento/GetMovimientoListBySAN',
+			detalleMovimiento: '/Movimiento/GetDeepMovimiento'
+		};
+
+		factory.detalleMovimiento = function(id) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'IdMovimiento':id
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.detalleMovimiento, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.getMovimientosBySan = function(san) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'SAN':san
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.getMovimientosBySan, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
 		};
 
 		factory.updateTerminal = function(obj) {

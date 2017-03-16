@@ -1,0 +1,26 @@
+<style type="text/css">
+	.scrollDiv{
+	    height: 250px;
+	    overflow: auto;
+	    overflow-x: hidden;
+	}
+
+</style>
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title">Movimiento #{{ ctrl.movimiento.IdMovimiento }}</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+  <div class="row">
+    <div class="col-md-12">
+        <p><strong>Comando: </strong>{{ ctrl.movimiento.Comando }}</p>
+        <p><strong>Fecha: </strong>{{ ctrl.movimiento.Fecha }}</p>
+        <p><strong>Origen: </strong>{{ ctrl.movimiento.Origen }}</p>
+        <p><strong>Mensaje: </strong>{{ ctrl.movimiento.Mensaje }}</p>
+        <p><strong>Usuario: </strong>{{ ctrl.movimiento.Usuario }}</p>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="ctrl.cancel()">Cerrar</button>
+</div>
