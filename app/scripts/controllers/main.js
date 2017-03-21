@@ -19,6 +19,7 @@ angular.module('softvFrostApp')
 				vm.menus = $localStorage.currentUser.menu;
 				vm.usuario = $localStorage.currentUser.usuario;
 				rolFactory.GetRoleList().then(function(data) {
+					console.log(item);
 					data.GetRoleListResult.forEach(function(item) {
 						if (item.IdRol === $localStorage.currentUser.idRol) {
 							vm.rol = item.Nombre;

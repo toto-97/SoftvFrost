@@ -218,6 +218,25 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 			templateUrl: 'views/configuracion/NuevoRol.html',
 			controller: 'EditaRolCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.activacion',
+			data: {
+				pageTitle: 'SOFTV | ACTIVACIÓN TERMINAL',
+				permissions: {
+					only: ['activacionAdd'],
+					options: {
+						reload: true
+					}
+				}
+			},
+			params: {
+				obj: null
+			},
+			url: '/provision/activacion',
+			templateUrl: 'views/provision/activacion.html',
+			controller: 'activacionCtrl',
+			controllerAs: '$ctrl'
 		}
 	];
 

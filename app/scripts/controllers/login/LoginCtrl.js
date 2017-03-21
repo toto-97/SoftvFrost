@@ -13,7 +13,7 @@ function LoginCtrl(authFactory, ngNotify, $state, $localStorage) {
 			if (data) {
 				$state.go('home');
 			} else {
-				ngNotify.set('Datos de acceso erroneos', 'error');
+				ngNotify.set('Datos de acceso erróneos', 'error');
 			}
 		});
 	}

@@ -442,7 +442,7 @@ angular
 			{
 				terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data){
 					var suscriptor = data.GetSuscriptorResult;
-					parametros.telefono = suscriptor.Telefono;
+					parametros.telefono = suscriptor.Telefono.substring(6, 4);
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
 					parametros.ESN = vm.Terminal.ESN;
 					terminalFactory.hughesActivarTerminal(parametros).then(function(hughesData){
