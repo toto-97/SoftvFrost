@@ -53,22 +53,22 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 			controller: 'NuevaTerminalCtrl',
 			controllerAs: '$ctrl'
 		},
-		{
-			name: 'home.provision.terminalesEdita',
-			data: {
-				pageTitle: 'SOFTV | Terminales',
-				permissions: {
-					only: ['terminalesUpdate'],
-					options: {
-						reload: true
-					}
-				}
-			},
-			url: '/provision/terminales/edita/:Id',
-			templateUrl: 'views/provision/NuevaTerminal.html',
-			controller: 'EditaTerminalCtrl',
-			controllerAs: '$ctrl'
-		},
+		// {
+		// 	name: 'home.provision.terminalesEdita',
+		// 	data: {
+		// 		pageTitle: 'SOFTV | Terminales',
+		// 		permissions: {
+		// 			only: ['terminalesUpdate'],
+		// 			options: {
+		// 				reload: true
+		// 			}
+		// 		}
+		// 	},
+		// 	url: '/provision/terminales/edita/:Id',
+		// 	templateUrl: 'views/provision/NuevaTerminal.html',
+		// 	controller: 'EditaTerminalCtrl',
+		// 	controllerAs: '$ctrl'
+		// },
 		{
 			name: 'home.provision.suscriptoresNuevo',
 			data: {
