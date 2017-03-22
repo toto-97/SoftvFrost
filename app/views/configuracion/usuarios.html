@@ -13,35 +13,53 @@
 	<div class="section-body">
 		<div class="col-md-12">
 			<div class="row">
-				<div class="col-md-4" style="margin-top:20px;">
+				<div class="col-md-3" style="margin-top:20px;">
 					<div class="input-group">
-						<input type="text" class="form-control" aria-label="...">
+						<input type="text" class="form-control input-sm" ng-model="$ctrl.Busuario" placeholder="NOMBRE DE USUARIO">
 						<div class="input-group-btn">
-							<button type="button" class="btn btn-info dropdown-toggle" ng-model="$ctrl.Busuario" ng-click="$ctrl.BuscaUsuario();" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i></button>
+							<button type="button" class="btn btn-info dropdown-toggle" ng-click="$ctrl.Busca(1);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
 				</div>
+				<div class="col-md-3" style="margin-top:20px;">
+					<div class="input-group">
+						<input type="text" class="form-control input-sm" placeholder="CORREO DE USUARIO" ng-model="$ctrl.Bcorreo">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-info dropdown-toggle" ng-click="$ctrl.Busca(2);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3" style="margin-top:20px;">
+
+					<select class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" ng-change="$ctrl.Busca(3);" ng-model="$ctrl.Rol" name="rol" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+	                      <option value="">SELECCIONA ROL</option>
+	                    </select>
+				</div>
 			</div>
+			<hr>
 			<div class="row">
 				<div class="col-md-12">
 					<table class="table">
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th>ROL</th>
-								<th>NOMBRE</th>
-								<th>PASSWORD</th>
-								<th>STATUS</th>
-								<th>OPCIONES</th>
+								<th>Rol</th>
+								<th>Usuario</th>
+								<th>Nombre</th>
+								<th>Correo</th>
+								<th>Password</th>
+								<th>Status</th>
+								<th>Opciones</th>
 
 							</tr>
 						</thead>
 						<tbody>
 							<tr dir-paginate="x in $ctrl.Usuarios|itemsPerPage:5">
 								<td>{{ x.IdUsuario }}</td>
-								<td>{{ x.Nombre }}</td>
+								<td>{{ x.NombreRol }}</td>
 								<td>{{ x.Usuario }}</td>
-
+								<td>{{ x.Nombre }}</td>
+								<td>{{ x.Email }}</td>
 								<td>{{x.Password}}</td>
 								<td ng-if="x.Estado==true">
 									<span class="label label-outline label-success">Activo</span>
