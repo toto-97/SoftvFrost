@@ -15,10 +15,6 @@ function LoginCtrl(authFactory, ngNotify, $state, $localStorage, $stateParams, $
 	}
 
 	function login() {
-		var tieneSan = null;
-		if($stateParams.san != undefined){
-			tieneSan = $stateParams.san;
-		}
 		authFactory.login(vm.user, vm.password).then(function (data) {
 			if (data) {
 				$window.location.reload();
