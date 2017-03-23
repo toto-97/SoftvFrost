@@ -257,7 +257,7 @@ angular
 			      		Obj3.objTerminal.IdServicio=vm.Terminal.IdServicio;
 			      		Obj3.objTerminal.Latitud=vm.Terminal.Latitud;
 			      		Obj3.objTerminal.Longitud=vm.Terminal.Longitud;
-			      		Obj3.objTerminal.Estatus='Cancelada';
+			      		Obj3.objTerminal.Estatus='Activa';
 			      		Obj3.objTerminal.FechaAlta=vm.Terminal.FechaAlta;
 			      		Obj3.objTerminal.FechaSuspension=vm.Terminal.FechaSuspension;
 			      		Obj3.objTerminal.ESN=vm.Terminal.ESN;
