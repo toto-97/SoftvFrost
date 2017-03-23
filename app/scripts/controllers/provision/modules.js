@@ -230,7 +230,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 			params: {
 				obj: null
 			},
-			url: '/provision/activacion',
+			url: '/provision/activacion?esn',
 			templateUrl: 'views/provision/activacion.html',
 			controller: 'activacionCtrl',
 			controllerAs: '$ctrl'

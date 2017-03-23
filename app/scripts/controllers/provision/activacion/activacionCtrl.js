@@ -1,9 +1,9 @@
 'use strict';
 angular.module('softvFrostApp').controller('activacionCtrl', activacionCtrl);
 
-function activacionCtrl(terminalFactory, $uibModal, $state, $stateParams, ngNotify, $filter) {
+function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $stateParams) {
 	this.$onInit = function() {
-
+    vm.ESN = $stateParams.esn;
 	}
 
   function activarTerminal(){
