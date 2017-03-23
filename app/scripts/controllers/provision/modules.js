@@ -176,10 +176,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 					}
 				}
 			},
-			url: '/provision/usuario/edita/',
-			params: {
-				obj: null
-			},
+			url: '/provision/usuario/edita/:id',
 			templateUrl: 'views/configuracion/NuevoUsuario.html',
 			controller: 'EditaUsuarioCtrl',
 			controllerAs: '$ctrl'
