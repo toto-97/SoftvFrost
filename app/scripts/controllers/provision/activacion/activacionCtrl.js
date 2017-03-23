@@ -23,11 +23,12 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
       Obj2.objMovimiento.IdTicket=0;
       Obj2.objMovimiento.OrderId=0;
       vm.fechaAuxiliar = new Date();
-      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
       Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
       Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
       Obj2.objMovimiento.Detalle1='';
       Obj2.objMovimiento.Detalle2='';
+			console.log(Obj2);
       terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
       });
       //Vamos a procesar dependiendo del status obtenido de hughes
