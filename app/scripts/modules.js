@@ -23,7 +23,7 @@ angular.module('softvFrostApp')
 			},
 			{
 				name: 'login',
-				url: '/auth/login',
+				url: '/auth/login?esn',
 				data: {
 					pageTitle: 'BIENVENIDO | SOFTV WEB'
 				},
