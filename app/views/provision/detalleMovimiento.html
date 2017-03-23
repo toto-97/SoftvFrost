@@ -1,10 +1,13 @@
 <style type="text/css">
-	.scrollDiv{
-	    height: 250px;
-	    overflow: auto;
-	    overflow-x: hidden;
-	}
-
+  .scrollDiv {
+    height: 250px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+  
+  td.fecha {
+    width: 150px;
+  }
 </style>
 <div class="modal-header">
   <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
@@ -13,11 +16,30 @@
 <div class="modal-body" style="padding-top:20px;">
   <div class="row">
     <div class="col-md-12">
-        <p><strong>Comando: </strong>{{ ctrl.movimiento.Comando }}</p>
-        <p><strong>Fecha: </strong>{{ ctrl.movimiento.Fecha }}</p>
-        <p><strong>Origen: </strong>{{ ctrl.movimiento.Origen }}</p>
-        <p><strong>Mensaje: </strong>{{ ctrl.movimiento.Mensaje }}</p>
-        <p><strong>Usuario: </strong>{{ ctrl.movimiento.Usuario }}</p>
+      <p><b>Comando: </b>{{ ctrl.movimiento.Comando }}</p>
+      <p><b>Fecha: </b>{{ ctrl.movimiento.Fecha }}</p>
+      <p><b>Origen: </b>{{ ctrl.movimiento.Origen }}</p>
+      <p><b>Mensaje: </b>{{ ctrl.movimiento.Mensaje }}</p>
+      <p><b>Usuario: </b>{{ ctrl.movimiento.Usuario }}</p>
+    </div>
+    <div class="col-md-12 scrollDiv">
+      <table class="table">
+        <thead>
+          <tr>
+            <td class="text-center fecha">Fecha</td>
+            <td class="text-center">Detalle</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-if="ctrl.detalles.length == 0">
+            <td colspan="2" class="text-center">Movimiento sin detalles</td>
+          </tr>
+          <tr ng-repeat="x in ctrl.detalles" ng-if="ctrl.detalles.length > 0">
+            <td class="text-center fecha">{{ x.Fecha }}</td>
+            <td>{{ x.Mensaje }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

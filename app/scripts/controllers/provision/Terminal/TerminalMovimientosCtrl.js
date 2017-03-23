@@ -23,7 +23,7 @@ function TerminalMovimientosCtrl($uibModalInstance, $uibModal, terminal, termina
 			controllerAs: 'ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'sm',
+			size: 'md',
 			resolve: {
 				movimiento: function () {
 					return movimiento;

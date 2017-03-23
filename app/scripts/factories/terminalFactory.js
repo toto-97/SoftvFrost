@@ -24,7 +24,27 @@ angular.module('softvFrostApp')
 			getSuscriptorById: '/Suscriptor/GetSuscriptor',
 			hughesCrearTerminal: '/CrearTerminal',
 			getMovimientosBySan: '/Movimiento/GetMovimientoListBySAN',
-			detalleMovimiento: '/Movimiento/GetDeepMovimiento'
+			detalleMovimiento: '/Movimiento/GetDeepMovimiento',
+			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList'
+		};
+
+		factory.sigleMovimiento = function(id) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'IdMovimiento': id
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.sigleMovimiento, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
 		};
 
 		factory.detalleMovimiento = function(id) {
@@ -266,7 +286,7 @@ angular.module('softvFrostApp')
 		factory.hughesActivarTerminal = function(obj) {
 			var deferred = $q.defer();
 			var parametros = JSON.stringify(obj);
-			////jQuery.support.cors = true;
+			//jQuery.support.cors = true;
 			$http.post(globalService.getUrlHughesService() + paths.hughesActivarTerminal, parametros).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
