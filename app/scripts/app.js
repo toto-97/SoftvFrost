@@ -8,7 +8,11 @@
  *
  * Main module of the application.
  */
-angular.module('softvFrostApp', [
+angular.module('softvFrostApp', [	
+		'smart-table',
+		'ngSanitize', 
+		'ngCsv', 
+		'ngTableToCsv',	
 		'ngAnimate',
 		'ngSanitize',
 		'ngNotify',
@@ -21,7 +25,9 @@ angular.module('softvFrostApp', [
 		'ui.bootstrap',
 		'blockUI',
 		'ngMap',
-		'permission', 'permission.ui'
+		'permission', 
+		'permission.ui'
+
 
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {

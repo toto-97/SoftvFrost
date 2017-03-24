@@ -15,7 +15,10 @@
     "ngmap": "^1.17.8",
     "angular-bootstrap": "^2.5.0",
     "angular-block-ui": "^0.2.2",
-    "angular-permission": "^5.2.1"
+    "angular-permission": "^5.2.1",
+    "angular-export-table": "*",
+    "ng-table-to-csv": "^0.3.3",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -30,5 +33,8 @@
         "dist/js/bootstrap.js"
       ]
     }
+  },
+  "resolutions": {
+    "angular": "1.6.3"
   }
 }
