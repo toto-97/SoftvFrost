@@ -1,7 +1,5 @@
 'use strict';
-angular.module('softvFrostApp').config(provisionConf);
-
-function provisionConf($stateProvider) {
+angular.module('softvFrostApp').config(function($stateProvider) {
 	var states = [{
 			name: 'home.provision',
 			abstract: true,
@@ -22,7 +20,8 @@ function provisionConf($stateProvider) {
 			templateUrl: 'views/provision/suscriptores.html',
 			controller: 'SuscriptorCtrl',
 			controllerAs: '$ctrl'
-		}, {
+		},
+		{
 			name: 'home.provision.terminales',
 			data: {
 				pageTitle: 'SOFTV | Terminales',
@@ -54,32 +53,22 @@ function provisionConf($stateProvider) {
 			controller: 'NuevaTerminalCtrl',
 			controllerAs: '$ctrl'
 		},
-		{
-			name: 'home.provision.terminalesEdita',
-			data: {
-				pageTitle: 'SOFTV | Terminales',
-				permissions: {
-					only: ['terminalesUpdate'],
-					options: {
-						reload: true
-					}
-				}
-			},
-			url: '/provision/terminales/edita/:Id',
-			templateUrl: 'views/provision/NuevaTerminal.html',
-			controller: 'EditaTerminalCtrl',
-			controllerAs: '$ctrl'
-		},
-		{
-			name: 'home.provision.terminalesmovimientos',
-			data: {
-				pageTitle: 'SOFTV | Terminales',
-			},
-			url: '/provision/terminales/movimientos',
-			templateUrl: 'views/provision/MovimientosTerminales.html',
-			controller: 'TerminalMovimientosCtrl',
-			controllerAs: '$ctrl'
-		},
+		// {
+		// 	name: 'home.provision.terminalesEdita',
+		// 	data: {
+		// 		pageTitle: 'SOFTV | Terminales',
+		// 		permissions: {
+		// 			only: ['terminalesUpdate'],
+		// 			options: {
+		// 				reload: true
+		// 			}
+		// 		}
+		// 	},
+		// 	url: '/provision/terminales/edita/:Id',
+		// 	templateUrl: 'views/provision/NuevaTerminal.html',
+		// 	controller: 'EditaTerminalCtrl',
+		// 	controllerAs: '$ctrl'
+		// },
 		{
 			name: 'home.provision.suscriptoresNuevo',
 			data: {
@@ -187,10 +176,7 @@ function provisionConf($stateProvider) {
 					}
 				}
 			},
-			url: '/provision/usuario/edita/',
-			params: {
-				obj: null
-			},
+			url: '/provision/usuario/edita/:id',
 			templateUrl: 'views/configuracion/NuevoUsuario.html',
 			controller: 'EditaUsuarioCtrl',
 			controllerAs: '$ctrl'
@@ -229,10 +215,29 @@ function provisionConf($stateProvider) {
 			templateUrl: 'views/configuracion/NuevoRol.html',
 			controller: 'EditaRolCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.provision.activacion',
+			data: {
+				pageTitle: 'SOFTV | ACTIVACIÓN TERMINAL',
+				permissions: {
+					only: ['activacionAdd'],
+					options: {
+						reload: true
+					}
+				}
+			},
+			params: {
+				obj: null
+			},
+			url: '/provision/activacion?esn',
+			templateUrl: 'views/provision/activacion.html',
+			controller: 'activacionCtrl',
+			controllerAs: '$ctrl'
 		}
 	];
 
 	states.forEach(function(state) {
 		$stateProvider.state(state);
 	});
-}
+});

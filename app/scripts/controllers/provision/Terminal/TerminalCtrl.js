@@ -6,7 +6,6 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 		if ($stateParams.idSuscriptor != undefined) {
 			SuscriptorFactory.getTerminals($stateParams.idSuscriptor).then(function(data) {
 				vm.terminales = data.GetDeepIdSuscriptorResult;
-				console.log(vm.terminales);
 			});
 		} else {
 			terminalFactory.getTerminalList().then(function(data) {
@@ -25,9 +24,8 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 	}
 
 	function GestionTerminal(object) {
-		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
-			animation: vm.animationsEnabled,
+			animation: true,
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalGestionTerminal.html',
@@ -35,7 +33,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 			controllerAs: 'ctrl',
 			backdrop: 'static',
 			keyboard: false,
-			size: 'md',
+			size: 'lg',
 			resolve: {
 				terminal: function() {
 					return object;
@@ -118,10 +116,30 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 		}
 	}
 
+	function verMovimientos(item){
+		var modalInstance = $uibModal.open({
+			animation: true,
+			ariaLabelledBy: 'modal-title',
+			ariaDescribedBy: 'modal-body',
+			templateUrl: 'views/provision/MovimientosTerminales.html',
+			controller: 'TerminalMovimientosCtrl',
+			controllerAs: 'ctrl',
+			backdrop: 'static',
+			keyboard: false,
+			size: 'lg',
+			resolve: {
+				terminal: function() {
+					return item;
+				}
+			}
+		});
+	}
+
 	var vm = this;
 	vm.GestionTerminal = GestionTerminal;
 	vm.EditarTerminal = EditarTerminal;
 	vm.titulo = "Terminales";
 	vm.busquedaCambio = busquedaCambio;
 	vm.buscar = buscar;
+	vm.verMovimientos = verMovimientos;
 }

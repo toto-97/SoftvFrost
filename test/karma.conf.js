@@ -49,6 +49,7 @@ module.exports = function(config) {
       'bower_components/ng-table-to-csv/dist/ng-table-to-csv.js',
       'bower_components/moment/moment.js',
       'bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+      'bower_components/angular-ui-mask/dist/mask.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

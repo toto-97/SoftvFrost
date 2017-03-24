@@ -25,21 +25,26 @@ angular.module('softvFrostApp', [
 		'ui.bootstrap',
 		'blockUI',
 		'ngMap',
-		'permission', 
-		'permission.ui'
-
+		'permission', 'permission.ui',
+		'ui.mask'
 
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
-		$urlRouterProvider.otherwise('/auth/login');
+		//$urlRouterProvider.otherwise('/auth/login');
+		$urlRouterProvider.otherwise(function ($injector) {
+			var $state = $injector.get('$state');
+			console.log($state);
+		});
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector) {
 			function notifyError(rejection) {
 				var notify = $injector.get('ngNotify');
 				var content = '¡Se ha generado un error! \n' + rejection.data;
-				notify.set(content, {
-					type: 'error',
-					duration: 4000
-				});
+				if (rejection.status === 404) {
+					notify.set(content, {
+						type: 'error',
+						duration: 4000
+					});
+				}
 			}
 			return {
 				requestError: function(rejection) {
@@ -48,7 +53,6 @@ angular.module('softvFrostApp', [
 				},
 				responseError: function(rejection) {
 					notifyError(rejection);
-					sessionStorage.clear();
 					return $q.reject(rejection);
 				}
 			};
@@ -65,7 +69,6 @@ angular.module('softvFrostApp', [
 		if ($localStorage.currentUser) {
 			$location.path('/home');
 			var permissions = permissionsFactory.on();
-			console.log(permissions);
 			PermPermissionStore.definePermission('anonymous', function() {
 				return false;
 			});

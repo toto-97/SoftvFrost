@@ -28,10 +28,6 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 		});
 	}
 
-	function DetalleMovimientos() {
-		alert('Movimientos');
-	}
-
 	function editarSuscriptor(item) {
 		$state.go('home.provision.suscriptoresEditar', {
 			params: {
@@ -87,14 +83,15 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 				'Op': 2
 			};
 		}
-		if (vm.tipoBusqueda == 0) {
+		if (vm.tipoBusqueda == undefined || vm.tipoBusqueda == 0) {
 			SuscriptorFactory.getSuscriptorList().then(function(data) {
 				vm.suscriptores = data.GetSuscriptorListResult;
+				$('.buscarSuscriptor').collapse('hide');
 			});
 		} else {
 			SuscriptorFactory.buscarSuscriptor(vm.busObj).then(function(data) {
-				console.log(data);
 				vm.suscriptores = data.GetFilterSuscriptorListResult;
+				$('.buscarSuscriptor').collapse('hide');
 			});
 		}
 	}
@@ -102,7 +99,6 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 
 	var vm = this;
 	vm.DetalleSuscriptor = DetalleSuscriptor;
-	vm.DetalleMovimientos = DetalleMovimientos;
 	vm.editarSuscriptor = editarSuscriptor;
 	vm.cambiarBusqueda = cambiarBusqueda;
 	vm.buscar = buscar;

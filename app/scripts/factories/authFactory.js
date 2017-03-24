@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-	.factory('authFactory', function($http, $q, globalService, $base64, $localStorage, $location, $window) {
+	.factory('authFactory', function($http, $q, globalService, $base64, $localStorage, $location, $window, ngNotify) {
 		var factory = {};
 		var paths = {
 			login: '/Usuario/LogOn'
@@ -19,7 +19,6 @@ angular.module('softvFrostApp')
 				.then(function(response) {
 					console.log(response.data);
 					if (response.data.LogOnResult.Token) {
-						console.log($localStorage);
 						$localStorage.currentUser = {
 							token: response.data.LogOnResult.Token,
 							nombre: response.data.LogOnResult.Nombre,
@@ -28,13 +27,14 @@ angular.module('softvFrostApp')
 							usuario: response.data.LogOnResult.Usuario,
 							menu: response.data.LogOnResult.Menu
 						};
-						$window.location.reload();
+						deferred.resolve(true);
 					} else {
-						$location.path('/auth/login');
+						deferred.resolve(false);
 					}
 				})
 				.catch(function(response) {
-					deferred.reject(response);
+					ngNotify.set('Autenticación inválida, credenciales no válidas.', 'error');
+					deferred.reject(response.statusText);
 				});
 			return deferred.promise;
 		};
