@@ -181,11 +181,10 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 					} else {
 						ngNotify.set('La terminal se ha guardado correctamente', 'success');
 					}
-					$state.go('home.provision.terminales');
 
 					terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
-
 					});
+					$state.go('home.provision.terminales');
 				});
 			});
 		});
