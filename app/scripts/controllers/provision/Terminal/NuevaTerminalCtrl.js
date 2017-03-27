@@ -1,7 +1,7 @@
 'use strict';
 angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtrl);
 
-function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
+function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state, $filter) {
 	this.$onInit = function() {
 		/*terminalFactory.getServicioList().then(function(data) {
 			vm.Servicios = data.GetServicioListResult;
@@ -150,7 +150,8 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 					Obj2.objMovimiento.IdUsuario=0;
 					Obj2.objMovimiento.IdTicket=0;
 					Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
-					Obj2.objMovimiento.Fecha=hughesData.StandardResponse.MessageHeader.TransactionDateTime;
+					vm.fechaAuxiliar = new Date();
+		      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 					Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 					Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 					Obj2.objMovimiento.Detalle1='';
