@@ -1,7 +1,7 @@
 'use strict';
 angular.module('softvFrostApp')
 //.controller('ReportesCtrl', ['$http','uiGridConstants', 'reportesFactory', function ( $http, uiGridConstants, reportesFactory)
-.controller('Reportes_MigracionCtrl', ['$http', 'reportesFactory','$timeout', function ( $http, reportesFactory, $timeout){
+.controller('Reportes_MigracionCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify', function ( $http, reportesFactory, $timeout, ngNotify){
 //function ReportesCtrl(reportesFactory) {
  
 	var vm = this;
@@ -21,22 +21,36 @@ angular.module('softvFrostApp')
   vm.csvUnoHide = true; //Button no mostrar
   vm.csvDosHide = true; //Button no mostrar
 
+
+
+    vm.limpiarFiltros = limpiarFiltros;
+    function limpiarFiltros(){
+        vm.fechaInicio = null;
+        vm.fechaFin = null;
+      //  vm.search = null;
+    }
+
+
+
+
+
     var arrayTokens = [];   
     vm.getReporteMigra = getReporteMigra;
     function getReporteMigra()
     {                     
             getFechas();         
 
-            console.log(vm.fechaInicio);
-            console.log('fechaFin ' + fechaFinYMD);   
+                if (vm.fechaInicio > vm.fechaFin){
+                    ngNotify.set('La fecha de inicio debe ser anterior a la fecha fin', {
+                        type: 'error'
+                    });  
+                }      
 
             reportesFactory.mostrarReporteMigraciones(idAux, fechaInicioYMD, fechaFinYMD).then(function(data) {
-                console.log(data);
+
                 arrayTokens = data.GetReporte_MigracionesListResult;
                 vm.itemsByPage = 5; 
                 vm.rowCollection4 = arrayTokens;  
-                console.log(vm.rowCollection4);
-
             });
     }
 
@@ -53,7 +67,6 @@ angular.module('softvFrostApp')
                 fechaInicioYMD = year + "/" + month + "/" + day;
         }
         if ( vm.fechaFin == null ){
-                console.log('fechaFin es nulo o undefined');
                 fechaFinYMD = null;
         }else{
                 var D2 = vm.fechaFin; // no se usa porque tiene formato con zona horaria
@@ -143,7 +156,6 @@ angular.module('softvFrostApp')
 // Create TABLE PDF -- All / Visible 
 vm.createPdfTodo = createPdfTodo;
 function createPdfTodo(pdfAcrear){
-    console.log('pdfAcrear '+pdfAcrear);
 
     var rows = [ [0,0,0,0,0,0,0,0,0,0,0,0] ]; // no. column
     // rows 0
@@ -195,14 +207,13 @@ function createPdfTodo(pdfAcrear){
         } 
     } 
 
-
-    // Create document
+ // Create document
     var doc = new jsPDF({
     orientation: 'landscape',
     format: 'A4'
     });
 
-    //Page number 
+     //Page number 
     var totalPagesExp = "{total_pages_count_string}";
     var pageContent = function (data) {    
             // FOOTER
@@ -211,26 +222,61 @@ function createPdfTodo(pdfAcrear){
             if (typeof doc.putTotalPages === 'function') {
                 str = str + " of " + totalPagesExp;
             }
-            doc.setFontSize(10);
-            doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+            doc.setFontSize(9);
+            //x , y 
+            doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 10, str); 
+          //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
         };
+ 
+    // Añadir logo StarGo
+    var img = reportesFactory.obtenerImagen();
+    doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
 
-    doc.setFontSize(16);    
-    doc.text(8, 15, reportHeaderPdf);
-    doc.setPage(1);
+
+    // Encabezado reporte CENTRADO
+    doc.setFontSize(14); 
+    doc.setFontType("bold");
+    var fontSize = doc.internal.getFontSize(); // Get current font size
+    var pageWidth = doc.internal.pageSize.width; // Get page width
+    var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
+    var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
+    doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
+
+    // Fecha de hoy
+    var laFechaHoy = reportesFactory.obtenerFechaHoy();
+    doc.setFontSize(11);   
+    doc.setFontType("normal");
+    doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   //  Posición  text at x,y
+    
+    doc.setPage(1); // importante
+
+
+   // doc.setLineWidth(0.5);  doc.line(20, 25, 60, 25); //x1 y1, x2 y2
+
+    // Custom table 
+    jsPDF.autoTableSetDefaults({
+        headerStyles: 
+        {   
+            fontSize: 7.3,       
+        },
+        bodyStyles: {        
+            fontSize: 6.5 
+        }
+    });
+
     doc.autoTable( columns, rows, {
-       // startY:160, //draw table here
-        fontSize: 6.5,    //    setFontSize: 8,     
-        overflow: 'linebreak', // visible, hidden, ellipsize or linebreak   
+        startY:27, //draw table here     
+        theme: 'plain',//'grid', //
+     //   headerStyles:{lineWidth: 1, lineColor: [0, 0, 0]},
+     //   bodyStyles: {lineColor: [0, 0, 0]},
         styles:{
-            //columnWidth: 'wrap' // 'auto', 'wrap' or a number       
-            //   fillColor: [100, 255, 255]
+            overflow: 'linebreak', // visible, hidden, ellipsize or linebreak  
         },
         columnStyles: { 
               1: {columnWidth: 12} //width 
             ,17: {columnWidth: 14} //width 
         },
-         margin: {top: 25, right: 5, bottom: 20, left: 5},
+         margin: {top: 16, right: 5, bottom: 16, left: 5},
          addPageContent: pageContent //page number
     });
        // Total page number plugin only available in jspdf v1.0+
@@ -241,13 +287,7 @@ function createPdfTodo(pdfAcrear){
     doc.save(vm.filename+'.pdf');    
   }
 
-
-
-
-
-
-
-
+        //-------------------------------------------
 
 
 
