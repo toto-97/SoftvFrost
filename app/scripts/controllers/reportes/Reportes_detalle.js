@@ -1,25 +1,29 @@
-﻿'use strict';
+'use strict';
 angular.module('softvFrostApp')
 //.controller('ReportesCtrl', ['$http','uiGridConstants', 'reportesFactory', function ( $http, uiGridConstants, reportesFactory)
-.controller('Reportes_DetalleCtrl', ['$http', 'reportesFactory','$timeout', function ( $http, reportesFactory, $timeout){
+.controller('Reportes_DetalleCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify', function ( $http, reportesFactory, $timeout, ngNotify){
 //function ReportesCtrl(reportesFactory) {
  
 	var vm = this;
     vm.filename = "Reporte_detalle_de_terminales";
     var reportHeaderPdf = "Reporte Detalle de Terminales";
     var idAux = 1;  	
+
 //----------------------------------------------
     this.$onInit = function() {
 
         getCliente();
         getBeam();
         getPlan(); 
-        getEstado();
+        getEstado();  
 
     }
 
-  vm.csvUnoHide = true; //Button no mostrar
-  vm.csvDosHide = true; //Button no mostrar
+
+    vm.csvUnoHide = true; //Button no mostrar
+    vm.csvDosHide = true; //Button no mostrar
+    vm.divExportar = true; // Div botones exportar no mostrar
+
 
 
 
@@ -55,12 +59,11 @@ angular.module('softvFrostApp')
 
 
 
-
-
     var arrayDetalle = [];
     vm.getReporteDetalleT = getReporteDetalleT; //
      function getReporteDetalleT() 
         {                   
+            vm.divExportar = false; //Mostrar
             var cliente = vm.cliente_input.IdCliente; //int 
             var beam =  vm.beam_input.IdBeam;   //int
             var plan = vm.plan_input.IdServicio;  //int
@@ -69,34 +72,67 @@ angular.module('softvFrostApp')
             var idSus = null; //int 
             var siteId = null;  //int
       
-            if (vm.san_input != null)
+            if (vm.san_input != null) //si tiene valor o es indefinido
             {
                 noSerie = vm.san_input;
+                if (vm.san_input == '' ) {
+                noSerie = null;
+                }
             }
+
             if (vm.idSuscriptor_input != null)
             {
                 idSus = vm.idSuscriptor_input; //int 
+                if (vm.idSuscriptor_input == '' ) {
+                idSus = null;
+                }
             }
+
             if (vm.siteId_input != null)
             {
                 siteId = vm.siteId_input;
+                if (vm.siteId_input == '' ) {
+                    siteId = null;
+                }
             }
-
+           
             // noSerie, int? idSuscriptor, int? siteId
 
-            reportesFactory.mostrarReporteDetTerminales( idAux, cliente, beam, plan, estado, noSerie, idSus, siteId ).then(function(data) {
+            console.log('no seire' + noSerie);
 
-                    console.log(data);
+            reportesFactory.mostrarReporteDetTerminales( idAux, cliente, beam, plan, estado, noSerie, idSus, siteId ).then(function(data) {
                     arrayDetalle = data.GetReporte_DetalleTerminalListResult;
                     vm.itemsByPage = 5; 
                     vm.rowCollection4 = arrayDetalle;  
-                    
-                    console.log(vm.rowCollection4);
+                 
+
+                    // REVISAR
+                for (var i = 0; i < vm.rowCollection4.length; i++) //todos los distribuidores de la tabla
+                { 
+                    if (vm.rowCollection4[i].Estado == 'Activa')
+                    {
+                        console.log(i +'.- activado');
+                        vm.icono = 'on ';
+                        console.log(vm.icono);
+                    }
+
+
+                } 
 
             });
         }
 
+    vm.limpiarFiltros = limpiarFiltros;
+    function limpiarFiltros(){
 
+        console.log(' search '+vm.search1);
+        vm.san_input = null;
+        vm.idSuscriptor_input = null;
+        vm.siteId_input = null;
+       // vm.search1 = undefined; 
+       // vm.searchIp = undefined;// los filtros se limpian, pero no vuelve a mostrar los datos, así que se llama a la función inicial
+
+    }
 
 
 //------------------------------
@@ -107,6 +143,7 @@ angular.module('softvFrostApp')
     // CREAR CSV VISIBLE DATA -- filters
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
     function crearVisibleAsCsv() {
+
         $timeout(function() {
 
         // Elimina las propiedades que no se usan
@@ -159,11 +196,11 @@ angular.module('softvFrostApp')
          // Posición 0 del arrayReporte (ENCABEZADOS)
         vm.arrayReporte =     [{
             "SAN": "Site Id",
-            "Estado": "Estado",
+            "Estado": "Estado", // STATUS
             "Cliente": "Cliente",
             "Beam": "Beam",
             "PlanServ": "Plan de Servicio",
-            "ESN": "Número de Serie",
+            "ESN": "No. de Serie",
             "IdSuscriptor": "Id Suscriptor",
             "EstadoFap": "Estado FAP",   
             "Ipv4": "IPV4",
@@ -181,9 +218,9 @@ angular.module('softvFrostApp')
 // Create TABLE PDF -- All / Visible 
 vm.createPdfTodo = createPdfTodo;
 function createPdfTodo(pdfAcrear){
-    console.log('pdfAcrear '+pdfAcrear);
+  
 
-    var rows = [ [0,0,0,0,0,0,0,0,0,0,0,0] ]; // no. column
+    var rows = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ]; // no. column
     // rows 0
     var r = 1; //start from rows 1
     var c = 0; //start from col 5
@@ -195,8 +232,8 @@ function createPdfTodo(pdfAcrear){
         { ro = vm.displayedCollection4.length; }
 
 
-    var cols = 12; // column number
-    var columns = ["Site Id", "Estado", "Cliente", "Beam", "Plan de Servicio", "Número de Serie", "Id Suscriptor", "Estado FAP", "IPV4", "IPV6", 
+    var cols = 16; // column number
+    var columns = ["Site Id", "Estado", "Cliente", "Beam", "Plan de Servicio", "No. de Serie", "Id Suscriptor", "Estado FAP", "IPV4", "IPV6", 
                     "Assoc Time", "Latitud", "Longitud", "Avail Tokens", "TXBytes", "RXBytes"];
 
     // expand to have the correct amount or rows
@@ -253,7 +290,7 @@ function createPdfTodo(pdfAcrear){
     format: 'A4'
     });
 
-    //Page number 
+     //Page number 
     var totalPagesExp = "{total_pages_count_string}";
     var pageContent = function (data) {    
             // FOOTER
@@ -262,26 +299,61 @@ function createPdfTodo(pdfAcrear){
             if (typeof doc.putTotalPages === 'function') {
                 str = str + " of " + totalPagesExp;
             }
-            doc.setFontSize(10);
-            doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+            doc.setFontSize(9);
+            //x , y 
+            doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 10, str); 
+          //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
         };
+ 
+    // Añadir logo StarGo
+    var img = reportesFactory.obtenerImagen();
+    doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
 
-    doc.setFontSize(16);    
-    doc.text(8, 15, reportHeaderPdf);
-    doc.setPage(1);
+
+    // Encabezado reporte CENTRADO
+    doc.setFontSize(14); 
+    doc.setFontType("bold");
+    var fontSize = doc.internal.getFontSize(); // Get current font size
+    var pageWidth = doc.internal.pageSize.width; // Get page width
+    var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
+    var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
+    doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
+
+    // Fecha de hoy
+    var laFechaHoy = reportesFactory.obtenerFechaHoy();
+    doc.setFontSize(11);   
+    doc.setFontType("normal");
+    doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   //  Posición  text at x,y
+    
+    doc.setPage(1); // importante
+
+
+   // doc.setLineWidth(0.5);  doc.line(20, 25, 60, 25); //x1 y1, x2 y2
+
+    // Custom table 
+    jsPDF.autoTableSetDefaults({
+        headerStyles: 
+        {   
+            fontSize: 7.3,       
+        },
+        bodyStyles: {        
+            fontSize: 6.5 
+        }
+    });
+
     doc.autoTable( columns, rows, {
-       // startY:160, //draw table here
-        fontSize: 6.5,    //    setFontSize: 8,     
-        overflow: 'linebreak', // visible, hidden, ellipsize or linebreak   
+        startY:27, //draw table here     
+        theme: 'plain',//'grid', //
+     //   headerStyles:{lineWidth: 1, lineColor: [0, 0, 0]},
+     //   bodyStyles: {lineColor: [0, 0, 0]},
         styles:{
-            //columnWidth: 'wrap' // 'auto', 'wrap' or a number       
-            //   fillColor: [100, 255, 255]
+            overflow: 'linebreak', // visible, hidden, ellipsize or linebreak  
         },
         columnStyles: { 
               1: {columnWidth: 12} //width 
             ,17: {columnWidth: 14} //width 
         },
-         margin: {top: 25, right: 5, bottom: 20, left: 5},
+         margin: {top: 16, right: 5, bottom: 16, left: 5},
          addPageContent: pageContent //page number
     });
        // Total page number plugin only available in jspdf v1.0+
@@ -292,12 +364,7 @@ function createPdfTodo(pdfAcrear){
     doc.save(vm.filename+'.pdf');    
   }
 
-
-
         //-------------------------------------------
-
-
-
 
 
 
