@@ -272,6 +272,75 @@ function createPdfTodo(pdfAcrear){
     // Añadir logo StarGo
     var img = reportesFactory.obtenerImagen();
     doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+  /*  var img = new Image();
+    img.src = '../images/StarGo_reduced.jpeg';
+    console.log(img.src);
+
+   // var imgData = 'data:image/jpeg;base64,'+ Base64.encode('../images/StarGo_reduced.jpeg');
+    var imgData = 'data:image/jpeg;base64,'+ Base64.encode(img.src);
+    console.log(imgData);
+    doc.setFontSize(40);
+    doc.text(30, 20, 'Hello world!');
+    doc.addImage(imgData, 'JPEG', 15, 40, 180, 160);
+*/
+   /*
+   // var imgData = 'data:image/jpeg;  base64,' + btoa('../images/StarGo_reduced.jpeg');
+    var canvas = document.createElement("canvas");
+    var imgData = canvas.toDataURL("image/jpeg");
+   // imgData = imgData.toDataURL("img/jpeg", 1.0);
+    console.log(imgData);
+    doc.addImage(imgData, 'JPEG', 5, 5, 40, 15); 
+    */
+
+   
+/* var img = new Image();
+        var canvas = document.createElement("canvas"),
+        var ctx = canvas.getContext("2d");
+
+
+
+    img.src = '../images/StarGo_reduced.jpeg';
+    console.log(img.src);
+    console.log(img);
+    doc.addImage(img, 'jpeg', 5, 5, 40, 15);
+*/
+
+/*
+   var imgData = 'data:image/jpeg;base64,'+ Base64.encode('../images/StarGo_reduced.jpeg');
+    console.log(imgData);
+    doc.setFontSize(40);
+    doc.text(30, 20, 'Hello world!');
+    doc.addImage(imgData, 'JPEG', 15, 40, 180, 160);
+*/
+
+/*
+function getBase64Image(img) {
+  var canvas = document.createElement("canvas");
+  var ctx = canvas.getContext("2d");
+
+  var dataURL = canvas.toDataURL("image/png");
+  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+var  img = '../images/StarGo_reduced.jpeg';
+var base64 = getBase64Image(img);
+console.log(base64);
+
+var asd = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAEYklEQVR4Xu3UAQkAAAwCwdm/9HI83BLIOdw5AgQIRAQWySkmAQIEzmB5AgIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlACBB1YxAJfjJb2jAAAAAElFTkSuQmCC"
+
+console.log(asd);
+doc.addImage(asd, 'JPEG', 15, 40, 180, 160);
+*/
+
+
+
+//
+/*
+   var img = new Image();
+   img.src = '../images/StarGo_reduced.jpeg';
+   doc.addImage(img, 'JPEG', 15, 40, 180, 180, 'monkey');
+*/
+
+
 
 
     // Encabezado reporte CENTRADO
