@@ -1,12 +1,14 @@
 'use strict';
 angular.module('softvFrostApp')
 //.controller('ReportesCtrl', ['$http','uiGridConstants', 'reportesFactory', function ( $http, uiGridConstants, reportesFactory)
-.controller('Reportes_PlantaCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify', function ( $http, reportesFactory, $timeout,ngNotify){
+.controller('Reportes_PlantaCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify','$state', function ( $http, reportesFactory, $timeout,ngNotify, $state){
 //function ReportesCtrl(reportesFactory) {
  
 	var vm = this;	
     vm.filename = "Reporte_de_terminales";
     var reportHeaderPdf = "Reporte de Terminales";
+    vm.csvUnoHide = true; //Button no mostrar
+    vm.csvDosHide = true; //Button no mostrar
 //----------------------------------------------
 
 
@@ -38,10 +40,16 @@ angular.module('softvFrostApp')
              */
     }
 
-
+    function reloadRoute() {
+        $state.reload(); // refresh page
+    };
                
+    vm.limpiarFiltros = limpiarFiltros;
+    function limpiarFiltros(){
+        reloadRoute();
+    }
+             
         // ---------------------------------------FIN DE EJEMPLO LLENAR CSV
-
 
         var arrayPlanta = [];   
         vm.ReportePlanta = ReportePlanta;
@@ -122,7 +130,7 @@ function crearVisibleAsCsv() {
             "TokenDisp": "Token Disp (Gb)"
                 }];
     } 
-var BOM = "\uFEFF"; 
+
 
 // CREAR CSV ALL DATA 
 vm.crearTodoAsCsv = crearTodoAsCsv;
@@ -149,8 +157,7 @@ function crearTodoAsCsv() {
 };
 
 
-  vm.csvUnoHide = true; //Button no mostrar
-  vm.csvDosHide = true; //Button no mostrar
+
 
 
 
@@ -322,20 +329,6 @@ function createPdfTodo(pdfAcrear){
   }
 
         //-------------------------------------------
-
-
-
-
-// doc.autoTable(columns, records, { renderHeader: header, renderCell: cell, renderFooter: footer, lineHeight: 12, fontSize: 8, overflow: 'linebreak' });
-//--------------------------------------------------------
-
-
-
-
-
-
-
-
 
 
 

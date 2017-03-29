@@ -1,13 +1,16 @@
 'use strict';
 angular.module('softvFrostApp')
 //.controller('ReportesCtrl', ['$http','uiGridConstants', 'reportesFactory', function ( $http, uiGridConstants, reportesFactory)
-.controller('Reportes_DetalleCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify', function ( $http, reportesFactory, $timeout, ngNotify){
+.controller('Reportes_DetalleCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify','$state', function ( $http, reportesFactory, $timeout, ngNotify, $state){
 //function ReportesCtrl(reportesFactory) {
  
 	var vm = this;
     vm.filename = "Reporte_detalle_de_terminales";
     var reportHeaderPdf = "Reporte Detalle de Terminales";
     var idAux = 1;  	
+    vm.csvUnoHide = true; //Button no mostrar
+    vm.csvDosHide = true; //Button no mostrar
+    vm.divExportar = true; // Div botones exportar no mostrar
 
 //----------------------------------------------
     this.$onInit = function() {
@@ -19,12 +22,9 @@ angular.module('softvFrostApp')
 
     }
 
-
-    vm.csvUnoHide = true; //Button no mostrar
-    vm.csvDosHide = true; //Button no mostrar
-    vm.divExportar = true; // Div botones exportar no mostrar
-
-
+    function reloadRoute() {
+        $state.reload(); // refresh page
+    };
 
 
     function getCliente() {
@@ -98,37 +98,26 @@ angular.module('softvFrostApp')
            
             // noSerie, int? idSuscriptor, int? siteId
 
-            console.log('no seire' + noSerie);
-
             reportesFactory.mostrarReporteDetTerminales( idAux, cliente, beam, plan, estado, noSerie, idSus, siteId ).then(function(data) {
                     arrayDetalle = data.GetReporte_DetalleTerminalListResult;
                     vm.itemsByPage = 5; 
                     vm.rowCollection4 = arrayDetalle;  
                  
-
-                    // REVISAR
-                for (var i = 0; i < vm.rowCollection4.length; i++) //todos los distribuidores de la tabla
-                { 
-                    if (vm.rowCollection4[i].Estado == 'Activa')
-                    {
-                        console.log(i +'.- activado');
-                        vm.icono = 'on ';
-                        console.log(vm.icono);
-                    }
-
-
-                } 
-
             });
         }
 
     vm.limpiarFiltros = limpiarFiltros;
     function limpiarFiltros(){
 
-        console.log(' search '+vm.search1);
+        //console.log(' search '+vm.search1);
         vm.san_input = null;
         vm.idSuscriptor_input = null;
         vm.siteId_input = null;
+        vm.cliente_input = vm.listaCliente[0]; 
+        vm.beam_input = vm.listaBeam[0];
+        vm.plan_input = vm.listaPlan[0];
+        vm.estado_input = vm.listaEstado[0];
+        reloadRoute();
        // vm.search1 = undefined; 
        // vm.searchIp = undefined;// los filtros se limpian, pero no vuelve a mostrar los datos, así que se llama a la función inicial
 
@@ -138,7 +127,7 @@ angular.module('softvFrostApp')
 //------------------------------
 
     //CSV -- nombre de las columnas (propiedades del arreglo)
-    vm.order = [ 'SAN', 'Estado', 'Cliente', 'Beam', 'PlanServ', 'ESN', 'IdSuscriptor', 'EstadoFap', 'Ipv4', 'Ipv6', 'Latitud','Longitud', 'AvailTokens','TxBytes','RxBytes'];
+    vm.order = [ 'SAN', 'Estado', 'Cliente', 'Beam', 'PlanServ', 'ESN', 'IdSuscriptor', 'EstadoFap', 'Ipv4', 'Ipv6', 'AssocTime', 'Latitud','Longitud', 'AvailTokens','TxBytes','RxBytes'];
 
     // CREAR CSV VISIBLE DATA -- filters
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -200,7 +189,7 @@ angular.module('softvFrostApp')
             "Cliente": "Cliente",
             "Beam": "Beam",
             "PlanServ": "Plan de Servicio",
-            "ESN": "No. de Serie",
+            "ESN": "Número de Serie",
             "IdSuscriptor": "Id Suscriptor",
             "EstadoFap": "Estado FAP",   
             "Ipv4": "IPV4",
@@ -233,7 +222,7 @@ function createPdfTodo(pdfAcrear){
 
 
     var cols = 16; // column number
-    var columns = ["Site Id", "Estado", "Cliente", "Beam", "Plan de Servicio", "No. de Serie", "Id Suscriptor", "Estado FAP", "IPV4", "IPV6", 
+    var columns = ["Site Id", "Estado", "Cliente", "Beam", "Plan de Servicio", "Número de Serie", "Id Suscriptor", "Estado FAP", "IPV4", "IPV6", 
                     "Assoc Time", "Latitud", "Longitud", "Avail Tokens", "TXBytes", "RXBytes"];
 
     // expand to have the correct amount or rows
