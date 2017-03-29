@@ -104,12 +104,12 @@ angular
 						terminalFactory.getEstadoById(suscriptor.IdEstado).then(function(data) {
 							obj.estado=data.GetEstadoResult.Codigo;
 							obj.codigoPostal=suscriptor.CP;
-							obj.latitud=vm.Latitud;
-							obj.longitud=vm.Longuitud;
+							obj.latitud=vm.Terminal.Latitud;
+							obj.longitud=vm.Terminal.Longitud;
 							obj.telefono=suscriptor.Telefono;
 							obj.email=suscriptor.Email;
-							obj.servicio=vm.Servicio;
-							alert(JSON.stringify(obj));
+							obj.servicio=vm.Terminal.Servicio;
+							console.log(obj);
 							terminalFactory.hughesCrearTerminal(obj).then(function(hughesData){
 								console.log(obj);
 								console.log(hughesData);
@@ -120,7 +120,8 @@ angular
 								Obj2.objMovimiento.IdUsuario=0;
 								Obj2.objMovimiento.IdTicket=0;
 								Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
-								Obj2.objMovimiento.Fecha=hughesData.StandardResponse.MessageHeader.TransactionDateTime;
+								vm.fechaAuxiliar = new Date();
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 								Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 								Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 								Obj2.objMovimiento.Detalle1='';
@@ -128,10 +129,25 @@ angular
 								if (hughesData.StandardResponse.Code!='5') {
 									ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
 								} else {
-									terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
-										ngNotify.set('La terminal se ha guardado correctamente', 'success');
+									//Actualiza el estatus en la base en caso de que haya sido exitoso
+									var Obj3=new Object();
+									Obj3.objTerminal=new Object();
+									Obj3.objTerminal.SAN=vm.Terminal.SAN;
+									Obj3.objTerminal.IdSuscriptor=vm.Terminal.IdSuscriptor;
+									Obj3.objTerminal.IdServicio=vm.Terminal.IdServicio;
+									Obj3.objTerminal.Latitud=vm.Terminal.Latitud;
+									Obj3.objTerminal.Longitud=vm.Terminal.Longitud;
+									Obj3.objTerminal.Estatus='Pendiente';
+									Obj3.objTerminal.FechaAlta=vm.Terminal.FechaAlta;
+									Obj3.objTerminal.FechaSuspension=vm.Terminal.FechaSuspension;
+									Obj3.objTerminal.ESN=vm.Terminal.ESN;
+									Obj3.objTerminal.Comentarios=vm.Terminal.Comentarios;
+									console.log(Obj3);
+									terminalFactory.updateTerminal(Obj3).then(function(data) {
+										ngNotify.set('La terminal se ha cancelado correctamente', 'success');
 									});
 								}
+								console.log(Obj2);
 								terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
 
 								});
@@ -158,7 +174,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=0;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1='';
@@ -177,7 +193,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1='';
@@ -223,7 +239,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=0;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1='';
@@ -242,7 +258,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1='';
@@ -289,7 +305,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=0;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1='';
@@ -308,7 +324,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1='';
@@ -351,7 +367,7 @@ angular
 					Obj2.objMovimiento.IdTicket=0;
 					Obj2.objMovimiento.OrderId=0;
 					vm.fechaAuxiliar = new Date();
-					Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+		      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 					Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
 					Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 					Obj2.objMovimiento.Detalle1='';
@@ -389,7 +405,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1=vm.Terminal.Servicio;
@@ -408,7 +424,7 @@ angular
 					     	Obj2.objMovimiento.IdTicket=0;
 					     	Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
 								vm.fechaAuxiliar = new Date();
-			      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+					      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 			      		Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
 				     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 			      		Obj2.objMovimiento.Detalle1=vm.Terminal.Servicio;
@@ -456,7 +472,7 @@ angular
 			     	Obj2.objMovimiento.IdTicket=0;
 			     	Obj2.objMovimiento.OrderId=0;
 						vm.fechaAuxiliar = new Date();
-	      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'yyyy/MM/dd HH:mm:ss');
+			      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
 	      		Obj2.objMovimiento.Mensaje=hughesData.envEnvelope.envBody.cmcActivationResponseMsg.MessageText;
 		     		Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
 	      		Obj2.objMovimiento.Detalle1='';
