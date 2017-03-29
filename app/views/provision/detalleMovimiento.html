@@ -16,7 +16,9 @@
 <div class="modal-body" style="padding-top:20px;">
   <div class="row">
     <div class="col-md-12">
-      <p><b>Comando: </b>{{ ctrl.movimiento.Comando }}</p>
+      <p ng-if="ctrl.movimiento.IdComando != 5 && ctrl.movimiento.IdComando != 6"><b>Comando: </b>{{ ctrl.movimiento.Comando }}</p>
+      <p ng-if="ctrl.movimiento.IdComando == 5"><b>Comando: </b>{{ ctrl.movimiento.Comando }} - {{ ctrl.movimiento.Detalle1 }}</p>
+      <p ng-if="ctrl.movimiento.IdComando == 6"><b>Comando: </b>{{ ctrl.movimiento.Comando }}  {{ ctrl.movimiento.Detalle1 }} - {{ ctrl.movimiento.Detalle2 }}</p>
       <p><b>Fecha: </b>{{ ctrl.movimiento.Fecha }}</p>
       <p><b>Origen: </b>{{ ctrl.movimiento.Origen }}</p>
       <p><b>Mensaje: </b>{{ ctrl.movimiento.Mensaje }}</p>
