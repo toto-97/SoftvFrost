@@ -1,20 +1,53 @@
-
-
 <style type="text/css">
 .myGrid {
     width: 500px;
     height: 250px;
   }
 
-th{font-size: 9pt;}
-td {font-size: 8.9pt;}
 
+  th{font-size: 9.8pt;}
+  td {font-size: 9.8pt;}
+
+  td.media{font-size: 9pt;}
+  th.mediaTh{font-size: 9.4pt;}
+
+  .btn-csv {
+    background-color: #fff;
+    border-color: #008b45;
+    font-size: 11.5px;
+    color:#008b45; /*font-size: 13px;*/
+  }
+
+  .btn-pdf {
+    background-color: #fff;
+    border-color: #8B0000;
+    font-size: 11.5px;
+    color:#8B0000;
+
+  }
+
+.btn-csv:hover
+{
+    background-color: #008b45;
+    border-color: #fff;
+    font-size: 11.5px;
+    color:#fff;
+}
+
+.btn-pdf:hover
+{
+    background-color: #8B0000;
+    border-color: #fff;
+    font-size: 11.5px;
+    color:#fff;
+
+}
 
 </style>
 
 
 
-<div class="card" style="margin-top:20px;">
+<div class="card" style="margin-top:20px;padding-bottom: 30px">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
       <strong style="font-weight:bold; border:none; margin-left:10px;">Reportes</strong>
@@ -31,9 +64,9 @@ td {font-size: 8.9pt;}
                 <div class="panel-group" id="suscriptor">
                                          
                       <div class="row">
-
-                  
-
+                          <div class="col-md-5">
+                            <a class="btn btn-info btn-sm" ng-click="$ctrl.limpiarFiltros();" data-toggle="tooltip" data-placement="top" title="" data-original-title="Limpiar filtros"> <i class="fa fa-eraser"></i> Limpiar </a>
+                          </div>
 
                       </div>
                        <!--end .panel -->
@@ -42,16 +75,18 @@ td {font-size: 8.9pt;}
           </div>
 
 
-          <div class="panel form-element-padding" style="margin-top:-20px; ">
+          <div class="panel form-element-padding" style="margin-top:-20px;">
 
-                <table st-table="$ctrl.displayedCollection4" st-safe-src="$ctrl.rowCollection4" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection" >
-                  <thead>
-                  <tr>
-                    <Th rowspan = 2 st-sort="SAN" > Site Id</TH>
-                    <th rowspan = 2 st-sort="IdSuscriptor">Cod Suscriptor </th>
+              <table st-table="$ctrl.displayedCollection4" st-safe-src="$ctrl.rowCollection4" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
+                <thead>
+        
+
+                <tr>
+                    <th rowspan = 2 st-sort="SAN" > Site <br/> Id</Tt>
+                    <th rowspan = 2 st-sort="IdSuscriptor" class="mediaTh">Cod Suscriptor </th>
                     <th rowspan = 2 st-sort="Cliente">Cliente</i></th>
                     <th rowspan = 2 st-sort="Suscriptor">Suscriptor</th>
-                    <th rowspan = 2 st-sort="PlanDeServicio">Plan de Servicio</th>
+                    <th rowspan = 2 st-sort="PlanDeServicio" class="mediaTh">Plan de Servicio</th>
                     <th rowspan = 2 st-sort="Hub">Hub</th>
                     <th rowspan = 2 st-sort="Beam">Beam</th>
                     <th rowspan = 2 st-sort="Pais">País</th>
@@ -60,23 +95,23 @@ td {font-size: 8.9pt;}
                     <th rowspan = 2 st-sort="EstTecnico">Est. Técnico</th>
                     <th rowspan = 2 st-sort="Latitud">Latitud</th>
                     <th rowspan = 2 st-sort="Longitud">Longitud</th>
-                    <th colspan = 4 style=""> Fecha</th>  
+                    <th rowspan = 2 st-sort="FechaAlta" class="mediaTh"> Fecha Alta</th>
+                    <th rowspan = 2 st-sort="FechaActivacion" class="mediaTh">Fecha Activación</th>
+                    <th rowspan = 2 st-sort="FechaSuspension" class="mediaTh"> Fecha Suspensión</th>
+                    <th rowspan = 2 st-sort="FechaCancelacion" class="mediaTh"> Fecha Cancelación</th>   
                     <th rowspan = 2 st-sort="consumoAnytime">Consumo Anytime (Gb)</th>
                     <th rowspan = 2 st-sort="consumoBonus">Consumo Bonus (Gb)</th>
                     <th rowspan = 2 st-sort="TokenDisp">Token Disp (Gb)</th>
                   </tr>
                   <tr>                    
-                    <th st-sort="FechaAlta"> Alta</th>
-                    <th st-sort="FechaActivacion">Activación</th>
-                    <th st-sort="FechaSuspension"> Suspensión</th>
-                    <th st-sort="FechaCancelacion">Cancelación</th>
-                
+                   
                   </tr>
-                  <!--<tr>
-                    <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
-                  </tr> -->    
-                  <tr>
-                    <th>
+                </tr>
+                <!--<tr>
+                  <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
+                </tr> -->    
+                <tr>  
+                  <th>
                       <input st-search="SAN" placeholder="Site Id" class="input-sm form-control" type="search" />
                     </th>  
                     <th>
@@ -115,53 +150,47 @@ td {font-size: 8.9pt;}
                     <th>
                       <input st-search="Longitud" placeholder="Longitud" class="input-sm form-control" type="search" />
                     </th>
-
-                    <th colspan="4">
-                      <input id='fecha' st-search placeholder="Fecha" class="input-sm form-control" type="search"/>
-                    </th>
-                    <!--
-                    <th>
-                      <input st-search="FechaAlta" placeholder="FechaAlta" class="input-sm form-control" type="search" ng-model="$ctrl.search"/>
+                    <th >
+                      <input st-search="FechaAlta" placeholder="Fecha Alta" class="input-sm form-control" type="search" />
                     </th>  
                     <th>
-                      <input st-search="FechaActivacion" placeholder="FechaActivacion" class="input-sm form-control" type="search" ng-model="$ctrl.search"/>
+                      <input st-search="FechaActivacion" placeholder="Fecha Activacion" class="input-sm form-control" type="search" />
                   
                     <th>
-                      <input st-search="FechaSuspension" placeholder="FechaSuspension" class="input-sm form-control" type="search" ng-model="$ctrl.search"/>
+                      <input st-search="FechaSuspension" placeholder="Fecha Suspension" class="input-sm form-control" type="search" />
                     </th>    
                     <th>
-                      <input st-search="FechaCancelacion" placeholder="FechaCancelacion" class="input-sm form-control" type="search" ng-model="$ctrl.search"/>
-                    </th>  --> 
-                    <th>
-                      <input st-search="consumoAnytime" placeholder="consumoAnytime" class="input-sm form-control" type="search" ng-model="$ctrl.search"/>
+                      <input st-search="FechaCancelacion" placeholder="Fecha Cancelacion" class="input-sm form-control" type="search" />
                     </th>
                     <th>
-                      <input st-search="consumoBonus" placeholder="consumoBonus" class="input-sm form-control" type="search" ng-model="$ctrl.search"/>
+                      <input st-search="consumoAnytime" placeholder="Consumo Anytime" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                      <input st-search="consumoBonus" placeholder="Consumo Bonus" class="input-sm form-control" type="search" />
                     </th> 
                         <th>
-                      <input st-search="TokenDisp" placeholder="TokenDisp" class="input-sm form-control" type="search" ng-model="$ctrl.search"/>
+                      <input st-search="TokenDisp" placeholder="Token Disp" class="input-sm form-control" type="search"/>
                     </th> 
-                   
-                       
-                
-                  </tr>
-                      </thead><!-- <td>{{row.SAN | uppercase}}</td> -->
-                     <tbody>
-                            <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5"> 
-                       
-                            <td >{{row.SAN}}</td>
-                            <td >{{row.IdSuscriptor}}</td>
+
+
+                </tr>
+
+                </thead><!-- <td>{{row.SAN | uppercase}}</td> -->
+                   <tbody>
+                          <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">            
+                            <td>{{row.SAN}}</td>
+                            <td>{{row.IdSuscriptor}}</td>
                             <td>{{row.Cliente}}</td>
                             <td>{{row.Suscriptor}}</td>
-                            <td>{{row.PlanDeServicio}}</td>
+                            <td class="media" >{{row.PlanDeServicio}}</td>
                             <td>{{row.Hub}}</td>
                             <td>{{row.Beam}}</td>
                             <td>{{row.Pais}}</td>
-                            <td>{{row.ESN}}</td>
+                            <td class="media" >{{row.ESN}}</td>
                             <td>{{row.Estatus}}</td>
                             <td>{{row.EstTecnico}}</td>
-                            <td>{{row.Latitud}}</td>
-                            <td>{{row.Longitud}}</td>
+                            <td class="media">{{row.Latitud}}</td>
+                            <td class="media">{{row.Longitud}}</td>
                             <td>{{row.FechaAlta}}</td>
                             <td>{{row.FechaActivacion}}</td>
                             <td>{{row.FechaSuspension}}</td>
@@ -169,36 +198,43 @@ td {font-size: 8.9pt;}
                             <td>{{row.ConsumoAnytime}}</td>
                             <td>{{row.ConsumoBonus}}</td>
                             <td>{{row.TokenDisp}}</td>
-                          </tr>             
-                    </tbody>
-                      <tfoot>
-                      <tr>
-                        <td colspan="18" class="text-left">
-                                <dir-pagination-controls  max-size="5"
-                                                        direction-links="true"
-                                                        boundary-links="true">
-                                </dir-pagination-controls>
-                        </td>
-                      </tr>
-                    </tfoot>
-                </table>
-
-            <div class="col-sm-8  col-sm-offset-2"  style="margin-bottom: 20px">
-                <button class="btn btn-default btn-sm" ng-click="$ctrl.crearVisibleAsCsv()"></i> Exportar datos visibles como CSV </a> </button>
-
-                <button class="btn btn-default btn-sm" ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv()"  >Exportar todo como CSV</button>
-
-                <button class="btn btn-default btn-sm" ng-click="$ctrl.createPdfTodo('todo')">Exportar todo como pdf</button>
-
-                <button class="btn btn-default btn-sm" ng-click="$ctrl.createPdfTodo('visible')">Exportar datos visibles como pdf</button>
+                          </tr>  
+                        </tr>             
+                  </tbody>
+                    <tfoot>
+                    <tr>
+                      <td colspan="18" class="text-left">
+                              <dir-pagination-controls  max-size="5"
+                                                      direction-links="true"
+                                                      boundary-links="true">
+                              </dir-pagination-controls>                   
+                      </td>
+                    </tr>
+                  </tfoot>
+              </table>
 
 
-                <button class="btn btn-default" id="csvUno" ng-hide="$ctrl.csvUnoHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."
+            <div class="col-md-8  col-md-offset-2"  style="margin-bottom: 20px" align="center">
+              <div class="col-sm-3"  >
+                <button class="btn btn-csv btn-sm " ng-click="$ctrl.crearVisibleAsCsv()"  style="white-space: normal"></i> Exportar datos visibles como CSV </a> </button>
+              </div>                
+              <div class="col-sm-3">
+                <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv()"  style="white-space: normal"> Exportar todo <br/> como CSV </button>
+              </div>   
+              <div class="col-sm-3">
+                  <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('visible')"  style="white-space: normal">Exportar datos visibles como pdf</button>
+              </div>         
+              <div class="col-sm-3">
+                <button class="btn btn-pdf btn-sm "" ng-click="$ctrl.createPdfTodo('todo')"  style="white-space: normal">Exportar todo <br/> como pdf </button>
+              </div>     
+            </div>
+
+
+                <button class="btn btn-default" id="csvUno" ng-hide="$ctrl.csvUnoHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."  add-bom="true"
                 > esconder botón visible data as csv</button> <!--csv-column-order="$ctrl.order"  -->                
 
-                <button class="btn btn-default" id="csvDos" ng-hide="$ctrl.csvDosHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."
+                <button class="btn btn-default" id="csvDos" ng-hide="$ctrl.csvDosHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."  add-bom="true"
                 > esconder botón visible data as csv</button> <!--csv-column-order="$ctrl.order"  -->  
-            </div>
 
 
           </div>

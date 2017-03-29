@@ -1,15 +1,21 @@
 'use strict';
 angular.module('softvFrostApp')
 //.controller('ReportesCtrl', ['$http','uiGridConstants', 'reportesFactory', function ( $http, uiGridConstants, reportesFactory)
-.controller('Reportes_TokenCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify', function ( $http, reportesFactory, $timeout, ngNotify){
+.controller('Reportes_TokenCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify', '$state', function ( $http, reportesFactory, $timeout, ngNotify, $state){
 //function ReportesCtrl(reportesFactory) {
  
+
+
+
+ //-------------------------
 	var vm = this;
     vm.filename = "Reporte_de_tokens";
     var reportHeaderPdf = "Reporte de Tokens";
     var fechaInicioYMD;
     var fechaFinYMD; 
-    var idAux = 1;  	
+    var idAux = 1;  
+    vm.csvUnoHide = true; //Button no mostrar
+    vm.csvDosHide = true; //Button no mostrar	
 
 //----------------------------------------------
     this.$onInit = function() {
@@ -18,15 +24,15 @@ angular.module('softvFrostApp')
 
     }
 
-  vm.csvUnoHide = true; //Button no mostrar
-  vm.csvDosHide = true; //Button no mostrar
-
+    function reloadRoute() {
+        $state.reload(); // refresh page
+    };
 
     vm.limpiarFiltros = limpiarFiltros;
     function limpiarFiltros(){
         vm.fechaInicio = null;
         vm.fechaFin = null;
-      //  vm.search = null;
+        reloadRoute();
     }
 
 
