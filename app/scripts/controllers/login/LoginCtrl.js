@@ -1,7 +1,7 @@
 'use strict';
 angular.module('softvFrostApp').controller('LoginCtrl', LoginCtrl);
 
-function LoginCtrl(authFactory, ngNotify, $state, $localStorage, $stateParams, $window) {
+function LoginCtrl(authFactory, ngNotify, $state, $localStorage, $stateParams, $window, $location) {
 	this.$onInit = function () {
 		if ($localStorage.currentUser) {
 			if ($stateParams.esn != undefined) {
@@ -9,7 +9,7 @@ function LoginCtrl(authFactory, ngNotify, $state, $localStorage, $stateParams, $
 					'esn': $stateParams.esn
 				});
 			} else {
-				$state.go('home');
+				$state.go('home.dashboard');
 			}
 		}
 	}

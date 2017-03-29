@@ -29,12 +29,9 @@ angular.module('softvFrostApp', [
 		'ui.mask'
 
 	])
-	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
-		//$urlRouterProvider.otherwise('/auth/login');
-		$urlRouterProvider.otherwise(function ($injector) {
-			var $state = $injector.get('$state');
-			console.log($state);
-		});
+	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider', function($provide, $urlRouterProvider, $httpProvider, $qProvider) {
+		$qProvider.errorOnUnhandledRejections(false);
+		$urlRouterProvider.otherwise('/auth/login');
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector) {
 			function notifyError(rejection) {
 				var notify = $injector.get('ngNotify');
@@ -67,7 +64,7 @@ angular.module('softvFrostApp', [
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 		if ($localStorage.currentUser) {
-			$location.path('/home');
+			//$location.path('/auth/login');
 			var permissions = permissionsFactory.on();
 			PermPermissionStore.definePermission('anonymous', function() {
 				return false;
