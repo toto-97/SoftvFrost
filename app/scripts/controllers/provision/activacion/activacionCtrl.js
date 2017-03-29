@@ -28,7 +28,6 @@ function activacionCtrl(terminalFactory, $uibModal, $state, $stateParams, ngNoti
       Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
       Obj2.objMovimiento.Detalle1='';
       Obj2.objMovimiento.Detalle2='';
-			console.log(Obj2);
       terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
       });
       //Vamos a procesar dependiendo del status obtenido de hughes
@@ -47,7 +46,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, $stateParams, ngNoti
         Obj3.objTerminal.Estatus='Activa';
         Obj3.objTerminal.FechaAlta=vm.Terminal.FechaAlta;
         Obj3.objTerminal.FechaSuspension=vm.Terminal.FechaSuspension;
-        Obj3.objTerminal.ESN=vm.Terminal.ESN;
+        Obj3.objTerminal.ESN=vm.ESN;
         Obj3.objTerminal.Comentarios=vm.Terminal.Comentarios;
         console.log(Obj3);
         terminalFactory.updateTerminal(Obj3).then(function(data) {
