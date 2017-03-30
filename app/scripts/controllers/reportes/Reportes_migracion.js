@@ -14,6 +14,7 @@ angular.module('softvFrostApp')
     vm.csvUnoHide = true; //Button no mostrar
     vm.csvDosHide = true; //Button no mostrar	
     var img = new Image();
+    img.crossOrigin = "";  
 
 //----------------------------------------------
     this.$onInit = function() {
@@ -36,12 +37,12 @@ angular.module('softvFrostApp')
         reloadRoute();
     }
 
-
     function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
-    {        
-        var url = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
+    {             
+        //var url = vm.src; 
+        var url = document.getElementById("pdflogoimage").src;  
         var data, canvas, ctx;
-                   
+
         img.onload = function()
         {
             // Create the canvas element.
@@ -52,11 +53,11 @@ angular.module('softvFrostApp')
             ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0);
             // Get canvas data URL
-            data = canvas.toDataURL();                
+            data = canvas.toDataURL();   
+            console.log(data);
         }
             // Load image URL.    
         img.src = url;  
-            //console.log(img.src);
     }
 
 
