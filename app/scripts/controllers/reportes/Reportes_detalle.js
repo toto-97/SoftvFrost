@@ -124,7 +124,7 @@ angular.module('softvFrostApp')
        // vm.searchIp = undefined;// los filtros se limpian, pero no vuelve a mostrar los datos, así que se llama a la función inicial
 
     }
-
+    
     function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
     {             
         //var url = vm.src; 

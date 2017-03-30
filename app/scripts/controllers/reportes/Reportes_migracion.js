@@ -37,7 +37,6 @@ angular.module('softvFrostApp')
         reloadRoute();
     }
 
-
     function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
     {             
         //var url = vm.src; 
