@@ -12,6 +12,7 @@ angular.module('softvFrostApp')
     vm.csvDosHide = true; //Button no mostrar
     vm.divExportar = true; // Div botones exportar no mostrar
     var img = new Image();
+    img.crossOrigin = "";  
 //----------------------------------------------
     this.$onInit = function() {
 

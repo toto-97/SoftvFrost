@@ -10,6 +10,7 @@ angular.module('softvFrostApp')
     vm.csvUnoHide = true; //Button no mostrar
     vm.csvDosHide = true; //Button no mostrar
     var img = new Image();
+    img.crossOrigin = "";  
 //----------------------------------------------
 
     this.$onInit = function() {
@@ -57,7 +58,8 @@ angular.module('softvFrostApp')
             ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0);
             // Get canvas data URL
-            data = canvas.toDataURL();                
+            data = canvas.toDataURL();    
+              console.log(data);            
         }
             // Load image URL.    
         img.src = url;  
