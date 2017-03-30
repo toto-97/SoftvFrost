@@ -10,7 +10,7 @@ angular.module('softvFrostApp')
 
 		factory.getLoginUid = function() {
 			var deferred = $q.defer();
-			$http.get(globalService.getUrl() + paths.getToken).then(function(response) {
+			$http.get('http://192.168.50.20:5000' + paths.getToken).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
@@ -27,7 +27,7 @@ angular.module('softvFrostApp')
 				'command': 'SDT',
 				'operator_id': 'televera'
 			};
-			$http.post(globalService.getUrl() + paths.getCommand, JSON.stringify(Parametros)).then(function(response) {
+			$http.post('http://192.168.50.20:5000' + paths.getCommand, JSON.stringify(Parametros)).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
@@ -45,7 +45,7 @@ angular.module('softvFrostApp')
 				'param1': sanData.param1,
 				'param2': sanData.param2
 			};
-			$http.post(globalService.getUrl() + paths.setCommand, JSON.stringify(Parametros)).then(function(response) {
+			$http.post('http://192.168.50.20:5000' + paths.setCommand, JSON.stringify(Parametros)).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);

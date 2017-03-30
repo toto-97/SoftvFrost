@@ -1,3 +1,4 @@
+
 'use strict';
 angular.module('softvFrostApp')
 //.controller('ReportesCtrl', ['$http','uiGridConstants', 'reportesFactory', function ( $http, uiGridConstants, reportesFactory)
@@ -234,6 +235,23 @@ function createPdfTodo(pdfAcrear){
     // Añadir logo StarGo
     var img = reportesFactory.obtenerImagen();
     doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+
+    var img = new Image(),
+        canvas = document.createElement("canvas"),
+        ctx = canvas.getContext("2d");
+
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0 );
+        var imgData = canvas.toDataURL('image/jpeg');
+        var doc = new jsPDF();
+        doc.setFontSize(12);
+        doc.addImage(imgData, 'JPEG', 15, 40, 180, 180);
+    }
+
+    img.src = '../images/StarGo_reduced.jpeg';
+    console.log(img.src);
+    doc.addImage(img, 'jpeg', 5, 5, 40, 15);
+
 
 
     // Encabezado reporte CENTRADO
