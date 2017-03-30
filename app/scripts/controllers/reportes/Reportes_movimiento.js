@@ -12,9 +12,11 @@ angular.module('softvFrostApp')
     var idAux = 1;  
     vm.csvUnoHide = true; //Button no mostrar
     vm.csvDosHide = true; //Button no mostrar
+    var img = new Image();
 //----------------------------------------------
     this.$onInit = function() {
 
+        getImageDataURL();
         getReporteMovimientos(); //No se ha seleccionado una fecha, se muestran todos los datos   
 
     }
@@ -31,6 +33,27 @@ angular.module('softvFrostApp')
         reloadRoute();
     }
 
+    function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
+    {        
+        var url = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
+        var data, canvas, ctx;
+                   
+        img.onload = function()
+        {
+            // Create the canvas element.
+            canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Get '2d' context and draw the image.
+            ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            // Get canvas data URL
+            data = canvas.toDataURL();                
+        }
+            // Load image URL.    
+        img.src = url;  
+            //console.log(img.src);
+    }
 
     var arrayMovi = [];   
     vm.getReporteMovimientos = getReporteMovimientos;
@@ -235,9 +258,12 @@ function createPdfTodo(pdfAcrear){
           //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
         };
  
+
     // Añadir logo StarGo
-    var img = reportesFactory.obtenerImagen();
-    doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+    //   var img = reportesFactory.obtenerImagen();
+    //  console.log( 'img'+img);
+    //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+    doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
 
     var img = new Image(),
         canvas = document.createElement("canvas"),
