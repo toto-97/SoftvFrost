@@ -38,26 +38,27 @@ angular.module('softvFrostApp')
     }
 
     function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
-        {        
-            var url = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
-            var data, canvas, ctx;
-                       
-            img.onload = function()
-            {
-                // Create the canvas element.
-                canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
-                // Get '2d' context and draw the image.
-                ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0);
-                // Get canvas data URL
-                data = canvas.toDataURL();                
-            }
-                // Load image URL.    
-            img.src = url;  
-                //console.log(img.src);
+    {             
+        //var url = vm.src; 
+        var url = document.getElementById("pdflogoimage").src;  
+        var data, canvas, ctx;
+
+        img.onload = function()
+        {
+            // Create the canvas element.
+            canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Get '2d' context and draw the image.
+            ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            // Get canvas data URL
+            data = canvas.toDataURL();   
+            console.log(data);
         }
+            // Load image URL.    
+        img.src = url;  
+    }
 
 
 

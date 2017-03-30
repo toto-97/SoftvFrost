@@ -11,6 +11,7 @@ angular.module('softvFrostApp')
     vm.csvDosHide = true; //Button no mostrar
     var img = new Image();
     img.crossOrigin = "";  
+    //vm.src = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
 //----------------------------------------------
 
     this.$onInit = function() {
@@ -29,10 +30,8 @@ angular.module('softvFrostApp')
                // vm.getArrayPlanta = arrayPlanta; // Llenar el array del CSV         
             });
         }
-
         ReportePlanta();
     }
-
     //---------------------------------------
     function reloadRoute() {
         $state.reload(); // refresh page
@@ -43,11 +42,14 @@ angular.module('softvFrostApp')
         reloadRoute();
     }
 
+
     function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
-    {        
-        var url = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
+    {             
+        //var url = vm.src; 
+        var url = document.getElementById("pdflogoimage").src;  
+        console.log(url);
         var data, canvas, ctx;
-                   
+
         img.onload = function()
         {
             // Create the canvas element.
@@ -58,12 +60,12 @@ angular.module('softvFrostApp')
             ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0);
             // Get canvas data URL
-            data = canvas.toDataURL();    
-              console.log(data);            
+            data = canvas.toDataURL();   
+            console.log(data);
         }
             // Load image URL.    
         img.src = url;  
-            //console.log(img.src);
+        console.log(img.src);   
     }
 
 
