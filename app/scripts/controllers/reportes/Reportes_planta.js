@@ -69,7 +69,6 @@ angular.module('softvFrostApp')
     }
 
 
-
 //---------------------
     //CSV 
     vm.order = [ 'SAN', 'IdSuscriptor', 'Cliente', 'Suscriptor', 'PlanDeServicio', 'Hub', 'Beam', 'Pais',
