@@ -9,65 +9,61 @@ angular.module('softvFrostApp')
     var reportHeaderPdf = "Reporte de Terminales";
     vm.csvUnoHide = true; //Button no mostrar
     vm.csvDosHide = true; //Button no mostrar
+    var img = new Image();
 //----------------------------------------------
-
 
     this.$onInit = function() {
 
+        getImageDataURL();             
+
+        var arrayPlanta = [];   
+        vm.ReportePlanta = ReportePlanta;
+        function ReportePlanta()
+        {           
+            reportesFactory.mostrarReportePlanta().then(function(data) {       
+                arrayPlanta = data.GetReportes_PlantaListResult; //console.log(data);
+                vm.itemsByPage = 5;      
+                vm.rowCollection4 = arrayPlanta;   //  vm.myDataPlanta = arrayPlanta;
+                // usar el array displayedCollection4 para llenar los csv dinamicamente, solo agregar los encabezados
+               // vm.getArrayPlanta = arrayPlanta; // Llenar el array del CSV         
+            });
+        }
+
         ReportePlanta();
-
-        // -------------EJEMPLO LLENAR CSV 
-                 //   vm.filename = "test";
-                    /*
-        vm.getArray = [{a: 1, b:2}, {a:3, b:4}];
-                   
-
-        vm.addRandomRow = addRandomRow;
-                    function addRandomRow() {
-                        vm.getArray.push({a: Math.floor((Math.random()*10)+1), b: Math.floor((Math.random()*10)+1)});
-                      };
-
-        vm.getHeader = getHeader;
-                    function getHeader() {return ["A", "B"]};
-
-        vm.clickFn = clickFn;
-                    function clickFn() {
-                        console.log("click click click");
-        };
-             var getArreglo =  [{a: 1, b:2}, {a:3, b:4}];
-                    vm.getPrueba =  getArreglo; 
-             //[{a: 1, b:2}, {a:3, b:4},{a:3, b:6}];
-             */
     }
 
+    //---------------------------------------
     function reloadRoute() {
         $state.reload(); // refresh page
     };
-               
+                   
     vm.limpiarFiltros = limpiarFiltros;
     function limpiarFiltros(){
         reloadRoute();
     }
-             
-        // ---------------------------------------FIN DE EJEMPLO LLENAR CSV
 
-        var arrayPlanta = [];   
-        vm.ReportePlanta = ReportePlanta;
-
-        function ReportePlanta()
-        {           
-            reportesFactory.mostrarReportePlanta().then(function(data) {
-             //   vm.DistribuidoresTable = data.GetDistribuidorByUsuarioResult; //mostrar en tabla           
-            //    console.log(data);
-                arrayPlanta = data.GetReportes_PlantaListResult;
-                vm.itemsByPage = 5;      
-                vm.rowCollection4 = arrayPlanta;   //  vm.myDataPlanta = arrayPlanta;    
-               // console.log(vm.rowCollection4);
-                // usar el array displayedCollection4 para llenar los csv dinamicamente, solo agregar los encabezados
-               // vm.getArrayPlanta = arrayPlanta; // Llenar el array del CSV
-         
-            });
+    function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
+    {        
+        var url = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
+        var data, canvas, ctx;
+                   
+        img.onload = function()
+        {
+            // Create the canvas element.
+            canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Get '2d' context and draw the image.
+            ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            // Get canvas data URL
+            data = canvas.toDataURL();                
         }
+            // Load image URL.    
+        img.src = url;  
+            //console.log(img.src);
+    }
+
 
 
 //---------------------
@@ -158,9 +154,6 @@ function crearTodoAsCsv() {
 
 
 
-
-
-
 /* // ORIGINAL
 vm.clickOnUpload = clickOnUpload;
 function clickOnUpload() {
@@ -174,6 +167,7 @@ function clickOnUpload() {
 // Create TABLE PDF -- All / Visible 
 vm.createPdfTodo = createPdfTodo;
 function createPdfTodo(pdfAcrear){
+
 
     var rows = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ]; // no. column
     // rows 0
@@ -269,77 +263,12 @@ function createPdfTodo(pdfAcrear){
           //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
         };
  
+
     // Añadir logo StarGo
-    var img = reportesFactory.obtenerImagen();
-    doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
-  /*  var img = new Image();
-    img.src = '../images/StarGo_reduced.jpeg';
-    console.log(img.src);
-
-   // var imgData = 'data:image/jpeg;base64,'+ Base64.encode('../images/StarGo_reduced.jpeg');
-    var imgData = 'data:image/jpeg;base64,'+ Base64.encode(img.src);
-    console.log(imgData);
-    doc.setFontSize(40);
-    doc.text(30, 20, 'Hello world!');
-    doc.addImage(imgData, 'JPEG', 15, 40, 180, 160);
-*/
-   /*
-   // var imgData = 'data:image/jpeg;  base64,' + btoa('../images/StarGo_reduced.jpeg');
-    var canvas = document.createElement("canvas");
-    var imgData = canvas.toDataURL("image/jpeg");
-   // imgData = imgData.toDataURL("img/jpeg", 1.0);
-    console.log(imgData);
-    doc.addImage(imgData, 'JPEG', 5, 5, 40, 15); 
-    */
-
-   
-/* var img = new Image();
-        var canvas = document.createElement("canvas"),
-        var ctx = canvas.getContext("2d");
-
-
-
-    img.src = '../images/StarGo_reduced.jpeg';
-    console.log(img.src);
-    console.log(img);
-    doc.addImage(img, 'jpeg', 5, 5, 40, 15);
-*/
-
-/*
-   var imgData = 'data:image/jpeg;base64,'+ Base64.encode('../images/StarGo_reduced.jpeg');
-    console.log(imgData);
-    doc.setFontSize(40);
-    doc.text(30, 20, 'Hello world!');
-    doc.addImage(imgData, 'JPEG', 15, 40, 180, 160);
-*/
-
-/*
-function getBase64Image(img) {
-  var canvas = document.createElement("canvas");
-  var ctx = canvas.getContext("2d");
-
-  var dataURL = canvas.toDataURL("image/png");
-  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-}
-var  img = '../images/StarGo_reduced.jpeg';
-var base64 = getBase64Image(img);
-console.log(base64);
-
-var asd = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAEYklEQVR4Xu3UAQkAAAwCwdm/9HI83BLIOdw5AgQIRAQWySkmAQIEzmB5AgIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlACBB1YxAJfjJb2jAAAAAElFTkSuQmCC"
-
-console.log(asd);
-doc.addImage(asd, 'JPEG', 15, 40, 180, 160);
-*/
-
-
-
-//
-/*
-   var img = new Image();
-   img.src = '../images/StarGo_reduced.jpeg';
-   doc.addImage(img, 'JPEG', 15, 40, 180, 180, 'monkey');
-*/
-
+    //   var img = reportesFactory.obtenerImagen();
+    //  console.log( 'img'+img);
+    //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+    doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
 
 
 
@@ -399,10 +328,19 @@ doc.addImage(asd, 'JPEG', 15, 40, 180, 160);
 
         //-------------------------------------------
 
-
-
-
-
     }
+
+
+
+
+
+
+
+    
+
+
+
+
+
 
 ]);

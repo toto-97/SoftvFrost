@@ -11,10 +11,11 @@ angular.module('softvFrostApp')
     vm.csvUnoHide = true; //Button no mostrar
     vm.csvDosHide = true; //Button no mostrar
     vm.divExportar = true; // Div botones exportar no mostrar
-
+    var img = new Image();
 //----------------------------------------------
     this.$onInit = function() {
 
+        getImageDataURL();
         getCliente();
         getBeam();
         getPlan(); 
@@ -123,6 +124,27 @@ angular.module('softvFrostApp')
 
     }
 
+    function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
+    {        
+        var url = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
+        var data, canvas, ctx;
+                   
+        img.onload = function()
+        {
+            // Create the canvas element.
+            canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            // Get '2d' context and draw the image.
+            ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            // Get canvas data URL
+            data = canvas.toDataURL();                
+        }
+            // Load image URL.    
+        img.src = url;  
+            //console.log(img.src);
+    }
 
 //------------------------------
 
@@ -294,27 +316,12 @@ function createPdfTodo(pdfAcrear){
           //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
         };
  
+
     // Añadir logo StarGo
-    var img = reportesFactory.obtenerImagen();
-    doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
-
-    var img = new Image(),
-        canvas = document.createElement("canvas"),
-        ctx = canvas.getContext("2d");
-
-    img.onload = function () {
-        ctx.drawImage(img, 0, 0 );
-        var imgData = canvas.toDataURL('image/jpeg');
-        var doc = new jsPDF();
-        doc.setFontSize(12);
-        doc.addImage(imgData, 'JPEG', 15, 40, 180, 180);
-    }
-
-    img.src = '../images/StarGo_reduced.jpeg';
-    console.log(img.src);
-    doc.addImage(img, 'jpeg', 5, 5, 40, 15);
-
-
+    //   var img = reportesFactory.obtenerImagen();
+    //  console.log( 'img'+img);
+    //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+    doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
 
     // Encabezado reporte CENTRADO
     doc.setFontSize(14); 

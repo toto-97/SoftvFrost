@@ -216,6 +216,13 @@ angular.module('softvFrostApp')
 		};
 
 
+		factory.obtenerRutaOriginal = function() {	
+			//ruta imagen para reportes pdf
+			var url = '../images/StarGo_png.png';
+			return url;
+		};
+
+
 		return factory;
 
 	});
