@@ -266,14 +266,13 @@ function createPdfTodo(pdfAcrear){
             doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 10, str); 
           //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
         };
- 
+     
 
-    // Añadir logo StarGo
-    var img = reportesFactory.obtenerImagen();
-    //doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
-  /*  var img = new Image();
-    img.src = '../images/StarGo_reduced.jpeg';
-    console.log(img.src);
+        // Añadir logo StarGo
+        //   var img = reportesFactory.obtenerImagen();
+        //  console.log( 'img'+img);
+        //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+        doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
 
    // var imgData = 'data:image/jpeg;base64,'+ Base64.encode('../images/StarGo_reduced.jpeg');
     var imgData = 'data:image/jpeg;base64,'+ Base64.encode(img.src);
@@ -291,125 +290,63 @@ function createPdfTodo(pdfAcrear){
     doc.addImage(imgData, 'JPEG', 5, 5, 40, 15); 
     */
 
-   
-/* var img = new Image();
-        var canvas = document.createElement("canvas"),
-        var ctx = canvas.getContext("2d");
+        // Encabezado reporte CENTRADO
+        doc.setFontSize(14); 
+        doc.setFontType("bold");
+        var fontSize = doc.internal.getFontSize(); // Get current font size
+        var pageWidth = doc.internal.pageSize.width; // Get page width
+        var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
+        var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
+        doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
+
+        // Fecha de hoy
+        var laFechaHoy = reportesFactory.obtenerFechaHoy();
+        doc.setFontSize(11);   
+        doc.setFontType("normal");
+        doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   //  Posición  text at x,y
+        
+        doc.setPage(1); // importante
 
 
+       // doc.setLineWidth(0.5);  doc.line(20, 25, 60, 25); //x1 y1, x2 y2
 
-    img.src = '../images/StarGo_reduced.jpeg';
-    console.log(img.src);
-    console.log(img);
-    doc.addImage(img, 'jpeg', 5, 5, 40, 15);
-*/
+        // Custom table 
+        jsPDF.autoTableSetDefaults({
+            headerStyles: 
+            {   
+                fontSize: 7.3,       
+            },
+            bodyStyles: {        
+                fontSize: 6.5 
+            }
+        });
 
-/*
-   var imgData = 'data:image/jpeg;base64,'+ Base64.encode('../images/StarGo_reduced.jpeg');
-    console.log(imgData);
-    doc.setFontSize(40);
-    doc.text(30, 20, 'Hello world!');
-    doc.addImage(imgData, 'JPEG', 15, 40, 180, 160);
-*/
-
-/*
-function getBase64Image(img) {
-  var canvas = document.createElement("canvas");
-  var ctx = canvas.getContext("2d");
-
-  var dataURL = canvas.toDataURL("image/png");
-  return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-}
-var  img = '../images/StarGo_reduced.jpeg';
-var base64 = getBase64Image(img);
-console.log(base64);
-
-var asd = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAEYklEQVR4Xu3UAQkAAAwCwdm/9HI83BLIOdw5AgQIRAQWySkmAQIEzmB5AgIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlAABg+UHCBDICBisTFWCEiBgsPwAAQIZAYOVqUpQAgQMlh8gQCAjYLAyVQlKgIDB8gMECGQEDFamKkEJEDBYfoAAgYyAwcpUJSgBAgbLDxAgkBEwWJmqBCVAwGD5AQIEMgIGK1OVoAQIGCw/QIBARsBgZaoSlACBB1YxAJfjJb2jAAAAAElFTkSuQmCC"
-
-console.log(asd);
-doc.addImage(asd, 'JPEG', 15, 40, 180, 160);
-*/
-
-
-
-//
-/*
-   var img = new Image();
-   img.src = '../images/StarGo_reduced.jpeg';
-   doc.addImage(img, 'JPEG', 15, 40, 180, 180, 'monkey');
-*/
-
-
-
-
-    // Encabezado reporte CENTRADO
-    doc.setFontSize(14); 
-    doc.setFontType("bold");
-    var fontSize = doc.internal.getFontSize(); // Get current font size
-    var pageWidth = doc.internal.pageSize.width; // Get page width
-    var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
-    var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
-    doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
-
-    // Fecha de hoy
-    var laFechaHoy = reportesFactory.obtenerFechaHoy();
-    doc.setFontSize(11);   
-    doc.setFontType("normal");
-    doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   //  Posición  text at x,y
-    
-    doc.setPage(1); // importante
-
-
-   // doc.setLineWidth(0.5);  doc.line(20, 25, 60, 25); //x1 y1, x2 y2
-
-    // Custom table 
-    jsPDF.autoTableSetDefaults({
-        headerStyles: 
-        {   
-            fontSize: 7.3,       
-        },
-        bodyStyles: {        
-            fontSize: 6.5 
+        doc.autoTable( columns, rows, {
+            startY:27, //draw table here     
+            theme: 'plain',//'grid', //
+         //   headerStyles:{lineWidth: 1, lineColor: [0, 0, 0]},
+         //   bodyStyles: {lineColor: [0, 0, 0]},
+            styles:{
+                overflow: 'linebreak', // visible, hidden, ellipsize or linebreak  
+            },
+            columnStyles: { 
+                  1: {columnWidth: 12} //width 
+                ,17: {columnWidth: 14} //width 
+            },
+             margin: {top: 16, right: 5, bottom: 16, left: 5},
+             addPageContent: pageContent //page number
+        });
+           // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages === 'function') {
+            doc.putTotalPages( totalPagesExp);
         }
-    });
 
-    doc.autoTable( columns, rows, {
-        startY:27, //draw table here     
-        theme: 'plain',//'grid', //
-     //   headerStyles:{lineWidth: 1, lineColor: [0, 0, 0]},
-     //   bodyStyles: {lineColor: [0, 0, 0]},
-        styles:{
-            overflow: 'linebreak', // visible, hidden, ellipsize or linebreak  
-        },
-        columnStyles: { 
-              1: {columnWidth: 12} //width 
-            ,17: {columnWidth: 14} //width 
-        },
-         margin: {top: 16, right: 5, bottom: 16, left: 5},
-         addPageContent: pageContent //page number
-    });
-       // Total page number plugin only available in jspdf v1.0+
-    if (typeof doc.putTotalPages === 'function') {
-        doc.putTotalPages( totalPagesExp);
-    }
-
-    doc.save(vm.filename+'.pdf');    
-  }
+        doc.save(vm.filename+'.pdf');    
+      }
 
         //-------------------------------------------
 
     }
-
-
-
-
-
-
-
-    
-
-
-
 
 
 

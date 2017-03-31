@@ -21,8 +21,8 @@ angular.module('softvFrostApp')
         getBeam();
         getPlan(); 
         getEstado();  
-
     }
+
 
     function reloadRoute() {
         $state.reload(); // refresh page
@@ -296,112 +296,89 @@ function createPdfTodo(pdfAcrear){
         } 
     } 
 
+        // Create document
+        var doc = new jsPDF({
+        orientation: 'landscape',
+        format: 'A4'
+        });
 
-    // Create document
-    var doc = new jsPDF({
-    orientation: 'landscape',
-    format: 'A4'
-    });
+         //Page number 
+        var totalPagesExp = "{total_pages_count_string}";
+        var pageContent = function (data) {    
+                // FOOTER
+                var str = "Page " + data.pageCount;
+                // Total page number plugin only available in jspdf v1.0+
+                if (typeof doc.putTotalPages === 'function') {
+                    str = str + " of " + totalPagesExp;
+                }
+                doc.setFontSize(9);
+                //x , y 
+                doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 10, str); 
+              //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+            };
+     
 
-     //Page number 
-    var totalPagesExp = "{total_pages_count_string}";
-    var pageContent = function (data) {    
-            // FOOTER
-            var str = "Page " + data.pageCount;
-            // Total page number plugin only available in jspdf v1.0+
-            if (typeof doc.putTotalPages === 'function') {
-                str = str + " of " + totalPagesExp;
+        // Añadir logo StarGo
+        //   var img = reportesFactory.obtenerImagen();
+        //  console.log( 'img'+img);
+        //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
+        doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
+
+        // Encabezado reporte CENTRADO
+        doc.setFontSize(14); 
+        doc.setFontType("bold");
+        var fontSize = doc.internal.getFontSize(); // Get current font size
+        var pageWidth = doc.internal.pageSize.width; // Get page width
+        var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
+        var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
+        doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
+
+        // Fecha de hoy
+        var laFechaHoy = reportesFactory.obtenerFechaHoy();
+        doc.setFontSize(11);   
+        doc.setFontType("normal");
+        doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   //  Posición  text at x,y
+        
+        doc.setPage(1); // importante
+
+
+       // doc.setLineWidth(0.5);  doc.line(20, 25, 60, 25); //x1 y1, x2 y2
+
+        // Custom table 
+        jsPDF.autoTableSetDefaults({
+            headerStyles: 
+            {   
+                fontSize: 7.3,       
+            },
+            bodyStyles: {        
+                fontSize: 6.5 
             }
-            doc.setFontSize(9);
-            //x , y 
-            doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 10, str); 
-          //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
-        };
- 
+        });
 
-    // Añadir logo StarGo
-    //   var img = reportesFactory.obtenerImagen();
-    //  console.log( 'img'+img);
-    //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
-    doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
-
-    var img = new Image(),
-        canvas = document.createElement("canvas"),
-        ctx = canvas.getContext("2d");
-
-    img.onload = function () {
-        ctx.drawImage(img, 0, 0 );
-        var imgData = canvas.toDataURL('image/jpeg');
-        var doc = new jsPDF();
-        doc.setFontSize(12);
-        doc.addImage(imgData, 'JPEG', 15, 40, 180, 180);
-    }
-
-    img.src = '../images/StarGo_reduced.jpeg';
-    console.log(img.src);
-    doc.addImage(img, 'jpeg', 5, 5, 40, 15);
-
-
-
-    // Encabezado reporte CENTRADO
-    doc.setFontSize(14); 
-    doc.setFontType("bold");
-    var fontSize = doc.internal.getFontSize(); // Get current font size
-    var pageWidth = doc.internal.pageSize.width; // Get page width
-    var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
-    var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
-    doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
-
-    // Fecha de hoy
-    var laFechaHoy = reportesFactory.obtenerFechaHoy();
-    doc.setFontSize(11);   
-    doc.setFontType("normal");
-    doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   //  Posición  text at x,y
-    
-    doc.setPage(1); // importante
-
-
-   // doc.setLineWidth(0.5);  doc.line(20, 25, 60, 25); //x1 y1, x2 y2
-
-    // Custom table 
-    jsPDF.autoTableSetDefaults({
-        headerStyles: 
-        {   
-            fontSize: 7.3,       
-        },
-        bodyStyles: {        
-            fontSize: 6.5 
+        doc.autoTable( columns, rows, {
+            startY:27, //draw table here     
+            theme: 'plain',//'grid', //
+         //   headerStyles:{lineWidth: 1, lineColor: [0, 0, 0]},
+         //   bodyStyles: {lineColor: [0, 0, 0]},
+            styles:{
+                overflow: 'linebreak', // visible, hidden, ellipsize or linebreak  
+            },
+            columnStyles: { 
+                  1: {columnWidth: 12} //width 
+                ,17: {columnWidth: 14} //width 
+            },
+             margin: {top: 16, right: 5, bottom: 16, left: 5},
+             addPageContent: pageContent //page number
+        });
+           // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages === 'function') {
+            doc.putTotalPages( totalPagesExp);
         }
-    });
 
-    doc.autoTable( columns, rows, {
-        startY:27, //draw table here     
-        theme: 'plain',//'grid', //
-     //   headerStyles:{lineWidth: 1, lineColor: [0, 0, 0]},
-     //   bodyStyles: {lineColor: [0, 0, 0]},
-        styles:{
-            overflow: 'linebreak', // visible, hidden, ellipsize or linebreak  
-        },
-        columnStyles: { 
-              1: {columnWidth: 12} //width 
-            ,17: {columnWidth: 14} //width 
-        },
-         margin: {top: 16, right: 5, bottom: 16, left: 5},
-         addPageContent: pageContent //page number
-    });
-       // Total page number plugin only available in jspdf v1.0+
-    if (typeof doc.putTotalPages === 'function') {
-        doc.putTotalPages( totalPagesExp);
-    }
-
-    doc.save(vm.filename+'.pdf');    
-  }
+        doc.save(vm.filename+'.pdf');    
+      }
 
         //-------------------------------------------
-
-
-
-
 
     }
 
