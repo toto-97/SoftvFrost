@@ -5,14 +5,14 @@ angular.module('softvFrostApp')
 .controller('Reportes_MigracionCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify','$state', function ( $http, reportesFactory, $timeout, ngNotify, $state){
 //function ReportesCtrl(reportesFactory) {
  
-	var vm = this;
+    var vm = this;
     vm.filename = "Reporte_de_migraciones";
     var reportHeaderPdf = "Reporte de Migraciones";
     var fechaInicioYMD;
     var fechaFinYMD; 
     var idAux = 1;  
     vm.csvUnoHide = true; //Button no mostrar
-    vm.csvDosHide = true; //Button no mostrar	
+    vm.csvDosHide = true; //Button no mostrar   
     var img = new Image();
     img.crossOrigin = "";  
 
@@ -53,7 +53,7 @@ angular.module('softvFrostApp')
             ctx.drawImage(img, 0, 0);
             // Get canvas data URL
             data = canvas.toDataURL();   
-            console.log(data);
+            
         }
             // Load image URL.    
         img.src = url;  
@@ -253,8 +253,7 @@ function createPdfTodo(pdfAcrear){
                 doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 10, str); 
               //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
             };
-     
-
+ 
 
         // Añadir logo StarGo
         //   var img = reportesFactory.obtenerImagen();

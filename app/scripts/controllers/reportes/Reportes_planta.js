@@ -4,7 +4,7 @@ angular.module('softvFrostApp')
 .controller('Reportes_PlantaCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify','$state', function ( $http, reportesFactory, $timeout,ngNotify, $state){
 //function ReportesCtrl(reportesFactory) {
  
-	var vm = this;	
+    var vm = this;  
     vm.filename = "Reporte_de_terminales";
     var reportHeaderPdf = "Reporte de Terminales";
     vm.csvUnoHide = true; //Button no mostrar
@@ -47,7 +47,7 @@ angular.module('softvFrostApp')
     {             
         //var url = vm.src; 
         var url = document.getElementById("pdflogoimage").src;  
-        console.log(url);
+     
         var data, canvas, ctx;
 
         img.onload = function()
@@ -61,11 +61,11 @@ angular.module('softvFrostApp')
             ctx.drawImage(img, 0, 0);
             // Get canvas data URL
             data = canvas.toDataURL();   
-            console.log(data);
+          
         }
             // Load image URL.    
         img.src = url;  
-        console.log(img.src);   
+        
     }
 
 
@@ -273,7 +273,6 @@ function createPdfTodo(pdfAcrear){
         //  console.log( 'img'+img);
         //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
         doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
-
 
         // Encabezado reporte CENTRADO
         doc.setFontSize(14); 
