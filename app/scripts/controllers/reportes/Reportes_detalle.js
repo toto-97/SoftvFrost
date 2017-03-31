@@ -142,7 +142,7 @@ angular.module('softvFrostApp')
             ctx.drawImage(img, 0, 0);
             // Get canvas data URL
             data = canvas.toDataURL();   
-            console.log(data);
+          
         }
             // Load image URL.    
         img.src = url;  

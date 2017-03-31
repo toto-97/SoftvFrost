@@ -4,7 +4,7 @@ angular.module('softvFrostApp')
 .controller('Reportes_PlantaCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify','$state', function ( $http, reportesFactory, $timeout,ngNotify, $state){
 //function ReportesCtrl(reportesFactory) {
  
-	var vm = this;	
+    var vm = this;  
     vm.filename = "Reporte_de_terminales";
     var reportHeaderPdf = "Reporte de Terminales";
     vm.csvUnoHide = true; //Button no mostrar
@@ -47,7 +47,7 @@ angular.module('softvFrostApp')
     {             
         //var url = vm.src; 
         var url = document.getElementById("pdflogoimage").src;  
-        console.log(url);
+     
         var data, canvas, ctx;
 
         img.onload = function()
@@ -61,11 +61,11 @@ angular.module('softvFrostApp')
             ctx.drawImage(img, 0, 0);
             // Get canvas data URL
             data = canvas.toDataURL();   
-            console.log(data);
+          
         }
             // Load image URL.    
         img.src = url;  
-        console.log(img.src);   
+        
     }
 
 
@@ -273,22 +273,6 @@ function createPdfTodo(pdfAcrear){
         //  console.log( 'img'+img);
         //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
         doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
-
-   // var imgData = 'data:image/jpeg;base64,'+ Base64.encode('../images/StarGo_reduced.jpeg');
-    var imgData = 'data:image/jpeg;base64,'+ Base64.encode(img.src);
-    console.log(imgData);
-    doc.setFontSize(40);
-    doc.text(30, 20, 'Hello world!');
-    doc.addImage(imgData, 'JPEG', 15, 40, 180, 160);
-*/
-   /*
-   // var imgData = 'data:image/jpeg;  base64,' + btoa('../images/StarGo_reduced.jpeg');
-    var canvas = document.createElement("canvas");
-    var imgData = canvas.toDataURL("image/jpeg");
-   // imgData = imgData.toDataURL("img/jpeg", 1.0);
-    console.log(imgData);
-    doc.addImage(imgData, 'JPEG', 5, 5, 40, 15); 
-    */
 
         // Encabezado reporte CENTRADO
         doc.setFontSize(14); 
