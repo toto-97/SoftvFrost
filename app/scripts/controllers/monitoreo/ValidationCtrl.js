@@ -2,12 +2,11 @@
 
 angular.module('softvFrostApp')
 	.controller('ValidationCtrl', function(NgMap, OVTFactory, $uibModal, ngNotify) {
-		function GetDetails() {
+		function validate() {
 			var credentials = {};
 			credentials.userId = 'televera';
 			credentials.password = 'televera';
-			credentials.san = '123456';
-
+			credentials.san = hughesGetSanCompuesto(vm.SAN);
 			OVTFactory.OVTToken(credentials).then(function(data) {
 				vm.datasend = data[0].DataSend;
 				var token = JSON.parse(data[0].token);
@@ -47,6 +46,15 @@ angular.module('softvFrostApp')
 
 			});
 		}
+
+		function hughesGetSanCompuesto(obj) {
+   var a=obj.toString();
+   var i;
+   for (i = a.length; i < 9; i++) {
+   a='0'+a;
+   }
+    return 'TLV'+a;
+  };
 
 		function getPing() {
 			var obj = {};
@@ -316,6 +324,7 @@ angular.module('softvFrostApp')
 		vm.ForceFallBack = ForceFallBack;
 		vm.Reboot = Reboot;
 		vm.CompleteAction = CompleteAction;
-		GetDetails();
+		vm.validate=validate;
+		
 
 	});

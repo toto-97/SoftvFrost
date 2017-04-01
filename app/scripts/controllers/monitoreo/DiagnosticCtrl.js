@@ -10,12 +10,23 @@ angular.module('softvFrostApp')
 			});
 		}
 
+		function hughesGetSanCompuesto(obj) {
+   var a=obj.toString();
+   var i;
+   for (i = a.length; i < 9; i++) {
+   a='0'+a;
+   }
+    return 'TLV'+a;
+  };
+
+
 		function searchSan() {
 			var sanData = {
 				token: vm.token,
-				san: vm.san
+				san: hughesGetSanCompuesto(vm.san)
 			};
 			diagnosticFactory.getCommand(sanData).then(function(dataCommand) {
+				console.log(dataCommand);
 				var datos = JSON.parse(dataCommand);
 				if (datos.length > 0) {
 					vm.diagnosticData = datos[0];
