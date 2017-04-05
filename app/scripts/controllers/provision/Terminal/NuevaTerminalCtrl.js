@@ -1,7 +1,7 @@
 'use strict';
 angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtrl);
 
-function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state) {
+function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state, $filter) {
 	this.$onInit = function() {
 		/*terminalFactory.getServicioList().then(function(data) {
 			vm.Servicios = data.GetServicioListResult;
@@ -25,10 +25,10 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 	function ValidarServicio() {
 		var parametros = new Object();
 		//Obtiene 	transactionSequenceId necesario para las peticiones a Hughes
-		terminalFactory.getSequenceId().then(function(Sequence) {
+		terminalFactory.getSequenceId().then(function (Sequence) {
 			parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 			//Obtiene el código del estado para hughes
-			terminalFactory.getEstadoById(vm.IdEstado).then(function(data) {
+			terminalFactory.getEstadoById(vm.IdEstado).then(function (data) {
 				console.log(data);
 				vm.estado = data.GetEstadoResult;
 				parametros.direccion = vm.Calle + ' ' + vm.Numero;
@@ -38,14 +38,14 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 				parametros.latitud = vm.Latitud;
 				parametros.longitud = vm.Longuitud;
 				//Obtiene el nombre del frupo de servicios disponibles en esa área
-				terminalFactory.hughesValidaServicio(parametros).then(function(hughesData) {
+				terminalFactory.hughesValidaServicio(parametros).then(function (hughesData) {
 					console.log(hughesData);
 					if (hughesData.EnhancedServicePrequalResponse.Code != '682') {
 						ngNotify.set('Sin área de cobertura', 'error');
 						vm.Servicios = '';
 					} else {
 						//Filtra los servicios por las disponibilidad en Hughes
-						terminalFactory.getServicioListByProgramCode(hughesData.EnhancedServicePrequalResponse.ProductList.Product.ProgramCode).then(function(dataServicios) {
+						terminalFactory.getServicioListByProgramCode(hughesData.EnhancedServicePrequalResponse.ProductList.Product.ProgramCode).then(function (dataServicios) {
 							console.log(dataServicios);
 							vm.Servicios = dataServicios.GetServicioListByProgramCodeResult;
 						});
@@ -80,13 +80,13 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 			keyboard: false,
 			size: 'lg',
 			resolve: {
-				datosGis: function() {
+				datosGis: function () {
 					return obj;
 				}
 			}
 		});
 	}
-	$rootScope.$on('cliente_seleccionado', function(e, detalle) {
+	$rootScope.$on('cliente_seleccionado', function (e, detalle) {
 		vm.IdSuscriptor = detalle.IdSuscriptor;
 		vm.NombreSuscriptor = detalle.Nombre + ' ' + detalle.Apellido;
 
@@ -101,7 +101,7 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 		vm.Email = detalle.Email;
 	});
 
-	$rootScope.$on('get_LatLong', function(e, detalle) {
+	$rootScope.$on('get_LatLong', function (e, detalle) {
 		vm.Latitud = detalle[0];
 		vm.Longuitud = detalle[1];
 	});
@@ -124,10 +124,10 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 			'Comentarios': vm.Comentarios
 		};
 		//Guarda la terminal en la base y obtiene el SAN
-		terminalFactory.GuardaTerminal(parametros).then(function(data) {
+		terminalFactory.GuardaTerminal(parametros).then(function (data) {
 			var obj = new Object();
 			//Crea la terminal en la plataforma de Hughes
-			terminalFactory.getSequenceId().then(function(Sequence) {
+			terminalFactory.getSequenceId().then(function (Sequence) {
 				obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 				obj.SAN = hughesGetSanCompuesto(data.AddTerminalResult);
 				obj.nombre = vm.FirstNameSuscriptor;
@@ -142,20 +142,21 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 				obj.email = vm.Email;
 				obj.servicio = vm.Servicio.Nombre;
 				//alert(JSON.stringify(obj));
-				terminalFactory.hughesCrearTerminal(obj).then(function(hughesData) {
+				terminalFactory.hughesCrearTerminal(obj).then(function (hughesData) {
 					console.log(hughesData);
 					var Obj2 = new Object();
 					Obj2.objMovimiento = new Object();
-					Obj2.objMovimiento.SAN = data.AddTerminalResult;
-					Obj2.objMovimiento.IdComando = 1; //Hardcodeado a la tabla de Comando
-					Obj2.objMovimiento.IdUsuario = 0;
-					Obj2.objMovimiento.IdTicket = 0;
-					Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
-					Obj2.objMovimiento.Fecha = hughesData.StandardResponse.MessageHeader.TransactionDateTime;
-					Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
-					Obj2.objMovimiento.IdOrigen = 2; //Hardcodeado a la tabla de OrigenMovimiento
-					Obj2.objMovimiento.Detalle1 = '';
-					Obj2.objMovimiento.Detalle2 = '';
+					Obj2.objMovimiento.SAN=data.AddTerminalResult;
+					Obj2.objMovimiento.IdComando=1;//Hardcodeado a la tabla de Comando
+					Obj2.objMovimiento.IdUsuario=0;
+					Obj2.objMovimiento.IdTicket=0;
+					Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
+					vm.fechaAuxiliar = new Date();
+		      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+					Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
+					Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+					Obj2.objMovimiento.Detalle1='';
+					Obj2.objMovimiento.Detalle2='';
 
 					if (hughesData.StandardResponse.Code != '5') {
 						//----------------------------------
@@ -173,7 +174,7 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 						Obj3.objTerminal.ESN = vm.ESN;
 						Obj3.objTerminal.Comentarios = vm.Comentarios;
 						console.log(Obj3);
-						terminalFactory.updateTerminal(Obj3).then(function(data) {
+						terminalFactory.updateTerminal(Obj3).then(function (data) {
 							ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
 						});
 						//--------------------------------------------------
@@ -182,12 +183,11 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 						ngNotify.set('La terminal se ha guardado correctamente', 'success');
 					}
 
-					terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento) {
-
+					terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
 					});
+					$state.go('home.provision.terminales');
 				});
 			});
-			$state.go('home.provision.terminales');
 		});
 	}
 
@@ -201,20 +201,20 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 	vm.BuscaLatLong = BuscaLatLong;
 	vm.GuardaTerminal = GuardaTerminal;
 	vm.ListaStatus = [{
-			'clave': 'Pendiente',
-			'Nombre': 'Pendiente'
-		},
-		{
-			'clave': 'Activa',
-			'Nombre': 'Activa'
-		},
-		{
-			'clave': 'Suspendida',
-			'Nombre': 'Suspendida'
-		},
-		{
-			'clave': 'Cancelada',
-			'Nombre': 'Cancelada'
-		}
+		'clave': 'Pendiente',
+		'Nombre': 'Pendiente'
+	},
+	{
+		'clave': 'Activa',
+		'Nombre': 'Activa'
+	},
+	{
+		'clave': 'Suspendida',
+		'Nombre': 'Suspendida'
+	},
+	{
+		'clave': 'Cancelada',
+		'Nombre': 'Cancelada'
+	}
 	];
 }

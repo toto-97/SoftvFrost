@@ -8,7 +8,11 @@
  *
  * Main module of the application.
  */
-angular.module('softvFrostApp', [
+angular.module('softvFrostApp', [	
+		'smart-table',
+		'ngSanitize', 
+		'ngCsv', 
+		'ngTableToCsv',	
 		'ngAnimate',
 		'ngSanitize',
 		'ngNotify',
@@ -25,7 +29,8 @@ angular.module('softvFrostApp', [
 		'ui.mask'
 
 	])
-	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
+	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider', function($provide, $urlRouterProvider, $httpProvider, $qProvider) {
+		$qProvider.errorOnUnhandledRejections(false);
 		$urlRouterProvider.otherwise('/auth/login');
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector) {
 			function notifyError(rejection) {
@@ -59,9 +64,8 @@ angular.module('softvFrostApp', [
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 		if ($localStorage.currentUser) {
-			$location.path('/home');
+			//$location.path('/auth/login');
 			var permissions = permissionsFactory.on();
-			console.log(permissions);
 			PermPermissionStore.definePermission('anonymous', function() {
 				return false;
 			});

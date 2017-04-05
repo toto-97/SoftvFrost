@@ -364,7 +364,6 @@ angular.module('softvFrostApp')
 			});
 		}
 		factory.on = function() {
-			console.log($localStorage.currentUser.menu);
 			$localStorage.currentUser.menu.forEach(function(item) {
 				var titulo = removeDiacritics(item.Title);
 				permisos.push(titulo.replace(/\s/g, '').toLowerCase());
