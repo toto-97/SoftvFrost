@@ -1,0 +1,11 @@
+<div class="card">
+
+  <div class="card-body">
+    <div>
+      <ng-map center="23.96617587126503, -101.953125" zoom="4" on-click="ctrl.getpos($event)" default-style="false">
+        <marker position="{{ctrl.latlng}}" title="Selecciona tu posición" on-dragend="ctrl.getpos($event)" animation="Animation.BOUNCE" animation="DROP" draggable="true"></marker>
+      </ng-map>
+      {{ctrl.latlng}}
+    </div>
+  </div>
+</div>
