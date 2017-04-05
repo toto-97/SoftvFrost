@@ -139,21 +139,14 @@ angular.module('softvFrostApp')
             objv.Jdata = '';
             objv.method = 'OVTGET';
             OVTFactory.DataOVT(objv).then(function (data) {
-             
-            
-
               var DetailsOVT = JSON.parse(data);
               vm.DetailsOVT2 = DetailsOVT;
-			   console.log(DetailsOVT);  
-
-			  
-              
-
               vm.points = {
                 "name": "SATV",
                 "latitude": vm.DetailsOVT2.terminal.location.latitude,
                 "longitude": vm.DetailsOVT2.terminal.location.longitude
               };
+
 
               vm.customIcon = {
                 "scaledSize": [32, 32],
@@ -163,14 +156,10 @@ angular.module('softvFrostApp')
                 var latlng = new google.maps.LatLng(vm.DetailsOVT2.terminal.location.latitude, vm.DetailsOVT2.terminal.location.longitude);
                 map.setCenter(latlng);
                 vm.map = map;
+                google.maps.event.trigger(vm.map, 'resize');
               });
-
-                
-
-
               vm.RecomendedDiag = vm.DetailsOVT2.diagnosis.recommendedAction.name;
               vm.IdDiagnosis = vm.DetailsOVT2.diagnosis.recommendedAction.recommActionId;
-              google.maps.event.trigger(vm.map, 'resize');
             });
           } else {
             ngNotify.set('The antenna size and Mount is not valid', 'error');

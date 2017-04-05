@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-	.factory('diagnosticFactory', function($http, $q) {
+	.factory('diagnosticFactory', function($http, $q,globalService) {
 		var factory = {};
 		var paths = {
 			getToken: '/HuguesRequest/GetToken',

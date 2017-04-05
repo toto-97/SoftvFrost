@@ -27,7 +27,6 @@ angular.module('softvFrostApp')
           san: hughesGetSanCompuesto(vm.san)
         };
         diagnosticFactory.getCommand(sanData).then(function (dataCommand) {
-          console.log(dataCommand);
           var datos = JSON.parse(dataCommand);
           if (datos.length > 0) {
             vm.diagnosticData = datos[0];
@@ -37,7 +36,6 @@ angular.module('softvFrostApp')
             vm.showSan = true;
             ngNotify.set('San is not found.', 'error');
           }
-          console.log(vm.diagnosticData);
         });
 
 
