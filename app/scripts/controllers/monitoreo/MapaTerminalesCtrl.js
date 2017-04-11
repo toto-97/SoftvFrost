@@ -1,21 +1,34 @@
 'use strict';
 angular
-	.module('softvFrostApp')
-	.controller('MapaTerminalesCtrl', ModalGetLatLongCtrl);
+  .module('softvFrostApp')
+  .controller('MapaTerminalesCtrl', ModalGetLatLongCtrl);
 
-function ModalGetLatLongCtrl(SuscriptorFactory, $rootScope, ngNotify, NgMap) {
-	function initialData() {
-		NgMap.getMap().then(function(map) {
-			//vm.latlng = [parseFloat(datosGis.lat), parseFloat(datosGis.long)];
-			vm.map = map;
-			google.maps.event.trigger(vm.map, 'resize');
-		});
-	}
+function ModalGetLatLongCtrl(SuscriptorFactory, $rootScope, ngNotify, NgMap, mapaBeamFactory, globalService) {
+  this.$onInit = function () {
 
-	function getpos(event) {
-		vm.latlng = [event.latLng.lat(), event.latLng.lng()];
-	};
-	var vm = this;
-	vm.getpos = getpos;
-	initialData();
+    mapaBeamFactory.GetBeamList().then(function (data) {
+      console.log(data);
+      vm.Beams=data.GetBeamListResult;     
+      vm.UrlBeam = globalService.getUrlBeams() + data.GetBeamListResult[1].FilePath;
+       console.log( vm.UrlBeam );
+    });
+
+    NgMap.getMap().then(function (map) {
+      vm.map = map;
+      google.maps.event.trigger(vm.map, 'resize');
+    });
+  }
+
+ 
+
+  function DetalleBeam(obj){
+     vm.UrlBeam = globalService.getUrlBeams() + obj.FilePath;
+     google.maps.event.trigger(vm.map, 'resize');
+  }
+  var vm = this;
+  vm.DetalleBeam=DetalleBeam;
+ 
+ 
+
+
 }
