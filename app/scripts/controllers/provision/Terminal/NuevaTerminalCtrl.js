@@ -1,11 +1,36 @@
 'use strict';
 angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtrl);
 
-function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $state, $filter) {
-	this.$onInit = function() {
-		/*terminalFactory.getServicioList().then(function(data) {
-			vm.Servicios = data.GetServicioListResult;
-		});*/
+function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootScope, ngNotify, $state, $filter, $stateParams) {
+	this.$onInit = function () {
+		if ($stateParams.idSuscriptor != undefined) {
+			var busObj = {
+				'IdSuscriptor': $stateParams.idSuscriptor,
+				'Nombre': '',
+				'Apellido': '',
+				'Telefono': '',
+				'Email': '',
+				'Calle': '',
+				'Numero': '',
+				'Colonia': '',
+				'Ciudad': '',
+				'Op': 1
+			};
+			SuscriptorFactory.buscarSuscriptor(busObj).then(function (data) {
+				vm.datosSus = data.GetFilterSuscriptorListResult[0];
+				vm.IdSuscriptor = vm.datosSus.IdSuscriptor;
+				vm.NombreSuscriptor = vm.datosSus.Nombre + ' ' + vm.datosSus.Apellido;
+				vm.FirstNameSuscriptor = vm.datosSus.Nombre;
+				vm.LastNameSuscriptor = vm.datosSus.Apellido;
+				vm.Calle = vm.datosSus.Calle;
+				vm.Numero = vm.datosSus.Numero;
+				vm.Ciudad = vm.datosSus.Ciudad;
+				vm.IdEstado = vm.datosSus.IdEstado;
+				vm.CP = vm.datosSus.CP;
+				vm.Telefono = vm.datosSus.Telefono;
+				vm.Email = vm.datosSus.Email;
+			});
+		}
 	}
 
 	function BuscaSuscriptor() {
@@ -146,17 +171,17 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 					console.log(hughesData);
 					var Obj2 = new Object();
 					Obj2.objMovimiento = new Object();
-					Obj2.objMovimiento.SAN=data.AddTerminalResult;
-					Obj2.objMovimiento.IdComando=1;//Hardcodeado a la tabla de Comando
-					Obj2.objMovimiento.IdUsuario=0;
-					Obj2.objMovimiento.IdTicket=0;
-					Obj2.objMovimiento.OrderId=hughesData.StandardResponse.OrderId;
+					Obj2.objMovimiento.SAN = data.AddTerminalResult;
+					Obj2.objMovimiento.IdComando = 1;//Hardcodeado a la tabla de Comando
+					Obj2.objMovimiento.IdUsuario = 0;
+					Obj2.objMovimiento.IdTicket = 0;
+					Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
 					vm.fechaAuxiliar = new Date();
-		      Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-					Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
-					Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
-					Obj2.objMovimiento.Detalle1='';
-					Obj2.objMovimiento.Detalle2='';
+					Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+					Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
+					Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
+					Obj2.objMovimiento.Detalle1 = '';
+					Obj2.objMovimiento.Detalle2 = '';
 
 					if (hughesData.StandardResponse.Code != '5') {
 						//----------------------------------

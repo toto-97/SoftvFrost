@@ -1,5 +1,5 @@
 'use strict';
-angular.module('softvFrostApp').config(function($stateProvider) {
+angular.module('STAR.GOFrostApp').config(function($stateProvider) {
 	var states = [{
 			name: 'home.monitoreo',
 			abstract: true,
@@ -8,7 +8,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.diagnostic',
 			data: {
-				pageTitle: 'SOFTV | DIAGNOSTIC TOOLS',
+				pageTitle: 'STAR.GO | DIAGNOSTIC TOOLS',
 				permissions: {
 					only: ['sitediagnostictoolSelect'],
 					options: {
@@ -24,7 +24,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.onSite',
 			data: {
-				pageTitle: 'SOFTV | SITE VALIDATION',
+				pageTitle: 'STAR.GO | SITE VALIDATION',
 				permissions: {
 					only: ['onsitevalidationtool1Select'],
 					options: {
@@ -40,7 +40,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.onSiteTwo',
 			data: {
-				pageTitle: 'BIENVENIDO | MONITOREO SOFTV',
+				pageTitle: 'BIENVENIDO | MONITOREO STAR.GO',
 			},
 			url: '/monitoreo/details',
 			templateUrl: 'views/monitoreo/displayForSan.html',
@@ -50,7 +50,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.MapaTerminales',
 			data: {
-				pageTitle: 'BIENVENIDO | MONITOREO SOFTV',
+				pageTitle: 'BIENVENIDO | MONITOREO STAR.GO',
 			},
 			url: '/monitoreo/MapaTerminales',
 			templateUrl: 'views/monitoreo/MapaTerminales.html',
