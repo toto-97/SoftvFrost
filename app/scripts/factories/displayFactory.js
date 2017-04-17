@@ -15,7 +15,7 @@ angular
 				'command': 'TDD_STR',
 				'operator_id': 'televera'
 			};
-			$http.post(globalService.getUrlHughesService() + paths.speedTest, JSON.stringify(Parametros)).then(function (response) {
+			$http.post(globalService.getUrlHughesMonitoreo() + paths.speedTest, JSON.stringify(Parametros)).then(function (response) {
 				deferred.resolve(response.data);
 			}).catch(function (data) {
 				deferred.reject(data);
@@ -32,7 +32,7 @@ angular
 				'command': 'TDD',
 				'operator_id': 'televera'
 			};
-			$http.post(globalService.getUrlHughesService() + paths.speedTest, JSON.stringify(Parametros)).then(function (response) {
+			$http.post(globalService.getUrlHughesMonitoreo() + paths.speedTest, JSON.stringify(Parametros)).then(function (response) {
 				deferred.resolve(response.data);
 			}).catch(function (data) {
 				deferred.reject(data);
