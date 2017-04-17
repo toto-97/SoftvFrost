@@ -225,6 +225,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 	vm.ValidarServicio = ValidarServicio;
 	vm.BuscaLatLong = BuscaLatLong;
 	vm.GuardaTerminal = GuardaTerminal;
+	vm.FechaAlta = new Date();
 	vm.ListaStatus = [{
 		'clave': 'Pendiente',
 		'Nombre': 'Pendiente'

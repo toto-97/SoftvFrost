@@ -1,5 +1,5 @@
 'use strict';
-angular.module('STAR.GOFrostApp').config(function($stateProvider) {
+angular.module('softvFrostApp').config(function($stateProvider) {
 	var states = [{
 			name: 'home.monitoreo',
 			abstract: true,
