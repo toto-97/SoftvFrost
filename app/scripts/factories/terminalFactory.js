@@ -22,7 +22,8 @@ angular.module('softvFrostApp')
 			hughesFapStatus: '/FapStatus',
 			addMovimiento: '/Movimiento/AddMovimiento',
 			getSuscriptorById: '/Suscriptor/GetSuscriptor',
-			hughesCrearTerminal: '/CrearTerminal'
+			hughesCrearTerminal: '/CrearTerminal',
+			agregaInfoTerminal: '/Terminal/UpdateTerminalInformacionAdicional'
 		};
 
 		factory.updateTerminal = function(obj) {
@@ -355,6 +356,22 @@ angular.module('softvFrostApp')
 			var config = '';
 			var parametros = obj;
 			$http.post(globalService.getUrlHughesService() + paths.hughesCrearTerminal, JSON.stringify(parametros)).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.agregaInfoTerminal = function(obj) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.agregaInfoTerminal, JSON.stringify(obj), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
