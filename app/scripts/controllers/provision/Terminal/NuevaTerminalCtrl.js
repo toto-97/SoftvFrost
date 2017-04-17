@@ -43,6 +43,7 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 					    ngNotify.set('Sin área de cobertura', 'error');
 					    vm.Servicios ='';
 					} else {
+						ngNotify.set('Dentro del área de cobertura','success');
 						vm.BeamID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.BeamID;
 						vm.SatelliteID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.SatellitedID;
 						//Filtra los servicios por las disponibilidad en Hughes
