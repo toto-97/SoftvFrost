@@ -23,7 +23,7 @@ angular.module('softvFrostApp')
 			addMovimiento: '/Movimiento/AddMovimiento',
 			getSuscriptorById: '/Suscriptor/GetSuscriptor',
 			hughesCrearTerminal: '/CrearTerminal',
-			agregaInfoTerminal: '/Terminal/UpdateTerminalInformacionAdicional'
+			agregaInfoTerminal: '/Terminal/UpdateTerminalInformacionAdicional',
 			getMovimientosBySan: '/Movimiento/GetMovimientoListBySAN',
 			detalleMovimiento: '/Movimiento/GetDeepMovimiento',
 			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList'
