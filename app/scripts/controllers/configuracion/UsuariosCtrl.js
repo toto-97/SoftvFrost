@@ -20,6 +20,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	}
 
+
 	function Busca(option) {
 
 		if (option == 1) {

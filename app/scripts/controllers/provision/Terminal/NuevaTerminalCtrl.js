@@ -69,11 +69,11 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 						ngNotify.set('Sin área de cobertura', 'error');
 						vm.Servicios = '';
 					} else {
+						ngNotify.set('Dentro del área de cobertura','success'); 
 						vm.BeamID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.BeamID;
 						vm.SatelliteID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.SatellitedID;
 						//Filtra los servicios por las disponibilidad en Hughes
 						terminalFactory.getServicioListByProgramCode(hughesData.EnhancedServicePrequalResponse.ProductList.Product.ProgramCode).then(function (dataServicios) {
-							console.log(dataServicios);
 							vm.Servicios = dataServicios.GetServicioListByProgramCodeResult;
 						});
 					}
@@ -228,13 +228,6 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 			});
 		});
 	}
-
-function convertDate(inputFormat) {
-  function pad(s) { return (s < 10) ? '0' + s : s; }
-  var d = new Date(inputFormat);
-  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
-}
-
 
 
 	var vm = this;
