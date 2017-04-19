@@ -31,7 +31,6 @@ angular.module('softvFrostApp')
 					'Nombre': object.Nombre,
 					'Descripcion': object.Descripcion,
 					'Estado': object.Estado
-
 				}
 			};
 			var config = {
@@ -56,7 +55,6 @@ angular.module('softvFrostApp')
 					'Nombre': object.Nombre,
 					'Descripcion': object.Descripcion,
 					'Estado': object.Estado
-
 				}
 			};
 			var config = {
