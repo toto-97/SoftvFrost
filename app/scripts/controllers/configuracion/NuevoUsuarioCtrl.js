@@ -2,8 +2,17 @@
 angular.module('softvFrostApp').controller('NuevoUsuarioCtrl', NuevoUsuarioCtrl);
 
 function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
+	var vm = this;
+	vm.GuardarUsuario = GuardarUsuario;
+	vm.titulo = 'Nuevo Usuario';
+	vm.passwordPanel = true;
+	vm.ValidatePanel = false;
+	vm.editar = true;
+	vm.userText = false;
+	vm.existe = existe;
+	vm.isDuplicate = false;
 
-	function init() {
+	this.$onInit = function () {
 		rolFactory.GetRoleList().then(function (data) {
 			vm.Roles = data.GetRoleListResult;
 
@@ -41,15 +50,4 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	}
 
-
-	var vm = this;
-	init();
-	vm.GuardarUsuario = GuardarUsuario;
-	vm.titulo = 'Nuevo Usuario';
-	vm.passwordPanel = true;
-	vm.ValidatePanel = false;
-	vm.editar = true;
-	vm.userText = false;
-	vm.existe = existe;
-	vm.isDuplicate = false;
 }

@@ -2,19 +2,21 @@
 angular.module('softvFrostApp').controller('UsuariosCtrl', UsuariosCtrl);
 
 function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
+	var vm = this;
+	vm.EditaUsuario = EditaUsuario;
+	vm.Busca = Busca;
 
-	function Init() {
-		usuarioFactory.getUsuarioList().then(function(data) {
+	this.$onInit = function () {
+		usuarioFactory.getUsuarioList().then(function (data) {
 			vm.Usuarios = data.GetUsuarioListResult;
 		});
-		rolFactory.GetRoleList().then(function(data) {
+		rolFactory.GetRoleList().then(function (data) {
 			vm.Roles = data.GetRoleListResult;
 
 		});
 	}
 
 	function EditaUsuario(x) {
-
 		$state.go('home.provision.editausuario', {
 			obj: x
 		});
@@ -34,7 +36,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 					'IdRol': 0
 				};
 
-				usuarioFactory.BuscaUsuario(Parametros).then(function(data) {
+				usuarioFactory.BuscaUsuario(Parametros).then(function (data) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});
 
@@ -48,7 +50,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 					'IdRol': 0
 				};
 				console.log(Parametros);
-				usuarioFactory.BuscaUsuario(Parametros).then(function(data) {
+				usuarioFactory.BuscaUsuario(Parametros).then(function (data) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});
 			}
@@ -61,7 +63,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 					'Op': 0,
 					'IdRol': 0
 				};
-				usuarioFactory.BuscaUsuario(Parametros).then(function(data) {
+				usuarioFactory.BuscaUsuario(Parametros).then(function (data) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});
 
@@ -73,7 +75,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 					'Op': 2,
 					'IdRol': 0
 				};
-				usuarioFactory.BuscaUsuario(Parametros).then(function(data) {
+				usuarioFactory.BuscaUsuario(Parametros).then(function (data) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});
 			}
@@ -90,7 +92,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 					'Op': 0,
 					'IdRol': 0
 				};
-				usuarioFactory.BuscaUsuario(Parametros).then(function(data) {
+				usuarioFactory.BuscaUsuario(Parametros).then(function (data) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});
 
@@ -103,7 +105,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 					'Op': 3,
 					'IdRol': vm.Rol.IdRol
 				};
-				usuarioFactory.BuscaUsuario(Parametros).then(function(data) {
+				usuarioFactory.BuscaUsuario(Parametros).then(function (data) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});
 
@@ -112,9 +114,4 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		}
 
 	}
-
-	var vm = this;
-	Init();
-	vm.EditaUsuario = EditaUsuario;
-	vm.Busca = Busca;
 }
