@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvFrostApp')
-	.factory('OVTFactory', function($http, $q, globalService, $localStorage) {
+	.factory('OVTFactory', function($http, $q, globalService, $localStorage,terminalFactory) {
 		var factory = {};
 		var paths = {
 			GetToken: '/HuguesRequest/GetToken',
@@ -14,7 +14,8 @@ angular
 			var parametros = {
 				'userId': credentials.userId,
 				'password': credentials.password,
-				'san': credentials.san
+				'san': credentials.san,
+				'satellite':credentials.satellite
 			};
 			$http.post(globalService.getUrlHughesMonitoreo() + paths.GetOVTToken, parametros).then(function(response) {
 				var token = JSON.parse(response.data[0].token);

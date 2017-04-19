@@ -1,13 +1,27 @@
 'use strict';
 
 angular.module('softvFrostApp')
-  .controller('ValidationCtrl', function (NgMap, OVTFactory, $uibModal, ngNotify) {
+  .controller('ValidationCtrl', function (NgMap, OVTFactory, $uibModal, ngNotify, terminalFactory) {
     function validate() {
       var credentials = {};
       credentials.userId = 'televera';
       credentials.password = 'televera';
       credentials.san = hughesGetSanCompuesto(vm.SAN);
-      OVTFactory.OVTToken(credentials).then(function (data) {
+      terminalFactory.getTerminalById(vm.SAN).then(function (data) {
+        console.log(data.GetByTerminalResult.SatellitedID);
+        if (data.GetByTerminalResult.SatellitedID ==""||data.GetByTerminalResult.SatellitedID==null) {
+          console.log("no tiene asignado");
+          ngNotify.set('This SAN has not a satellite ID assigned', 'error');
+          return;
+        } else {
+          console.log("si tiene asignado");
+          if (data.GetByTerminalResult.SatellitedID == "EchoStar 19") {
+            credentials.satellite = "JUPITER2";
+          } else {
+            credentials.satellite = "E65W";
+          }
+
+          OVTFactory.OVTToken(credentials).then(function (data) {
         vm.datasend = data[0].DataSend;
         var token = JSON.parse(data[0].token);
         var Jdata = JSON.parse(data[0].DataSend);
@@ -45,6 +59,15 @@ angular.module('softvFrostApp')
         });
 
       });
+
+
+
+        }
+
+
+      });
+     
+      
     }
 
     function hughesGetSanCompuesto(obj) {

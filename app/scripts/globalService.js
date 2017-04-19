@@ -15,7 +15,7 @@ angular.module('softvFrostApp')
 		};
 
 		svc.getUrlHughesMonitoreo = function () {
-			return 'http://35.164.143.107:8050/api';
+			return 'http://localhost:50914/api';
 		};
 
 		return svc;
