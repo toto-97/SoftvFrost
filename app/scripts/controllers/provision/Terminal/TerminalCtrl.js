@@ -4,13 +4,14 @@ angular.module('softvFrostApp').controller('TerminalCtrl', TerminalCtrl);
 function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nuevoSuscriptorFactory, $stateParams) {
 	this.$onInit = function() {
 		if ($stateParams.idSuscriptor != undefined) {
+			vm.idSuscriptor = $stateParams.idSuscriptor;
+			console.log(vm.idSuscriptor);
 			SuscriptorFactory.getTerminals($stateParams.idSuscriptor).then(function(data) {
 				vm.terminales = data.GetDeepIdSuscriptorResult;
 			});
 		} else {
 			terminalFactory.getTerminalList().then(function(data) {
 				vm.terminales = data.GetTerminalListResult;
-
 			});
 		}
 		terminalFactory.getServicioList().then(function(data) {
@@ -162,6 +163,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 	vm.busquedaCambio = busquedaCambio;
 	vm.buscar = buscar;
 	vm.verMovimientos = verMovimientos;
+	vm.idSuscriptor = 0;
 		vm.ListaStatus = [
 			{
 		'clave': '',

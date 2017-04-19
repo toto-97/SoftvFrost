@@ -82,5 +82,6 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 	init();
 	vm.ValidaPass = ValidaPass;
 	vm.GuardarUsuario = GuardarUsuario;
+	vm.userText = true;
 
 }

@@ -28,6 +28,7 @@ angular.module('softvFrostApp')
         };
         diagnosticFactory.getCommand(sanData).then(function (dataCommand) {
           var datos = JSON.parse(dataCommand);
+          console.log(datos);
           if (datos.length > 0) {
             vm.diagnosticData = datos[0];
             vm.showSan = true;
