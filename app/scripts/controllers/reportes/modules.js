@@ -10,9 +10,9 @@ function reportesConf($stateProvider) {
 		{
 			name: 'home.reportes.planta',
 			data: {
-				pageTitle: 'SOFTV | REPORTES PLANTA'				
+				pageTitle: 'STAR.GO | REPORTES PLANTA'				
 			},
-			url: '/reportes',
+			url: '/reportes/planta',
 			templateUrl: 'views/reportes/reportesplanta.html',
 			controller: 'Reportes_PlantaCtrl',
 			controllerAs: '$ctrl'
@@ -20,9 +20,9 @@ function reportesConf($stateProvider) {
 		{
 			name: 'home.reportes.tokens',
 			data: {
-				pageTitle: 'SOFTV | REPORTES TOKENS'				
+				pageTitle: 'STAR.GO | REPORTES TOKENS'				
 			},
-			url: '/reportes',
+			url: '/reportes/tokens',
 			templateUrl: 'views/reportes/reportestokens.html',
 			controller: 'Reportes_TokenCtrl',
 			controllerAs: '$ctrl'
@@ -30,9 +30,9 @@ function reportesConf($stateProvider) {
 		{
 			name: 'home.reportes.detalleTerminales',
 			data: {
-				pageTitle: 'SOFTV | REPORTES DETALLE TERMINALES'				
+				pageTitle: 'STAR.GO | REPORTES DETALLE TERMINALES'				
 			},
-			url: '/reportes',
+			url: '/reportes/terminales',
 			templateUrl: 'views/reportes/reportesdetalleterm.html',
 			controller: 'Reportes_DetalleCtrl',
 			controllerAs: '$ctrl'
@@ -40,9 +40,9 @@ function reportesConf($stateProvider) {
 		{
 			name: 'home.reportes.migraciones',
 			data: {
-				pageTitle: 'SOFTV | REPORTES MIGRACIONES'				
+				pageTitle: 'STAR.GO | REPORTES MIGRACIONES'				
 			},
-			url: '/reportes',
+			url: '/reportes/migraciones',
 			templateUrl: 'views/reportes/reportesmigraciones.html',
 			controller: 'Reportes_MigracionCtrl',
 			controllerAs: '$ctrl'
@@ -50,33 +50,13 @@ function reportesConf($stateProvider) {
 		{
 			name: 'home.reportes.movimientos',
 			data: {
-				pageTitle: 'SOFTV | REPORTES MOVIMIENTOS'				
+				pageTitle: 'STAR.GO | REPORTES MOVIMIENTOS'				
 			},
-			url: '/reportes',
+			url: '/reportes/movimientos',
 			templateUrl: 'views/reportes/reportesmovimientos.html',
 			controller: 'Reportes_MovimientoCtrl',
 			controllerAs: '$ctrl'
 		}
-		 /*, 
-		{
-			name: 'home.provision.editarol',
-			data: {
-				pageTitle: 'SOFTV | EDITA ROL',
-				permissions: {
-					only: ['rolesUpdate'],
-					options: {
-						reload: true
-					}
-				}
-			},
-			params: {
-				obj: null
-			},
-			url: '/provision/rol/Edita/',
-			templateUrl: 'views/configuracion/NuevoRol.html',
-			controller: 'EditaRolCtrl',
-			controllerAs: '$ctrl'
-		}*/
 	];
 
 	states.forEach(function(state) {

@@ -42,15 +42,24 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 			if (vm.bsan == '') {
 				vm.tipoBusqueda = 0;
 			} else {
-				vm.bnombre = ''
+				vm.bnombre = '';
+				vm.brefe = '';
 				vm.tipoBusqueda = 1;
 			}
-		} else {
+		} else if(id == 2) {
 			if (vm.bnombre == '') {
 				vm.tipoBusqueda = 0;
 			} else {
 				vm.bsan = '';
+				vm.brefe = '';
 				vm.tipoBusqueda = 2;
+			}
+		}else{
+			if (vm.brefe == '') {
+				vm.tipoBusqueda = 0;
+			} else {
+				vm.bsan = '';
+				vm.tipoBusqueda = 4;
 			}
 		}
 	}
@@ -67,6 +76,7 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 				'Numero': '',
 				'Colonia': '',
 				'Ciudad': '',
+				'Referencia':'',
 				'Op': 1
 			};
 		} else if (vm.tipoBusqueda == 2) {
@@ -80,7 +90,22 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 				'Numero': '',
 				'Colonia': '',
 				'Ciudad': '',
+				'Referencia':'',
 				'Op': 2
+			};
+		}else{
+			vm.busObj = {
+				'IdSuscriptor': 0,
+				'Nombre': '',
+				'Apellido': '',
+				'Telefono': '',
+				'Email': '',
+				'Calle': '',
+				'Numero': '',
+				'Colonia': '',
+				'Ciudad': '',
+				'Referencia': vm.brefe,
+				'Op': 4
 			};
 		}
 		if (vm.tipoBusqueda == undefined || vm.tipoBusqueda == 0) {

@@ -2,10 +2,17 @@
 angular.module('softvFrostApp').controller('EditaUsuarioCtrl', EditaUsuarioCtrl);
 
 function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams) {
+	var vm = this;
+	vm.titulo = 'Edita Usuario';
+	vm.passwordPanel = false;
+	vm.ValidatePanel = true;
+	vm.editar = false;
+	vm.ValidaPass = ValidaPass;
+	vm.GuardarUsuario = GuardarUsuario;
+	vm.userText = true;
 
-	function init() {
+	this.$onInit = function () {
 		var userid = $stateParams.id;
-		console.log(userid);
 		usuarioFactory.GetUserDetail(userid).then(function(data) {
 			var user = data.GetUserListbyIdUserResult[0];
 			vm.Id = user.IdUsuario;
@@ -22,7 +29,6 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 				vm.Password = user.Password;
 				vm.Contrasena = user.Password;
 			});
-
 		});
 	}
 
@@ -72,15 +78,4 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 			ngNotify.set('Contraseña no es  válida', 'error');
 		}
 	}
-
-
-	var vm = this;
-	vm.titulo = 'Edita Usuario';
-	vm.passwordPanel = false;
-	vm.ValidatePanel = true;
-	vm.editar = false;
-	init();
-	vm.ValidaPass = ValidaPass;
-	vm.GuardarUsuario = GuardarUsuario;
-
 }
