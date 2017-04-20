@@ -165,7 +165,7 @@ angular.module('softvFrostApp')
       vm.arrayReporte = []; 
          
         vm.arrayReporte =     [{
-                "SAN": "Site Id",
+                "SAN": "SAN",
               
                 "Suscriptor": "Suscriptor",
                 "PlanInicial": "Plan Inicial",
@@ -183,7 +183,7 @@ angular.module('softvFrostApp')
 vm.createPdfTodo = createPdfTodo;
 function createPdfTodo(pdfAcrear){
 
-    var rows = [ [0,0,0,0,0,0,0,0,0,0,0,0] ];
+    var rows = [ [0,0,0,0,0,0,0,0,0] ];
    
     var r = 1; 
     var c = 0; 
@@ -195,8 +195,8 @@ function createPdfTodo(pdfAcrear){
         { ro = vm.displayedCollection4.length; }
 
 
-    var cols = 12;
-    var columns = ["Site Id", "Suscriptor", "Plan Inicial", "Plan Final", "Fecha Migración", "ESN", "Latitud", "Longitud", "Usuario"];
+    var cols = 9;
+    var columns = ["SAN", "Suscriptor", "Plan Inicial", "Plan Final", "Fecha Migración", "ESN", "Latitud", "Longitud", "Usuario"];
 
    
     for( var i=r; i<ro; i++ ) {         
