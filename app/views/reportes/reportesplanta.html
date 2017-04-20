@@ -1,10 +1,12 @@
 <style type="text/css">
 
-  th{font-size: 9.8pt;}
-  td {font-size: 9.8pt;}
+  th{font-size: 9.7pt;}
+  td {font-size: 9.1pt;}
 
-  td.media{font-size: 9pt;}
+  td.media{font-size: 8.7pt;}
   th.mediaTh{font-size: 9.4pt;}
+
+  input.media{font-size: 8.6pt;}
 
   .btn-csv {
     background-color: #fff;
@@ -82,17 +84,15 @@
                 <thead>
         
                 <tr>
-                    <th rowspan = 2 st-sort="SAN" > Site <br/> Id</Tt>
-                    <th rowspan = 2 st-sort="IdSuscriptor" class="mediaTh">Cod Suscriptor </th>
-                    <th rowspan = 2 st-sort="Cliente">Cliente</i></th>
+                    <th rowspan = 2 st-sort="SAN" > SAN </th>
+                    <th rowspan = 2 st-sort="IdSuscriptor" class="mediaTh">Id <br>Suscriptor </th>                   
                     <th rowspan = 2 st-sort="Suscriptor">Suscriptor</th>
-                    <th rowspan = 2 st-sort="PlanDeServicio" class="mediaTh">Plan de Servicio</th>
-                    <th rowspan = 2 st-sort="Hub">Hub</th>
+                    <th rowspan = 2 st-sort="PlanDeServicio" class="mediaTh">Plan de Servicio</th>                    
                     <th rowspan = 2 st-sort="Beam">Beam</th>
-                    <th rowspan = 2 st-sort="Pais">País</th>
-                    <th rowspan = 2 st-sort="ESN">No. de Serie</th>
+                    <th rowspan = 2 st-sort="SatellitedID">Satellite</th>
+                    <th rowspan = 2 st-sort="ESN">ESN</th>
                     <th rowspan = 2 st-sort="Estatus">Est. Comercial</th>
-                    <th rowspan = 2 st-sort="EstTecnico">Est. Técnico</th>
+                    <th rowspan = 2 st-sort="EstTecnico">Est. FAP</th>
                     <th rowspan = 2 st-sort="Latitud">Latitud</th>
                     <th rowspan = 2 st-sort="Longitud">Longitud</th>
                     <th rowspan = 2 st-sort="FechaAlta" class="mediaTh"> Fecha Alta</th>
@@ -112,37 +112,37 @@
                 </tr> -->    
                 <tr>  
                   <th>
-                      <input st-search="SAN" placeholder="Site Id" class="input-sm form-control" type="search" />
+                      <input st-search="SAN" placeholder="SAN" class="input-sm form-control" type="search" />
                     </th>  
                     <th>
-                      <input st-search="IdSuscriptor" placeholder="Cod Suscriptor" class="input-sm form-control" type="search" />
+                      <input st-search="IdSuscriptor" placeholder="Id Suscriptor" class="input-sm form-control media" type="search"/>
                     </th>
-                    <th>
-                      <input st-search="Cliente" placeholder="Cliente" class="input-sm form-control" type="search" />
-                    </th>    
+                   
+                      
+                       
                     <th>
                       <input st-search="Suscriptor" placeholder="Suscriptor" class="input-sm form-control" type="search" />
                     </th>
                     <th>
-                      <input st-search="PlanDeServicio" placeholder="Plan de Servicio" class="input-sm form-control" type="search"/>
+                      <input st-search="PlanDeServicio" placeholder="Plan de Servicio" class="input-sm form-control media" type="search"/>
                     </th>    
-                    <th>
-                      <input st-search="Hub" placeholder="Hub" class="input-sm form-control" type="search" />
-                    </th>  
+                  
+                     
+                    
                     <th>
                       <input st-search="Beam" placeholder="Beam" class="input-sm form-control" type="search" />
                     </th>
+                     <th>
+                      <input st-search="SatellitedID" placeholder="Satellite" class="input-sm form-control" type="search" />
+                    </th>                                 
                     <th>
-                      <input st-search="Pais" placeholder="Pais" class="input-sm form-control" type="search" />
-                    </th>                      
-                    <th>
-                      <input st-search="ESN" placeholder="No. de Serie" class="input-sm form-control" type="search" />
+                      <input st-search="ESN" placeholder="ESN" class="input-sm form-control" type="search" />
                     </th>  
                     <th>
                       <input st-search="Estatus" placeholder="Estatus" class="input-sm form-control" type="search" />
                     </th>
                     <th>
-                      <input st-search="EstTecnico" placeholder="Est. Técnico" class="input-sm form-control" type="search" />
+                      <input st-search="EstTecnico" placeholder="Est. Fap" class="input-sm form-control media" type="search" />
                     </th>
                     <th>
                       <input st-search="Latitud" placeholder="Latitud" class="input-sm form-control" type="search"/>
@@ -151,25 +151,25 @@
                       <input st-search="Longitud" placeholder="Longitud" class="input-sm form-control" type="search" />
                     </th>
                     <th >
-                      <input st-search="FechaAlta" placeholder="Fecha Alta" class="input-sm form-control" type="search" />
+                      <input st-search="FechaAlta" placeholder="Fecha Alta" class="input-sm form-control media" type="search" />
                     </th>  
                     <th>
-                      <input st-search="FechaActivacion" placeholder="Fecha Activacion" class="input-sm form-control" type="search" />
+                      <input st-search="FechaActivacion" placeholder="Fecha Activacion" class="input-sm form-control media" type="search" />
                   
                     <th>
-                      <input st-search="FechaSuspension" placeholder="Fecha Suspension" class="input-sm form-control" type="search" />
+                      <input st-search="FechaSuspension" placeholder="Fecha Suspension" class="input-sm form-control media" type="search" />
                     </th>    
                     <th>
-                      <input st-search="FechaCancelacion" placeholder="Fecha Cancelacion" class="input-sm form-control" type="search" />
+                      <input st-search="FechaCancelacion" placeholder="Fecha Cancelacion" class="input-sm form-control media" type="search" />
                     </th>
                     <th>
-                      <input st-search="consumoAnytime" placeholder="Consumo Anytime" class="input-sm form-control" type="search" />
+                      <input st-search="consumoAnytime" placeholder="Consumo Anytime" class="input-sm form-control media" type="search" />
                     </th>
                     <th>
-                      <input st-search="consumoBonus" placeholder="Consumo Bonus" class="input-sm form-control" type="search" />
+                      <input st-search="consumoBonus" placeholder="Consumo Bonus" class="input-sm form-control media" type="search" />
                     </th> 
                         <th>
-                      <input st-search="TokenDisp" placeholder="Token Disp" class="input-sm form-control" type="search"/>
+                      <input st-search="TokenDisp" placeholder="Token Disp" class="input-sm form-control media" type="search"/>
                     </th> 
 
 
@@ -178,14 +178,14 @@
                 </thead><!-- <td>{{row.SAN | uppercase}}</td> -->
                    <tbody>
                           <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">            
-                            <td>{{row.SAN}}</td>
-                            <td>{{row.IdSuscriptor}}</td>
-                            <td>{{row.Cliente}}</td>
+                            <td width="4%">{{row.SAN}}</td>
+                            <td width="5.4%">{{row.IdSuscriptor}}</td>
+                            
                             <td>{{row.Suscriptor}}</td>
                             <td class="media" >{{row.PlanDeServicio}}</td>
-                            <td>{{row.Hub}}</td>
-                            <td>{{row.Beam}}</td>
-                            <td>{{row.Pais}}</td>
+                            
+                            <td width="5.3%" >{{row.Beam}}</td>
+                            <td >{{row.SatellitedID}}</td>
                             <td class="media" >{{row.ESN}}</td>
                             <td>{{row.Estatus}}</td>
                             <td>{{row.EstTecnico}}</td>

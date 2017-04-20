@@ -1,18 +1,18 @@
 'use strict';
 angular.module('softvFrostApp')
-//.controller('ReportesCtrl', ['$http','uiGridConstants', 'reportesFactory', function ( $http, uiGridConstants, reportesFactory)
 .controller('Reportes_PlantaCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify','$state', function ( $http, reportesFactory, $timeout,ngNotify, $state){
-//function ReportesCtrl(reportesFactory) {
+
+
  
     var vm = this;  
     vm.filename = "Reporte_de_terminales";
     var reportHeaderPdf = "Reporte de Terminales";
-    vm.csvUnoHide = true; //Button no mostrar
-    vm.csvDosHide = true; //Button no mostrar
+    vm.csvUnoHide = true; 
+    vm.csvDosHide = true; 
     var img = new Image();
     img.crossOrigin = "";  
-    //vm.src = reportesFactory.obtenerRutaOriginal(); //url = '../images/StarGo_png.png';
-//----------------------------------------------
+  
+
 
     this.$onInit = function() {
 
@@ -23,18 +23,18 @@ angular.module('softvFrostApp')
         function ReportePlanta()
         {           
             reportesFactory.mostrarReportePlanta().then(function(data) {       
-                arrayPlanta = data.GetReportes_PlantaListResult; //console.log(data);
+                arrayPlanta = data.GetReportes_PlantaListResult; 
                 vm.itemsByPage = 5;      
-                vm.rowCollection4 = arrayPlanta;   //  vm.myDataPlanta = arrayPlanta;
-                // usar el array displayedCollection4 para llenar los csv dinamicamente, solo agregar los encabezados
-               // vm.getArrayPlanta = arrayPlanta; // Llenar el array del CSV         
+                vm.rowCollection4 = arrayPlanta;   
+               
+                   
             });
         }
         ReportePlanta();
     }
-    //---------------------------------------
+    
     function reloadRoute() {
-        $state.reload(); // refresh page
+        $state.reload(); 
     };
                    
     vm.limpiarFiltros = limpiarFiltros;
@@ -43,9 +43,9 @@ angular.module('softvFrostApp')
     }
 
 
-    function getImageDataURL() // Obtiene la ruta de la imagen, convierte en url para usarla en pdf
+    function getImageDataURL() 
     {             
-        //var url = vm.src; 
+        
         var url = document.getElementById("pdflogoimage").src;  
      
         var data, canvas, ctx;
@@ -70,113 +70,113 @@ angular.module('softvFrostApp')
 
 
 
-//---------------------
+
     //CSV 
-    vm.order = [ 'SAN', 'IdSuscriptor', 'Cliente', 'Suscriptor', 'PlanDeServicio', 'Hub', 'Beam', 'Pais',
-    'ESN', 'Estatus', 'EstTecnico', 'Latitud', 'Longitud', 'FechaActivacion', 'FechaAlta','FechaCancelacion',
-    'FechaSuspension', 'ConsumoAnytime','ConsumoBonus','TokenDisp'];
+    vm.order = [ 'SAN', 'IdSuscriptor', 'Suscriptor', 'PlanDeServicio', 'Beam', 'SatellitedID',
+    'ESN', 'Estatus', 'EstTecnico', 'Latitud', 'Longitud', 'FechaAlta','FechaActivacion', 'FechaSuspension', 'FechaCancelacion',
+   'ConsumoAnytime','ConsumoBonus','TokenDisp'];
 
 
-// CREAR CSV VISIBLE DATA -- filters
-vm.crearVisibleAsCsv = crearVisibleAsCsv;
-function crearVisibleAsCsv() {
-    $timeout(function() {
+    // CREAR CSV 
+    vm.crearVisibleAsCsv = crearVisibleAsCsv;
+    function crearVisibleAsCsv() {
+        $timeout(function() {
 
-    // Elimina las propiedades que no se usan
-    for (var i = 0; i < vm.displayedCollection4.length; i++) //todos los distribuidores de la tabla
-        { 
-            delete vm.displayedCollection4[i].BaseIdUser;
-            delete vm.displayedCollection4[i].BaseRemoteIp;
-            delete vm.displayedCollection4[i].$$hashKey;
-        } 
+        
+        for (var i = 0; i < vm.displayedCollection4.length; i++) 
+            { 
+                delete vm.displayedCollection4[i].BaseIdUser;
+                delete vm.displayedCollection4[i].BaseRemoteIp;
+                delete vm.displayedCollection4[i].$$hashKey;
+            } 
 
-    // Posición 0 del arrayReporte (ENCABEZADOS)
-        initArray();
 
-      for (var i = 0; i < vm.displayedCollection4.length; i++) 
-        {   //copia cada objeto del array de la tabla en el arry del reporte
-            vm.arrayReporte.push(vm.displayedCollection4[i]); // Copia array de tabla displayedCollection4  
-        } 
-       //FIN DE PROPIEDADES
-    angular.element('#csvUno').triggerHandler('click'); //llama al botón para crear csv del arrayReporte
-  });
-};
+            initArray();
+
+          for (var i = 0; i < vm.displayedCollection4.length; i++) 
+            {   
+                vm.arrayReporte.push(vm.displayedCollection4[i]);   
+            } 
+        
+        angular.element('#csvUno').triggerHandler('click'); 
+      });
+    };
 
 
 
     function initArray (){
-      vm.arrayReporte = []; //array vacío   
-         // Posición 0 del arrayReporte (ENCABEZADOS)
+      vm.arrayReporte = []; 
+         // ENCABEZADOS
         vm.arrayReporte =     [{
             "Beam": "Beam",
-            "Cliente": "Cliente",
+            "SatellitedID": "Satellite",
             "ConsumoAnytime": "Consumo Anytime (Gb)",
             "ConsumoBonus": "Consumo Bonus (Gb)",
-            "ESN": "Nro. de Serie",
-            "EstTecnico": "Est. Técnico",
+            "ESN": "ESN",
+            "EstTecnico": "Est. FAP",
             "Estatus": "Est. Comercial",
-            "FechaActivacion": "Fecha Activación",
             "FechaAlta": "Fecha Alta",
-            "FechaCancelacion": "Fecha Cancelación",
+            "FechaActivacion": "Fecha Activación",
             "FechaSuspension": "Fecha Suspensión",
-            "Hub": "Hub",
-            "IdSuscriptor": "Cod Suscriptor",
+            "FechaCancelacion": "Fecha Cancelación",            
+            
+            "IdSuscriptor": "Id Suscriptor",
             "Latitud": "Latitud",
             "Longitud": "Longitud", 
-            "Pais": 'País',           
+                     
             "PlanDeServicio": "Plan de Servicio",
-            "SAN": "Site Id",
+            "SAN": "SAN",
             "Suscriptor": "Suscriptor",
             "TokenDisp": "Token Disp (Gb)"
                 }];
     } 
 
 
-// CREAR CSV ALL DATA 
-vm.crearTodoAsCsv = crearTodoAsCsv;
-function crearTodoAsCsv() {
-  $timeout(function() {
+    // CREAR CSV 
+    vm.crearTodoAsCsv = crearTodoAsCsv;
+    function crearTodoAsCsv() {
+      $timeout(function() {
 
-    // Elimina las propiedades que no se usan
-    for (var i = 0; i < vm.rowCollection4.length; i++) //table total
-        { 
-            delete vm.rowCollection4[i].BaseIdUser;
-            delete vm.rowCollection4[i].BaseRemoteIp;
-            delete vm.rowCollection4[i].$$hashKey;
-        } 
+        
+        for (var i = 0; i < vm.rowCollection4.length; i++) 
+            { 
+                delete vm.rowCollection4[i].BaseIdUser;
+                delete vm.rowCollection4[i].BaseRemoteIp;
+                delete vm.rowCollection4[i].$$hashKey;
+            } 
 
-        initArray();
+            initArray();
 
-      for (var i = 0; i < vm.rowCollection4.length; i++) 
-        {   //copia cada objeto del array de la tabla en el arry del reporte
-            vm.arrayReporte.push(vm.rowCollection4[i]); // Copia array de tabla displayedCollection4  
-        } 
-       //FIN DE PROPIEDADES
-    angular.element('#csvDos').triggerHandler('click'); //llama al botón para crear csv del arrayReporte
-  });
-};
-
-
-
-/* // ORIGINAL
-vm.clickOnUpload = clickOnUpload;
-function clickOnUpload() {
-  $timeout(function() {
-    angular.element('#myselector').triggerHandler('click');
-  });
-};*/
+          for (var i = 0; i < vm.rowCollection4.length; i++) 
+            {   
+                vm.arrayReporte.push(vm.rowCollection4[i]);   
+            } 
+        
+        angular.element('#csvDos').triggerHandler('click'); 
+      });
+    };
 
 
 
-// Create TABLE PDF -- All / Visible 
-vm.createPdfTodo = createPdfTodo;
-function createPdfTodo(pdfAcrear){
 
 
-    var rows = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ]; // no. column
-    // rows 0
-    var r = 1; //start from rows 1
-    var c = 0; //start from col 5
+
+
+
+
+
+
+
+
+    // Create TABLE PDF 
+    vm.createPdfTodo = createPdfTodo;
+    function createPdfTodo(pdfAcrear){
+
+
+    var rows = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ];
+
+    var r = 1; 
+    var c = 0; 
 
 
     var ro = 0; // length array of objects
@@ -186,141 +186,141 @@ function createPdfTodo(pdfAcrear){
         { ro = vm.displayedCollection4.length; }
 
 
-    var cols = 20; // column number
-    var columns = ["Site Id", "Cod Suscriptor", "Cliente", "Suscriptor", "Plan de Servicio", "Hub", "Beam","País", "No. de Serie", "Est. Comercial", 
-                    "Est. Técnico", "Latitud", "Longitud","Fecha Activación", "Fecha Alta", "Fecha Cancelación", "Fecha Suspensión",  "Consumo Anytime (Gb)",  "Consumo Bonus (Gb)", "Token Disp (Gb)"];
+    var cols = 17;
+    var columns = ["SAN", "Id Suscriptor", "Suscriptor", "Plan de Servicio",  "Beam", "Satellite", "ESN", "Est. Comercial", 
+                    "Est. FAP", "Latitud", "Longitud", "Fecha Alta", "Fecha Activación", "Fecha Suspensión", "Fecha Cancelación",  "Consumo Anytime (Gb)",  "Consumo Bonus (Gb)", "Token Disp (Gb)"];
 
-    // expand to have the correct amount or rows
+    
     for( var i=r; i<ro; i++ ) {         
       rows.push( [] );
     }
 
-    // expand all rows to have the correct amount of cols
+    
     for (var i = 0; i < ro; i++)
     {    
-        if ( pdfAcrear =='todo') // ALL DATA
-        {   //replace row 0
+        if ( pdfAcrear =='todo') 
+        {   
             rows[i][0] = vm.rowCollection4[i].SAN;
             rows[i][1] = vm.rowCollection4[i].IdSuscriptor;
-            rows[i][2] = vm.rowCollection4[i].Cliente;
-            rows[i][3] = vm.rowCollection4[i].Suscriptor;
-            rows[i][4] = vm.rowCollection4[i].PlanDeServicio;
-            rows[i][5] = vm.rowCollection4[i].Hub;
-            rows[i][6] = vm.rowCollection4[i].Beam;
-            rows[i][7] = vm.rowCollection4[i].Pais;
-            rows[i][8] = vm.rowCollection4[i].ESN;
-            rows[i][9] = vm.rowCollection4[i].Estatus;
-            rows[i][10] = vm.rowCollection4[i].EstTecnico;
-            rows[i][11] = vm.rowCollection4[i].Latitud;
-            rows[i][12] = vm.rowCollection4[i].Longitud;
-            rows[i][13] = vm.rowCollection4[i].FechaActivacion;
-            rows[i][14] = vm.rowCollection4[i].FechaAlta;
-            rows[i][15] = vm.rowCollection4[i].FechaCancelacion;
-            rows[i][16] = vm.rowCollection4[i].FechaSuspension;
-            rows[i][17] = vm.rowCollection4[i].ConsumoAnytime;
-            rows[i][18] = vm.rowCollection4[i].ConsumoBonus;
-            rows[i][19] = vm.rowCollection4[i].TokenDisp;    
-        }else //VISIBLE DATA
+            
+            rows[i][2] = vm.rowCollection4[i].Suscriptor;
+            rows[i][3] = vm.rowCollection4[i].PlanDeServicio;
+            
+            rows[i][4] = vm.rowCollection4[i].Beam;
+            rows[i][5] = vm.rowCollection4[i].SatellitedID;
+            rows[i][6] = vm.rowCollection4[i].ESN;
+            rows[i][7] = vm.rowCollection4[i].Estatus;
+            rows[i][8] = vm.rowCollection4[i].EstTecnico;
+            rows[i][9] = vm.rowCollection4[i].Latitud;
+            rows[i][10] = vm.rowCollection4[i].Longitud;
+            rows[i][11] = vm.rowCollection4[i].FechaAlta;
+            rows[i][12] = vm.rowCollection4[i].FechaActivacion; 
+            rows[i][13] = vm.rowCollection4[i].FechaSuspension;           
+            rows[i][14] = vm.rowCollection4[i].FechaCancelacion;            
+            rows[i][15] = vm.rowCollection4[i].ConsumoAnytime;
+            rows[i][16] = vm.rowCollection4[i].ConsumoBonus;
+            rows[i][17] = vm.rowCollection4[i].TokenDisp;    
+        }else 
         {           
             rows[i][0] = vm.displayedCollection4[i].SAN;
             rows[i][1] = vm.displayedCollection4[i].IdSuscriptor;
-            rows[i][2] = vm.displayedCollection4[i].Cliente;
-            rows[i][3] = vm.displayedCollection4[i].Suscriptor;
-            rows[i][4] = vm.displayedCollection4[i].PlanDeServicio;
-            rows[i][5] = vm.displayedCollection4[i].Hub;
-            rows[i][6] = vm.displayedCollection4[i].Beam;
-            rows[i][7] = vm.displayedCollection4[i].Pais;
-            rows[i][8] = vm.displayedCollection4[i].ESN;
-            rows[i][9] = vm.displayedCollection4[i].Estatus;
-            rows[i][10] = vm.displayedCollection4[i].EstTecnico;
-            rows[i][11] = vm.displayedCollection4[i].Latitud;
-            rows[i][12] = vm.displayedCollection4[i].Longitud;
-            rows[i][13] = vm.displayedCollection4[i].FechaActivacion;
-            rows[i][14] = vm.displayedCollection4[i].FechaAlta;
-            rows[i][15] = vm.displayedCollection4[i].FechaCancelacion;
-            rows[i][16] = vm.displayedCollection4[i].FechaSuspension;
-            rows[i][17] = vm.displayedCollection4[i].ConsumoAnytime;
-            rows[i][18] = vm.displayedCollection4[i].ConsumoBonus;
-            rows[i][19] = vm.displayedCollection4[i].TokenDisp;  
+            
+            rows[i][2] = vm.displayedCollection4[i].Suscriptor;
+            rows[i][3] = vm.displayedCollection4[i].PlanDeServicio;
+            
+            rows[i][4] = vm.displayedCollection4[i].Beam;
+            rows[i][5] = vm.displayedCollection4[i].SatellitedID;
+            rows[i][6] = vm.displayedCollection4[i].ESN;
+            rows[i][7] = vm.displayedCollection4[i].Estatus;
+            rows[i][8] = vm.displayedCollection4[i].EstTecnico;
+            rows[i][9] = vm.displayedCollection4[i].Latitud;
+            rows[i][10] = vm.displayedCollection4[i].Longitud;
+            rows[i][11] = vm.displayedCollection4[i].FechaAlta;
+            rows[i][12] = vm.displayedCollection4[i].FechaActivacion; 
+            rows[i][13] = vm.displayedCollection4[i].FechaSuspension;       
+            rows[i][14] = vm.displayedCollection4[i].FechaCancelacion;            
+            rows[i][15] = vm.displayedCollection4[i].ConsumoAnytime;
+            rows[i][16] = vm.displayedCollection4[i].ConsumoBonus;
+            rows[i][17] = vm.displayedCollection4[i].TokenDisp;  
         } 
     } 
 
 
-   // Create document
-    var doc = new jsPDF({
-    orientation: 'landscape',
-    format: 'A4'
-    });
+        // Create document
+        var doc = new jsPDF({
+            orientation: 'landscape',
+            format: 'A4'
+        });
 
-     //Page number 
-    var totalPagesExp = "{total_pages_count_string}";
-    var pageContent = function (data) {    
-            // FOOTER
-            var str = "Page " + data.pageCount;
-            // Total page number plugin only available in jspdf v1.0+
-            if (typeof doc.putTotalPages === 'function') {
-                str = str + " of " + totalPagesExp;
-            }
-            doc.setFontSize(9);
-            //x , y 
-            doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 10, str); 
-          //  doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+        //Page number 
+        var totalPagesExp = "{total_pages_count_string}";
+        var pageContent = function (data) {    
+        // FOOTER
+        var str = "Page " + data.pageCount;
+        // Total page number plugin only available in jspdf v1.0+
+        if (typeof doc.putTotalPages === 'function') {
+            str = str + " of " + totalPagesExp;
+        }
+        doc.setFontSize(9);
+           
+        doc.text(doc.internal.pageSize.width - 28 , doc.internal.pageSize.height - 8, str); 
+              
         };
      
 
-        // Añadir logo StarGo
-        //   var img = reportesFactory.obtenerImagen();
-        //  console.log( 'img'+img);
-        //  doc.addImage(img, 'jpg', 5, 5, 40, 15); // x, y width, height   //37% 
-        doc.addImage(img, 'jpeg', 5, 5, 40, 15); // x, y width, height   //37% 
+       
+     
+       
+    
+    doc.addImage(img, 'jpeg', 5, 5, 40, 15); 
 
-        // Encabezado reporte CENTRADO
-        doc.setFontSize(14); 
-        doc.setFontType("bold");
-        var fontSize = doc.internal.getFontSize(); // Get current font size
-        var pageWidth = doc.internal.pageSize.width; // Get page width
-        var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
-        var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
-        doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
+    // Encabezado 
+    doc.setFontSize(14); 
+    doc.setFontType("bold");
+    var fontSize = doc.internal.getFontSize(); // Get current font size
+    var pageWidth = doc.internal.pageSize.width; 
+    var txtWidth = doc.getStringUnitWidth(reportHeaderPdf) * fontSize / doc.internal.scaleFactor;
+    var x = ( pageWidth - txtWidth ) / 2;    // Calculate text's x coordinate    
+    doc.text(reportHeaderPdf, x, 14);   // Posición text at x,y
 
-        // Fecha de hoy
-        var laFechaHoy = reportesFactory.obtenerFechaHoy();
-        doc.setFontSize(11);   
-        doc.setFontType("normal");
-        doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   //  Posición  text at x,y
+ 
+    var laFechaHoy = reportesFactory.obtenerFechaHoy();
+    doc.setFontSize(11);   
+    doc.setFontType("normal");
+    doc.text(doc.internal.pageSize.width - 45 , 20, laFechaHoy);   
         
-        doc.setPage(1); // importante
+    doc.setPage(1); 
 
 
-       // doc.setLineWidth(0.5);  doc.line(20, 25, 60, 25); //x1 y1, x2 y2
+       
 
         // Custom table 
         jsPDF.autoTableSetDefaults({
             headerStyles: 
             {   
-                fontSize: 7.3,       
+                fontSize: 6.8,       
             },
-            bodyStyles: {        
-                fontSize: 6.5 
+                bodyStyles: {        
+                    fontSize: 6.4 
             }
         });
 
         doc.autoTable( columns, rows, {
-            startY:27, //draw table here     
-            theme: 'plain',//'grid', //
-         //   headerStyles:{lineWidth: 1, lineColor: [0, 0, 0]},
-         //   bodyStyles: {lineColor: [0, 0, 0]},
+            startY:27,   
+            theme: 'plain',
+            
             styles:{
-                overflow: 'linebreak', // visible, hidden, ellipsize or linebreak  
+                overflow: 'linebreak',  
             },
             columnStyles: { 
-                  1: {columnWidth: 12} //width 
-                ,17: {columnWidth: 14} //width 
+                0: {columnWidth: 12}, 
+                1: {columnWidth: 12}, 
+                4: {columnWidth: 11},                                     
             },
-             margin: {top: 16, right: 5, bottom: 16, left: 5},
-             addPageContent: pageContent //page number
+            margin: {top: 10, right: 5, bottom: 16, left: 5},
+            addPageContent: pageContent //page number
         });
-           // Total page number plugin only available in jspdf v1.0+
+        // Total page number plugin only available in jspdf v1.0+
         if (typeof doc.putTotalPages === 'function') {
             doc.putTotalPages( totalPagesExp);
         }
@@ -328,7 +328,7 @@ function createPdfTodo(pdfAcrear){
         doc.save(vm.filename+'.pdf');    
       }
 
-        //-------------------------------------------
+       
 
     }
 
