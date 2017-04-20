@@ -18,12 +18,13 @@
         </div>
         <div class="col-md-4">
           <div class="col-md-12">
-            <b>Descripción de usuario</b>
+            <b>Nombre</b>
             <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.Nombre" required-message="'Este campo es obligatorio.'" required>
           </div>
           <div class="col-md-12">
-            <b>Nombre de usuario</b>
-            <input type="text" class="form-control" ng-model="$ctrl.Descripcion" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+            <b>Usuario</b>
+            <input type="text" class="form-control" ng-change="$ctrl.existe()" ng-model="$ctrl.Descripcion" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'" required ng-disabled="$ctrl.userText">
+            <small style="color:red" ng-show="$ctrl.isDuplicate">El nombre de usuario ya esta registrado, por favor introduce uno diferente.</small>  
           </div>
           <div class="col-md-12">
             <b>Correo</b>

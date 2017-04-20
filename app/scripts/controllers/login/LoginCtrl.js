@@ -2,6 +2,9 @@
 angular.module('softvFrostApp').controller('LoginCtrl', LoginCtrl);
 
 function LoginCtrl(authFactory, ngNotify, $state, $localStorage, $stateParams, $window, $location) {
+	var vm = this;
+	vm.login = login;
+	
 	this.$onInit = function () {
 		if ($localStorage.currentUser) {
 			if ($stateParams.esn != undefined) {
@@ -23,7 +26,4 @@ function LoginCtrl(authFactory, ngNotify, $state, $localStorage, $stateParams, $
 			}
 		});
 	}
-
-	var vm = this;
-	vm.login = login;
 }
