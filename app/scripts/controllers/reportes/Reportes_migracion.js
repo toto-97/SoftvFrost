@@ -165,7 +165,7 @@ angular.module('softvFrostApp')
       vm.arrayReporte = []; 
          
         vm.arrayReporte =     [{
-                "SAN": "Site Id",
+                "SAN": "SAN",
               
                 "Suscriptor": "Suscriptor",
                 "PlanInicial": "Plan Inicial",
@@ -196,7 +196,7 @@ function createPdfTodo(pdfAcrear){
 
 
     var cols = 12;
-    var columns = ["Site Id", "Suscriptor", "Plan Inicial", "Plan Final", "Fecha Migración", "ESN", "Latitud", "Longitud", "Usuario"];
+    var columns = ["SAN", "Suscriptor", "Plan Inicial", "Plan Final", "Fecha Migración", "ESN", "Latitud", "Longitud", "Usuario"];
 
    
     for( var i=r; i<ro; i++ ) {         
