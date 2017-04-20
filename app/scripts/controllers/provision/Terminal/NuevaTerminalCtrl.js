@@ -2,6 +2,35 @@
 angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtrl);
 
 function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootScope, ngNotify, $state, $filter, $stateParams) {
+	var vm = this;
+	vm.titulo = 'Nueva Terminal';
+	vm.BuscaSuscriptor = BuscaSuscriptor;
+	vm.ValidarServicio = ValidarServicio;
+	vm.BuscaLatLong = BuscaLatLong;
+	vm.GuardaTerminal = GuardaTerminal;
+	vm.FechaAlta = new Date();
+	vm.ListaStatus = [{
+		'clave': 'Pendiente',
+		'Nombre': 'Pendiente'
+	},
+	{
+		'clave': 'Activa',
+		'Nombre': 'Activa'
+	},
+	{
+		'clave': 'Suspendida',
+		'Nombre': 'Suspendida'
+	},
+	{
+		'clave': 'Cancelada',
+		'Nombre': 'Cancelada'
+	},
+	{
+		'clave': 'Incompleta',
+		'Nombre': 'Incompleta'
+	}
+	];
+
 	this.$onInit = function () {
 		if ($stateParams.idSuscriptor != undefined) {
 			var busObj = {
@@ -69,7 +98,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 						ngNotify.set('Sin área de cobertura', 'error');
 						vm.Servicios = '';
 					} else {
-						ngNotify.set('Dentro del área de cobertura','success'); 
+						ngNotify.set('Dentro del área de cobertura', 'success');
 						vm.BeamID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.BeamID;
 						vm.SatelliteID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.SatellitedID;
 						//Filtra los servicios por las disponibilidad en Hughes
@@ -179,11 +208,11 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 					Obj2.objMovimiento.IdTicket = 0;
 					Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
 					vm.fechaAuxiliar = new Date();
-		      		Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-					Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
-					Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
-					Obj2.objMovimiento.Detalle1='';
-					Obj2.objMovimiento.Detalle2='';
+					Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+					Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
+					Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
+					Obj2.objMovimiento.Detalle1 = '';
+					Obj2.objMovimiento.Detalle2 = '';
 
 					//Objeto para actualizar el SatelliteId y BeamId a la terminal
 					var Obj4 = new Object();
@@ -193,22 +222,22 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 					Obj4.objTerminal.Polarization = hughesData.StandardResponse.TransportInformation.Polarization;
 					Obj4.objTerminal.SAN = data.AddTerminalResult;
 
-					if (hughesData.StandardResponse.Code!='5') {
-							//----------------------------------
-						var Obj3=new Object();
-						Obj3.objTerminal=new Object();
-						Obj3.objTerminal.SAN=data.AddTerminalResult;
-						Obj3.objTerminal.IdSuscriptor=vm.IdSuscriptor;
-						Obj3.objTerminal.IdServicio=vm.Servicio.IdServicio;
+					if (hughesData.StandardResponse.Code != '5') {
+						//----------------------------------
+						var Obj3 = new Object();
+						Obj3.objTerminal = new Object();
+						Obj3.objTerminal.SAN = data.AddTerminalResult;
+						Obj3.objTerminal.IdSuscriptor = vm.IdSuscriptor;
+						Obj3.objTerminal.IdServicio = vm.Servicio.IdServicio;
 
-						Obj3.objTerminal.Latitud=vm.Latitud;
-						Obj3.objTerminal.Longitud=vm.Longuitud;
-						Obj3.objTerminal.Estatus='Incompleta';
-						Obj3.objTerminal.FechaAlta=vm.FechaAlta;
-						Obj3.objTerminal.FechaSuspension='';
-						Obj3.objTerminal.ESN=vm.ESN;
-						Obj3.objTerminal.Comentarios=vm.Comentarios;
-						terminalFactory.updateTerminal(Obj3).then(function(data) {
+						Obj3.objTerminal.Latitud = vm.Latitud;
+						Obj3.objTerminal.Longitud = vm.Longuitud;
+						Obj3.objTerminal.Estatus = 'Incompleta';
+						Obj3.objTerminal.FechaAlta = vm.FechaAlta;
+						Obj3.objTerminal.FechaSuspension = '';
+						Obj3.objTerminal.ESN = vm.ESN;
+						Obj3.objTerminal.Comentarios = vm.Comentarios;
+						terminalFactory.updateTerminal(Obj3).then(function (data) {
 							ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
 						});
 						//--------------------------------------------------
@@ -216,7 +245,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 					} else {
 						//Actualizamos información adicional de la terminal
 						console.log(Obj4);
-						terminalFactory.agregaInfoTerminal(Obj4).then(function(obj){
+						terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
 						});
 						ngNotify.set('La terminal se ha guardado correctamente', 'success');
 					}
@@ -229,33 +258,4 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		});
 	}
 
-
-	var vm = this;
-	vm.titulo = 'Nueva Terminal';
-	vm.BuscaSuscriptor = BuscaSuscriptor;
-	vm.ValidarServicio = ValidarServicio;
-	vm.BuscaLatLong = BuscaLatLong;
-	vm.GuardaTerminal = GuardaTerminal;
-	vm.FechaAlta = new Date();
-	vm.ListaStatus = [{
-		'clave': 'Pendiente',
-		'Nombre': 'Pendiente'
-	},
-	{
-		'clave': 'Activa',
-		'Nombre': 'Activa'
-	},
-	{
-		'clave': 'Suspendida',
-		'Nombre': 'Suspendida'
-	},
-	{
-		'clave': 'Cancelada',
-		'Nombre': 'Cancelada'
-	},
-	{
-		'clave': 'Incompleta',
-		'Nombre': 'Incompleta'
-	}
-	];
 }

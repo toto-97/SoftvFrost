@@ -1,17 +1,16 @@
 'use strict';
-angular
-	.module('softvFrostApp')
-	.controller('ModalGetLatLongCtrl', ModalGetLatLongCtrl);
+angular.module('softvFrostApp').controller('ModalGetLatLongCtrl', function ($uibModalInstance, $uibModal, SuscriptorFactory, $rootScope, ngNotify, NgMap, datosGis) {
+	var vm = this;
+	vm.cancel = cancel;
+	vm.ok = ok;
+	vm.getpos = getpos;
 
-function ModalGetLatLongCtrl($uibModalInstance, $uibModal, SuscriptorFactory, $rootScope, ngNotify, NgMap, datosGis) {
-	function initialData() {
-		NgMap.getMap().then(function(map) {
+	this.$onInit = function () {
+		NgMap.getMap().then(function (map) {
 			vm.latlng = [parseFloat(datosGis.lat), parseFloat(datosGis.long)];
 			vm.map = map;
 			google.maps.event.trigger(vm.map, 'resize');
 		});
-
-
 	}
 
 	function ok() {
@@ -21,19 +20,11 @@ function ModalGetLatLongCtrl($uibModalInstance, $uibModal, SuscriptorFactory, $r
 
 	function getpos(event) {
 		vm.latlng = [event.latLng.lat(), event.latLng.lng()];
-	};
+	}
 
 
 
 	function cancel() {
 		$uibModalInstance.dismiss('cancel');
 	}
-
-	var vm = this;
-	vm.cancel = cancel;
-	vm.ok = ok;
-	vm.getpos = getpos;
-	initialData();
-
-
-}
+});
