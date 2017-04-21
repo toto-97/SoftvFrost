@@ -5,13 +5,13 @@ angular.module('softvFrostApp')
 		var factory = {};
 		
 		var paths = {  		
-			mostrarReportePlanta: "/Reportes_Planta/GetReportes_PlantaList", 
-			mostrarReporteTokens: "/Reporte_Tokens/GetReporte_TokensList",	
-			mostrarReporteMigraciones: "/Reporte_Migraciones/GetReporte_MigracionesList", 
-			mostrarReporteMovimientos: "/Reporte_Movimientos/GetReporte_MovimientosList", 
-			mostrarPlan: "/Reporte_DetalleTerminal/GetPlanByBeam_reporte", 
-			mostrarBeam: "/Reporte_DetalleTerminal/GetBeam_reporte",
-			mostrarReporteDetTerminales: "/Reporte_DetalleTerminal/GetReporte_DetalleTerminalList",	
+			mostrarReportePlanta: '/Reportes_Planta/GetReportes_PlantaList', 
+			mostrarReporteTokens: '/Reporte_Tokens/GetReporte_TokensList',	
+			mostrarReporteMigraciones: '/Reporte_Migraciones/GetReporte_MigracionesList', 
+			mostrarReporteMovimientos: '/Reporte_Movimientos/GetReporte_MovimientosList', 
+			mostrarPlan: '/Reporte_DetalleTerminal/GetPlanByBeam_reporte', 
+			mostrarBeam: '/Reporte_DetalleTerminal/GetBeam_reporte',
+			mostrarReporteDetTerminales: '/Reporte_DetalleTerminal/GetReporte_DetalleTerminalList',	
 			
 		
 
