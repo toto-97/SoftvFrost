@@ -160,14 +160,6 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 					Obj2.objMovimiento.Detalle1='';
 					Obj2.objMovimiento.Detalle2='';
 
-					//Objeto para actualizar el SatelliteId y BeamId a la terminal
-					var Obj4 = new Object();
-					Obj4.objTerminal = new Object();
-					Obj4.objTerminal.SatellitedID = hughesData.StandardResponse.TransportInformation.SatellitedID;
-					Obj4.objTerminal.BeamID = hughesData.StandardResponse.TransportInformation.BeamID;
-					Obj4.objTerminal.Polarization = hughesData.StandardResponse.TransportInformation.Polarization;
-					Obj4.objTerminal.SAN = data.AddTerminalResult;
-
 					if (hughesData.StandardResponse.Code!='5') {
 							//----------------------------------
 						var Obj3=new Object();
@@ -189,6 +181,13 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 							//--------------------------------------------------
 
 					} else {
+						//Objeto para actualizar el SatelliteId y BeamId a la terminal
+						var Obj4 = new Object();
+						Obj4.objTerminal = new Object();
+						Obj4.objTerminal.SatellitedID = hughesData.StandardResponse.TransportInformation.SatellitedID;
+						Obj4.objTerminal.BeamID = hughesData.StandardResponse.TransportInformation.BeamID;
+						Obj4.objTerminal.Polarization = hughesData.StandardResponse.TransportInformation.Polarization;
+						Obj4.objTerminal.SAN = data.AddTerminalResult;
 						//Actualizamos información adicional de la terminal
 						console.log(Obj4);
 						terminalFactory.agregaInfoTerminal(Obj4).then(function(obj){
