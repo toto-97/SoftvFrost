@@ -98,7 +98,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 						ngNotify.set('Sin área de cobertura', 'error');
 						vm.Servicios = '';
 					} else {
-						ngNotify.set('Dentro del área de cobertura', 'success');
+						ngNotify.set('Dentro del área de cobertura','success');
 						vm.BeamID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.BeamID;
 						vm.SatelliteID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.SatellitedID;
 						//Filtra los servicios por las disponibilidad en Hughes
@@ -214,21 +214,13 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 					Obj2.objMovimiento.Detalle1 = '';
 					Obj2.objMovimiento.Detalle2 = '';
 
-					//Objeto para actualizar el SatelliteId y BeamId a la terminal
-					var Obj4 = new Object();
-					Obj4.objTerminal = new Object();
-					Obj4.objTerminal.SatellitedID = hughesData.StandardResponse.TransportInformation.SatellitedID;
-					Obj4.objTerminal.BeamID = hughesData.StandardResponse.TransportInformation.BeamID;
-					Obj4.objTerminal.Polarization = hughesData.StandardResponse.TransportInformation.Polarization;
-					Obj4.objTerminal.SAN = data.AddTerminalResult;
-
-					if (hughesData.StandardResponse.Code != '5') {
-						//----------------------------------
-						var Obj3 = new Object();
-						Obj3.objTerminal = new Object();
-						Obj3.objTerminal.SAN = data.AddTerminalResult;
-						Obj3.objTerminal.IdSuscriptor = vm.IdSuscriptor;
-						Obj3.objTerminal.IdServicio = vm.Servicio.IdServicio;
+					if (hughesData.StandardResponse.Code!='5') {
+							//----------------------------------
+						var Obj3=new Object();
+						Obj3.objTerminal=new Object();
+						Obj3.objTerminal.SAN=data.AddTerminalResult;
+						Obj3.objTerminal.IdSuscriptor=vm.IdSuscriptor;
+						Obj3.objTerminal.IdServicio=vm.Servicio.IdServicio;
 
 						Obj3.objTerminal.Latitud = vm.Latitud;
 						Obj3.objTerminal.Longitud = vm.Longuitud;
@@ -243,6 +235,13 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 						//--------------------------------------------------
 
 					} else {
+						//Objeto para actualizar el SatelliteId y BeamId a la terminal
+						var Obj4 = new Object();
+						Obj4.objTerminal = new Object();
+						Obj4.objTerminal.SatellitedID = hughesData.StandardResponse.TransportInformation.SatellitedID;
+						Obj4.objTerminal.BeamID = hughesData.StandardResponse.TransportInformation.BeamID;
+						Obj4.objTerminal.Polarization = hughesData.StandardResponse.TransportInformation.Polarization;
+						Obj4.objTerminal.SAN = data.AddTerminalResult;
 						//Actualizamos información adicional de la terminal
 						console.log(Obj4);
 						terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
