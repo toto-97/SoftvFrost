@@ -69,7 +69,7 @@ angular.module('softvFrostApp')
     function getReporteTokens()
     {                     
         getFechas();  
-
+        if (vm.fechaFin == null){ vm.fechaFin = undefined; }
         if (vm.fechaInicio > vm.fechaFin){
             ngNotify.set('La fecha de inicio debe ser anterior a la fecha fin', {
                 type: 'error'
@@ -340,7 +340,7 @@ function createPdfTodo(pdfAcrear){
         doc.save(vm.filename+'.pdf');    
     }
 
-        //-------------------------------------------
+      
 
 
 

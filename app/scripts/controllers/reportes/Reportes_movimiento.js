@@ -63,7 +63,7 @@ angular.module('softvFrostApp')
     function getReporteMovimientos()
     {                     
             getFechas();         
-
+                if (vm.fechaFin == null){ vm.fechaFin = undefined; }
                 if (vm.fechaInicio > vm.fechaFin){
                     ngNotify.set('La fecha de inicio debe ser anterior a la fecha fin', {
                         type: 'error'
@@ -118,7 +118,7 @@ angular.module('softvFrostApp')
 
 
     //CSV 
-    vm.order = [ 'SAN', 'Suscriptor', 'FechaMovim', 'ESN', 'Movimiento', 'Mensaje', 'Usuario'];
+    vm.order = [ 'SAN', 'Suscriptor', 'Usuario', 'FechaMovim', 'ESN', 'Movimiento', 'Mensaje'];
 
     // CREAR CSV 
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -179,11 +179,11 @@ angular.module('softvFrostApp')
             "SAN": "SAN",
                 
             "Suscriptor": "Suscriptor",
+            "Usuario": "Usuario",
             "FechaMovim": "Fecha Movimiento",
             "ESN": "ESN",
             "Movimiento": "Movimiento",
-            "Mensaje":"Mensaje",        
-            "Usuario": "Usuario"
+            "Mensaje":"Mensaje"   
             }];
     } 
 
@@ -205,7 +205,7 @@ angular.module('softvFrostApp')
 
 
     var cols = 6; 
-    var columns = ["SAN", "Suscriptor", "FechaMovim", "ESN", "Movimiento", "Mensaje","Usuario"];
+    var columns = ["SAN", "Suscriptor","Usuario", "FechaMovim", "ESN", "Movimiento", "Mensaje"];
 
  
     for( var i=r; i<ro; i++ ) {         
@@ -221,21 +221,21 @@ angular.module('softvFrostApp')
             rows[i][0] = vm.rowCollection4[i].SAN;
             
             rows[i][1] = vm.rowCollection4[i].Suscriptor;
-            rows[i][2] = vm.rowCollection4[i].FechaMovim;
-            rows[i][3] = vm.rowCollection4[i].ESN;
-            rows[i][4] = vm.rowCollection4[i].Movimiento;
-            rows[i][5] = vm.rowCollection4[i].Mensaje;
-            rows[i][6] = vm.rowCollection4[i].Usuario;
+            rows[i][2] = vm.rowCollection4[i].Usuario;
+            rows[i][3] = vm.rowCollection4[i].FechaMovim;
+            rows[i][4] = vm.rowCollection4[i].ESN;
+            rows[i][5] = vm.rowCollection4[i].Movimiento;
+            rows[i][6] = vm.rowCollection4[i].Mensaje;           
         }else 
         {                   
             rows[i][0] = vm.displayedCollection4[i].SAN;
            
             rows[i][1] = vm.displayedCollection4[i].Suscriptor;
-            rows[i][2] = vm.displayedCollection4[i].FechaMovim;
-            rows[i][3] = vm.displayedCollection4[i].ESN;
-            rows[i][4] = vm.displayedCollection4[i].Movimiento;
-            rows[i][5] = vm.displayedCollection4[i].Mensaje;
-            rows[i][6] = vm.displayedCollection4[i].Usuario;
+            rows[i][2] = vm.displayedCollection4[i].Usuario;
+            rows[i][3] = vm.displayedCollection4[i].FechaMovim;
+            rows[i][4] = vm.displayedCollection4[i].ESN;
+            rows[i][5] = vm.displayedCollection4[i].Movimiento;
+            rows[i][6] = vm.displayedCollection4[i].Mensaje;            
         } 
     } 
 
@@ -308,7 +308,7 @@ angular.module('softvFrostApp')
                 overflow: 'linebreak', 
             },            
             columnStyles: { 
-                  5: {columnWidth: 115},        
+                  6: {columnWidth: 98},        
             },         
             margin: {top: 10, right: 10, bottom: 16, left: 10},
             addPageContent: pageContent //page number
@@ -321,7 +321,7 @@ angular.module('softvFrostApp')
         doc.save(vm.filename+'.pdf');    
       }
 
-        //-------------------------------------------
+       
 
 
     }

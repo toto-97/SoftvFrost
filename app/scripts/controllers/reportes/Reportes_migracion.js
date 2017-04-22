@@ -65,7 +65,7 @@ angular.module('softvFrostApp')
     function getReporteMigra()
     {                     
             getFechas();         
-
+                if (vm.fechaFin == null){ vm.fechaFin = undefined; }
                 if (vm.fechaInicio > vm.fechaFin){
                     ngNotify.set('La fecha de inicio debe ser anterior a la fecha fin', {
                         type: 'error'
