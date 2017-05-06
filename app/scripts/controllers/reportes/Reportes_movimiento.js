@@ -118,7 +118,7 @@ angular.module('softvFrostApp')
 
 
     //CSV 
-    vm.order = [ 'SAN', 'Suscriptor', 'Usuario', 'FechaMovim', 'ESN', 'Movimiento', 'Mensaje'];
+    vm.order = [ 'SAN', 'Suscriptor', 'Beam', 'SatellitedID', 'Usuario', 'FechaMovim', 'ESN', 'Movimiento', 'Mensaje'];
 
     // CREAR CSV 
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -173,12 +173,12 @@ angular.module('softvFrostApp')
 
 
     function initArray (){
-        vm.arrayReporte = []; 
-         // ENCABEZADOS
+        vm.arrayReporte = [];          // ENCABEZADOS
         vm.arrayReporte =     [{
             "SAN": "SAN",
-                
             "Suscriptor": "Suscriptor",
+            "Beam": "Beam", 
+            "SatellitedID": "Satellite",
             "Usuario": "Usuario",
             "FechaMovim": "Fecha Movimiento",
             "ESN": "ESN",
@@ -204,14 +204,13 @@ angular.module('softvFrostApp')
         { ro = vm.displayedCollection4.length; }
 
 
-    var cols = 6; 
-    var columns = ["SAN", "Suscriptor","Usuario", "FechaMovim", "ESN", "Movimiento", "Mensaje"];
+    var cols = 9; 
+    var columns = ["SAN", "Suscriptor", "Beam", "Satellite", "Usuario", "Fecha Movimiento", "ESN", "Movimiento", "Mensaje"];
 
  
     for( var i=r; i<ro; i++ ) {         
       rows.push( [] );
     }
-
 
    
     for (var i = 0; i < ro; i++)
@@ -219,26 +218,27 @@ angular.module('softvFrostApp')
         if ( pdfAcrear =='todo') 
         {   
             rows[i][0] = vm.rowCollection4[i].SAN;
-            
             rows[i][1] = vm.rowCollection4[i].Suscriptor;
-            rows[i][2] = vm.rowCollection4[i].Usuario;
-            rows[i][3] = vm.rowCollection4[i].FechaMovim;
-            rows[i][4] = vm.rowCollection4[i].ESN;
-            rows[i][5] = vm.rowCollection4[i].Movimiento;
-            rows[i][6] = vm.rowCollection4[i].Mensaje;           
+            rows[i][2] = vm.rowCollection4[i].Beam;
+            rows[i][3] = vm.rowCollection4[i].SatellitedID;
+            rows[i][4] = vm.rowCollection4[i].Usuario;
+            rows[i][5] = vm.rowCollection4[i].FechaMovim;
+            rows[i][6] = vm.rowCollection4[i].ESN;
+            rows[i][7] = vm.rowCollection4[i].Movimiento;
+            rows[i][8] = vm.rowCollection4[i].Mensaje;           
         }else 
         {                   
-            rows[i][0] = vm.displayedCollection4[i].SAN;
-           
+            rows[i][0] = vm.displayedCollection4[i].SAN;           
             rows[i][1] = vm.displayedCollection4[i].Suscriptor;
-            rows[i][2] = vm.displayedCollection4[i].Usuario;
-            rows[i][3] = vm.displayedCollection4[i].FechaMovim;
-            rows[i][4] = vm.displayedCollection4[i].ESN;
-            rows[i][5] = vm.displayedCollection4[i].Movimiento;
-            rows[i][6] = vm.displayedCollection4[i].Mensaje;            
+            rows[i][2] = vm.displayedCollection4[i].Beam;
+            rows[i][3] = vm.displayedCollection4[i].SatellitedID;
+            rows[i][4] = vm.displayedCollection4[i].Usuario;
+            rows[i][5] = vm.displayedCollection4[i].FechaMovim;
+            rows[i][6] = vm.displayedCollection4[i].ESN;
+            rows[i][7] = vm.displayedCollection4[i].Movimiento;
+            rows[i][8] = vm.displayedCollection4[i].Mensaje;           
         } 
     } 
-
 
       // Create document
         var doc = new jsPDF({
@@ -308,8 +308,8 @@ angular.module('softvFrostApp')
                 overflow: 'linebreak', 
             },            
             columnStyles: { 
-                  6: {columnWidth: 98},        
-            },         
+                  8: {columnWidth: 96},        
+            },     
             margin: {top: 10, right: 10, bottom: 16, left: 10},
             addPageContent: pageContent //page number
         });
