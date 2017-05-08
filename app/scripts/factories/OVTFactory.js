@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvFrostApp')
-	.factory('OVTFactory', function($http, $q, globalService, $localStorage,terminalFactory) {
+	.factory('OVTFactory', function($http, $q, globalService, $localStorage) {
 		var factory = {};
 		var paths = {
 			GetToken: '/HuguesRequest/GetToken',
