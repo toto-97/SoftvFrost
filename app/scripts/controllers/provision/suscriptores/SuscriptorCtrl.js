@@ -48,7 +48,7 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
         vm.tipoBusqueda = 1;
       }
     } else if (id == 2) {
-      if (vm.bnombre == '') {
+      if ((vm.bnombre == ''||vm.bnombre ==undefined) &&( vm.bApellidos==''||vm.bApellidos==undefined)) {
         vm.tipoBusqueda = 0;
       } else {
         vm.bsan = '';
@@ -98,7 +98,7 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
       vm.busObj = {
         'IdSuscriptor': 0,
         'Nombre': vm.bnombre,
-        'Apellido': '',
+        'Apellido': vm.bApellidos,
         'Telefono': '',
         'Email': '',
         'Calle': '',
