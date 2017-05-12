@@ -180,6 +180,9 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 						});
 							//--------------------------------------------------
 
+						//Ponemos el movimiento como no exitoso
+						Obj2.objMovimiento.Exitoso=0;
+
 					} else {
 						//Objeto para actualizar el SatelliteId y BeamId a la terminal
 						var Obj4 = new Object();
@@ -193,6 +196,8 @@ function NuevaTerminalCtrl(terminalFactory, $uibModal, $rootScope, ngNotify, $st
 						terminalFactory.agregaInfoTerminal(Obj4).then(function(obj){
 						});
 						ngNotify.set('La terminal se ha guardado correctamente', 'success');
+						//Ponemos el movimiento como  exitoso
+						Obj2.objMovimiento.Exitoso=1;
 					}
 
 					terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
