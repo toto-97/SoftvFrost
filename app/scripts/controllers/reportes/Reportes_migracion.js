@@ -65,7 +65,7 @@ angular.module('softvFrostApp')
     function getReporteMigra()
     {                     
             getFechas();         
-
+                if (vm.fechaFin == null){ vm.fechaFin = undefined; }
                 if (vm.fechaInicio > vm.fechaFin){
                     ngNotify.set('La fecha de inicio debe ser anterior a la fecha fin', {
                         type: 'error'
@@ -74,7 +74,7 @@ angular.module('softvFrostApp')
 
             reportesFactory.mostrarReporteMigraciones(idAux, fechaInicioYMD, fechaFinYMD).then(function(data) {
 
-                arrayTokens = data.GetReporte_MigracionesListResult;
+                arrayTokens = data.GetReporte_MigracionesListResult; 
                 vm.itemsByPage = 5; 
                 vm.rowCollection4 = arrayTokens;  
             });
@@ -104,7 +104,7 @@ angular.module('softvFrostApp')
     }
 
     //CSV 
-    vm.order = [ 'SAN', 'Suscriptor', 'PlanInicial', 'PlanFinal', 'FechaMigracion', 'ESN', 'Latitud', 'Longitud','Usuario'];
+    vm.order = [ 'SAN', 'Suscriptor', 'Beam', 'SatellitedID', 'PlanInicial', 'PlanFinal', 'FechaMigracion', 'ESN', 'Latitud', 'Longitud','Usuario'];
 
     // CREAR CSV
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -158,16 +158,17 @@ angular.module('softvFrostApp')
 
 
 
-    //CSV 
-    vm.order = [ 'SAN', 'Suscriptor', 'PlanInicial', 'PlanFinal', 'FechaMigracion', 'ESN', 'Latitud', 'Longitud', 'Usuario'];
+
+
 
     function initArray (){
       vm.arrayReporte = []; 
          
         vm.arrayReporte =     [{
-                "SAN": "SAN",
-              
+                "SAN": "SAN",              
                 "Suscriptor": "Suscriptor",
+                "Beam": "Beam",
+                "SatellitedID": "Satellite",
                 "PlanInicial": "Plan Inicial",
                 "PlanFinal": "Plan Final",
                 "FechaMigracion": "Fecha Migración",
@@ -177,7 +178,6 @@ angular.module('softvFrostApp')
                 "Usuario": "Usuario"
                 }];
     } 
-
 
 // Create TABLE PDF  
 vm.createPdfTodo = createPdfTodo;
@@ -195,8 +195,8 @@ function createPdfTodo(pdfAcrear){
         { ro = vm.displayedCollection4.length; }
 
 
-    var cols = 9;
-    var columns = ["SAN", "Suscriptor", "Plan Inicial", "Plan Final", "Fecha Migración", "ESN", "Latitud", "Longitud", "Usuario"];
+    var cols = 11;
+    var columns = ["SAN", "Suscriptor", "Beam", "Satellite", "Plan Inicial", "Plan Final", "Fecha Migración", "ESN", "Latitud", "Longitud", "Usuario"];
 
    
     for( var i=r; i<ro; i++ ) {         
@@ -208,32 +208,34 @@ function createPdfTodo(pdfAcrear){
     {    
         if ( pdfAcrear =='todo') 
         {   
-            rows[i][0] = vm.rowCollection4[i].SAN;
-          
+            rows[i][0] = vm.rowCollection4[i].SAN;          
             rows[i][1] = vm.rowCollection4[i].Suscriptor;
-            rows[i][2] = vm.rowCollection4[i].PlanInicial;
-            rows[i][3] = vm.rowCollection4[i].PlanFinal;
-            rows[i][4] = vm.rowCollection4[i].FechaMigracion;
-            rows[i][5] = vm.rowCollection4[i].ESN;
-            rows[i][6] = vm.rowCollection4[i].Latitud;
-            rows[i][7] = vm.rowCollection4[i].Longitud;
-            rows[i][8] = vm.rowCollection4[i].Usuario;  
+            rows[i][2] = vm.rowCollection4[i].Beam;
+            rows[i][3] = vm.rowCollection4[i].SatellitedID;
+            rows[i][4] = vm.rowCollection4[i].PlanInicial;
+            rows[i][5] = vm.rowCollection4[i].PlanFinal;
+            rows[i][6] = vm.rowCollection4[i].FechaMigracion;
+            rows[i][7] = vm.rowCollection4[i].ESN;
+            rows[i][8] = vm.rowCollection4[i].Latitud;
+            rows[i][9] = vm.rowCollection4[i].Longitud;
+            rows[i][10] = vm.rowCollection4[i].Usuario;  
         }else 
         {           
-            rows[i][0] = vm.displayedCollection4[i].SAN;
-         ;
+            rows[i][0] = vm.displayedCollection4[i].SAN;          
             rows[i][1] = vm.displayedCollection4[i].Suscriptor;
-            rows[i][2] = vm.displayedCollection4[i].PlanInicial;
-            rows[i][3] = vm.displayedCollection4[i].PlanFinal;
-            rows[i][4] = vm.displayedCollection4[i].FechaMigracion;
-            rows[i][5] = vm.displayedCollection4[i].ESN;
-            rows[i][6] = vm.displayedCollection4[i].Latitud;
-            rows[i][7] = vm.displayedCollection4[i].Longitud;
-            rows[i][8] = vm.displayedCollection4[i].Usuario;  
+            rows[i][2] = vm.displayedCollection4[i].Beam;
+            rows[i][3] = vm.displayedCollection4[i].SatellitedID;
+            rows[i][4] = vm.displayedCollection4[i].PlanInicial;
+            rows[i][5] = vm.displayedCollection4[i].PlanFinal;
+            rows[i][6] = vm.displayedCollection4[i].FechaMigracion;
+            rows[i][7] = vm.displayedCollection4[i].ESN;
+            rows[i][8] = vm.displayedCollection4[i].Latitud;
+            rows[i][9] = vm.displayedCollection4[i].Longitud;
+            rows[i][10] = vm.displayedCollection4[i].Usuario;  
         } 
     } 
 
-     // Create document
+    // Create document
         var doc = new jsPDF({
         orientation: 'landscape',
         format: 'A4'
@@ -254,9 +256,7 @@ function createPdfTodo(pdfAcrear){
               
         };
  
-
-        
-        
+              
         
        
         doc.addImage(img, 'jpeg', 5, 5, 40, 15); 
