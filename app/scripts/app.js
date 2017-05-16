@@ -35,7 +35,6 @@ angular.module('softvFrostApp', [
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector,$localStorage, $location) {
 			function notifyError(rejection) {
 				var notify = $injector.get('ngNotify');
-				console.log(rejection);
 				if (rejection.data === 'Acceso no autorizado, favor de validar autenticación') {
 					delete $localStorage.currentUser;
 					notify.set('Acceso no autorizado, por favor inicia sesión nuevamente.', {
