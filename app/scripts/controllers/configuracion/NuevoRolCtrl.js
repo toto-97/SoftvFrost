@@ -1,10 +1,13 @@
 'use strict';
 angular.module('softvFrostApp').controller('NuevoRolCtrl', NuevoRolCtrl);
 
-function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
+function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify,terminalFactory) {
 
   function init() {
-
+  terminalFactory.getComandoList().then(function(data){
+    console.log(data);
+      vm.comandos=data.GetComandoListResult;
+    });
   };
 
   function GuardarRol() {
