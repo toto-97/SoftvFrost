@@ -357,6 +357,8 @@ angular.module('softvFrostApp')
 			};
 			obj.objMovimiento.IdUsuario = $localStorage.currentUser.idUsuario;
 			var parametros = obj;
+			console.log($localStorage.currentUser);
+			console.log(JSON.stringify(parametros));
 			$http.post(globalService.getUrl() + paths.addMovimiento, JSON.stringify(parametros), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {

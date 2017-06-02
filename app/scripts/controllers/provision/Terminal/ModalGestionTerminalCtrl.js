@@ -107,6 +107,7 @@ angular
 			var parametros = new Object();
 			if(vm.Comando.IdComando == 1)//Crear
 			{
+				alert('crear');
 				terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data){
 					var suscriptor = data.GetSuscriptorResult;
 					var obj =new Object();
@@ -189,6 +190,7 @@ angular
 			}
 			else if(vm.Comando.IdComando == 2)//Suspender terminal
 			{
+				alert('suspender');
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
@@ -232,9 +234,8 @@ angular
 							Obj2.objMovimiento.Detalle2='';
 							Obj2.objMovimiento.Exitoso=1;
 							terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
-							});
-							//Actualiza el estatus en la base en caso de que haya sido exitoso
-							var Obj3=new Object();
+
+                                   var Obj3=new Object();
 							Obj3.objTerminal=new Object();
 							Obj3.objTerminal.SAN=vm.Terminal.SAN;
 							Obj3.objTerminal.IdSuscriptor=vm.Terminal.IdSuscriptor;
@@ -249,12 +250,17 @@ angular
 							terminalFactory.updateTerminal(Obj3).then(function(data) {
 								ngNotify.set('La terminal se ha suspendido correctamente', 'success');
 							});
+
+							});
+							//Actualiza el estatus en la base en caso de que haya sido exitoso
+							
 						}
 					});
 				});
 			}
 			else if(vm.Comando.IdComando == 3)//Reactivar
 			{
+				alert('reactivar');
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
@@ -298,8 +304,8 @@ angular
 							Obj2.objMovimiento.Detalle2='';
 							Obj2.objMovimiento.Exitoso=1;
 							terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
-							});
-							//Actualiza el estatus en la base en caso de que haya sido exitoso
+
+                                    //Actualiza el estatus en la base en caso de que haya sido exitoso
 							var Obj3=new Object();
 							Obj3.objTerminal=new Object();
 							Obj3.objTerminal.SAN=vm.Terminal.SAN;
@@ -315,13 +321,17 @@ angular
 							terminalFactory.updateTerminal(Obj3).then(function(data) {
 								ngNotify.set('La terminal se ha reactivado correctamente', 'success');
 							});
+
+
+							});
+							
 						}
 					});
 				});
 			}
 			else if(vm.Comando.IdComando == 4)//Cancelar
 			{
-				//alert("Cancelar");
+				alert('Cancelar');
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
