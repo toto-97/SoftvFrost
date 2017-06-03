@@ -7,8 +7,32 @@ angular.module('softvFrostApp')
       AddRole: '/Role/AddRole',
       UpdateRole: '/Role/UpdateRole',
       GetRoleCommands: '/Role/GetRoleCommands',
-      GetComandos: '/Role/GetComandos'
+      GetComandos: '/Role/GetComandos',
+      GetRoleById:'/Role/GetRoleById'
     };
+
+    factory.GetRoleById = function (idrol) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+
+      var Parametros = {
+        'IdRol': idrol
+      };
+
+      $http.post(globalService.getUrl() + paths.GetRoleById, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+      return deferred.promise;
+    };
+
+
+
 
     factory.GetRoleCommands = function (idrol) {
       var deferred = $q.defer();

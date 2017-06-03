@@ -105,9 +105,17 @@ angular
 		function aplicaComando() {
 			console.log(vm.Terminal);
 			var parametros = new Object();
-			if(vm.Comando.IdComando == 1)//Crear
+
+		   terminalFactory.GetValidaEjecucionComando(vm.Comando.IdComando).then(function(data){
+           if(data.GetValidaEjecucionComandoResult==0){
+               ngNotify.set('¡Atención! No tiene permisos para aplicar este comando','warn');
+			   return;
+		   }else{
+
+			   if(vm.Comando.IdComando == 1)//Crear
 			{
-				alert('crear');
+				
+
 				terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data){
 					var suscriptor = data.GetSuscriptorResult;
 					var obj =new Object();
@@ -190,7 +198,7 @@ angular
 			}
 			else if(vm.Comando.IdComando == 2)//Suspender terminal
 			{
-				alert('suspender');
+				
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
@@ -260,7 +268,7 @@ angular
 			}
 			else if(vm.Comando.IdComando == 3)//Reactivar
 			{
-				alert('reactivar');
+			
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
@@ -331,7 +339,7 @@ angular
 			}
 			else if(vm.Comando.IdComando == 4)//Cancelar
 			{
-				alert('Cancelar');
+				
 				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
@@ -555,6 +563,12 @@ angular
 					});
 				});
 			}
+
+
+		   } 
+		   });
+
+			
 		}
 
 		function ok() {

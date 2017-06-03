@@ -26,7 +26,10 @@ angular.module('softvFrostApp')
 			agregaInfoTerminal: '/Terminal/UpdateTerminalInformacionAdicional',
 			getMovimientosBySan: '/Movimiento/GetMovimientoListBySAN',
 			detalleMovimiento: '/Movimiento/GetDeepMovimiento',
-			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList'
+			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList',
+            GetValidaEjecucionComando:'/Comando/GetValidaEjecucionComando'
+
+			
 		};
 
 		factory.sigleMovimiento = function(id) {
@@ -66,6 +69,33 @@ angular.module('softvFrostApp')
 			return deferred.promise;
 
 		};
+
+
+		factory.GetValidaEjecucionComando = function(IdComando) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'Idrol':$localStorage.currentUser.idRol,
+				'IdComando':IdComando
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetValidaEjecucionComando, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+
+
+       
+
+
 
 		factory.getMovimientosBySan = function(san) {
 			var deferred = $q.defer();

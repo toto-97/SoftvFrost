@@ -29,9 +29,12 @@ angular.module('softvFrostApp', [
 		'ui.mask','ngCsv'
 
 	])
-	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider', function($provide, $urlRouterProvider, $httpProvider, $qProvider) {
+	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider','blockUIConfig', function($provide, $urlRouterProvider, $httpProvider, $qProvider,blockUIConfig) {
 		$qProvider.errorOnUnhandledRejections(false);
+		
 		$urlRouterProvider.otherwise('/auth/login');
+		blockUIConfig.templateUrl = 'views/loading.html';
+		
 		$provide.factory('ErrorHttpInterceptor', function($q, $injector,$localStorage, $location) {
 			function notifyError(rejection) {
 				var notify = $injector.get('ngNotify');

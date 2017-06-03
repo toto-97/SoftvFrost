@@ -4,35 +4,27 @@ angular.module('softvFrostApp').controller('EditaRolCtrl', EditaRolCtrl);
 function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams, terminalFactory) {
 
   function init() {
+    var id = $stateParams.id;
+    rolFactory.GetRoleById(id).then(function (data) {
+      vm.Rol = data.GetRoleByIdResult
+      vm.Estatus = vm.Rol.Estado;
+      vm.Nombre = vm.Rol.Nombre;
+      vm.Descripcion = vm.Rol.Descripcion;
+      vm.IdRol = vm.Rol.IdRol;
+    });
 
-    var Rol = $stateParams.obj;
-    console.log(Rol);
-    vm.Estatus = Rol.Estado;
-    vm.Nombre = Rol.Nombre;
-    vm.Descripcion = Rol.Descripcion;
-    vm.IdRol = Rol.IdRol;
-
-    terminalFactory.getComandoList().then(function (data) {
-      console.log(data);
+    terminalFactory.getComandoList().then(function (data) {     
       vm.comandos = data.GetComandoListResult;
-
-      rolFactory.GetRoleCommands(Rol.IdRol).then(function (data) {
+      rolFactory.GetRoleCommands(vm.IdRol).then(function (data) {
         for (var a = 0; a < vm.comandos.length; a++) {
           for (var b = 0; b < data.GetRoleCommandsResult.length; b++) {
             if (vm.comandos[a].IdComando == data.GetRoleCommandsResult[b].IdComando) {
               vm.comandos[a].selected = true;
             }
           }
-        }
-        console.log(data.GetRoleCommandsResult);
+        }        
       });
-
-
     });
-
-
-
-
   };
 
   function GuardarRol() {
@@ -52,7 +44,7 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
           })
         }
       }
-     console.log(Lista_comandos);
+      console.log(Lista_comandos);
       rolFactory.GetComandos(vm.IdRol, Lista_comandos).then(function (response) {
         console.log(response);
       });

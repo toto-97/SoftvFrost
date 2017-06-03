@@ -195,7 +195,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 		params: {
 			obj: null
 		},
-		url: '/provision/rol/Edita/',
+		url: '/provision/rol/Edita/:id',
 		templateUrl: 'views/configuracion/NuevoRol.html',
 		controller: 'EditaRolCtrl',
 		controllerAs: '$ctrl'
