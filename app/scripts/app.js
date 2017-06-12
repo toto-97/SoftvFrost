@@ -8,7 +8,11 @@
  *
  * Main module of the application.
  */
-angular.module('softvFrostApp', [
+angular.module('softvFrostApp', [	
+		'smart-table',
+		'ngSanitize', 
+		'ngCsv', 
+		'ngTableToCsv',	
 		'ngAnimate',
 		'ngSanitize',
 		'ngNotify',
@@ -22,21 +26,32 @@ angular.module('softvFrostApp', [
 		'blockUI',
 		'ngMap',
 		'permission', 'permission.ui',
-		'ui.mask'
+		'ui.mask','ngCsv'
 
 	])
-	.config(['$provide', '$urlRouterProvider', '$httpProvider', function($provide, $urlRouterProvider, $httpProvider) {
+	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider','blockUIConfig', function($provide, $urlRouterProvider, $httpProvider, $qProvider,blockUIConfig) {
+		$qProvider.errorOnUnhandledRejections(false);
+		
 		$urlRouterProvider.otherwise('/auth/login');
-		$provide.factory('ErrorHttpInterceptor', function($q, $injector) {
+		blockUIConfig.templateUrl = 'views/loading.html';
+		
+		$provide.factory('ErrorHttpInterceptor', function($q, $injector,$localStorage, $location) {
 			function notifyError(rejection) {
 				var notify = $injector.get('ngNotify');
-				var content = '¡Se ha generado un error! \n' + rejection.data;
-				if (rejection.status === 404) {
-					notify.set(content, {
+				if (rejection.data === 'Acceso no autorizado, favor de validar autenticación') {
+					delete $localStorage.currentUser;
+					notify.set('Acceso no autorizado, por favor inicia sesión nuevamente.', {
 						type: 'error',
 						duration: 4000
 					});
+					$location.path('/auth/');
+					return;
 				}
+				var content = '¡Se ha generado un error! \n' + rejection.data;
+				notify.set(content, {
+					type: 'error',
+					duration: 4000
+				});
 			}
 			return {
 				requestError: function(rejection) {
@@ -59,9 +74,8 @@ angular.module('softvFrostApp', [
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
 		if ($localStorage.currentUser) {
-			$location.path('/home');
+			//$location.path('/auth/login');
 			var permissions = permissionsFactory.on();
-			console.log(permissions);
 			PermPermissionStore.definePermission('anonymous', function() {
 				return false;
 			});

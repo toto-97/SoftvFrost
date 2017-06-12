@@ -4,13 +4,14 @@ angular.module('softvFrostApp').controller('TerminalCtrl', TerminalCtrl);
 function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nuevoSuscriptorFactory, $stateParams) {
 	this.$onInit = function() {
 		if ($stateParams.idSuscriptor != undefined) {
+			vm.idSuscriptor = $stateParams.idSuscriptor;
+			console.log(vm.idSuscriptor);
 			SuscriptorFactory.getTerminals($stateParams.idSuscriptor).then(function(data) {
 				vm.terminales = data.GetDeepIdSuscriptorResult;
 			});
 		} else {
 			terminalFactory.getTerminalList().then(function(data) {
 				vm.terminales = data.GetTerminalListResult;
-
 			});
 		}
 		terminalFactory.getServicioList().then(function(data) {
@@ -24,9 +25,8 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 	}
 
 	function GestionTerminal(object) {
-		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
-			animation: vm.animationsEnabled,
+			animation: true,
 			ariaLabelledBy: 'modal-title',
 			ariaDescribedBy: 'modal-body',
 			templateUrl: 'views/provision/ModalGestionTerminal.html',
@@ -78,9 +78,17 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 			}
 
 		}
+		else if(x==4){
+			vm.tipoBusqueda = 4;
+			vm.bsan = '';
+				vm.bsus = '';
+		}else{
+
+		}
 	}
 
 	function buscar() {
+		console.log(vm.tipoBusqueda);
 		if (vm.tipoBusqueda == 1) {
 			vm.obj = {
 				san: vm.bsan,
@@ -106,15 +114,46 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 				op: 4
 			};
 		}
-		if (vm.tipoBusqueda == 0 || vm.tipoBusqueda == undefined) {
+		else if(vm.tipoBusqueda == 4){
+			vm.obj = {
+				san: 0,
+				suscriptor: '',
+				estatus:vm.Status.clave ,
+				servicio: '',
+				op: 2
+			};
+		}else{
+
+		}
+	 if(vm.tipoBusqueda == 0 || vm.tipoBusqueda == undefined){
 			terminalFactory.getTerminalList().then(function(data) {
 				vm.terminales = data.GetTerminalListResult;
 			});
-		} else {
+		}
+		else {
 			terminalFactory.buscarTerminal(vm.obj).then(function(data) {
 				vm.terminales = data.GetFilterTerminalListResult;
 			});
 		}
+	}
+
+	function verMovimientos(item){
+		var modalInstance = $uibModal.open({
+			animation: true,
+			ariaLabelledBy: 'modal-title',
+			ariaDescribedBy: 'modal-body',
+			templateUrl: 'views/provision/MovimientosTerminales.html',
+			controller: 'TerminalMovimientosCtrl',
+			controllerAs: 'ctrl',
+			backdrop: 'static',
+			keyboard: false,
+			size: 'lg',
+			resolve: {
+				terminal: function() {
+					return item;
+				}
+			}
+		});
 	}
 
 	var vm = this;
@@ -123,4 +162,32 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, nue
 	vm.titulo = "Terminales";
 	vm.busquedaCambio = busquedaCambio;
 	vm.buscar = buscar;
+	vm.verMovimientos = verMovimientos;
+	vm.idSuscriptor = 0;
+		vm.ListaStatus = [
+			{
+		'clave': '',
+		'Nombre': 'Todos los estatus'
+	},
+			{
+		'clave': 'Pendiente',
+		'Nombre': 'Pendiente'
+	},
+	{
+		'clave': 'Activa',
+		'Nombre': 'Activa'
+	},
+	{
+		'clave': 'Suspendida',
+		'Nombre': 'Suspendida'
+	},
+	{
+		'clave': 'Cancelada',
+		'Nombre': 'Cancelada'
+	},
+	{
+		'clave': 'Incompleta',
+		'Nombre': 'Incompleta'
+	}
+	];
 }

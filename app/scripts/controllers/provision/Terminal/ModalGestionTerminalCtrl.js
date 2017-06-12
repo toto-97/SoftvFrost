@@ -110,9 +110,18 @@ angular
 		function aplicaComando() {
 			console.log(vm.Terminal);
 			var parametros = new Object();
-			if (vm.Comando.IdComando == 1)//Crear
+
+		   terminalFactory.GetValidaEjecucionComando(vm.Comando.IdComando).then(function(data){
+           if(data.GetValidaEjecucionComandoResult==0){
+               ngNotify.set('¡Atención! No tiene permisos para aplicar este comando','warn');
+			   return;
+		   }else{
+
+			   if(vm.Comando.IdComando == 1)//Crear
 			{
-				terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
+				
+
+				terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data){
 					var suscriptor = data.GetSuscriptorResult;
 					var obj = new Object();
 					//Crea la terminal en la plataforma de Hughes
@@ -194,7 +203,8 @@ angular
 			}
 			else if (vm.Comando.IdComando == 2)//Suspender terminal
 			{
-				terminalFactory.getSequenceId().then(function (Sequence) {
+				
+				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
 					parametros.status = 2;//Status hardcodeado de hughes
@@ -230,37 +240,41 @@ angular
 							Obj2.objMovimiento.IdTicket = 0;
 							Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
 							vm.fechaAuxiliar = new Date();
-							Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-							Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
-							Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
-							Obj2.objMovimiento.Detalle1 = '';
-							Obj2.objMovimiento.Detalle2 = '';
-							Obj2.objMovimiento.Exitoso = 1;
-							terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
-							});
-							//Actualiza el estatus en la base en caso de que haya sido exitoso
-							var Obj3 = new Object();
-							Obj3.objTerminal = new Object();
-							Obj3.objTerminal.SAN = vm.Terminal.SAN;
-							Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
-							Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
-							Obj3.objTerminal.Latitud = vm.Terminal.Latitud;
-							Obj3.objTerminal.Longitud = vm.Terminal.Longitud;
-							Obj3.objTerminal.Estatus = 'Suspendida';
-							Obj3.objTerminal.FechaAlta = vm.Terminal.FechaAlta;
-							Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
-							Obj3.objTerminal.ESN = vm.Terminal.ESN;
-							Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
-							terminalFactory.updateTerminal(Obj3).then(function (data) {
+							Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+							Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
+							Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+							Obj2.objMovimiento.Detalle1='';
+							Obj2.objMovimiento.Detalle2='';
+							Obj2.objMovimiento.Exitoso=1;
+							terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+
+                                   var Obj3=new Object();
+							Obj3.objTerminal=new Object();
+							Obj3.objTerminal.SAN=vm.Terminal.SAN;
+							Obj3.objTerminal.IdSuscriptor=vm.Terminal.IdSuscriptor;
+							Obj3.objTerminal.IdServicio=vm.Terminal.IdServicio;
+							Obj3.objTerminal.Latitud=vm.Terminal.Latitud;
+							Obj3.objTerminal.Longitud=vm.Terminal.Longitud;
+							Obj3.objTerminal.Estatus='Suspendida';
+							Obj3.objTerminal.FechaAlta=vm.Terminal.FechaAlta;
+							Obj3.objTerminal.FechaSuspension=vm.Terminal.FechaSuspension;
+							Obj3.objTerminal.ESN=vm.Terminal.ESN;
+							Obj3.objTerminal.Comentarios=vm.Terminal.Comentarios;
+							terminalFactory.updateTerminal(Obj3).then(function(data) {
 								ngNotify.set('La terminal se ha suspendido correctamente', 'success');
 							});
+
+							});
+							//Actualiza el estatus en la base en caso de que haya sido exitoso
+							
 						}
 					});
 				});
 			}
 			else if (vm.Comando.IdComando == 3)//Reactivar
 			{
-				terminalFactory.getSequenceId().then(function (Sequence) {
+			
+				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
 					parametros.status = 3;//Status hardcodeado de hughes
@@ -296,38 +310,42 @@ angular
 							Obj2.objMovimiento.IdTicket = 0;
 							Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
 							vm.fechaAuxiliar = new Date();
-							Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-							Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
-							Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
-							Obj2.objMovimiento.Detalle1 = '';
-							Obj2.objMovimiento.Detalle2 = '';
-							Obj2.objMovimiento.Exitoso = 1;
-							terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
-							});
-							//Actualiza el estatus en la base en caso de que haya sido exitoso
-							var Obj3 = new Object();
-							Obj3.objTerminal = new Object();
-							Obj3.objTerminal.SAN = vm.Terminal.SAN;
-							Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
-							Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
-							Obj3.objTerminal.Latitud = vm.Terminal.Latitud;
-							Obj3.objTerminal.Longitud = vm.Terminal.Longitud;
-							Obj3.objTerminal.Estatus = 'Activa';
-							Obj3.objTerminal.FechaAlta = vm.Terminal.FechaAlta;
-							Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
-							Obj3.objTerminal.ESN = vm.Terminal.ESN;
-							Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
-							terminalFactory.updateTerminal(Obj3).then(function (data) {
+							Obj2.objMovimiento.Fecha=$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+							Obj2.objMovimiento.Mensaje=hughesData.StandardResponse.Message;
+							Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
+							Obj2.objMovimiento.Detalle1='';
+							Obj2.objMovimiento.Detalle2='';
+							Obj2.objMovimiento.Exitoso=1;
+							terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+
+                                    //Actualiza el estatus en la base en caso de que haya sido exitoso
+							var Obj3=new Object();
+							Obj3.objTerminal=new Object();
+							Obj3.objTerminal.SAN=vm.Terminal.SAN;
+							Obj3.objTerminal.IdSuscriptor=vm.Terminal.IdSuscriptor;
+							Obj3.objTerminal.IdServicio=vm.Terminal.IdServicio;
+							Obj3.objTerminal.Latitud=vm.Terminal.Latitud;
+							Obj3.objTerminal.Longitud=vm.Terminal.Longitud;
+							Obj3.objTerminal.Estatus='Activa';
+							Obj3.objTerminal.FechaAlta=vm.Terminal.FechaAlta;
+							Obj3.objTerminal.FechaSuspension=vm.Terminal.FechaSuspension;
+							Obj3.objTerminal.ESN=vm.Terminal.ESN;
+							Obj3.objTerminal.Comentarios=vm.Terminal.Comentarios;
+							terminalFactory.updateTerminal(Obj3).then(function(data) {
 								ngNotify.set('La terminal se ha reactivado correctamente', 'success');
 							});
+
+
+							});
+							
 						}
 					});
 				});
 			}
 			else if (vm.Comando.IdComando == 4)//Cancelar
 			{
-				//alert("Cancelar");
-				terminalFactory.getSequenceId().then(function (Sequence) {
+				
+				terminalFactory.getSequenceId().then(function(Sequence) {
 					parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 					parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
 					parametros.status = 1;

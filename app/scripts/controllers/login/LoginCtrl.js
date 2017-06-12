@@ -1,23 +1,29 @@
 'use strict';
 angular.module('softvFrostApp').controller('LoginCtrl', LoginCtrl);
 
-function LoginCtrl(authFactory, ngNotify, $state, $localStorage) {
-	this.$onInit = function() {
+function LoginCtrl(authFactory, ngNotify, $state, $localStorage, $stateParams, $window, $location) {
+	var vm = this;
+	vm.login = login;
+	
+	this.$onInit = function () {
 		if ($localStorage.currentUser) {
-			$state.go('home');
+			if ($stateParams.esn != undefined) {
+				$state.go('home.provision.activacion', {
+					'esn': $stateParams.esn
+				});
+			} else {
+				$state.go('home.dashboard');
+			}
 		}
 	}
 
 	function login() {
-		authFactory.login(vm.user, vm.password).then(function(data) {
+		authFactory.login(vm.user, vm.password).then(function (data) {
 			if (data) {
-				$state.go('home');
+				$window.location.reload();
 			} else {
 				ngNotify.set('Datos de acceso erróneos', 'error');
 			}
 		});
 	}
-
-	var vm = this;
-	vm.login = login;
 }

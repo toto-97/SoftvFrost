@@ -1,18 +1,29 @@
 <div class="card" style="margin-top:20px;">
-  <div class="card-head card-head-xs style-info">
-    <header>HughesNet <small class="text-muted">TDS/Jupiter-Site Diagnostic Tool</small> </header>
-  </div>
-  <div class="row">
+ <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">TDS/Jupiter-Site Diagnostic Tool</strong>
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Monitoreo</a></small>
+
+      </header>
+      <div class="tools">
+
+       
+
+      </div>
+    </div>
+
+  
+  <div class="row ">
     <form ng-submit="$ctrl.searchSan()">
       <div class="col-md-5" style="min-height: 100px; padding-top:20px;">
         <div class="col-md-1">
           <label>San:</label>
         </div>
         <div class="col-md-5">
-          <input type="text" class="form-control" ng-model="$ctrl.san" />
+          <input type="number" class="form-control" ng-model="$ctrl.san" />
         </div>
         <div class="col-md-6" style="padding-top:5px; padding-left:-5px;">
-          <button type="submit" class="btn btn-sm btn-default">Search</button>
+          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Search</button>
         </div>
       </div>
     </form>
@@ -438,54 +449,26 @@
           </table>
         </div>
         <div class="col-md-12">
-          <div class="col-md-6" ng-if="$ctrl.diagnosticData.gw_weather != 'N/A'">
+          <div class="col-md-6">
             <div class="card">
               <div class="card-body no-padding">
                 <div class="alert alert-callout alert-success no-margin" style="height: 150px;">
-                  <h1 class="pull-right text-success"><img src="https://icons.wxug.com/i/c/k/chanceflurries.gif" alt=""></h1>
                   <strong class="text-md">Current Weather Conditions At Gateway</strong><br>
                   <span class="opacity-50">{{ $ctrl.diagnosticData.gw_weather }}, {{ $ctrl.diagnosticData.gw_Temp_F }}</span><br>
-                  <span class="opacity-50">{{ $ctrl.diagnosticData.gw_rainfall_lasthr }}</span><br>
-                  <span class="opacity-50">{{ $ctrl.diagnosticData.gw_visibility }}</span><br>
+                  <span class="opacity-50">Rainfall - Last Hour: {{ $ctrl.diagnosticData.gw_rainfall_lasthr }}</span><br>
+                  <span class="opacity-50">Visibility: {{ $ctrl.diagnosticData.gw_visibility }}</span><br>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6" ng-if="$ctrl.diagnosticData.Site_weather != 'N/A'">
+          <div class="col-md-6">
             <div class="card">
               <div class="card-body no-padding">
                 <div class="alert alert-callout alert-success no-margin" style="height: 150px;">
-                  <h1 class="pull-right text-success"><img src="https://icons.wxug.com/i/c/k/chanceflurries.gif" alt=""></h1>
-                  <strong class="text-md">Current Weather Conditions At {{ $ctrl.diagnosticData.$ctrl.diagnosticData }}, {{ $ctrl.diagnosticData.$ctrl.Site_City }} </strong><br>
+                  <strong class="text-md">Current Weather Conditions At {{ $ctrl.diagnosticData.Site_State }}, {{ $ctrl.diagnosticData.Site_City }} </strong><br>
                   <span class="opacity-50">{{ $ctrl.diagnosticData.Site_weather }}, {{ $ctrl.diagnosticData.gw_Temp_F }}</span><br>
-                  <span class="opacity-50">{{ $ctrl.diagnosticData.Site_rainfall_lasthr }}</span><br>
-                  <span class="opacity-50">{{ $ctrl.diagnosticData.Site_visibility }}</span><br>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6" ng-if="$ctrl.diagnosticData.gw_weather == 'N/A'" >
-            <div class="card">
-              <div class="card-body no-padding">
-                <div class="alert alert-callout alert-success no-margin" style="height: 150px;">
-                  <h1 class="pull-right text-success"><img src="https://icons.wxug.com/i/c/k/partlysunny.gif" alt=""></h1>
-                  <strong class="text-md">Current Weather Conditions At Gateway</strong><br>
-                  <span class="opacity-50">Mosttly Cloudy, 80.8F</span><br>
-                  <span class="opacity-50">RainFall - Last Hour --999.00"</span><br>
-                  <span class="opacity-50">Visibility: 10.0 Miles</span><br>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6" ng-if="$ctrl.diagnosticData.Site_weather == 'N/A'">
-            <div class="card">
-              <div class="card-body no-padding">
-                <div class="alert alert-callout alert-success no-margin" style="height: 150px;">
-                  <h1 class="pull-right text-success"><img src="https://icons.wxug.com/i/c/k/cloudy.gif" alt=""></h1>
-                  <strong class="text-md">Current Weather Conditions At S. Joaquim 1345, South Carolina </strong><br>
-                  <span class="opacity-50">Scattered Clouds, 57.4F</span><br>
-                  <span class="opacity-50">RainFall - Last Hour --999.00"</span><br>
-                  <span class="opacity-50">Visibility: 10.0 Miles</span><br>
+                  <span class="opacity-50">Rainfall - Last Hour: {{ $ctrl.diagnosticData.Site_rainfall_lasthr }}</span><br>
+                  <span class="opacity-50">Visibility: {{ $ctrl.diagnosticData.Site_visibility }}</span><br>
                 </div>
               </div>
             </div>

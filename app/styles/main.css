@@ -5,6 +5,11 @@
   padding: 0.2em 0;
 }
 
+.modal-backdrop {
+  bottom: 0;
+  height: 1319px;
+}
+
 body {
   padding: 0;
 }
@@ -83,6 +88,7 @@ body {
 }
 
 
+
 /*loader css*/
 
 .sk-cube-grid {
@@ -146,3 +152,6 @@ body {
             transform: scale3D(0, 0, 1);
   }
 }
+
+
+

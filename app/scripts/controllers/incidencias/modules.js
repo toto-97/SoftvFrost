@@ -10,7 +10,7 @@ function incidendiasConf($stateProvider) {
 		{
 			name: 'home.incidencias.registro',
 			data: {
-				pageTitle: 'SOFTV | REGISTRO',
+				pageTitle: 'STAR.GO | REGISTRO',
 				permissions: {
 					only: ['incidencias'],
 					options: {
@@ -26,7 +26,7 @@ function incidendiasConf($stateProvider) {
 		{
 			name: 'home.incidencias.bandeja',
 			data: {
-				pageTitle: 'SOFTV | BANDEJA',
+				pageTitle: 'STAR.GO | BANDEJA',
 				permissions: {
 					only: ['bandejadeticketsSelect'],
 					options: {
@@ -42,7 +42,7 @@ function incidendiasConf($stateProvider) {
 		{
 			name: 'home.incidencias.registroSistema',
 			data: {
-				pageTitle: 'SOFTV | REGISTRO TICKETS',
+				pageTitle: 'STAR.GO | REGISTRO TICKETS',
 				permissions: {
 					only: ['registroticketsistemaSelect'],
 					options: {

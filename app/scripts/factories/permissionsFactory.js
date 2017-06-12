@@ -364,6 +364,8 @@ angular.module('softvFrostApp')
 			});
 		}
 		factory.on = function() {
+
+			console.log($localStorage.currentUser.menu);
 			$localStorage.currentUser.menu.forEach(function(item) {
 				var titulo = removeDiacritics(item.Title);
 				permisos.push(titulo.replace(/\s/g, '').toLowerCase());
@@ -419,6 +421,23 @@ angular.module('softvFrostApp')
 					});
 				}
 				if (item.Title === 'Monitoreo') {
+					item.MenuChild.forEach(function(item) {
+						var itemTitle = removeDiacritics(item.Title);
+						if (item.OptAdd) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Add');
+						}
+						if (item.OptDelete) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Delete');
+						}
+						if (item.OptUpdate) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Update');
+						}
+						if (item.OptSelect) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Select');
+						}
+					});
+				}
+				if (item.Title === 'Reportes') {
 					item.MenuChild.forEach(function(item) {
 						var itemTitle = removeDiacritics(item.Title);
 						if (item.OptAdd) {
