@@ -27,9 +27,7 @@ angular.module('softvFrostApp')
 			getMovimientosBySan: '/Movimiento/GetMovimientoListBySAN',
 			detalleMovimiento: '/Movimiento/GetDeepMovimiento',
 			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList',
-            GetValidaEjecucionComando:'/Comando/GetValidaEjecucionComando'
-
-			
+            GetValidaEjecucionComando:'/Comando/GetValidaEjecucionComando',			
 			hughesSwap: '/Swap',
 		};
 
