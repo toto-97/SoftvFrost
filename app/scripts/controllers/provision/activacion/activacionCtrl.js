@@ -69,12 +69,19 @@ function activacionCtrl(terminalFactory, $uibModal, $state, $stateParams, ngNoti
         ngNotify.set('No existe una terminal con el SAN ingresado', 'error');
       } else {
         vm.Terminal = data.GetByTerminalResult;
-        //Nos traemos los datos del cliente para obtener el PIN
-        terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data) {
-          vm.suscriptor = data.GetSuscriptorResult;
-          //El PIN son los últimos cuatro dígitos del teléfono del cliente
-          vm.PIN = vm.suscriptor.Telefono.substring(6, 10);
-        });
+        if (vm.Terminal.Estatus == 'Activa' || vm.Terminal.Estatus == 'Pendiente')
+        {
+          //Nos traemos los datos del cliente para obtener el PIN
+          terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data) {
+            vm.suscriptor = data.GetSuscriptorResult;
+            //El PIN son los últimos cuatro dígitos del teléfono del cliente
+            vm.PIN = vm.suscriptor.Telefono.substring(6, 10);
+          });
+        }
+        else{
+          vm.PIN = "";
+          ngNotify.set('La terminal no se encuentra en Estatus Pendiente', 'error');
+        }
       }
     });
   }
