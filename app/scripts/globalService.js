@@ -7,7 +7,7 @@ angular.module('softvFrostApp')
 			return 'http://189.254.231.35:9091/SoftvWCFService.svc';
 		};
 		svc.getUrlHughesService = function () {
-			return 'http://localhost:21590/SoftvFrostAPI';
+			return 'http://189.254.231.35:9092/SoftvFrostAPI';
 		};
 
 		svc.getUrlBeams = function () {
@@ -15,7 +15,7 @@ angular.module('softvFrostApp')
 		};
 
 		svc.getUrlHughesMonitoreo = function () {
-			return 'http://35.164.143.107:8050/api';
+			return 'http://189.254.231.35:9090/api';
 		};
 
 		return svc;
