@@ -28,7 +28,7 @@ angular.module('softvFrostApp')
 			detalleMovimiento: '/Movimiento/GetDeepMovimiento',
 			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList',
             GetValidaEjecucionComando:'/Comando/GetValidaEjecucionComando',			
-			hughesSwap: '/Swap',
+			hughesSwap: '/Swap'
 		};
 
 		factory.sigleMovimiento = function(id) {
@@ -465,7 +465,7 @@ angular.module('softvFrostApp')
 
 		factory.hughesSwap = function(obj) {
 			var deferred = $q.defer();
-			var config = '';
+			
 			var parametros = obj;
 			$http.post(globalService.getUrlHughesService() + paths.hughesSwap, JSON.stringify(parametros)).then(function(response) {
 				deferred.resolve(response.data);
