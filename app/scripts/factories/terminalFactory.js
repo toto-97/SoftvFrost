@@ -142,7 +142,10 @@ angular.module('softvFrostApp')
 				'SAN': obj.san,
 				'Suscriptor': obj.suscriptor,
 				'Estatus': obj.estatus,
-				'Servicio': obj.servicio,
+				'IdServicio': obj.servicio,
+				'IdBeam':obj.IdBeam,
+				'ESN':obj.ESN,
+				'satelite':obj.satelite,
 				'Op': obj.op
 			};
 			$http.post(globalService.getUrl() + paths.buscarTerminal, JSON.stringify(parametros), config).then(function(response) {
