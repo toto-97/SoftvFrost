@@ -26,7 +26,9 @@ angular.module('softvFrostApp')
 			agregaInfoTerminal: '/Terminal/UpdateTerminalInformacionAdicional',
 			getMovimientosBySan: '/Movimiento/GetMovimientoListBySAN',
 			detalleMovimiento: '/Movimiento/GetDeepMovimiento',
-			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList'
+			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList',
+            GetValidaEjecucionComando:'/Comando/GetValidaEjecucionComando',			
+			hughesSwap: '/Swap'
 		};
 
 		factory.sigleMovimiento = function(id) {
@@ -66,6 +68,33 @@ angular.module('softvFrostApp')
 			return deferred.promise;
 
 		};
+
+
+		factory.GetValidaEjecucionComando = function(IdComando) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'Idrol':$localStorage.currentUser.idRol,
+				'IdComando':IdComando
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetValidaEjecucionComando, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+
+
+       
+
+
 
 		factory.getMovimientosBySan = function(san) {
 			var deferred = $q.defer();
@@ -113,7 +142,10 @@ angular.module('softvFrostApp')
 				'SAN': obj.san,
 				'Suscriptor': obj.suscriptor,
 				'Estatus': obj.estatus,
-				'Servicio': obj.servicio,
+				'IdServicio': obj.servicio,
+				'IdBeam':obj.IdBeam,
+				'ESN':obj.ESN,
+				'satelite':obj.satelite,
 				'Op': obj.op
 			};
 			$http.post(globalService.getUrl() + paths.buscarTerminal, JSON.stringify(parametros), config).then(function(response) {
@@ -357,6 +389,8 @@ angular.module('softvFrostApp')
 			};
 			obj.objMovimiento.IdUsuario = $localStorage.currentUser.idUsuario;
 			var parametros = obj;
+			console.log($localStorage.currentUser);
+			console.log(JSON.stringify(parametros));
 			$http.post(globalService.getUrl() + paths.addMovimiento, JSON.stringify(parametros), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
@@ -424,6 +458,19 @@ angular.module('softvFrostApp')
 				}
 			};
 			$http.post(globalService.getUrl() + paths.agregaInfoTerminal, JSON.stringify(obj), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.hughesSwap = function(obj) {
+			var deferred = $q.defer();
+			
+			var parametros = obj;
+			$http.post(globalService.getUrlHughesService() + paths.hughesSwap, JSON.stringify(parametros)).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);

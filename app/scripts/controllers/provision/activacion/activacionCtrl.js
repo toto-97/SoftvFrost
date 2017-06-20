@@ -31,11 +31,12 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
       Obj2.objMovimiento.IdOrigen=2;//Hardcodeado a la tabla de OrigenMovimiento
       Obj2.objMovimiento.Detalle1='';
       Obj2.objMovimiento.Detalle2='';
-      terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
-      });
+      
       //Vamos a procesar dependiendo del status obtenido de hughes
       if (hughesData.envEnvelope.envBody.cmcActivationResponseMsg.Status == "FAILED") {
         ngNotify.set('Error al activar la terminal', 'error');
+        //Ponemos el movimiento como no exitoso
+				Obj2.objMovimiento.Exitoso=0;
       }
       else {
         //Actualiza el estatus en la base en caso de que haya activado en Hughes
@@ -55,8 +56,11 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
         terminalFactory.updateTerminal(Obj3).then(function (data) {
           ngNotify.set('La terminal se ha activado correctamente', 'success');
         });
-
+        //Ponemos el movimiento como  exitoso
+				Obj2.objMovimiento.Exitoso=1;
       }
+      terminalFactory.addMovimiento(Obj2).then(function(dataMovimiento){
+      });
     });
   }
 
@@ -68,12 +72,19 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
         ngNotify.set('No existe una terminal con el SAN ingresado', 'error');
       } else {
         vm.Terminal = data.GetByTerminalResult;
-        //Nos traemos los datos del cliente para obtener el PIN
-        terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
-          vm.suscriptor = data.GetSuscriptorResult;
-          //El PIN son los últimos cuatro dígitos del teléfono del cliente
-          vm.PIN = vm.suscriptor.Telefono.substring(6, 10);
-        });
+        if (vm.Terminal.Estatus == 'Activa' || vm.Terminal.Estatus == 'Pendiente')
+        {
+          //Nos traemos los datos del cliente para obtener el PIN
+          terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function(data) {
+            vm.suscriptor = data.GetSuscriptorResult;
+            //El PIN son los últimos cuatro dígitos del teléfono del cliente
+            vm.PIN = vm.suscriptor.Telefono.substring(6, 10);
+          });
+        }
+        else{
+          vm.PIN = "";
+          ngNotify.set('La terminal no se encuentra en Estatus Pendiente', 'error');
+        }
       }
     });
   }
@@ -84,7 +95,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
     for (i = a.length; i < 9; i++) {
       a = '0' + a;
     }
-    return 'TLV' + a;
+    return 'TEV' + a;
   };
 
   var vm = this;

@@ -45,8 +45,8 @@
       </thead>
       <tbody>
         <tr ng-repeat="x in $ctrl.Modules">
-          <td ng-if="x.tipo == 1"><b>{{x.Description}}</b></td>
-          <td ng-if="x.tipo != 1">{{x.Description}}</td>
+          <td ng-if="x.tipo == 1"><b>{{x.DisplayName}}</b></td>
+          <td ng-if="x.tipo != 1">{{x.DisplayName}}</td>
           <td>
             <div><label class="checkbox-inline checkbox-styled checkbox-info"><input type="checkbox" class="input-sm" ng-model="x.OptSelect"><span></span></label></div>
 

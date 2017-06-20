@@ -15,6 +15,7 @@ angular.module('softvFrostApp')
 					'Authorization': $localStorage.currentUser.token
 				}
 			};
+			console.log(JSON.stringify(obj));
 			$http.post(globalService.getUrl() + paths.buscarSuscriptor, JSON.stringify(obj), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
