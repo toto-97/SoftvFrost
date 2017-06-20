@@ -117,7 +117,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		for (i = a.length; i < 9; i++) {
 			a = '0' + a;
 		}
-		return 'TEV' + a;
+		return 'TLV' + a;
 	};
 
 	function BuscaLatLong() {
