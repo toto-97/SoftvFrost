@@ -56,6 +56,46 @@ function reportesConf($stateProvider) {
 			templateUrl: 'views/reportes/reportesmovimientos.html',
 			controller: 'Reportes_MovimientoCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.reportes.general',
+			data: {
+				pageTitle: 'STAR.GO | REPORTES GENERAL'				
+			},
+			url: '/reportes/general',
+			templateUrl: 'views/reportes/reportesgeneral.html',
+			controller: 'Reportes_reporteGeneralCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.reportes.generalPlataforma',
+			data: {
+				pageTitle: 'STAR.GO | REPORTES GENERAL POR PLATAFORMA'				
+			},
+			url: '/reportes/generalPlataforma',
+			templateUrl: 'views/reportes/reportesgeneralPlataforma.html',
+			controller: 'Reportes_reporteGeneralPlataformaCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.reportes.datosDelSuscriptor',
+			data: {
+				pageTitle: 'STAR.GO | REPORTES DATOS DEL SUSCRIPTOR'				
+			},
+			url: '/reportes/datosDelSuscriptor',
+			templateUrl: 'views/reportes/reportesdatosDelSuscriptor.html',
+			controller: 'Reportes_DatosDelSuscriptorCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.reportes.contrato',
+			data: {
+				pageTitle: 'STAR.GO | REPORTES CONTRATO'				
+			},
+			url: '/reportes/contrato',
+			templateUrl: 'views/reportes/reportesContrato.html',
+			controller: 'Reportes_ContratoCtrl',
+			controllerAs: '$ctrl'
 		}
 	];
 
