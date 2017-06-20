@@ -1,0 +1,227 @@
+
+
+<style type="text/css">
+.myGrid {
+    width: 500px;
+    height: 250px;
+  }
+
+  th{font-size: 9pt;}
+  td {font-size: 8.67pt;}
+  td.media{font-size: 8.6pt;}
+
+  .btn-csv {
+    background-color: #fff;
+    border-color: #008b45;
+    font-size: 11.5px;
+    color:#008b45; 
+  }
+
+  .btn-pdf {
+    background-color: #fff;
+    border-color: #8B0000;
+    font-size: 11.5px;
+    color:#8B0000;
+
+  }
+
+.btn-csv:hover
+{
+    background-color: #008b45;
+    border-color: #fff;
+    font-size: 11.5px;
+    color:#fff;
+}
+
+.btn-pdf:hover
+{
+    background-color: #8B0000;
+    border-color: #fff;
+    font-size: 11.5px;
+    color:#fff;
+
+}
+
+</style>
+
+<div id="pdfreportimages" style="display:none" >
+    <img crossorigin="" src="images/StarGoPng.png" id ="pdflogoimage">
+</div>
+
+
+<div class="card" style="margin-top:20px;padding-bottom: 30px">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Reportes</strong>
+      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Reportes>General</small>
+    </header>
+        <div class="tools">
+
+        </div>
+  </div>
+  <div class="section-body">
+        <div class="col-md-12">
+          <div class="panel-heading">
+            <div class="tools">
+                <div class="panel-group" id="suscriptor">
+                                         
+                      <div class="row">
+
+                          <div class="col-md-5">
+                            <a class="btn btn-info btn-sm" ng-click="$ctrl.limpiarFiltros();" data-toggle="tooltip" data-placement="top" title="" data-original-title="Limpiar filtros"> <i class="fa fa-eraser"></i>Limpiar </a>
+                          </div>
+
+                      </div>
+                       <!--end .panel -->
+                </div>
+            </div>
+          </div>
+
+
+
+          <div class="panel form-element-padding" style="margin-top:-20px;">
+            <table st-table="$ctrl.displayedCollection4" st-safe-src="$ctrl.rowCollection4" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
+              <thead>
+              <tr>
+                <th st-sort="SAN">SAN</th>
+                <th st-sort="ESN">ESN</th>
+                <th st-sort="PlanDeServicio">Plan de Servicio</th>
+                <th st-sort="PlanActual">Plan Actual</th>
+               <!-- <th st-sort="Satellite">Tipo de Servicio</th>-->
+                <th st-sort="Beam">Beam</th> 
+                <th st-sort="VelocidadBajada">Velocidad Bajada</th>  
+                <th st-sort="VelocidadSubida">Velocidad Subida </th>              
+                <th st-sort="Suscriptor">Suscriptor</th>  
+                <th st-sort="Estatus">Estatus Comercial</th>    
+                <th st-sort="Latitud">Latitud</th>
+                <th st-sort="Longitud">Longitud</th>          
+                <th st-sort="IpNateada">Ip Nateada</th>
+                <th st-sort="Fap">FAP</th>
+                <th st-sort="FechaJovian">Fecha JOVIAN</th>   
+                <th st-sort="Estado">Estado</th>   
+                <th st-sort="Municipio">Municipio</th>   
+                <th st-sort="Localidad">Localidad</th>   
+                <th st-sort="Direccion">Dirección</th>               
+              </tr>  <!--<tr><th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th> </tr> -->    
+              <tr>
+                <th>
+                  <input st-search="SAN" placeholder="SAN" class="input-sm form-control" type="search"/>
+                </th>
+                <th>
+                  <input st-search="ESN" placeholder="ESN" class="input-sm form-control" type="search"/>
+                </th>  
+                <th>
+                  <input st-search="PlanDeServicio" placeholder="Plan Servicio" class="input-sm form-control" type="search"/>
+                </th>
+                <th>
+                  <input st-search="PlanActual" placeholder="Plan Actual" class="input-sm form-control" type="search"/>
+                </th>  
+              <!--  <th>
+                  <input st-search="PlanInicial" placeholder="Tipo de Servicio" class="input-sm form-control" type="search" >
+                </th> !-->
+                <th>
+                  <input st-search="Beam" placeholder="Beam" class="input-sm form-control" type="search"/>
+                </th> 
+                <th>
+                  <input st-search="VelocidadBajada" placeholder="V Bajada" class="input-sm form-control" type="search" />
+                </th>           
+                <th>
+                  <input st-search="VelocidadSubida" placeholder="V Subida" class="input-sm form-control" type="search" />
+                </th>  
+                  <th>
+                  <input st-search="Suscriptor" placeholder="Suscriptor" class="input-sm form-control" type="search" />
+                </th> 
+                <th>      
+                  <input st-search="Estatus" placeholder="Estatus" class="input-sm form-control" type="search"/>
+                </th>    
+                <th>
+                 <input st-search="Latitud" placeholder="Latitud" class="input-sm form-control" type="search"/>
+                </th> 
+                <th>
+                  <input st-search="Longitud" placeholder="Longitud" class="input-sm form-control" type="search"/>
+                </th> 
+                <th>
+                  <input st-search="IpNateada" placeholder="Ip" class="input-sm form-control" type="search"/>
+                </th>      
+                <th>
+                  <input st-search="Fap" placeholder="FAP" class="input-sm form-control" type="search" />
+                </th>           
+                <th>
+                  <input st-search="FechaJovian" placeholder="Fecha" class="input-sm form-control" type="search" />
+                </th>  
+                <th>      
+                  <input st-search="Estado" placeholder="Estado" class="input-sm form-control" type="search"/>
+                </th>    
+                <th>
+                  <input st-search="Municipio" placeholder="Municipio" class="input-sm form-control" type="search"/>
+                </th>         
+                <th>
+                  <input st-search="Localidad" placeholder="Localidad" class="input-sm form-control" type="search" />
+                </th> 
+                <th>                  
+                  <input st-search="Dirección" placeholder="Dirección" class="input-sm form-control" type="search"/>
+                </th>  
+              </tr>
+
+              </thead><!-- <td>{{row.SAN | uppercase}}</td> -->
+                 <tbody>
+                        <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">                    
+                        <td>{{row.SAN}}</td>
+                        <td>{{row.ESN}}</td>
+                        <td>{{row.PlanDeServicio}}</td>
+                        <td>{{row.PlanActual}}</td>
+                        <td>{{row.Beam}}</td>
+                        <td class="media">{{row.VelocidadBajada}}</td>                
+                        <td class="media">{{row.VelocidadSubida}}</td>
+                        <td>{{row.Suscriptor}}</td>
+                        <td class="media">{{row.Estatus}}</td>
+                        <td class="media">{{row.Latitud}}</td>
+                        <td class="media">{{row.Longitud}}</td>
+                        <td class="media">{{row.IpNateada}}</td>                
+                        <td>{{row.Fap}}</td>
+                        <td>{{row.FechaJovian}}</td>
+                        <td>{{row.Estado}}</td>
+                        <td class="media">{{row.Municipio}}</td>
+                        <td>{{row.Localidad}}</td>
+                        <td>{{row.Direccion}}</td>
+                      </tr>             
+                </tbody>
+                  <tfoot>
+                  <tr>
+                    <td colspan="18" class="text-left">
+                            <dir-pagination-controls  max-size="5"
+                                                    direction-links="true"
+                                                    boundary-links="true">
+                            </dir-pagination-controls>
+                    </td>
+                  </tr>
+                </tfoot>
+            </table>
+              
+            <div class="col-md-8  col-md-offset-2"  style="margin-bottom: 20px" align="center">
+              <div class="col-sm-3"  >
+                <button class="btn btn-csv btn-sm " ng-click="$ctrl.crearVisibleAsCsv()"  style="white-space: normal"></i> Exportar datos visibles como CSV </a> </button>
+              </div>                
+              <div class="col-sm-3">
+                <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv()"  style="white-space: normal"> Exportar todo <br/> como CSV </button>
+              </div>   
+              <div class="col-sm-3">
+                  <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('visible')"  style="white-space: normal">Exportar datos visibles como pdf</button>
+              </div>         
+              <div class="col-sm-3">
+                <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('todo')"  style="white-space: normal">Exportar todo <br/> como pdf </button>
+              </div>     
+            </div>
+
+
+                <button class="btn btn-default" id="csvUno" ng-hide="$ctrl.csvUnoHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."  add-bom="true"
+                > esconder botón visible data as csv</button> <!--csv-column-order="$ctrl.order"  -->                
+
+                <button class="btn btn-default" id="csvDos" ng-hide="$ctrl.csvDosHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."  add-bom="true"
+                > esconder botón visible data as csv</button> <!--csv-column-order="$ctrl.order"  -->  
+                
+
+          </div>
+        </div>
+    </div>
+</div>

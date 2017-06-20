@@ -2,8 +2,7 @@
 angular.module('softvFrostApp')
 	.factory('reportesFactory', function($http, $q, $window, globalService, $localStorage) {
 		
-		var factory = {};
-		
+		var factory = {};		
 		var paths = {  		
 			mostrarReportePlanta: '/Reportes_Planta/GetReportes_PlantaList', 
 			mostrarReporteTokens: '/Reporte_Tokens/GetReporte_TokensList',	
@@ -11,10 +10,11 @@ angular.module('softvFrostApp')
 			mostrarReporteMovimientos: '/Reporte_Movimientos/GetReporte_MovimientosList', 
 			mostrarPlan: '/Reporte_DetalleTerminal/GetPlanByBeam_reporte', 
 			mostrarBeam: '/Reporte_DetalleTerminal/GetBeam_reporte',
-			mostrarReporteDetTerminales: '/Reporte_DetalleTerminal/GetReporte_DetalleTerminalList',	
-			
-		
-
+			mostrarReporteDetTerminales: '/Reporte_DetalleTerminal/GetReporte_DetalleTerminalList',
+			mostrarReporteConsumo: '/Reporte_Consumo/GetReporte_GeneralList',
+			mostrarReportePorPlataforma: '/Reporte_Consumo/GetReporte_PorPlataforma',
+			mostrarReporteDatosDelSuscriptor: '/Reporte_Consumo/GetReporte_DatosDelSuscriptor',
+			mostrarReporteContrato: '/Reporte_Consumo/GetReporte_Contrato'
 		};
 
 
@@ -215,6 +215,91 @@ angular.module('softvFrostApp')
 			return deferred.promise;
 		};
 
+
+	factory.mostrarReporteConsumo = function(idAux, fechaInicioYMD) {	
+   
+		var deferred = $q.defer();
+			var Parametros = {
+				'idAux': idAux,
+				'fechaActivacion': fechaInicioYMD
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+
+			$http.post(globalService.getUrl() + paths.mostrarReporteConsumo, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};	
+
+	factory.mostrarReportePorPlataforma = function(idAux) {	
+   
+		var deferred = $q.defer();
+			var Parametros = {
+				'idAux': idAux
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+
+			$http.post(globalService.getUrl() + paths.mostrarReportePorPlataforma, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};	
+
+
+		factory.mostrarReporteDatosDelSuscriptor = function(idAux) {	   
+		var deferred = $q.defer();
+			var Parametros = {
+				'idAux': idAux
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+
+			$http.post(globalService.getUrl() + paths.mostrarReporteDatosDelSuscriptor, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};	
+	
+		factory.mostrarReporteContrato = function(idAux) {	   
+		var deferred = $q.defer();
+			var Parametros = {
+				'idAux': idAux
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+
+			$http.post(globalService.getUrl() + paths.mostrarReporteContrato, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
+		};	
+		
 		return factory;
 
 	});
