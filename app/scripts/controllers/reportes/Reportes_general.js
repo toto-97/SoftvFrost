@@ -312,16 +312,16 @@ function createPdfTodo(pdfAcrear){
                 overflow: 'linebreak', 
             }, 
             columnStyles: { 
-                2: {columnWidth: 18}// plan de ser  
-                ,2: {columnWidth: 18}// plan actual  
-                ,5: {columnWidth: 16}// v bajada       
-                ,6: {columnWidth: 16} //v subida
-                ,6: {columnWidth: 20} //v subida
-                ,9: {columnWidth: 16} //lat
-                ,10: {columnWidth: 16} //long
-                ,13: {columnWidth: 16} //long
-                ,16: {columnWidth: 19} //long
-                ,17: {columnWidth: 21} //long
+                2: {columnWidth: 18},// plan de ser  
+                3: {columnWidth: 18},// plan actual  
+                5: {columnWidth: 16},// v bajada       
+                6: {columnWidth: 16}, //v subida
+                7: {columnWidth: 20}, //v subida
+                9: {columnWidth: 16}, //lat
+                10: {columnWidth: 16}, //long
+                13: {columnWidth: 16}, //long
+                16: {columnWidth: 19}, //long
+                17: {columnWidth: 21} //long
             },                      
             
              margin: {top: 16, right: 5, bottom: 16, left: 5},
