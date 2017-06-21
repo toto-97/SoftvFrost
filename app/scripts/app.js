@@ -26,7 +26,11 @@ angular.module('softvFrostApp', [
 		'blockUI',
 		'ngMap',
 		'permission', 'permission.ui',
+<<<<<<< Updated upstream
 		'ui.mask','ngCsv','fixed.table.header'
+=======
+		'ui.mask','ngCsv'
+>>>>>>> Stashed changes
 
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider','blockUIConfig', function($provide, $urlRouterProvider, $httpProvider, $qProvider,blockUIConfig) {
