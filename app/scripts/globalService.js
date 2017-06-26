@@ -4,18 +4,18 @@ angular.module('softvFrostApp')
 		var svc = {};
 
 		svc.getUrl = function() {
-			return 'http://localhost:64481/SoftvWCFService.svc';
+			return 'http://192.168.50.33:3000/SoftvWCFService.svc';
 		};
 		svc.getUrlHughesService = function () {
-			return 'http://189.254.231.37:9092/SoftvFrostAPI';
+			return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
 		};
 
 		svc.getUrlBeams = function () {
-			return 'http://189.254.231.37:9090/beams/';
+			return 'http://189.254.231.35/beams/';
 		};
 
 		svc.getUrlHughesMonitoreo = function () {
-			return 'http://189.254.231.37:9090/api';
+			return 'http://192.168.50.33:3000/BossMonitoreo/api';
 		};
 
 		return svc;

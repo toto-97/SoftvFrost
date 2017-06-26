@@ -3,7 +3,6 @@
 angular.module('softvFrostApp')
 .controller('Reportes_reporteGeneralCtrl', ['$http', 'reportesFactory','$timeout', 'ngNotify','$state', function ( $http, reportesFactory, $timeout, ngNotify, $state){
 
- 
 
     var vm = this;
     vm.filename = "Reporte_general";

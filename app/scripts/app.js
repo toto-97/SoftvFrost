@@ -28,6 +28,7 @@ angular.module('softvFrostApp', [
 		'permission', 'permission.ui',
 		'ui.mask','ngCsv','fixed.table.header'
 
+
 	])
 	.config(['$provide', '$urlRouterProvider', '$httpProvider', '$qProvider','blockUIConfig', function($provide, $urlRouterProvider, $httpProvider, $qProvider,blockUIConfig) {
 		$qProvider.errorOnUnhandledRejections(false);
