@@ -1,74 +1,72 @@
 'use strict';
 angular
   .module('softvFrostApp')
-  .controller('MapaTerminalesCtrl', ModalGetLatLongCtrl);
+  .controller('MapaTerminalesCtrl', MapaTerminalesCtrl);
 
-function ModalGetLatLongCtrl(SuscriptorFactory, terminalFactory, $rootScope, ngNotify, NgMap, mapaBeamFactory, globalService) {
+function MapaTerminalesCtrl($uibModal, SuscriptorFactory, terminalFactory, $rootScope, ngNotify, NgMap, mapaBeamFactory, globalService, $state) {
   this.$onInit = function () {
 
     mapaBeamFactory.GetBeamList().then(function (data) {
-      console.log(data);
+
       vm.Beams = data.GetBeamListResult;
       vm.UrlBeam = globalService.getUrlBeams() + data.GetBeamListResult[1].FilePath;
-      console.log(vm.UrlBeam);
+      DetalleBeam(data.GetBeamListResult[0]);
     });
-
     NgMap.getMap().then(function (map) {
       vm.map = map;
       google.maps.event.trigger(vm.map, 'resize');
     });
   }
-
-
-  function ObtenerCoordenadasTerminales(terminales) {
-
-
+  function ObtenerCoordenadasTerminales(terminales, beamid) {
+     vm.Terminales = [];
     for (var i = 0; i < terminales.length; i++) {
-      var obj = {};
-      obj.data = terminales[i];
-      obj.san = terminales[i].SAN;
-      obj.ESN = terminales[i].ESN;
-      obj.Lat = terminales[i].Latitud;
-      obj.Lng = terminales[i].Longitud;
-      vm.Terminales.push(obj);
+
+      if (terminales[i].BeamID == beamid) {
+        var obj = {};
+        obj.data = terminales[i];
+        obj.san = terminales[i].SAN;
+        obj.ESN = terminales[i].ESN;
+        obj.Lat = terminales[i].Latitud;
+        obj.Lng = terminales[i].Longitud;
+        vm.Terminales.push(obj);
+      }
     }
-    console.log(vm.Terminales);
+
 
   }
 
   function DetalleTerminal(x) {
-    console.log(x);
-    var san = hughesGetSanCompuesto(this.id);
-    mapaBeamFactory.GetTerminalStatus(san).then(function (response) {
-      console.log(response);
+
+    var id = hughesGetSanCompuesto(this.id);
+    $state.go('home.monitoreo.DetalleTerminal', {
+      'id': id
     });
-  }
-
-
-	function hughesGetSanCompuesto(obj) {
-			var a = obj.toString();
-			var i;
-			for (i = a.length; i < 9; i++) {
-				a = '0' + a;
-			}
-			return 'TLV' + a;
-		};
-
-
+    }
+  function hughesGetSanCompuesto(obj) {
+    var a = obj.toString();
+    var i;
+    for (i = a.length; i < 9; i++) {
+      a = '0' + a;
+    }
+    return 'TEV' + a;
+  };
 
   function DetalleBeam(obj) {
-    console.log(obj);
+     vm.BeamId=obj.BeamId;
+      var a = obj.BeamId.toString();
+      console.log(a.length);
+      if(a.length ==2){
+        vm.BeamId='0'+obj.BeamId
+      }
+console.log(vm.BeamId);
     vm.UrlBeam = globalService.getUrlBeams() + obj.FilePath;
-    mapaBeamFactory.GetBeamUsage('outroute', obj.BeamId).then(function (data) {
+    mapaBeamFactory.GetBeamUsage('outroute', vm.BeamId).then(function (data) {
       vm.datosoutroute = JSON.parse(data);
-      console.log(vm.datosoutroute);
-      mapaBeamFactory.GetBeamUsage('inroute', obj.BeamId).then(function (data) {
+      mapaBeamFactory.GetBeamUsage('inroute', vm.BeamId).then(function (data) {
         vm.datosinroute = JSON.parse(data);
-        console.log(vm.datosinroute);
         terminalFactory.getTerminalList().then(function (data) {
-
-          vm.terminales_ = data.GetTerminalListResult
-          ObtenerCoordenadasTerminales(vm.terminales_);
+          vm.terminales_ = data.GetTerminalListResult;
+          ObtenerCoordenadasTerminales(vm.terminales_, obj.BeamId);
         });
       });
     });
@@ -78,8 +76,5 @@ function ModalGetLatLongCtrl(SuscriptorFactory, terminalFactory, $rootScope, ngN
   vm.DetalleBeam = DetalleBeam;
   vm.Terminales = [];
   vm.DetalleTerminal = DetalleTerminal;
-
-
-
 
 }
