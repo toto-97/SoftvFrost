@@ -5,8 +5,8 @@ angular.module('softvFrostApp')
  
 
 	var vm = this;
-    vm.filename = "Reporte_de_tokens";
-    var reportHeaderPdf = "Reporte de Tokens";
+    vm.filename = "Reporte_datos_suscriptor";
+    var reportHeaderPdf = "Reporte Datos del Suscriptor";
     var fechaInicioYMD;
     var fechaFinYMD; 
     var idAux = 1;  
