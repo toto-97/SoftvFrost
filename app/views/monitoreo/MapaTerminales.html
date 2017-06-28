@@ -1,3 +1,15 @@
+<style>
+
+
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 5px 8px !important;
+    line-height: 1.846153846;
+    vertical-align: top;
+    border-top: 1px solid rgba(189, 193, 193, 0.2);
+}
+</style>
+
+
 <div class="card" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
@@ -43,61 +55,62 @@
         <td colspan="3"><b>OUTROUTE VALUES BEAM ID {{$ctrl.datosoutroute.beamId}}</b></td>
       </tr>
       <tr>
-        <td>beamName</td>
+        <td><b>Beam Name</b></td>
         <td>{{$ctrl.datosoutroute.beamName}}</td>
-         <td>satelliteUsage</td>
+         <td><b>Total outroute satellite usage</b> </td>
         <td>{{$ctrl.datosoutroute.satelliteUsage}}</td>
       </tr>      
        <tr>
-        <td>cbrSubscription</td>
+        <td><b> Maximum outroute Configured(Mbps)</b> </td>
         <td>{{$ctrl.datosoutroute.cbrSubscription}}</td>
-         <td>cbrUsage</td>
+         <td><b>Total outroute CBR usage(Mbps)</b></td>
         <td>{{$ctrl.datosoutroute.cbrUsage}}</td>
       </tr>       
+      
        <tr>
-        <td>cbrUsage</td>
-        <td>{{$ctrl.datosoutroute.cbrUsage}}</td>
-        <td>dlThruSubscription</td>
-        <td>{{$ctrl.datosoutroute.dlThruSubscription}}</td>
-      </tr>
-       <tr>
-        <td>gatewayId</td>
+        <td><b>Gateway Id</b></td>
         <td>{{$ctrl.datosoutroute.gatewayId}}</td>
-        <td>gatewayName</td>
+        <td><b>Gateway Name</b></td>
         <td>{{$ctrl.datosoutroute.gatewayName}}</td>
       </tr>
        <tr>
-        <td>maxSubscription</td>
+        <td><b>Maximum outroute bandwidth Configured (Mbps)</b></td>
         <td>{{$ctrl.datosoutroute.maxSubscription}}</td>
-        <td>minSubscription</td>
+        <td><b> Minimumoutroute bandwidth Configured (Mbps)</b></td>
         <td>{{$ctrl.datosoutroute.minSubscription}}</td>
       </tr>
 
       <tr>
-        <td>multicastOfferedLoad</td>
+        <td><b>Total offered Multicast load (Mbps)</b></td>
         <td>{{$ctrl.datosoutroute.multicastOfferedLoad}}</td>
-        <td>multicastSatelliteBits</td>
+        <td><b>Total Multicast outroutesatellite usage (Mbps) </b></td>
         <td>{{$ctrl.datosoutroute.multicastSatelliteBits}}</td>
       </tr>
        <tr>
-        <td>multicastSubscription</td>
+        <td><b> Maximum Multicast bandwidth Configured</b> </td>
         <td>{{$ctrl.datosoutroute.multicastSubscription}}</td>
-        <td>offeredLoad</td>
+        <td><b>Total offered load bandwidth (Mbps)</b></td>
         <td>{{$ctrl.datosoutroute.offeredLoad}}</td>
       </tr>
       <tr>
-        <td>overallDemand</td>
+        <td><b>Total demanded outroute bandwidth(Mbps) </b></td>
         <td>{{$ctrl.datosoutroute.overallDemand}}</td>
-        <td>timeStamp</td>
+        <td><b>Time Stamp</b></td>
         <td>{{$ctrl.datosoutroute.timeStamp}}</td>
       </tr>
       <tr>
-        <td>vnId</td>
+        <td><b>vnId</b></td>
         <td>{{$ctrl.datosoutroute.vnId}}</td>
-        <td>vnName</td>
+        <td><b>vnName</b></td>
         <td>{{$ctrl.datosoutroute.vnName}}</td>
       </tr>
-
+ <tr>
+       
+        <td><b>Maximum outroute Download Configured</b></td>
+        <td>{{$ctrl.datosoutroute.dlThruSubscription}}</td>
+        <td><b>Minimumoutroute Download Configured</b></td>
+        <td>{{$ctrl.datosoutroute.dlThruMinSubscription}}</td>
+      </tr>
      </table>
 
 
@@ -108,58 +121,58 @@
         <td colspan="3"><b>INROUTE VALUES BEAM ID {{$ctrl.datosinroute.beamId}}</b></td>
       </tr>
       <tr>
-        <td>beamName</td>
+        <td><b>Beam Name</b></td>
         <td>{{$ctrl.datosinroute.beamName}}</td>
-         <td>satelliteUsage</td>
+         <td><b>Total inroute satellite usage</b></td>
         <td>{{$ctrl.datosinroute.satelliteUsage}}</td>
       </tr>      
        <tr>
-        <td>cbrSatUsage</td>
+        <td><b>Total inroute CBR usage(Mbps)</b></td>
         <td>{{$ctrl.datosinroute.cbrSatUsage}}</td>
-         <td>cbrOfferUsage</td>
+         <td><b>Total inroute CBR offered load (Mbps)</b></td>
         <td>{{$ctrl.datosinroute.cbrOfferUsage}}</td>
       </tr>       
        <tr>
-        <td>cbrSubscription</td>
+        <td><b> Maximum inroute CBR bandwidth Configured(Mbps) </b></td>
         <td>{{$ctrl.datosinroute.cbrSubscription}}</td>
-        <td>demand</td>
+        <td><b>Total demanded inroute bandwidth(Mbps)</b></td>
         <td>{{$ctrl.datosinroute.demand}}</td>
       </tr>
        <tr>
-        <td>gatewayId</td>
+        <td><b>Gateway Id</b></td>
         <td>{{$ctrl.datosinroute.gatewayId}}</td>
-        <td>gatewayName</td>
+        <td><b>Gateway Name</b></td>
         <td>{{$ctrl.datosinroute.gatewayName}}</td>
       </tr>
        <tr>
-        <td>maxSubscription</td>
+        <td><b> Maximum inroute bandwidth Configured(Mbps)</b></td>
         <td>{{$ctrl.datosinroute.maxSubscription}}</td>
-        <td>minSubscription</td>
+        <td><b> Maximum inroute bandwidth Configured(Mbps)</b></td>
         <td>{{$ctrl.datosinroute.minSubscription}}</td>
       </tr>
 
       <tr>
-        <td>numActiveTerminals</td>
+        <td><b>Active Terminals</b></td>
         <td>{{$ctrl.datosinroute.numActiveTerminals}}</td>
-        <td>offeredLoad</td>
+        <td>Total inroute offered load bandwidth (Mbps) </b></td>
         <td>{{$ctrl.datosinroute.offeredLoad}}</td>
       </tr>
        <tr>
-        <td>timeStamp</td>
+        <td><b>TimeStamp</b></td>
         <td>{{$ctrl.datosinroute.timeStamp}}</td>
-        <td>throughputLimit</td>
+        <td><b> Maximum throughput inroute bandwidth Configured(Mbps) </b></td>
         <td>{{$ctrl.datosinroute.throughputLimit}}</td>
       </tr>
       <tr>
-        <td>throughputLimitCBR</td>
+        <td><b> Maximum CBR throughput inroute bandwidth Configured</b></td>
         <td>{{$ctrl.datosinroute.throughputLimitCBR}}</td>
-        <td>throughputLimitMin</td>
+        <td><b> maximum throughput inroute bandwidth Configured </b></td>
         <td>{{$ctrl.datosinroute.throughputLimitMin}}</td>
       </tr>
       <tr>
-        <td>vnId</td>
+        <td><b>vnId</b></td>
         <td>{{$ctrl.datosinroute.vnId}}</td>
-        <td>vnName</td>
+        <td><b>vnName</b></td>
         <td>{{$ctrl.datosinroute.vnName}}</td>
       </tr>
 
