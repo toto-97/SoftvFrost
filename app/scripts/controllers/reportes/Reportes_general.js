@@ -94,8 +94,8 @@ angular.module('softvFrostApp')
 
 
     //CSV 
-    vm.order = [ 'SAN', 'ESN', 'PlanDeServicio', 'PlanActual', 'Beam', 'VelocidadBajada', 'VelocidadSubida', 'Estatus',
-                 'Latitud', 'Longitud','IpNateada','Fap','FechaJovian','Estado','Municipio','Localidad','Direccion'];
+    vm.order = [ 'SAN', 'ESN', 'PlanDeServicio', 'Beam', 'VelocidadBajada', 'VelocidadSubida', 'Suscriptor','Referencia','Estatus',
+                 'Latitud', 'Longitud','IpNateada','Fap','FechaJovian','Estado','Municipio','Direccion'];
 
     // CREAR CSV
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -147,8 +147,8 @@ angular.module('softvFrostApp')
     };
 
 
-    vm.order = [ 'SAN', 'ESN', 'PlanDeServicio', 'PlanActual', 'Beam', 'VelocidadBajada', 'VelocidadSubida', 'Suscriptor', 'Estatus',
-                 'Latitud', 'Longitud','IpNateada','Fap','FechaJovian','Estado','Municipio','Localidad','Direccion'];
+    vm.order = [ 'SAN', 'ESN', 'PlanDeServicio', 'Beam', 'VelocidadBajada', 'VelocidadSubida', 'Suscriptor', 'Referencia', 'Estatus',
+                 'Latitud', 'Longitud','IpNateada','Fap','FechaJovian','Estado','Municipio','Direccion'];
 
 
     function initArray (){
@@ -158,11 +158,11 @@ angular.module('softvFrostApp')
                 "SAN": "SAN",              
                 "ESN": "ESN",
                 "PlanDeServicio": "Plan de Servicio",
-                "PlanActual": "Plan Actual",
                 "Beam": "Beam",
-                "VelocidadBajada": "Velocidad Bajada ",
+                "VelocidadBajada": "Velocidad Bajada",
                 "VelocidadSubida": "Velocidad Subida",
                 "Suscriptor":"Suscriptor",
+                "Referencia":"Referencia",
                 "Estatus": "Estatus",          
                 "Latitud": "Latitud",
                 "Longitud": "Longitud", 
@@ -171,7 +171,6 @@ angular.module('softvFrostApp')
                 "FechaJovian":"Fecha JOVIAN",
                 "Estado":"Estado",
                 "Municipio":"Municipio",
-                "Localidad":"Localidad",
                 "Direccion":"Direccion"
                 }];
     } 
@@ -193,8 +192,8 @@ function createPdfTodo(pdfAcrear){
 
 
     var cols = 18;
-    var columns = ["SAN","ESN","Plan de Servicio","Plan Actual","Beam","Velocidad Bajada","Velocidad Subida","Suscriptor","Estatus","Latitud","Longitud","Ip Nateada",
-    "Fap","Fecha JOVIAN","Estado","Municipio","Localidad","Dirección"];
+    var columns = ["SAN","ESN","Plan de Servicio","Beam","Velocidad Bajada","Velocidad Subida","Suscriptor","Referencia","Estatus","Latitud","Longitud","Ip Nateada",
+    "Fap","Fecha JOVIAN","Estado","Municipio","Dirección"];
    
     for( var i=r; i<ro; i++ ) {         
       rows.push( [] );
@@ -207,12 +206,12 @@ function createPdfTodo(pdfAcrear){
         {   
             rows[i][0] = vm.rowCollection4[i].SAN;          
             rows[i][1] = vm.rowCollection4[i].ESN;
-            rows[i][2] = vm.rowCollection4[i].PlanDeServicio;
-            rows[i][3] = vm.rowCollection4[i].PlanActual;
-            rows[i][4] = vm.rowCollection4[i].Beam;
-            rows[i][5] = vm.rowCollection4[i].VelocidadBajada;
-            rows[i][6] = vm.rowCollection4[i].VelocidadSubida;
-            rows[i][7] = vm.rowCollection4[i].Suscriptor;
+            rows[i][2] = vm.rowCollection4[i].PlanDeServicio;         
+            rows[i][3] = vm.rowCollection4[i].Beam;
+            rows[i][4] = vm.rowCollection4[i].VelocidadBajada;
+            rows[i][5] = vm.rowCollection4[i].VelocidadSubida;
+            rows[i][6] = vm.rowCollection4[i].Suscriptor;
+            rows[i][7] = vm.rowCollection4[i].Referencia;
             rows[i][8] = vm.rowCollection4[i].Estatus;
             rows[i][9] = vm.rowCollection4[i].Latitud;
             rows[i][10] = vm.rowCollection4[i].Longitud;  
@@ -221,18 +220,17 @@ function createPdfTodo(pdfAcrear){
             rows[i][13] = vm.rowCollection4[i].FechaJovian;
             rows[i][14] = vm.rowCollection4[i].Estado;
             rows[i][15] = vm.rowCollection4[i].Municipio;
-            rows[i][16] = vm.rowCollection4[i].Localidad;
-            rows[i][17] = vm.rowCollection4[i].Direccion;
+            rows[i][16] = vm.rowCollection4[i].Direccion;
         }else 
         {               
             rows[i][0] = vm.displayedCollection4[i].SAN;          
             rows[i][1] = vm.displayedCollection4[i].ESN;
-            rows[i][2] = vm.displayedCollection4[i].PlanDeServicio;
-            rows[i][3] = vm.displayedCollection4[i].PlanActual;
-            rows[i][4] = vm.displayedCollection4[i].Beam;
-            rows[i][5] = vm.displayedCollection4[i].VelocidadBajada;
-            rows[i][6] = vm.displayedCollection4[i].VelocidadSubida;
-            rows[i][7] = vm.displayedCollection4[i].Suscriptor;
+            rows[i][2] = vm.displayedCollection4[i].PlanDeServicio;     
+            rows[i][3] = vm.displayedCollection4[i].Beam;
+            rows[i][4] = vm.displayedCollection4[i].VelocidadBajada;
+            rows[i][5] = vm.displayedCollection4[i].VelocidadSubida;
+            rows[i][6] = vm.displayedCollection4[i].Suscriptor;
+            rows[i][7] = vm.displayedCollection4[i].Referencia;
             rows[i][8] = vm.displayedCollection4[i].Estatus;
             rows[i][9] = vm.displayedCollection4[i].Latitud;
             rows[i][10] = vm.displayedCollection4[i].Longitud;  
@@ -241,8 +239,7 @@ function createPdfTodo(pdfAcrear){
             rows[i][13] = vm.displayedCollection4[i].FechaJovian;
             rows[i][14] = vm.displayedCollection4[i].Estado;
             rows[i][15] = vm.displayedCollection4[i].Municipio;
-            rows[i][16] = vm.displayedCollection4[i].Localidad;
-            rows[i][17] = vm.displayedCollection4[i].Direccion;
+            rows[i][16] = vm.displayedCollection4[i].Direccion;
         } 
     } 
 
@@ -310,18 +307,19 @@ function createPdfTodo(pdfAcrear){
             styles:{
                 overflow: 'linebreak', 
             }, 
-            columnStyles: { 
-                2: {columnWidth: 18},// plan de ser  
-                3: {columnWidth: 18},// plan actual  
-                5: {columnWidth: 16},// v bajada       
-                6: {columnWidth: 16}, //v subida
-                7: {columnWidth: 20}, //v subida
-                9: {columnWidth: 16}, //lat
-                10: {columnWidth: 16}, //long
-                13: {columnWidth: 16}, //long
-                16: {columnWidth: 19}, //long
-                17: {columnWidth: 21} //long
-            },                      
+             columnStyles: { 
+                2: {columnWidth: 15},// plan de ser  
+            //     3: {columnWidth: 18},// plan actual  
+            //     5: {columnWidth: 16},// v bajada       
+            //     6: {columnWidth: 16}, //v subida
+            //     7: {columnWidth: 20}, //v subida
+            //     9: {columnWidth: 16}, //lat
+            //     10: {columnWidth: 16}, //long
+            //     13: {columnWidth: 16}, //long
+                    16: {columnWidth: 17}, //long
+                    16: {columnWidth: 18}, //long
+                    18: {columnWidth: 19} //long
+             },                      
             
              margin: {top: 16, right: 5, bottom: 16, left: 5},
              addPageContent: pageContent //page number

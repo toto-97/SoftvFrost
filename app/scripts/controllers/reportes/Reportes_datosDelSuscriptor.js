@@ -4,14 +4,14 @@ angular.module('softvFrostApp')
 
  
 
-	var vm = this;
+    var vm = this;
     vm.filename = "Reporte_datos_suscriptor";
     var reportHeaderPdf = "Reporte Datos del Suscriptor";
     var fechaInicioYMD;
     var fechaFinYMD; 
     var idAux = 1;  
     vm.csvUnoHide = true; 
-    vm.csvDosHide = true; 	
+    vm.csvDosHide = true;   
     var img = new Image();
     img.crossOrigin = "";  
 
@@ -88,7 +88,7 @@ angular.module('softvFrostApp')
 
 
     //CSV 
-    vm.order = [ 'SAN', 'IdSuscriptor', 'Nombre', 'Estado', 'Municipio', 'Localidad', 'Colonia', 'Calle', 'NumeroExt', 'EntreCalles', 'CP','Telefono','Celular','Email'];
+    vm.order = [ 'SAN', 'IdSuscriptor', 'Referencia', 'Nombre', 'Estado', 'Municipio', 'Colonia', 'Calle', 'NumeroExt', 'CP','Telefono','Celular','Email'];
 
     // CREAR CSV 
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -146,14 +146,15 @@ angular.module('softvFrostApp')
         vm.arrayReporte =     [{
                 "SAN": "SAN",
                 "IdSuscriptor": "Id Suscriptor",
+                "Referencia":"Referencia",
                 "Nombre":"Nombre",
                 "Estado": "Estado",                
                 "Municipio": "Municipio",
-                "Localidad": "Localidad",
+          
                 "Colonia": "Colonia",
                 "Calle": "Calle",            
                 "NumeroExt": "Número Exterior",
-                "EntreCalles": "Entre Calles", 
+              
                 "CP": "Código Postal",               
                 "Telefono": "Telefono",
                 "Celular": "Celular",               
@@ -179,7 +180,7 @@ function createPdfTodo(pdfAcrear){
 
 
     var cols = 12; 
-    var columns = [ "SAN","Id Suscriptor", "Nombre", "Estado","Municipio", "Localidad", "Colonia", "Calle", "NÚmero Ext", "Entre Calles", "CP", "Teléfono", "Celular","Email"];
+    var columns = [ "SAN","Id Suscriptor", "Referencia", "Nombre", "Estado","Municipio", "Colonia", "Calle", "Número Ext", "CP", "Teléfono", "Celular","Email"];
    
     for( var i=r; i<ro; i++ ) {         
       rows.push( [] );
@@ -192,34 +193,36 @@ function createPdfTodo(pdfAcrear){
         {  
             rows[i][0] = vm.rowCollection4[i].SAN;
             rows[i][1] = vm.rowCollection4[i].IdSuscriptor;
-            rows[i][2] = vm.rowCollection4[i].Nombre;
-            rows[i][3] = vm.rowCollection4[i].Estado;            
-            rows[i][4] = vm.rowCollection4[i].Municipio;
-            rows[i][5] = vm.rowCollection4[i].Localidad;
+            rows[i][2] = vm.rowCollection4[i].Referencia;
+            rows[i][3] = vm.rowCollection4[i].Nombre;
+            rows[i][4] = vm.rowCollection4[i].Estado;            
+            rows[i][5] = vm.rowCollection4[i].Municipio;
+       
             rows[i][6] = vm.rowCollection4[i].Colonia;
             rows[i][7] = vm.rowCollection4[i].Calle;
             rows[i][8] = vm.rowCollection4[i].NumeroExt;
-            rows[i][9] = vm.rowCollection4[i].EntreCalles;
-            rows[i][10] = vm.rowCollection4[i].CP;
-            rows[i][11] = vm.rowCollection4[i].Telefono;
-            rows[i][12] = vm.rowCollection4[i].Celular;
-            rows[i][13] = vm.rowCollection4[i].Email;    
+      
+            rows[i][9] = vm.rowCollection4[i].CP;
+            rows[i][10] = vm.rowCollection4[i].Telefono;
+            rows[i][11] = vm.rowCollection4[i].Celular;
+            rows[i][12] = vm.rowCollection4[i].Email;    
         }else 
         {           
             rows[i][0] = vm.displayedCollection4[i].SAN;
             rows[i][1] = vm.displayedCollection4[i].IdSuscriptor;
-            rows[i][2] = vm.displayedCollection4[i].Nombre;
-            rows[i][3] = vm.displayedCollection4[i].Estado;            
-            rows[i][4] = vm.displayedCollection4[i].Municipio;
-            rows[i][5] = vm.displayedCollection4[i].Localidad;
+            rows[i][2] = vm.displayedCollection4[i].Referencia;
+            rows[i][3] = vm.displayedCollection4[i].Nombre;
+            rows[i][4] = vm.displayedCollection4[i].Estado;            
+            rows[i][5] = vm.displayedCollection4[i].Municipio;
+      
             rows[i][6] = vm.displayedCollection4[i].Colonia;
             rows[i][7] = vm.displayedCollection4[i].Calle;
             rows[i][8] = vm.displayedCollection4[i].NumeroExt;
-            rows[i][9] = vm.displayedCollection4[i].EntreCalles;
-            rows[i][10] = vm.displayedCollection4[i].CP;
-            rows[i][11] = vm.displayedCollection4[i].Telefono;
-            rows[i][12] = vm.displayedCollection4[i].Celular;
-            rows[i][13] = vm.displayedCollection4[i].Email;   
+        
+            rows[i][9] = vm.displayedCollection4[i].CP;
+            rows[i][10] = vm.displayedCollection4[i].Telefono;
+            rows[i][11] = vm.displayedCollection4[i].Celular;
+            rows[i][12] = vm.displayedCollection4[i].Email;    
         } 
     } 
 

@@ -86,21 +86,21 @@
                 <th st-sort="SAN">SAN</th>
                 <th st-sort="ESN">ESN</th>
                 <th st-sort="PlanDeServicio">Plan de Servicio</th>
-                <th st-sort="PlanActual">Plan Actual</th>
-               <!-- <th st-sort="Satellite">Tipo de Servicio</th>-->
+                  
                 <th st-sort="Beam">Beam</th> 
                 <th st-sort="VelocidadBajada">Velocidad Bajada</th>  
                 <th st-sort="VelocidadSubida">Velocidad Subida </th>              
                 <th st-sort="Suscriptor">Suscriptor</th>  
+                <th st-sort="Referencia">Referencia</th>       
                 <th st-sort="Estatus">Estatus Comercial</th>    
                 <th st-sort="Latitud">Latitud</th>
                 <th st-sort="Longitud">Longitud</th>          
-                <th st-sort="IpNateada">Ip Nateada</th>
+                <th st-sort="IpNateada">Ip <br> Nateada</th>
                 <th st-sort="Fap">FAP</th>
                 <th st-sort="FechaJovian">Fecha JOVIAN</th>   
                 <th st-sort="Estado">Estado</th>   
                 <th st-sort="Municipio">Municipio</th>   
-                <th st-sort="Localidad">Localidad</th>   
+             
                 <th st-sort="Direccion">Dirección</th>               
               </tr>  <!--<tr><th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th> </tr> -->    
               <tr>
@@ -113,12 +113,9 @@
                 <th>
                   <input st-search="PlanDeServicio" placeholder="Plan Servicio" class="input-sm form-control" type="search"/>
                 </th>
-                <th>
-                  <input st-search="PlanActual" placeholder="Plan Actual" class="input-sm form-control" type="search"/>
-                </th>  
-              <!--  <th>
-                  <input st-search="PlanInicial" placeholder="Tipo de Servicio" class="input-sm form-control" type="search" >
-                </th> !-->
+          
+           
+      
                 <th>
                   <input st-search="Beam" placeholder="Beam" class="input-sm form-control" type="search"/>
                 </th> 
@@ -128,9 +125,12 @@
                 <th>
                   <input st-search="VelocidadSubida" placeholder="V Subida" class="input-sm form-control" type="search" />
                 </th>  
-                  <th>
+                <th>
                   <input st-search="Suscriptor" placeholder="Suscriptor" class="input-sm form-control" type="search" />
                 </th> 
+                <th>
+                  <input st-search="Referencia" placeholder="Referencia" class="input-sm form-control" type="search" />
+                </th>
                 <th>      
                   <input st-search="Estatus" placeholder="Estatus" class="input-sm form-control" type="search"/>
                 </th>    
@@ -155,9 +155,9 @@
                 <th>
                   <input st-search="Municipio" placeholder="Municipio" class="input-sm form-control" type="search"/>
                 </th>         
-                <th>
-                  <input st-search="Localidad" placeholder="Localidad" class="input-sm form-control" type="search" />
-                </th> 
+         
+             
+             
                 <th>                  
                   <input st-search="Dirección" placeholder="Dirección" class="input-sm form-control" type="search"/>
                 </th>  
@@ -165,15 +165,16 @@
 
               </thead><!-- <td>{{row.SAN | uppercase}}</td> -->
                  <tbody>
-                        <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">                    
-                        <td>{{row.SAN}}</td>
+                        <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">                  
+                        <td width="5%">{{row.SAN}}</td>
                         <td>{{row.ESN}}</td>
                         <td>{{row.PlanDeServicio}}</td>
-                        <td>{{row.PlanActual}}</td>
+                    
                         <td>{{row.Beam}}</td>
-                        <td class="media">{{row.VelocidadBajada}}</td>                
-                        <td class="media">{{row.VelocidadSubida}}</td>
+                        <td >{{row.VelocidadBajada}}</td>                
+                        <td >{{row.VelocidadSubida}}</td>
                         <td>{{row.Suscriptor}}</td>
+                        <td class="media">{{row.Referencia}}</td>
                         <td class="media">{{row.Estatus}}</td>
                         <td class="media">{{row.Latitud}}</td>
                         <td class="media">{{row.Longitud}}</td>
@@ -182,7 +183,7 @@
                         <td>{{row.FechaJovian}}</td>
                         <td>{{row.Estado}}</td>
                         <td class="media">{{row.Municipio}}</td>
-                        <td>{{row.Localidad}}</td>
+                 
                         <td>{{row.Direccion}}</td>
                       </tr>             
                 </tbody>
