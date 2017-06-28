@@ -84,15 +84,16 @@
                 <tr>
                   <th st-sort="SAN">SAN </th>
                   <th st-sort="IdSuscriptor">Id <br> Suscriptor</th>
+                  <th st-sort="Referencia">Referencia</th>
                   <th st-sort="Nombre">Nombre</th>
                   <th st-sort="Estado">Estado</th>                  
                   <th st-sort="Municipio">Municipio</th>
-                  <th st-sort="Localidad">Localidad</th>
+           
                   <th st-sort="Colonia">Colonia</th>
                   <th st-sort="Calle">Calle</th>
                   <th st-sort="NumeroExt">Número Exterior</th>
-                  <th st-sort="EntreCalles">Entre Calles</th>
-                  <th st-sort="CP">Código Postal</th>
+               
+                  <th st-sort="CP">Código <br> Postal</th>
                   <th st-sort="Telefono">Teléfono</th> 
                   <th st-sort="Celular">Celular</th>
                   <th st-sort="Email">Email</th> 
@@ -106,6 +107,9 @@
                   </th>
                   <th>
                     <input st-search="IdSuscriptor" placeholder="Id Suscriptor" class="input-sm form-control" type="search"/>
+                  </th> 
+                  <th>
+                    <input st-search="Referencia" placeholder="Referencia" class="input-sm form-control" type="search"/>
                   </th>  
                   <th>
                     <input st-search="Nombre" placeholder="Nombre" class="input-sm form-control" type="search"/>
@@ -116,9 +120,9 @@
                   <th>
                     <input st-search="Municipio" placeholder="Municipio" class="input-sm form-control" type="search" />
                   </th>                     
-                  <th>
-                    <input st-search="Localidad" placeholder="Localidad" class="input-sm form-control" type="search" />
-                  </th>  
+            
+                
+
                   <th>
                     <input st-search="Colonia" placeholder="Colonia" class="input-sm form-control" type="search" />
                   </th>      
@@ -126,13 +130,13 @@
                     <input st-search="Calle" placeholder="Calle" class="input-sm form-control" type="search" />
                   </th>    
                   <th>
-                    <input st-search="NumeroExt" placeholder="Número Exterior" class="input-sm form-control" type="search"/>
+                    <input st-search="NumeroExt" placeholder="Número Ext" class="input-sm form-control" type="search"/>
                   </th>    
+              
+
+
                   <th>
-                    <input st-search="EntreCalles" placeholder="Entre Calles" class="input-sm form-control" type="search" />
-                  </th> 
-                  <th>
-                    <input st-search="CP" placeholder="Código Postal" class="input-sm form-control" type="search" />
+                    <input st-search="CP" placeholder="C. P." class="input-sm form-control" type="search" />
                   </th>         
                   <th>
                     <input st-search="Telefono" placeholder="Teléfono" class="input-sm form-control" type="search" />
@@ -150,15 +154,16 @@
                           <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">                      
                           <td width="5%">{{row.SAN}}</td>
                           <td>{{row.IdSuscriptor}}</td>
-                          <td>{{row.Nombre}}</td>
-                          <td>{{row.Estado}}</td>                         
-                          <td>{{row.Municipio}}</td>                
-                          <td>{{row.Localidad}}</td>
+                          <td >{{row.Referencia}}</td>
+                          <td >{{row.Nombre}}</td>
+                          <td class="media">{{row.Estado}}</td>                         
+                          <td class="media">{{row.Municipio}}</td>                
+                      
                           <td class="media">{{row.Colonia}}</td>
                           <td class="media">{{row.Calle}}</td>
                           <td class="media">{{row.NumeroExt}}</td>
-                          <td class="media">{{row.EntreCalles}}</td>
-                          <td class="media">{{row.CP}}</td>
+                       
+                          <td width="5%" class="media">{{row.CP}}</td>
                           <td class="media">{{row.Telefono}}</td>
                           <td class="media">{{row.Celular}}</td>
                           <td class="media">{{row.Email}}</td>
