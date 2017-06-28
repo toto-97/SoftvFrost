@@ -94,18 +94,20 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
       vm.tipoBusqueda = 5;
       vm.bsan = '';
       vm.bsus = '';
-    }
-	else if (x == 6) {
+    } else if (x == 6) {
       vm.tipoBusqueda = 6;
       vm.bsan = '';
       vm.bsus = '';
-    }else if (x == 7) {
+    } else if (x == 7) {
       vm.tipoBusqueda = 7;
       vm.bsan = '';
       vm.bsus = '';
-    } 
-	
-	else {
+    } else if (x == 8) {
+      vm.tipoBusqueda = 8;
+      vm.bsan = '';
+      vm.bsus = '';
+
+    } else {
 
     }
   }
@@ -120,7 +122,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         servicio: 0,
         IdBeam: 0,
         ESN: '',
-		satelite: '',
+        satelite: '',
         op: 1
       };
     } else if (vm.tipoBusqueda == 2) {
@@ -131,7 +133,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         servicio: 0,
         IdBeam: 0,
         ESN: '',
-		satelite: '',
+        satelite: '',
         op: 3
       };
     } else if (vm.tipoBusqueda == 3) {
@@ -142,7 +144,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         servicio: vm.bservicio.IdServicio,
         IdBeam: 0,
         ESN: '',
-		satelite:'',
+        satelite: '',
         op: 4
       };
     } else if (vm.tipoBusqueda == 4) {
@@ -153,7 +155,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         servicio: 0,
         IdBeam: 0,
         ESN: '',
-		satelite:'',
+        satelite: '',
         op: 2
       };
     } else if (vm.tipoBusqueda == 5) {
@@ -164,7 +166,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         servicio: 0,
         IdBeam: vm.beam.BeamId,
         ESN: '',
-		satelite:'',
+        satelite: '',
         op: 5
       };
     } else if (vm.tipoBusqueda == 6) {
@@ -175,11 +177,10 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         servicio: 0,
         ESN: vm.esn,
         IdBeam: 0,
-		satelite:'',
+        satelite: '',
         op: 6
       };
-    } 
-	else if (vm.tipoBusqueda == 7) {
+    } else if (vm.tipoBusqueda == 7) {
       vm.obj = {
         san: 0,
         suscriptor: '',
@@ -187,11 +188,21 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         servicio: 0,
         ESN: '',
         IdBeam: 0,
-		satelite:vm.bsatelite,
+        satelite: vm.bsatelite,
         op: 7
       };
-    }
-	else {
+    } else if (vm.tipoBusqueda == 8) {
+      vm.obj = {
+        san: 0,
+        suscriptor: vm.BReferencia,
+        estatus: '',
+        servicio: 0,
+        ESN: '',
+        IdBeam: 0,
+        satelite: '',
+        op: 8
+      };
+    } else {
 
     }
     if (vm.tipoBusqueda == 0 || vm.tipoBusqueda == undefined) {
