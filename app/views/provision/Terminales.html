@@ -37,7 +37,7 @@
                         <input type="text" class="form-control input-sm" ng-model="$ctrl.bsan" placeholder="SAN" ng-change="$ctrl.busquedaCambio(1)">
 
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-2">
 
                         <input type="text" class="form-control input-sm" ng-model="$ctrl.bsus" placeholder="Nombre de suscriptor" ng-change="$ctrl.busquedaCambio(2)">
 
@@ -54,6 +54,10 @@
 
                         <select type="text" ng-change="$ctrl.busquedaCambio(4)" ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave"
                           class="form-control input-sm" ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'">
+                    </select>
+</div>
+                     <div class="col-md-2">
+                         <input type="text" class="form-control input-sm" ng-model="$ctrl.BReferencia" placeholder="Referencia" ng-change="$ctrl.busquedaCambio(8)">
                     </select>
 
                       </div>
