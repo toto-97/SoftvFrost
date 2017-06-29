@@ -192,7 +192,7 @@ function createPdfTodo(pdfAcrear){
 
 
     var cols = 18;
-    var columns = ["SAN","ESN","Plan de Servicio","Beam","Velocidad Bajada","Velocidad Subida","Suscriptor","Referencia","Estatus","Latitud","Longitud","Ip Nateada",
+    var columns = ["SAN","ESN","Plan de Servicio","Beam","Velocidad Bajada","V Subida","Suscriptor","Ref.","Estatus","Latitud","Longitud","Ip Nateada",
     "Fap","Fecha JOVIAN","Estado","Municipio","Dirección"];
    
     for( var i=r; i<ro; i++ ) {         
@@ -308,7 +308,16 @@ function createPdfTodo(pdfAcrear){
                 overflow: 'linebreak', 
             }, 
              columnStyles: { 
-                2: {columnWidth: 15}// plan de ser  
+                0: {columnWidth: 8},
+                3: {columnWidth: 10},
+                4: {columnWidth: 15},
+                5: {columnWidth: 12},
+                7: {columnWidth: 12},
+                9: {columnWidth: 15},
+                10: {columnWidth: 15},
+                12: {columnWidth: 15},
+                13: {columnWidth: 15},
+            //    2: {columnWidth: 15}// plan de ser  
             //     3: {columnWidth: 18},// plan actual  
             //     5: {columnWidth: 16},// v bajada       
             //     6: {columnWidth: 16}, //v subida

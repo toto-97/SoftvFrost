@@ -72,7 +72,7 @@ angular.module('softvFrostApp')
 
 
     //CSV 
-    vm.order = [ 'SAN', 'Contrato', 'IdSuscriptor', 'Suscriptor', 'Beam', 'Servicio', 'Fap'];
+    vm.order = [ 'SAN', 'Referencia', 'IdSuscriptor', 'Suscriptor', 'Beam', 'Servicio', 'Fap'];
 
     // CREAR CSV 
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -130,7 +130,7 @@ angular.module('softvFrostApp')
         vm.arrayReporte = [];          // ENCABEZADOS
         vm.arrayReporte =     [{
             "SAN": "SAN",
-            "Contrato":"Contrato",
+            "Referencia":"Referencia",
             "IdSuscriptor": "Id Suscriptor",
             "Suscriptor": "Suscriptor", 
             "Beam": "Beam",
@@ -157,7 +157,7 @@ angular.module('softvFrostApp')
 
 
     var cols = 9; 
-    var columns = ["SAN","Contrato", "Id Suscriptor", "Suscriptor", "Beam", "Servicio", "Fap"];
+    var columns = ["SAN","Referencia", "Id Suscriptor", "Suscriptor", "Beam", "Servicio", "Fap"];
 
  
     for( var i=r; i<ro; i++ ) {         
@@ -170,7 +170,7 @@ angular.module('softvFrostApp')
         if ( pdfAcrear =='todo') 
         {   
             rows[i][0] = vm.rowCollection4[i].SAN;
-            rows[i][1] = vm.rowCollection4[i].Contrato;
+            rows[i][1] = vm.rowCollection4[i].Referencia;
             rows[i][2] = vm.rowCollection4[i].IdSuscriptor;
             rows[i][3] = vm.rowCollection4[i].Suscriptor;
             rows[i][4] = vm.rowCollection4[i].Beam;
@@ -179,7 +179,7 @@ angular.module('softvFrostApp')
         }else 
         {                              
             rows[i][0] = vm.displayedCollection4[i].SAN;
-            rows[i][1] = vm.rowCollection4[i].Contrato;
+            rows[i][1] = vm.rowCollection4[i].Referencia;
             rows[i][2] = vm.displayedCollection4[i].IdSuscriptor;
             rows[i][3] = vm.displayedCollection4[i].Suscriptor;
             rows[i][4] = vm.displayedCollection4[i].Beam;
