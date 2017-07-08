@@ -8,7 +8,6 @@ angular.module('softvFrostApp')
 			return 'http://189.254.231.35:9091/SoftvWCFService.svc';
 		};
 		svc.getUrlHughesService = function () {
-			//return 'http://192.168.50.33:3000/SoftvFrostAPI';
 			return 'http://189.254.231.35:9092/SoftvFrostAPI';
 		};
 
@@ -18,7 +17,6 @@ angular.module('softvFrostApp')
 		};
 
 		svc.getUrlHughesMonitoreo = function () {
-			//return 'http://192.168.50.33:3000/api';
 			return 'http://189.254.231.35:9090/api';
 		};
 

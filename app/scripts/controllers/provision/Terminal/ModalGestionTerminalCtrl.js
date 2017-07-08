@@ -1,5 +1,6 @@
 'use strict';
 angular
+
 	.module('softvFrostApp')
 	.controller('ModalGestionTerminalCtrl', function ($filter, $uibModalInstance, $uibModal, terminalFactory, terminal, $rootScope, ngNotify) {
 
@@ -631,3 +632,4 @@ angular
 
 
 	});
+
