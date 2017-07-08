@@ -48,17 +48,19 @@ function MapaTerminalesCtrl($uibModal, SuscriptorFactory, terminalFactory, $root
     for (i = a.length; i < 9; i++) {
       a = '0' + a;
     }
-    return 'TLV' + a;
+    return 'TEV' + a;
   };
 
   function DetalleBeam(obj) {
      vm.BeamId=obj.BeamId;
       var a = obj.BeamId.toString();
-      console.log(a.length);
+    
       if(a.length ==2){
         vm.BeamId='0'+obj.BeamId
       }
+
 console.log(vm.BeamId);
+console.log(obj.FilePath);
     vm.UrlBeam = globalService.getUrlBeams() + obj.FilePath;
     mapaBeamFactory.GetBeamUsage('outroute', vm.BeamId).then(function (data) {
       vm.datosoutroute = JSON.parse(data);
