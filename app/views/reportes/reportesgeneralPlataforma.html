@@ -1,0 +1,187 @@
+
+
+<style type="text/css">
+.myGrid {
+    width: 500px;
+    height: 250px;
+  }
+
+  th{font-size: 9pt;}
+  td {font-size: 8.9pt;}
+
+  .btn-csv {
+    background-color: #fff;
+    border-color: #008b45;
+    font-size: 11.5px;
+    color:#008b45; 
+  }
+
+  .btn-pdf {
+    background-color: #fff;
+    border-color: #8B0000;
+    font-size: 11.5px;
+    color:#8B0000;
+
+  }
+
+.btn-csv:hover
+{
+    background-color: #008b45;
+    border-color: #fff;
+    font-size: 11.5px;
+    color:#fff;
+}
+
+.btn-pdf:hover
+{
+    background-color: #8B0000;
+    border-color: #fff;
+    font-size: 11.5px;
+    color:#fff;
+}
+
+
+.tituloBold {
+  font-weight: bold;
+  text-align: left;
+}
+.tituloBoldRight
+{
+  font-weight: bold;
+  text-align: right;
+}
+
+</style>
+
+
+<div id="pdfreportimages" style="display:none" >
+    <img crossorigin="" src="images/StarGoPng.png" id ="pdflogoimage">
+</div>
+
+
+<div class="card" style="margin-top:20px;padding-bottom: 30px">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Reportes</strong>
+      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Reportes>General por Plataforma</small>
+    </header>
+        <div class="tools">
+
+        </div>
+  </div>
+
+  <div class="section-body">
+        <div class="col-md-12">
+          <div class="panel-heading">
+            <div class="tools">
+                <div class="panel-group" id="suscriptor">
+                  <div class="row">
+
+                         
+                          <div class="col-md-5">                         
+                            <a class="btn btn-info btn-sm" ng-click="$ctrl.limpiarFiltros();" data-toggle="tooltip" data-placement="top" title="" data-original-title="Limpiar filtros"> <i class="fa fa-eraser"></i>Limpiar </a>
+                          </div>
+
+                      </div>     
+
+                </div>
+                       <!--end .panel -->
+                </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-10 col-md-offset-1 panel form-element-padding" style="margin-top:-20px;" >  
+
+            <div style="overflow: auto; max-height:550px;" >
+            <table st-table="$ctrl.displayedCollection4" st-safe-src="$ctrl.rowCollection4" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
+              <thead fix-head>
+                  <tr>
+                  <th st-sort="Plataforma">Plataforma</th>
+                  <th st-sort="PlanDeServicio">Plan de Servicio</th>
+                  <th colspan = "3" style="text-align: center"> Status de Servicios </th>                 
+                  <th style="text-align: center;" st-sort="Total">Total</th>
+                  <th style="text-align: center;" st-sort="TokensProv">Tokens Provisión</th>
+                </tr>
+                <tr>  
+                  <th>
+                    <input st-search="Plataforma" placeholder="Plataforma" class="input-sm form-control" type="search" />
+                  </th>
+                  <th>
+                    <input st-search="PlanDeServicio" placeholder="Plan de Servicio" class="input-sm form-control" type="search"/>
+                  </th>           
+                  <th style="text-align: right;" st-sort="Activos">Activos</th>
+                  <th style="text-align: right;" st-sort="Suspendidos">Suspendidos</th>
+                  <th style="text-align: right;" st-sort="PorInstalar">Por Instalar</th>
+                  <th>
+                    <input st-search="Total" placeholder="Total" class="input-sm form-control" type="search" style="text-align:center;"/>
+                  </th>
+                  <th >
+                    <input st-search="TokensProv" placeholder="Tokens Provisión" class="input-sm form-control" type="search" style="text-align:center;"/>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat= "row in $ctrl.displayedCollection4">                    
+                  <td>{{row.Plataforma}}</td>              
+                  <td ng-class = "{'tituloBold':(row.PlanDeServicio =='CON FAP' 
+                  || row.PlanDeServicio =='SIN FAP'), 
+                  'tituloBoldRight':( row.PlanDeServicio =='TOTAL ESTATUS CON FAP'
+                  || row.PlanDeServicio =='TOTAL ESTATUS SIN FAP' 
+                  || row.PlanDeServicio =='TOTAL ESTATUS GENERAL'
+                  || row.PlanDeServicio =='TOTAL SUMA RESIDENCIALES, EMPRESARIALES SIN FAP')
+                  }"> {{row.PlanDeServicio}}</td> 
+                  <td style="text-align: right;">{{row.Activos}}</td>
+                  <td style="text-align: right;">{{row.Suspendidos}}</td>
+                  <td style="text-align: right;">{{row.PorInstalar}}</td>
+                  <td style="text-align: right;">{{row.Total}}</td>                
+                  <td style="text-align: right;">{{row.TokensProv}}</td>        
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+            <div class="col-md-8  col-md-offset-2"  style="margin-bottom: 20px" align="center" ng-hide="$ctrl.divExportar" >
+              <div class="col-sm-3"  >
+                <button class="btn btn-csv btn-sm " ng-click="$ctrl.crearVisibleAsCsv()"  style="white-space: normal"></i> Exportar datos visibles como CSV </a> </button>
+              </div>                
+              <div class="col-sm-3">
+                <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv()"  style="white-space: normal"> Exportar todo <br/> como CSV </button>
+              </div>   
+              <div class="col-sm-3">
+                  <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('visible')"  style="white-space: normal">Exportar datos visibles como pdf</button>
+              </div>         
+              <div class="col-sm-3">
+                <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('todo')"  style="white-space: normal">Exportar todo <br/> como pdf </button>
+              </div>     
+            </div>
+
+
+                <button class="btn btn-default" id="csvUno" ng-hide="$ctrl.csvUnoHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."  add-bom="true"
+                > esconder botón visible data as csv</button> <!--csv-column-order="$ctrl.order"  -->                
+
+                <button class="btn btn-default" id="csvDos" ng-hide="$ctrl.csvDosHide" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."  add-bom="true"
+                > esconder botón visible data as csv</button> <!--csv-column-order="$ctrl.order"  -->  
+                
+
+
+
+          </div>
+        </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

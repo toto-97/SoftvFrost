@@ -29,6 +29,7 @@
         <thead>
           <tr>
             <td class="text-center fecha">Fecha</td>
+            <td class="text-center fecha">Hora</td>
             <td class="text-center">Detalle</td>
           </tr>
         </thead>
@@ -38,6 +39,8 @@
           </tr>
           <tr ng-repeat="x in ctrl.detalles" ng-if="ctrl.detalles.length > 0">
             <td class="text-center fecha">{{ x.Fecha }}</td>
+            <td class="text-center fecha">{{ x.Hora }}</td>
+            
             <td>{{ x.Mensaje }}</td>
           </tr>
         </tbody>

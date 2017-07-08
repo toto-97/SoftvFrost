@@ -7,62 +7,122 @@
     </header>
     <div class="tools">
       <div class="btn-group">
-        <button type="button" class="btn pull-right btn-sm btn-raised btn-success" ng-if="$ctrl.idSuscriptor == 0" permission permission-only="'terminalesAdd'" ui-sref="home.provision.terminalesNueva"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
-        <button type="button" class="btn pull-right btn-sm btn-raised btn-success" ng-if="$ctrl.idSuscriptor != 0" permission permission-only="'terminalesAdd'" ui-sref="home.provision.terminalesNueva({idSuscriptor:$ctrl.idSuscriptor})"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+        <button type="button" class="btn pull-right btn-sm btn-raised btn-success" ng-if="$ctrl.idSuscriptor == 0" permission permission-only="'terminalesAdd'"
+          ui-sref="home.provision.terminalesNueva"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+        <button type="button" class="btn pull-right btn-sm btn-raised btn-success" ng-if="$ctrl.idSuscriptor != 0" permission permission-only="'terminalesAdd'"
+          ui-sref="home.provision.terminalesNueva({idSuscriptor:$ctrl.idSuscriptor})"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
       </div>
     </div>
   </div>
   <div class="card-body">
-    <div class="panel-group" id="suscriptor">
-      <div class="card panel">
-        <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#suscriptor" data-target="#suscriptor-1" aria-expanded="false">
-          <header><b>Buscar Terminal</b></header>
-          <div class="tools">
-            <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
-          </div>
-        </div>
-        <div id="suscriptor-1" class="collapse buscarSuscriptor" aria-expanded="false" style="height: 0px;">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-2">
-                <div class="panel-body">
-                  <!-- <label class="control-label text-left">San</label> -->
-                  <input type="text" class="form-control input-sm" ng-model="$ctrl.bsan" placeholder="SAN" ng-change="$ctrl.busquedaCambio(1)">
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="panel-body">
-                  <!-- <label class="control-label text-left">Suscriptor</label> -->
-                  <input type="text" class="form-control input-sm" ng-model="$ctrl.bsus" placeholder="Nombre de suscriptor" ng-change="$ctrl.busquedaCambio(2)">
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="panel-body">
-                  <!-- <label class="control-label text-left">Servicio</label> -->
-                  <select class="form-control input-sm" ng-model="$ctrl.bservicio" ng-change="$ctrl.busquedaCambio(3)" ng-options="v.Nombre for v in $ctrl.servicios track by v.IdServicio"></select>
-                </div>
-              </div>
 
-              <div class="col-md-2">
-              <div class="panel-body">
-                  <select type="text" ng-change="$ctrl.busquedaCambio(4)"  ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave" class="form-control input-sm" ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'">
-                    </select>
-</div>
-              </div>
-
-              <div class="col-md-2">
-                <div class="panel-body">
-                  <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
-
-                </div>
+    <div class="panel-heading">
+      <div class="tools">
+        <div class="panel-group" id="suscriptor">
+          <div class="card panel">
+            <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#suscriptor" data-target="#suscriptor-1"
+              aria-expanded="false">
+              <header>Buscar</header>
+              <div class="tools">
+                <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
               </div>
             </div>
+            <div id="suscriptor-1" class="collapse buscarSuscriptor" aria-expanded="false" style="height: 0px;">
+              <div class="panel-body">
+                <uib-tabset active="active">
+                  <uib-tab index="0" heading="Suscriptor">
+
+                    <div class="row" style="padding: 10px;">
+                      <div class="col-md-2">
+                        <input type="text" class="form-control input-sm" ng-model="$ctrl.bsan" placeholder="SAN" ng-change="$ctrl.busquedaCambio(1)">
+
+                      </div>
+                      <div class="col-md-2">
+
+                        <input type="text" class="form-control input-sm" ng-model="$ctrl.bsus" placeholder="Nombre de suscriptor" ng-change="$ctrl.busquedaCambio(2)">
+
+                      </div>
+                       <div class="col-md-2">
+
+                        <input type="text" class="form-control input-sm" ng-model="$ctrl.esn" placeholder="ESN" ng-change="$ctrl.busquedaCambio(6)">
+
+                      </div>
+                      
+
+
+                      <div class="col-md-2">
+
+                        <select type="text" ng-change="$ctrl.busquedaCambio(4)" ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave"
+                          class="form-control input-sm" ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'">
+                    </select>
+</div>
+                     <div class="col-md-2">
+                         <input type="text" class="form-control input-sm" ng-model="$ctrl.BReferencia" placeholder="Referencia" ng-change="$ctrl.busquedaCambio(8)">
+                    </select>
+
+                      </div>
+
+                      <div class="col-md-2">
+
+                        <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+
+
+                      </div>
+                    </div>
+
+
+
+
+                  </uib-tab>
+                  <uib-tab index="1" heading="Servicio">
+
+                    <div class="row" style="padding: 10px;">
+                      <div class="col-md-4">
+                        <label class="text-muted">Beam</label>
+                        <select class="form-control input-sm" ng-model="$ctrl.beam" ng-change="$ctrl.busquedaCambio(5)"
+                         ng-options="v.Name for v in $ctrl.Beams track by v.BeamId ">
+                         <option value="">Selecciona</option>
+                         </select>
+                      </div>
+                      <div class="col-md-3">
+
+<label class="text-muted">Servicios</label>
+                        <select class="form-control input-sm" ng-model="$ctrl.bservicio" ng-change="$ctrl.busquedaCambio(3)" 
+                        ng-options="v.Nombre for v in $ctrl.servicios track by v.IdServicio">
+                        
+                        </select>
+
+                      </div>
+                      <div class="col-md-3">
+<label class="text-muted">Satélite</label>
+
+                        <select class="form-control input-sm" ng-model="$ctrl.bsatelite" ng-change="$ctrl.busquedaCambio(7)">
+                          <option value="" disabled>Selecciona</option>
+                         <option value="65w">65w</option>
+                         <option value="EchoStar 19">EchoStar 19</option>
+                        </select>
+
+                      </div>
+                      <div class="col-md-2">
+                      <br>
+                        <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+
+
+                      </div>
+                    </div>
+
+
+                  </uib-tab>
+                </uib-tabset>
+              </div>
+              <!-- panel body -->
+            </div>
           </div>
-          <!-- panel body -->
+          <!--end .panel -->
         </div>
       </div>
-      <!--end .panel -->
     </div>
+
     <div class="panel form-element-padding">
       <table class="table">
         <thead>
@@ -83,8 +143,10 @@
             <td>{{x.Servicio}}</td>
             <td>{{x.Estatus}}</td>
             <td>
-              <a ng-click="$ctrl.GestionTerminal(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Gestionar Terminal"><i class="fa fa-laptop" aria-hidden="true"></i></a>
-              <a ng-click="$ctrl.verMovimientos(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Movimientos"><i class="fa fa-exchange" aria-hidden="true"></i></a>
+              <a ng-click="$ctrl.GestionTerminal(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title=""
+                data-original-title="Gestionar Terminal"><i class="fa fa-laptop" aria-hidden="true"></i></a>
+              <a ng-click="$ctrl.verMovimientos(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title=""
+                data-original-title="Movimientos"><i class="fa fa-exchange" aria-hidden="true"></i></a>
               <!-- <a ng-click="$ctrl.EditarTerminal(x)" permission permission-only="'terminalesUpdate'" class="btn  btn-xs btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar Terminal"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
             </td>
           </tr>

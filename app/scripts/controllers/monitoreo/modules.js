@@ -56,6 +56,16 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 			templateUrl: 'views/monitoreo/MapaTerminales.html',
 			controller: 'MapaTerminalesCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.monitoreo.DetalleTerminal',
+			data: {
+				pageTitle: 'BIENVENIDO | MONITOREO STAR.GO',
+			},
+			url: '/monitoreo/DetalleTerminal?id',
+			templateUrl: 'views/monitoreo/DetalleTerminal.html',
+			controller: 'DetalleTerminalCtrl',
+			controllerAs: '$ctrl'
 		}
 	];
 
