@@ -176,7 +176,7 @@ angular
 											Obj3.objTerminal.ESN = vm.Terminal.ESN;
 											Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
 											terminalFactory.updateTerminal(Obj3).then(function (data) {
-												ngNotify.set('La terminal se ha cancelado correctamente', 'success');
+												ngNotify.set('La terminal se ha creado correctamente', 'success');
 											});
 
 											//Ponemos el movimiento como exitoso
