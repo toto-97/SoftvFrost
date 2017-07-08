@@ -28,7 +28,7 @@ angular.module('softvFrostApp')
 			detalleMovimiento: '/Movimiento/GetDeepMovimiento',
 			sigleMovimiento: '/DetalleMovimiento/GetDetalleMovimientoIdList',
             GetValidaEjecucionComando:'/Comando/GetValidaEjecucionComando',			
-			hughesSwap: '/Swap',
+			hughesSwap: '/Swap'
 		};
 
 		factory.sigleMovimiento = function(id) {
