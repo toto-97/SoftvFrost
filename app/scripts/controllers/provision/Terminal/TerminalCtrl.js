@@ -235,6 +235,25 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
     });
   }
 
+  function verHistoricos(item) {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      templateUrl: 'views/provision/ModalHistoricosTerminales.html',
+      controller: 'ModalHistoricosTerminalCtrl',
+      controllerAs: 'ctrl',
+      backdrop: 'static',
+      keyboard: false,
+      size: 'lg',
+      resolve: {
+        terminal: function () {
+          return item;
+        }
+      }
+    });
+  }
+
   var vm = this;
   vm.GestionTerminal = GestionTerminal;
   vm.EditarTerminal = EditarTerminal;
@@ -242,6 +261,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
   vm.busquedaCambio = busquedaCambio;
   vm.buscar = buscar;
   vm.verMovimientos = verMovimientos;
+  vm.verHistoricos = verHistoricos;
   vm.idSuscriptor = 0;
   vm.ListaStatus = [{
       'clave': '',

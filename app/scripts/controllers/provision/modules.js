@@ -8,7 +8,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.suscriptores',
 		data: {
-			pageTitle: 'STAR.GO | SUSCRIPTORES',
+			pageTitle: 'BOSS | SUSCRIPTORES',
 			permissions: {
 				only: ['suscriptoresSelect'],
 				options: {
@@ -24,7 +24,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.terminales',
 		data: {
-			pageTitle: 'STAR.GO | Terminales',
+			pageTitle: 'BOSS | Terminales',
 			permissions: {
 				only: ['terminalesSelect'],
 				options: {
@@ -40,7 +40,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.terminalesNueva',
 		data: {
-			pageTitle: 'STAR.GO | Terminales',
+			pageTitle: 'BOSS | Terminales',
 			permissions: {
 				only: ['terminalesAdd'],
 				options: {
@@ -56,7 +56,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.suscriptoresNuevo',
 		data: {
-			pageTitle: 'STAR.GO | NUEVO SUSCRIPTOR',
+			pageTitle: 'BOSS | NUEVO SUSCRIPTOR',
 			permissions: {
 				only: ['suscriptoresAdd'],
 				options: {
@@ -72,7 +72,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.suscriptoresEditar',
 		data: {
-			pageTitle: 'STAR.GO | EDITAR SUSCRIPTOR',
+			pageTitle: 'BOSS | EDITAR SUSCRIPTOR',
 			permissions: {
 				only: ['suscriptoresUpdate'],
 				options: {
@@ -88,7 +88,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.usuarios',
 		data: {
-			pageTitle: 'STAR.GO | USUARIOS',
+			pageTitle: 'BOSS | USUARIOS',
 			permissions: {
 				only: ['usuariosSelect'],
 				options: {
@@ -104,7 +104,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.roles',
 		data: {
-			pageTitle: 'STAR.GO | ROLES',
+			pageTitle: 'BOSS | ROLES',
 			permissions: {
 				only: ['rolesSelect'],
 				options: {
@@ -120,7 +120,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.permisos',
 		data: {
-			pageTitle: 'STAR.GO | PERMISOS',
+			pageTitle: 'BOSS | PERMISOS',
 			permissions: {
 				only: ['permisosSelect'],
 				options: {
@@ -136,7 +136,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.nuevousuario',
 		data: {
-			pageTitle: 'STAR.GO | NUEVO USUARIO',
+			pageTitle: 'BOSS | NUEVO USUARIO',
 			permissions: {
 				only: ['usuariosAdd'],
 				options: {
@@ -152,7 +152,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.editausuario',
 		data: {
-			pageTitle: 'STAR.GO | NUEVO USUARIO',
+			pageTitle: 'BOSS | NUEVO USUARIO',
 			permissions: {
 				only: ['usuariosUpdate'],
 				options: {
@@ -168,7 +168,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.nuevorol',
 		data: {
-			pageTitle: 'STAR.GO | NUEVO ROL',
+			pageTitle: 'BOSS | NUEVO ROL',
 			permissions: {
 				only: ['rolesAdd'],
 				options: {
@@ -184,7 +184,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.editarol',
 		data: {
-			pageTitle: 'STAR.GO | EDITA ROL',
+			pageTitle: 'BOSS | EDITA ROL',
 			permissions: {
 				only: ['rolesUpdate'],
 				options: {
@@ -203,7 +203,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 	{
 		name: 'home.provision.activacion',
 		data: {
-			pageTitle: 'STAR.GO | ACTIVACIÓN TERMINAL',
+			pageTitle: 'BOSS | ACTIVACIÓN TERMINAL',
 			permissions: {
 				only: ['activacionAdd'],
 				options: {
