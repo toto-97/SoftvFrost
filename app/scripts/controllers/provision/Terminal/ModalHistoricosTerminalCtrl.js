@@ -6,7 +6,13 @@ angular
 
 		function initialData() {
 			vm.Terminal = terminal;
-			console.log(vm.Terminal);
+			var Obj2 = new Object();
+			Obj2.SAN = vm.Terminal.SAN;
+			terminalFactory.hughesConsumoGrafica(Obj2).then(function (hughesData) {
+				var colorGrafica = Chart.helpers.color;
+				console.log(JSON.stringify(hughesData));
+				new Chart(document.getElementById("canvas").getContext("2d"), hughesData);	
+			});
 		}
 
 		function ok() {
@@ -15,12 +21,8 @@ angular
 
 		function graficar() {
 			var Obj2 = new Object();
-			vm.fechaAuxiliar = new Date();
-			Obj2.FechaInicio = vm.FechaInicio + ' ' + vm.HoraInicio;//$filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-			vm.fechaAuxiliar2 = new Date();
-			Obj2.FechaFin =  vm.FechaFin + ' ' + vm.HoraFin;//$filter('date')(vm.fechaAuxiliar2, 'dd/MM/yyyy HH:mm:ss');
-			alert(vm.FechaInicio);
-			alert(Obj2.FechaFin);
+			Obj2.FechaInicio = $filter('date')(vm.FechaInicio, 'dd/MM/yyyy HH:mm:ss');
+			Obj2.FechaFin = $filter('date')(vm.FechaFin, 'dd/MM/yyyy HH:mm:ss');
 			Obj2.SAN = vm.Terminal.SAN;
 			terminalFactory.hughesHistoricoConsumo(Obj2).then(function (hughesData) {
 				console.log(hughesData);
@@ -36,8 +38,6 @@ angular
 		vm.cancel = cancel;
 		vm.FechaInicio = new Date();
 		vm.FechaFin = new Date();
-		vm.HoraFin = new Time();
-		vm.HoraInicio = new Time();
 		vm.ok = ok;
 		vm.graficar = graficar;
 		initialData();
