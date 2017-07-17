@@ -48,7 +48,7 @@ function MapaTerminalesCtrl($uibModal, SuscriptorFactory, terminalFactory, $root
     for (i = a.length; i < 9; i++) {
       a = '0' + a;
     }
-    return 'TEV' + a;
+    return globalService.getType() + a;
   };
 
   function DetalleBeam(obj) {

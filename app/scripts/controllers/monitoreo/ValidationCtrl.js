@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('softvFrostApp')
-  .controller('ValidationCtrl', function (NgMap, OVTFactory, $uibModal, ngNotify, terminalFactory) {
+  .controller('ValidationCtrl', function (NgMap, OVTFactory, $uibModal, ngNotify, terminalFactory,globalService) {
     function validate() {
       var credentials = {};
       credentials.userId = 'televera';
@@ -76,7 +76,7 @@ angular.module('softvFrostApp')
       for (i = a.length; i < 9; i++) {
         a = '0' + a;
       }
-      return 'TEV' + a;
+      return globalService.getType() + a;
     };
 
     function getPing() {
