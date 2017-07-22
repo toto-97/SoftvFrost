@@ -447,76 +447,82 @@ angular
 					}
 					else if (vm.Comando.IdComando == 6)//Cambiar servicio
 					{
-						terminalFactory.getSequenceId().then(function (Sequence) {
-							parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-							terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
-								var suscriptor = data.GetSuscriptorResult;
-								parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-								//console.log(suscriptor);
-								parametros.email = suscriptor.Email;
-								parametros.servicio = vm.Servicio.Nombre;
-								terminalFactory.hughesCambioServicio(parametros).then(function (hughesData) {
-									console.log(hughesData);
-									//Vamos a procesar dependiendo del status obtenido de hughes
-									if (hughesData.StandardResponse.OrderId == 0) {
-										//Guarda el movimiento con OrderId
-										var Obj2 = new Object();
-										Obj2.objMovimiento = new Object();
-										Obj2.objMovimiento.SAN = vm.Terminal.SAN;
-										Obj2.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
-										Obj2.objMovimiento.IdUsuario = 0;
-										Obj2.objMovimiento.IdTicket = 0;
-										Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
-										vm.fechaAuxiliar = new Date();
-										Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-										Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
-										Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
-										Obj2.objMovimiento.Detalle1 = vm.Terminal.Servicio;
-										Obj2.objMovimiento.Detalle2 = vm.Servicio.Nombre;
-										Obj2.objMovimiento.Exitoso = 0;
-										terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
-										});
-										ngNotify.set('Error al realizar cambio de servicio. Consulte el detalle del movimiento para más información', 'error');
-									}
-									else {
-										//Guarda el movimiento con OrderId
-										var Obj2 = new Object();
-										Obj2.objMovimiento = new Object();
-										Obj2.objMovimiento.SAN = vm.Terminal.SAN;
-										Obj2.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
-										Obj2.objMovimiento.IdUsuario = 0;
-										Obj2.objMovimiento.IdTicket = 0;
-										Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
-										vm.fechaAuxiliar = new Date();
-										Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-										Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
-										Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
-										Obj2.objMovimiento.Detalle1 = vm.Terminal.Servicio;
-										Obj2.objMovimiento.Detalle2 = vm.Servicio.Nombre;
-										Obj2.objMovimiento.Exitoso = 0;
-										terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
-										});
-										//Actualiza el servicio en la base en caso de que haya realizado con exito
-										var Obj3 = new Object();
-										Obj3.objTerminal = new Object();
-										Obj3.objTerminal.SAN = vm.Terminal.SAN;
-										Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
-										Obj3.objTerminal.IdServicio = vm.Servicio.IdServicio;
-										Obj3.objTerminal.Latitud = vm.Terminal.Latitud;
-										Obj3.objTerminal.Longitud = vm.Terminal.Longitud;
-										Obj3.objTerminal.Estatus = 'Activa';
-										Obj3.objTerminal.FechaAlta = vm.Terminal.FechaAlta;
-										Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
-										Obj3.objTerminal.ESN = vm.Terminal.ESN;
-										Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
-										terminalFactory.updateTerminal(Obj3).then(function (data) {
-											ngNotify.set('Cambio de servicio realizado correctamente', 'success');
-										});
+						if (vm.Servicio.Nombre.substr(0,3) == vm.Terminal.Servicio.substr(0,3))
+						{
+							terminalFactory.getSequenceId().then(function (Sequence) {
+								parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
+								terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
+									var suscriptor = data.GetSuscriptorResult;
+									parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+									//console.log(suscriptor);
+									parametros.email = suscriptor.Email;
+									parametros.servicio = vm.Servicio.Nombre;
+									terminalFactory.hughesCambioServicio(parametros).then(function (hughesData) {
+										console.log(hughesData);
+										//Vamos a procesar dependiendo del status obtenido de hughes
+										if (hughesData.StandardResponse.OrderId == 0) {
+											//Guarda el movimiento con OrderId
+											var Obj2 = new Object();
+											Obj2.objMovimiento = new Object();
+											Obj2.objMovimiento.SAN = vm.Terminal.SAN;
+											Obj2.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
+											Obj2.objMovimiento.IdUsuario = 0;
+											Obj2.objMovimiento.IdTicket = 0;
+											Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
+											vm.fechaAuxiliar = new Date();
+											Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+											Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
+											Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
+											Obj2.objMovimiento.Detalle1 = vm.Terminal.Servicio;
+											Obj2.objMovimiento.Detalle2 = vm.Servicio.Nombre;
+											Obj2.objMovimiento.Exitoso = 0;
+											terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
+											});
+											ngNotify.set('Error al realizar cambio de servicio. Consulte el detalle del movimiento para más información', 'error');
+										}
+										else {
+											//Guarda el movimiento con OrderId
+											var Obj2 = new Object();
+											Obj2.objMovimiento = new Object();
+											Obj2.objMovimiento.SAN = vm.Terminal.SAN;
+											Obj2.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
+											Obj2.objMovimiento.IdUsuario = 0;
+											Obj2.objMovimiento.IdTicket = 0;
+											Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
+											vm.fechaAuxiliar = new Date();
+											Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+											Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
+											Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
+											Obj2.objMovimiento.Detalle1 = vm.Terminal.Servicio;
+											Obj2.objMovimiento.Detalle2 = vm.Servicio.Nombre;
+											Obj2.objMovimiento.Exitoso = 0;
+											terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
+											});
+											//Actualiza el servicio en la base en caso de que haya realizado con exito
+											var Obj3 = new Object();
+											Obj3.objTerminal = new Object();
+											Obj3.objTerminal.SAN = vm.Terminal.SAN;
+											Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
+											Obj3.objTerminal.IdServicio = vm.Servicio.IdServicio;
+											Obj3.objTerminal.Latitud = vm.Terminal.Latitud;
+											Obj3.objTerminal.Longitud = vm.Terminal.Longitud;
+											Obj3.objTerminal.Estatus = 'Activa';
+											Obj3.objTerminal.FechaAlta = vm.Terminal.FechaAlta;
+											Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
+											Obj3.objTerminal.ESN = vm.Terminal.ESN;
+											Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
+											terminalFactory.updateTerminal(Obj3).then(function (data) {
+												ngNotify.set('Cambio de servicio realizado correctamente', 'success');
+											});
 
-									}
+										}
+									});
 								});
 							});
-						});
+						}
+						else{
+							ngNotify.set('No es posible hacer el cambio a un servicio de otro satélite', 'warn');
+						}
 					}
 					else if (vm.Comando.IdComando == 9)//Activar
 					{

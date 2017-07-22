@@ -60,6 +60,9 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 				vm.Email = vm.datosSus.Email;
 			});
 		}
+		terminalFactory.getServicioListByProgramCode('TEVPGCD').then(function (dataServicios) {
+			vm.Servicios = dataServicios.GetServicioListByProgramCodeResult;
+		});
 	}
 
 	function BuscaSuscriptor() {
@@ -77,38 +80,39 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 	}
 
 	function ValidarServicio() {
-		var parametros = new Object();
-		//Obtiene 	transactionSequenceId necesario para las peticiones a Hughes
-		terminalFactory.getSequenceId().then(function (Sequence) {
-			parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-			//Obtiene el código del estado para hughes
-			terminalFactory.getEstadoById(vm.IdEstado).then(function (data) {
-				console.log(data);
-				vm.estado = data.GetEstadoResult;
-				parametros.direccion = vm.Calle + ' ' + vm.Numero;
-				parametros.ciudad = vm.Ciudad;
-				parametros.estado = vm.estado.Codigo;
-				parametros.codigoPostal = vm.CP;
-				parametros.latitud = vm.Latitud;
-				parametros.longitud = vm.Longuitud;
-				//Obtiene el nombre del frupo de servicios disponibles en esa área
-				terminalFactory.hughesValidaServicio(parametros).then(function (hughesData) {
-					console.log(hughesData);
-					if (hughesData.EnhancedServicePrequalResponse.Code != '682') {
-						ngNotify.set('Sin área de cobertura', 'error');
-						vm.Servicios = '';
-					} else {
-						ngNotify.set('Dentro del área de cobertura','success');
-						vm.BeamID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.BeamID;
-						vm.SatelliteID = hughesData.EnhancedServicePrequalResponse.TransportInformation.TransportFeasibilityParameter.SatellitedID;
-						//Filtra los servicios por las disponibilidad en Hughes
-						terminalFactory.getServicioListByProgramCode(hughesData.EnhancedServicePrequalResponse.ProductList.Product.ProgramCode).then(function (dataServicios) {
-							vm.Servicios = dataServicios.GetServicioListByProgramCodeResult;
-						});
-					}
+		if((vm.Latitud != '' && vm.Longitud != '') && (vm.Latitud != null && vm.Latitud != null))
+		{
+			if(vm.Servicio != null)
+			{
+				var parametros = new Object();
+				//Obtiene el código del estado para hughes
+				terminalFactory.getEstadoById(vm.IdEstado).then(function (data) {
+					console.log(data);
+					vm.estado = data.GetEstadoResult;
+					parametros.servicio = vm.Servicio.Nombre;
+					parametros.latitud = vm.Latitud;
+					parametros.longitud = vm.Longuitud;
+					//Obtiene el nombre del frupo de servicios disponibles en esa área
+					terminalFactory.hughesValidaServicio(parametros).then(function (hughesData) {
+						console.log(hughesData);
+						if (hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.AvailabilityFlag != 'true') {
+							ngNotify.set('Sin área de cobertura', 'error');
+						} else {
+							ngNotify.set('Dentro del área de cobertura','success');
+							vm.BeamID = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.BeamID;
+							vm.SatelliteID = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.SatellitedID;
+							vm.Polarization = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
+						}
+					});
 				});
-			});
-		});
+			}
+			else{
+				ngNotify.set('Es necesario seleccionar un servicio para validar el servicio','info');
+			}
+		}
+		else{
+			ngNotify.set('Es necesario capturar las coordenadas para validar el servicio','info');
+		}
 	}
 
 	function hughesGetSanCompuesto(obj) {
@@ -117,7 +121,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		for (i = a.length; i < 9; i++) {
 			a = '0' + a;
 		}
-		return 'TLV' + a;
+		return 'TEV' + a;
 	};
 
 	function BuscaLatLong() {
@@ -241,9 +245,9 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 						//Objeto para actualizar el SatelliteId y BeamId a la terminal
 						var Obj4 = new Object();
 						Obj4.objTerminal = new Object();
-						Obj4.objTerminal.SatellitedID = hughesData.StandardResponse.TransportInformation.SatellitedID;
-						Obj4.objTerminal.BeamID = hughesData.StandardResponse.TransportInformation.BeamID;
-						Obj4.objTerminal.Polarization = hughesData.StandardResponse.TransportInformation.Polarization;
+						Obj4.objTerminal.SatellitedID = vm.SatelliteID;
+						Obj4.objTerminal.BeamID = vm.BeamID;
+						Obj4.objTerminal.Polarization = vm.Polarization;
 						Obj4.objTerminal.SAN = data.AddTerminalResult;
 						//Actualizamos información adicional de la terminal
 						console.log(Obj4);
