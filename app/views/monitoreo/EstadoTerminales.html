@@ -1,0 +1,45 @@
+<div class="card" style="margin-top:20px;">
+   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+         <strong style="font-weight:bold; border:none; margin-left:10px;">Estado de Terminales</strong>
+         <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Monitoreo>Estado de Terminales</small>
+      </header>
+      <div class="tools">
+         <div class="btn-group">
+         </div>
+      </div>
+   </div>
+   <div class="section-body">
+   		<div class="panel-body">
+	      <div class="panel form-element-padding">
+	         <div class="row form-group text-center">
+	            <h5><b>Gráfica de Consumo de Terminal por Fechas</b></h5>
+	            <div class="col-md-2">
+	               <b>Fecha Inicio</b><br>
+	               <input type="datetime-local" class="form-control input-sm" validate-on="dirty" name="fecha" required-message="'Este campo es obligatorio.'"
+	                  required validate-on="dirty" ng-model="ctrl.FechaInicio">
+	            </div>
+	            <div class="col-md-2">
+	               <b>Fecha Fin</b><br>
+	               <input type="datetime-local" class="form-control input-sm" validate-on="dirty" name="fecha" required-message="'Este campo es obligatorio.'"
+	                  required validate-on="dirty" ng-model="ctrl.FechaFin">
+	            </div>
+	            <div class="col-md-4">
+                        <label class="text-muted">Beam</label>
+                        <select class="form-control input-sm" ng-model="$ctrl.beam" ng-options="v.Name for v in $ctrl.Beams track by v.BeamId ">
+                         <option value="">Selecciona</option>
+                         </select>
+                </div>
+	            <div class="col-md-2">
+	               <button class="btn pull-right btn-raised btn-success" type="button" ng-click="$ctrl.graficar()">Graficar</button>
+	            </div>
+	         </div>
+	         <div class="row form-group">
+	            <div class="col-md-12">
+	               <canvas id="chartjs-0" class="chartjs" width="770" height="385" style="display: block; width: 770px; height: 385px;"></canvas>
+	            </div>
+	         </div>
+	      </div>
+	    </div>
+   </div>
+</div>
