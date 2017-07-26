@@ -87,6 +87,7 @@
                     <th rowspan = 2 st-sort="SAN" > SAN </th>
                     <th rowspan = 2 st-sort="IdSuscriptor" class="mediaTh">Id <br>Suscriptor </th>                   
                     <th rowspan = 2 st-sort="Suscriptor">Suscriptor</th>
+                    <th rowspan = 2 st-sort="Referencia">Referencia</th>
                     <th rowspan = 2 st-sort="PlanDeServicio" class="mediaTh">Plan de Servicio</th>                    
                     <th rowspan = 2 st-sort="Beam">Beam</th>
                     <th rowspan = 2 st-sort="SatellitedID">Satellite</th>
@@ -117,11 +118,11 @@
                     <th>
                       <input st-search="IdSuscriptor" placeholder="Id Suscriptor" class="input-sm form-control media" type="search"/>
                     </th>
-                   
-                      
-                       
                     <th>
                       <input st-search="Suscriptor" placeholder="Suscriptor" class="input-sm form-control" type="search" />
+                    </th> 
+                    <th>
+                      <input st-search="Referencia" placeholder="Referencia" class="input-sm form-control" type="search" />
                     </th>
                     <th>
                       <input st-search="PlanDeServicio" placeholder="Plan de Servicio" class="input-sm form-control media" type="search"/>
@@ -180,8 +181,8 @@
                           <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">            
                             <td width="4%">{{row.SAN}}</td>
                             <td width="5.4%">{{row.IdSuscriptor}}</td>
-                            
                             <td>{{row.Suscriptor}}</td>
+                            <td>{{row.Referencia}}</td>
                             <td class="media" >{{row.PlanDeServicio}}</td>
                             
                             <td width="5.3%" >{{row.Beam}}</td>
