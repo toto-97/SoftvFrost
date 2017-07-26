@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-  .controller('DiagnosticCtrl', function (diagnosticFactory, OVTFactory, ngNotify) {
+  .controller('DiagnosticCtrl', function (diagnosticFactory, OVTFactory, ngNotify,globalService) {
     this.$onInit = function () {
       $('.diagnostic').collapse();
       $('.diagnosis').collapse();
@@ -14,7 +14,7 @@ angular.module('softvFrostApp')
       for (i = a.length; i < 9; i++) {
         a = '0' + a;
       }
-      return 'TLV' + a;
+      return globalService.getType() + a;
     };
 
 
