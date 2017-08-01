@@ -17,7 +17,8 @@ angular.module('softvFrostApp')
     };
 
     svc.getUrlHughesMonitoreo = function () {
-      return 'http://189.254.231.35:9090/api';
+    return 'http://189.254.231.35:9090/api';
+/*return 'http://localhost:50914/api';*/
 
     };
 
