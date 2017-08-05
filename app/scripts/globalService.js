@@ -4,11 +4,8 @@ angular.module('softvFrostApp')
   .service('globalService', function () {
     var svc = {};
     //rutas servidor producción
-    svc.getUrl = function () {
+  /* svc.getUrl = function () {
       return 'http://189.254.231.35:9091/SoftvWCFService.svc';
-
-
-
     };
     svc.getUrlHughesService = function () {
       return 'http://189.254.231.35:9092/SoftvFrostAPI';
@@ -20,25 +17,17 @@ angular.module('softvFrostApp')
 
     svc.getUrlHughesMonitoreo = function () {
     return 'http://189.254.231.35:9090/api';
-/*return 'http://localhost:50914/api';*/
-
     };
 
     svc.getType = function () {
       return 'TEV';
-
-    };
-
-
-
-
+    };*/
 
 
     //rutas locales
-    /* svc.getUrl = function () {
+     svc.getUrl = function () {
        return 'http://192.168.50.33:3000/SoftvWCFService.svc';
-
-
+       
      };
      svc.getUrlHughesService = function () {
        return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
@@ -56,7 +45,7 @@ angular.module('softvFrostApp')
      svc.getType = function () {
        return 'TLV';
 
-     };*/
+     };
 
     return svc;
   });
