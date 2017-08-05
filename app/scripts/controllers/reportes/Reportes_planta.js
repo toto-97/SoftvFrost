@@ -72,7 +72,7 @@ angular.module('softvFrostApp')
 
 
     //CSV 
-    vm.order = [ 'SAN', 'IdSuscriptor', 'Suscriptor', 'PlanDeServicio', 'Beam', 'SatellitedID',
+    vm.order = [ 'SAN', 'IdSuscriptor', 'Suscriptor', 'Referencia', 'PlanDeServicio', 'Beam', 'SatellitedID',
     'ESN', 'Estatus', 'EstTecnico', 'Latitud', 'Longitud', 'FechaAlta','FechaActivacion', 'FechaSuspension', 'FechaCancelacion',
    'ConsumoAnytime','ConsumoBonus','TokenDisp'];
 
@@ -127,6 +127,7 @@ angular.module('softvFrostApp')
             "PlanDeServicio": "Plan de Servicio",
             "SAN": "SAN",
             "Suscriptor": "Suscriptor",
+            "Referencia":"Referencia",
             "TokenDisp": "Token Disp (Gb)"
                 }];
     } 
@@ -187,7 +188,7 @@ angular.module('softvFrostApp')
 
 
     var cols = 17;
-    var columns = ["SAN", "Id Suscriptor", "Suscriptor", "Plan de Servicio",  "Beam", "Satellite", "ESN", "Est. Comercial", 
+    var columns = ["SAN", "Id Suscriptor", "Suscriptor", "Referencia", "Plan de Servicio",  "Beam", "Satellite", "ESN", "Est. Comercial", 
                     "Est. FAP", "Latitud", "Longitud", "Fecha Alta", "Fecha Activación", "Fecha Suspensión", "Fecha Cancelación",  "Consumo Anytime (Gb)",  "Consumo Bonus (Gb)", "Token Disp (Gb)"];
 
     
@@ -202,46 +203,46 @@ angular.module('softvFrostApp')
         {   
             rows[i][0] = vm.rowCollection4[i].SAN;
             rows[i][1] = vm.rowCollection4[i].IdSuscriptor;
-            
             rows[i][2] = vm.rowCollection4[i].Suscriptor;
-            rows[i][3] = vm.rowCollection4[i].PlanDeServicio;
+            rows[i][3] = vm.rowCollection4[i].Referencia;
+            rows[i][4] = vm.rowCollection4[i].PlanDeServicio;
             
-            rows[i][4] = vm.rowCollection4[i].Beam;
-            rows[i][5] = vm.rowCollection4[i].SatellitedID;
-            rows[i][6] = vm.rowCollection4[i].ESN;
-            rows[i][7] = vm.rowCollection4[i].Estatus;
-            rows[i][8] = vm.rowCollection4[i].EstTecnico;
-            rows[i][9] = vm.rowCollection4[i].Latitud;
-            rows[i][10] = vm.rowCollection4[i].Longitud;
-            rows[i][11] = vm.rowCollection4[i].FechaAlta;
-            rows[i][12] = vm.rowCollection4[i].FechaActivacion; 
-            rows[i][13] = vm.rowCollection4[i].FechaSuspension;           
-            rows[i][14] = vm.rowCollection4[i].FechaCancelacion;            
-            rows[i][15] = vm.rowCollection4[i].ConsumoAnytime;
-            rows[i][16] = vm.rowCollection4[i].ConsumoBonus;
-            rows[i][17] = vm.rowCollection4[i].TokenDisp;    
+            rows[i][5] = vm.rowCollection4[i].Beam;
+            rows[i][6] = vm.rowCollection4[i].SatellitedID;
+            rows[i][7] = vm.rowCollection4[i].ESN;
+            rows[i][8] = vm.rowCollection4[i].Estatus;
+            rows[i][9] = vm.rowCollection4[i].EstTecnico;
+            rows[i][10] = vm.rowCollection4[i].Latitud;
+            rows[i][11] = vm.rowCollection4[i].Longitud;
+            rows[i][12] = vm.rowCollection4[i].FechaAlta;
+            rows[i][13] = vm.rowCollection4[i].FechaActivacion; 
+            rows[i][14] = vm.rowCollection4[i].FechaSuspension;           
+            rows[i][15] = vm.rowCollection4[i].FechaCancelacion;            
+            rows[i][16] = vm.rowCollection4[i].ConsumoAnytime;
+            rows[i][17] = vm.rowCollection4[i].ConsumoBonus;
+            rows[i][18] = vm.rowCollection4[i].TokenDisp;    
         }else 
         {           
             rows[i][0] = vm.displayedCollection4[i].SAN;
-            rows[i][1] = vm.displayedCollection4[i].IdSuscriptor;
-            
+            rows[i][1] = vm.displayedCollection4[i].IdSuscriptor;            
             rows[i][2] = vm.displayedCollection4[i].Suscriptor;
-            rows[i][3] = vm.displayedCollection4[i].PlanDeServicio;
+            rows[i][3] = vm.displayedCollection4[i].Referencia;
+            rows[i][4] = vm.displayedCollection4[i].PlanDeServicio;
             
-            rows[i][4] = vm.displayedCollection4[i].Beam;
-            rows[i][5] = vm.displayedCollection4[i].SatellitedID;
-            rows[i][6] = vm.displayedCollection4[i].ESN;
-            rows[i][7] = vm.displayedCollection4[i].Estatus;
-            rows[i][8] = vm.displayedCollection4[i].EstTecnico;
-            rows[i][9] = vm.displayedCollection4[i].Latitud;
-            rows[i][10] = vm.displayedCollection4[i].Longitud;
-            rows[i][11] = vm.displayedCollection4[i].FechaAlta;
-            rows[i][12] = vm.displayedCollection4[i].FechaActivacion; 
-            rows[i][13] = vm.displayedCollection4[i].FechaSuspension;       
-            rows[i][14] = vm.displayedCollection4[i].FechaCancelacion;            
-            rows[i][15] = vm.displayedCollection4[i].ConsumoAnytime;
-            rows[i][16] = vm.displayedCollection4[i].ConsumoBonus;
-            rows[i][17] = vm.displayedCollection4[i].TokenDisp;  
+            rows[i][5] = vm.displayedCollection4[i].Beam;
+            rows[i][6] = vm.displayedCollection4[i].SatellitedID;
+            rows[i][7] = vm.displayedCollection4[i].ESN;
+            rows[i][8] = vm.displayedCollection4[i].Estatus;
+            rows[i][9] = vm.displayedCollection4[i].EstTecnico;
+            rows[i][10] = vm.displayedCollection4[i].Latitud;
+            rows[i][11] = vm.displayedCollection4[i].Longitud;
+            rows[i][12] = vm.displayedCollection4[i].FechaAlta;
+            rows[i][13] = vm.displayedCollection4[i].FechaActivacion; 
+            rows[i][14] = vm.displayedCollection4[i].FechaSuspension;       
+            rows[i][15] = vm.displayedCollection4[i].FechaCancelacion;            
+            rows[i][16] = vm.displayedCollection4[i].ConsumoAnytime;
+            rows[i][17] = vm.displayedCollection4[i].ConsumoBonus;
+            rows[i][18] = vm.displayedCollection4[i].TokenDisp;  
         } 
     } 
 

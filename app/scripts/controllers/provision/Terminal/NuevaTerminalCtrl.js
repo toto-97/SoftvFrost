@@ -1,7 +1,7 @@
 'use strict';
 angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtrl);
 
-function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootScope, ngNotify, $state, $filter, $stateParams) {
+function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootScope, ngNotify, $state, $filter, $stateParams,globalService) {
 	var vm = this;
 	vm.titulo = 'Nueva Terminal';
 	vm.BuscaSuscriptor = BuscaSuscriptor;
@@ -121,7 +121,9 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		for (i = a.length; i < 9; i++) {
 			a = '0' + a;
 		}
-		return 'TEV' + a;
+
+		return globalService.getType() + a;
+
 	};
 
 	function BuscaLatLong() {
