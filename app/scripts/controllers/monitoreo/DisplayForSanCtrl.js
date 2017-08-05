@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvFrostApp')
-	.controller('DisplayForSanCtrl', function ($uibModal, $state, ngNotify, $location, displayFactory, diagnosticFactory) {
+	.controller('DisplayForSanCtrl', function ($uibModal, $state, ngNotify, $location, displayFactory, diagnosticFactory,globalService) {
 		var vm = this;
 		vm.displayTest = displayTest;
 		vm.validate = validate;
@@ -42,7 +42,7 @@ angular
 			for (i = a.length; i < 9; i++) {
 				a = '0' + a;
 			}
-			return 'TLV' + a;
+			return globalService.getType() + a;
 		};
 
 		function displayTest() {

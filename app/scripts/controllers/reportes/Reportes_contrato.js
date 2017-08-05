@@ -179,7 +179,7 @@ angular.module('softvFrostApp')
         }else 
         {                              
             rows[i][0] = vm.displayedCollection4[i].SAN;
-            rows[i][1] = vm.rowCollection4[i].Referencia;
+            rows[i][1] = vm.displayedCollection4[i].Referencia;
             rows[i][2] = vm.displayedCollection4[i].IdSuscriptor;
             rows[i][3] = vm.displayedCollection4[i].Suscriptor;
             rows[i][4] = vm.displayedCollection4[i].Beam;

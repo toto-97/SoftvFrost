@@ -279,8 +279,8 @@ function createPdfTodo(pdfAcrear){
         {           
             rows[i][0] = vm.displayedCollection4[i].SAN;
             rows[i][1] = vm.displayedCollection4[i].Estado;
-            rows[i][2] = vm.rowCollection4[i].Beam;
-            rows[i][3] = vm.rowCollection4[i].SatellitedID;
+            rows[i][2] = vm.displayedCollection4[i].Beam;
+            rows[i][3] = vm.displayedCollection4[i].SatellitedID;
             rows[i][4] = vm.displayedCollection4[i].PlanServ;
             rows[i][5] = vm.displayedCollection4[i].ESN;
             rows[i][6] = vm.displayedCollection4[i].IdSuscriptor;
