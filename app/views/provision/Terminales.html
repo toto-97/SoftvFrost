@@ -42,12 +42,12 @@
                         <input type="text" class="form-control input-sm" ng-model="$ctrl.bsus" placeholder="Nombre de suscriptor" ng-change="$ctrl.busquedaCambio(2)">
 
                       </div>
-                       <div class="col-md-2">
+                      <div class="col-md-2">
 
                         <input type="text" class="form-control input-sm" ng-model="$ctrl.esn" placeholder="ESN" ng-change="$ctrl.busquedaCambio(6)">
 
                       </div>
-                      
+
 
 
                       <div class="col-md-2">
@@ -55,10 +55,10 @@
                         <select type="text" ng-change="$ctrl.busquedaCambio(4)" ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave"
                           class="form-control input-sm" ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'">
                     </select>
-</div>
-                     <div class="col-md-2">
-                         <input type="text" class="form-control input-sm" ng-model="$ctrl.BReferencia" placeholder="Referencia" ng-change="$ctrl.busquedaCambio(8)">
-                    </select>
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" class="form-control input-sm" ng-model="$ctrl.BReferencia" placeholder="Referencia" ng-change="$ctrl.busquedaCambio(8)">
+                        </select>
 
                       </div>
 
@@ -79,22 +79,20 @@
                     <div class="row" style="padding: 10px;">
                       <div class="col-md-4">
                         <label class="text-muted">Beam</label>
-                        <select class="form-control input-sm" ng-model="$ctrl.beam" ng-change="$ctrl.busquedaCambio(5)"
-                         ng-options="v.Name for v in $ctrl.Beams track by v.BeamId ">
+                        <select class="form-control input-sm" ng-model="$ctrl.beam" ng-change="$ctrl.busquedaCambio(5)" ng-options="v.Name for v in $ctrl.Beams track by v.BeamId ">
                          <option value="">Selecciona</option>
                          </select>
                       </div>
                       <div class="col-md-3">
 
-<label class="text-muted">Servicios</label>
-                        <select class="form-control input-sm" ng-model="$ctrl.bservicio" ng-change="$ctrl.busquedaCambio(3)" 
-                        ng-options="v.Nombre for v in $ctrl.servicios track by v.IdServicio">
+                        <label class="text-muted">Servicios</label>
+                        <select class="form-control input-sm" ng-model="$ctrl.bservicio" ng-change="$ctrl.busquedaCambio(3)" ng-options="v.Nombre for v in $ctrl.servicios track by v.IdServicio">
                         
                         </select>
 
                       </div>
                       <div class="col-md-3">
-<label class="text-muted">Satélite</label>
+                        <label class="text-muted">Satélite</label>
 
                         <select class="form-control input-sm" ng-model="$ctrl.bsatelite" ng-change="$ctrl.busquedaCambio(7)">
                           <option value="" disabled>Selecciona</option>
@@ -104,7 +102,7 @@
 
                       </div>
                       <div class="col-md-2">
-                      <br>
+                        <br>
                         <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
 
 
@@ -150,6 +148,8 @@
               <a ng-click="$ctrl.verMovimientos(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title=""
                 data-original-title="Movimientos"><i class="fa fa-exchange" aria-hidden="true"></i></a>
               <!-- <a ng-click="$ctrl.EditarTerminal(x)" permission permission-only="'terminalesUpdate'" class="btn  btn-xs btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar Terminal"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+              <a ng-click="$ctrl.verHistoricos(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title=""
+                data-original-title="Históricos"><i class="fa fa-tachometer" aria-hidden="true"></i></a>
             </td>
           </tr>
         </tbody>

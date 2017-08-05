@@ -1,10 +1,12 @@
 'use strict';
 angular.module('softvFrostApp')
+
   .service('globalService', function () {
     var svc = {};
     //rutas servidor producción
     svc.getUrl = function () {
       return 'http://189.254.231.35:9091/SoftvWCFService.svc';
+
 
 
     };

@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title">Históricos de Terminal #{{ctrl.Terminal.SAN}}</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+
+  <div class="row form-group">
+    <div class="col-md-12">
+      <canvas id="canvas" width="770" height="385" style="display: block; width: 770px; height: 385px;"></canvas>
+    </div>
+  </div>
+
+  <div class="row form-group text-center">
+    <h5><b>Gráfica de Consumo de Terminal por Fechas</b></h5>
+    <div class="col-md-4">
+      <b>Fecha Inicio</b><br>
+      <input type="datetime-local" class="form-control input-sm" validate-on="dirty" name="fecha" required-message="'Este campo es obligatorio.'"
+        required validate-on="dirty" ng-model="ctrl.FechaInicio">
+    </div>
+    <!--<div class="col-md-2">
+      <b>Hora Inicio</b><br>
+      <input type="time" class="form-control input-sm" validate-on="dirty" name="hora" required-message="'Este campo es obligatorio.'"
+        required validate-on="dirty" ng-model="ctrl.HoraInicio">
+    </div>-->
+    <div class="col-md-4">
+      <b>Fecha Fin</b><br>
+      <input type="datetime-local" class="form-control input-sm" validate-on="dirty" name="fecha" required-message="'Este campo es obligatorio.'"
+        required validate-on="dirty" ng-model="ctrl.FechaFin">
+    </div>
+    <!--<div class="col-md-2">
+      <b>Hora Fin</b><br>
+      <input type="time" class="form-control input-sm" validate-on="dirty" name="hora" required-message="'Este campo es obligatorio.'"
+        required validate-on="dirty" ng-model="ctrl.HoraFin">
+    </div>-->
+    <div class="col-md-2">
+      <button class="btn pull-right btn-raised btn-success" type="button" ng-click="ctrl.graficar()">Graficar</button>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <canvas id="chartjs-0" class="chartjs" width="770" height="385" style="display: block; width: 770px; height: 385px;"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-default" type="button" ng-click="ctrl.cancel()">Cerrar</button>
+</div>

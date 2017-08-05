@@ -22,7 +22,8 @@
               <div class="row form-group">
                 <div class="col-md-10">
                   <b>Suscriptor</b>
-                  <input type="text" class="form-control input-sm" disabled name="sucriptor" ng-model="$ctrl.NombreSuscriptor" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+                  <input type="text" class="form-control input-sm" disabled name="sucriptor" ng-model="$ctrl.NombreSuscriptor" validate-on="dirty"
+                    required-message="'Este campo es obligatorio.'" required>
                 </div>
                 <div class="col-md-2 text-left">
                   <br>
@@ -30,48 +31,59 @@
                 </div>
               </div>
               <div class="row">
-                  <br>
-                  <div class="col-md-4">
-                    <b>Latitud</b>
-                    <input type="text" class="form-control" name="latitus" validate-on="dirty" required-message="'Este campo es obligatorio.'" required validate-on="dirty" placeholder="Ejemplo: -12.256555" ng-model="$ctrl.Latitud">
-                  </div>
-                  <div class="col-md-4">
-                    <b>Longuitud</b><br>
-                    <input type="text" name="longitud" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" class="form-control" placeholder="Ejemplo: 2.2888555" ng-model="$ctrl.Longuitud">
-                  </div>
-                  <div class="col-md-1" style="margin-top:20px;">
-                      <a class="btn btn-warning btn-sm" ng-click="$ctrl.BuscaLatLong()"><i class="fa fa-globe"></i></a>
-                  </div>
-                  <div class="col-md-2" style="margin-top:20px;">
-                      <a class="btn btn-primary btn-sm" ng-click="$ctrl.ValidarServicio()"><i class="fa fa-check-square"></i> Validar Servicio</a>
-                  </div>
-              </div>
-              <div class="row">
+                <br>
+                <div class="col-md-4">
+                  <b>Latitud</b>
+                  <input type="text" class="form-control" name="latitus" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+                    required validate-on="dirty" placeholder="Ejemplo: -12.256555" ng-model="$ctrl.Latitud">
+                </div>
+                <div class="col-md-4">
+                  <b>Longuitud</b><br>
+                  <input type="text" name="longitud" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty"
+                    class="form-control" placeholder="Ejemplo: 2.2888555" ng-model="$ctrl.Longuitud">
+                </div>
+                <div class="col-md-1" style="margin-top:20px;">
+                  <a class="btn btn-warning btn-sm" ng-click="$ctrl.BuscaLatLong()"><i class="fa fa-globe"></i></a>
+                </div>
                 <div class="col-md-6">
+                  <br>
                   <b>Servicio</b>
                   <br>
-                  <select ng-model="$ctrl.Servicio" class="form-control" name="servicio" ng-options="item as item.Nombre for item in $ctrl.Servicios track by item.IdServicio" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
-                   <option value="">selecciona</option>
+                  <select ng-model="$ctrl.Servicio" class="form-control" name="servicio" ng-options="item as item.Nombre for item in $ctrl.Servicios track by item.IdServicio"
+                    validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+                    <option value="">selecciona</option>
                     </select>
+                </div>
+              </div>
+              <div class="row">
+                <br>
+                <div class="col-md-4" style="margin-top:10px;">
+                  <a class="btn btn-primary btn-sm" ng-click="$ctrl.ValidarServicio()"><i class="fa fa-check-square"></i> Validar Cobertura</a>
                 </div>
                 <div class="col-md-2">
                   <b>Beam</b><br>
-                  <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="$ctrl.BeamID" ng-disabled="true" />
+                  <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="$ctrl.BeamID" ng-disabled="true"
+                  />
                 </div>
                 <div class="col-md-4">
                   <b>Satellite</b><br>
-                  <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite"  ng-model="$ctrl.SatelliteID" ng-disabled="true" />
+                  <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SatelliteID" ng-disabled="true"
+                  />
                 </div>
               </div>
               <div class="row form-group">
+                <br>
                 <div class="col-md-5">
                   <b>Status</b><br>
-                  <select type="text" validate-on="dirty" name="status" required-message="'Este campo es obligatorio.'" required validate-on="dirty" ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave" class="form-control" ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'" ng-disabled="true">
+                  <select type="text" validate-on="dirty" name="status" required-message="'Este campo es obligatorio.'" required validate-on="dirty"
+                    ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave" class="form-control"
+                    ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'" ng-disabled="true">
                     </select>
                 </div>
                 <div class="col-md-5">
                   <b>Fecha de alta</b><br>
-                  <input type="date" class="form-control input-sm" validate-on="dirty"  name="fecha" required-message="'Este campo es obligatorio.'" required validate-on="dirty" ng-model="$ctrl.FechaAlta">
+                  <input type="date" class="form-control input-sm" validate-on="dirty" name="fecha" required-message="'Este campo es obligatorio.'"
+                    required validate-on="dirty" ng-model="$ctrl.FechaAlta">
                 </div>
               </div>
               <div class="row">
