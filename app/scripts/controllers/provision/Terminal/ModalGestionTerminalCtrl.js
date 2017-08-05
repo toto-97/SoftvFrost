@@ -330,6 +330,7 @@ angular
           } else if (vm.Comando.IdComando == 4) //Cancelar
           {
 
+
 						terminalFactory.getSequenceId().then(function (Sequence) {
 							parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
 							parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
@@ -554,6 +555,7 @@ angular
 									terminalFactory.updateTerminal(Obj3).then(function (data) {
 										ngNotify.set('La terminal se ha activado correctamente', 'success');
 									});
+
 
                 }
               });

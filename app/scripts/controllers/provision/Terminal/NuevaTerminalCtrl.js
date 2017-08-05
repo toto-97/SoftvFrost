@@ -121,7 +121,9 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		for (i = a.length; i < 9; i++) {
 			a = '0' + a;
 		}
+
 		return globalService.getType() + a;
+
 	};
 
 	function BuscaLatLong() {
