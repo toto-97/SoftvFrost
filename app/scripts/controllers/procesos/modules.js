@@ -50,6 +50,36 @@ angular.module('softvFrostApp').config(function($stateProvider) {
         templateUrl: 'views/procesos/atencionNueva.html',
         controller: 'AtencionDetalleCtrl',
         controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.reportes',
+        data: {
+          pageTitle: 'SOFTV | REPORTES'
+        },
+        url: '/quejas',
+        templateUrl: 'views/procesos/Quejas.html',
+        controller: 'quejasCtrl',
+        controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.ejecutaqueja',
+        data: {
+          pageTitle: 'SOFTV | EJECUTA REPORTE'
+        },
+        url: '/quejas/ejecuta/:id/:contrato/:servicio',
+        templateUrl: 'views/procesos/QuejaEjecuta.html',
+        controller: 'QuejaEjecutaCtrl',
+        controllerAs: '$ctrl'
+      },
+      {
+        name: 'home.procesos.detallequeja',
+        data: {
+          pageTitle: 'SOFTV | DETALLE REPORTE'
+        },
+        url: '/quejas/detalle/:id/:contrato/:servicio',
+        templateUrl: 'views/procesos/QuejaEjecuta.html',
+        controller: 'QuejaDetalleCtrl',
+        controllerAs: '$ctrl'
       }
 	];
 

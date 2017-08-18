@@ -29,6 +29,11 @@ angular.module('softvFrostApp')
        return 'http://192.168.50.33:3000/SoftvWCFService.svc';
        
      };
+
+     svc.getUrlReportes = function () {
+       return 'http://192.168.50.33:3000';
+
+     };
      svc.getUrlHughesService = function () {
        return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
      };
@@ -40,7 +45,8 @@ angular.module('softvFrostApp')
      svc.getUrlHughesMonitoreo = function () {
        return 'http://192.168.50.33:3000/BossMonitoreo/api';
 
-     };
+     };   
+    
 
      svc.getType = function () {
        return 'TLV';
