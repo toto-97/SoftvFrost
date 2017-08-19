@@ -633,7 +633,7 @@ angular
       var Parametros = {
         'objNueRelOrdenUsuario': {
           'ClvOrden': ClvOrden,
-          'ClvUsuario': $localStorage.currentUser.IdUsuario,
+          'ClvUsuario': $localStorage.currentUser.usuariosac,
           'Status': 'P'
         }
 
@@ -1233,7 +1233,7 @@ angular
 
     factory.getPlazas = function () {
       var deferred = $q.defer();
-      var user = $localStorage.currentUser.idUsuario;
+      var user = $localStorage.currentUser.usuariosac;
       var Parametros = {
         'ClvUsuario': user,
       };
@@ -1262,7 +1262,7 @@ angular
         'NUMERO': '',
         'ClvColonia': 0,
         'SetupBox': '',
-        'IdUsuario': $localStorage.currentUser.idUsuario,
+        'IdUsuario': $localStorage.currentUser.usuariosac,
         'TipoSer': 0,
         'Op': 0
       };
@@ -1361,7 +1361,7 @@ angular
         'ClvColonia': objOrd.colonia,
         'IdCompania': objOrd.compania,
         'SetupBox': objOrd.setupbox,
-        'ClvUsuario': $localStorage.currentUser.idUsuario,
+        'ClvUsuario': $localStorage.currentUser.usuariosac,
         'STATUS': objOrd.status,
         'Auto': objOrd.auto
       };
@@ -1401,7 +1401,7 @@ angular
     factory.getColoniasUser = function () {
       var deferred = $q.defer();
       var Parametros = {
-        'IdUsuario': $localStorage.currentUser.idUsuario
+        'IdUsuario': $localStorage.currentUser.usuariosac
       };
       var config = {
         headers: {
@@ -1428,7 +1428,7 @@ angular
         'NUMERO': obj.numero,
         'ClvColonia': obj.colonia,
         'SetupBox': obj.setupbox,
-        'IdUsuario': $localStorage.currentUser.idUsuario,
+        'IdUsuario': $localStorage.currentUser.usuariosac,
         'TipoSer': 0,
         'Op': obj.op
 

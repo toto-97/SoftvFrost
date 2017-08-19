@@ -131,7 +131,7 @@ angular
       var deferred = $q.defer();
       var Parametros = {
         'ClvQueja': idqueja,
-        'IdUsuario': $localStorage.currentUser.idUsuario
+        'IdUsuario': $localStorage.currentUser.usuariosac
       };
       var config = {
         headers: {
@@ -165,7 +165,7 @@ angular
         'Op': object.Op,
         'ClvColonia': object.ClvColonia,
         'IdCompania': object.IdCompania,
-        'ClvUsuario': $localStorage.currentUser.idUsuario,
+        'ClvUsuario': $localStorage.currentUser.usuariosac,
         'SoloNivel2': object.SoloNivel2,
         'NoTicket': object.NoTicket
       };
@@ -222,7 +222,7 @@ angular
     factory.MuestraPlazas = function () {
       var deferred = $q.defer();
       var Parametros = {
-        'ClvUsuario': $localStorage.currentUser.idUsuario
+        'ClvUsuario': $localStorage.currentUser.usuariosac
       };
       var config = {
         headers: {
@@ -277,7 +277,7 @@ angular
           'clvProblema': data.Clv_Trabajo,
           'clvPrioridadQueja': data.clvPrioridadQueja,
           'Solucion': data.Solucion,
-          'IdUsuario': $localStorage.currentUser.idUsuario
+          'IdUsuario': $localStorage.currentUser.usuariosac
         }
 
       };
@@ -319,7 +319,7 @@ angular
       var deferred = $q.defer();
       var Parametros = {
         'ClvQueja': queja,
-        'ClvUsuario': $localStorage.currentUser.idUsuario
+        'ClvUsuario': $localStorage.currentUser.usuariosac
       };
       var config = {
         headers: {

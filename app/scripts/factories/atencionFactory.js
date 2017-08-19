@@ -29,9 +29,10 @@ angular
       GetBuscaSiTieneQueja: '/BuscaSiTieneQueja/GetBuscaSiTieneQueja'
 
     };
-    var factory = {};
-    var usuarioAtencion = $localStorage.currentUser.idUsuario;
+
+
     
+    var factory = {};   
 
     factory.GetBuscaSiTieneQueja = function (ClvTipSer,Contrato) {
       var deferred = $q.defer();
@@ -79,7 +80,7 @@ angular
 
     factory.ConsultaColoniasPorUsuario = function () {
       var deferred = $q.defer();
-      var user = $localStorage.currentUser.idUsuario;
+      var user = $localStorage.currentUser.usuariosac;
       var Parametros = {
         'IdUsuario': user,
       };
@@ -120,7 +121,7 @@ angular
 
     factory.getPlazas = function () {
       var deferred = $q.defer();
-      var user = $localStorage.currentUser.idUsuario;
+      var user = $localStorage.currentUser.usuariosac;
       var Parametros = {
         'ClvUsuario': user,
       };
@@ -159,7 +160,7 @@ angular
 
     factory.AddLLamadasdeInternet = function (param) {
       var deferred = $q.defer();
-      var user = $localStorage.currentUser.idUsuario;
+      var user = $localStorage.currentUser.usuariosac;
       param.Clv_Usuario = user;
       var config = {
         headers: {
@@ -318,10 +319,10 @@ angular
         'Numero': objAte.numero,
         'clvColonia': objAte.colonia,
         'SetUpBox': objAte.setupbox,
-        'IdUsuario': usuarioAtencion,
+        'IdUsuario': $localStorage.currentUser.usuariosac,
         'Op': objAte.op,
         'Id_Compania': objAte.compania,
-        'ClvUsuario': $localStorage.currentUser.idUsuario
+        'ClvUsuario': $localStorage.currentUser.usuariosac
       };
 
       var config = {
@@ -385,7 +386,7 @@ angular
         'NUMERO': obje.numero,
         'ClvColonia': obje.colonia,
         'SetupBox': obje.setupbox,
-        'IdUsuario': $localStorage.currentUser.idUsuario,
+        'IdUsuario': $localStorage.currentUser.usuariosac,
         'TipoSer': obje.servicio,
         'Op': obje.op
       };
@@ -474,7 +475,7 @@ angular
         'Clv_Trabajo': objeto.Clv_Trabajo,
         'clvPrioridadQueja': objeto.clvPrioridadQueja,
         'Usuario': $localStorage.currentUser.usuario,
-        'IdUsuario': $localStorage.currentUser.idUsuario,
+        'IdUsuario': $localStorage.currentUser.usuariosac,
         'Clv_Tecnico': objeto.Clv_Tecnico,
         'Turno': objeto.Turno,
         'COMENTARIO': objeto.COMENTARIO,

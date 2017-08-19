@@ -154,7 +154,7 @@ angular
 		factory.getVendedoresByUser = function (contrato) {
 			var deferred = $q.defer();
 			var Parametros = {
-				'IdUsuario': $localStorage.currentUser.idUsuario,
+				'IdUsuario': $localStorage.currentUser.usuariosac,
 				'Contrato': contrato
 			};
 			var config = {
@@ -320,7 +320,7 @@ angular
 			var deferred = $q.defer();
 			var Parametros = {
 				'ContratoCom': contrato,
-				'ClvUsuario': $localStorage.currentUser.idUsuario,
+				'ClvUsuario': $localStorage.currentUser.usuariosac,
 				'Modulo': 'facturacion'
 			};
 			var config = {
@@ -544,7 +544,7 @@ angular
 				'Numero': '',
 				'Op': 1,
 				'ClvColonia': 0,
-				'Usuario': $localStorage.currentUser.idUsuario
+				'Usuario': $localStorage.currentUser.usuariosac
 			};
 			var config = {
 				headers: {
@@ -571,7 +571,7 @@ angular
 				'Numero': numero,
 				'Op': 2,
 				'ClvColonia': 0,
-				'Usuario': $localStorage.currentUser.idUsuario
+				'Usuario': $localStorage.currentUser.usuariosac
 			};
 			var config = {
 				headers: {
