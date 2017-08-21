@@ -4,19 +4,19 @@ angular.module('softvFrostApp')
   .service('globalService', function () {
     var svc = {};
     //rutas servidor producción
- /* svc.getUrl = function () {
-      return 'http://189.254.231.35:9091/SoftvWCFService.svc';
+   /* svc.getUrl = function () {
+      return 'http://172.16.126.82:9091/SoftvWCFService.svc';
     };
     svc.getUrlHughesService = function () {
-      return 'http://189.254.231.35:9092/SoftvFrostAPI';
+      return 'http://172.16.126.82:9092/SoftvFrostAPI';
     };
 
     svc.getUrlBeams = function () {
-      return 'http://189.254.231.35/beams/';
+      return 'http://172.16.126.82/beams/';
     };
 
     svc.getUrlHughesMonitoreo = function () {
-    return 'http://189.254.231.35:9090/api';
+    return 'http://172.16.126.82:9090/api';
     };
 
     svc.getType = function () {
@@ -25,13 +25,13 @@ angular.module('softvFrostApp')
 
 
     //rutas locales
-   svc.getUrl = function () {
+  svc.getUrl = function () {
        return 'http://localhost:64481/SoftvWCFService.svc';
        
      };
 
      svc.getUrlReportes = function () {
-       return 'http://192.168.50.33:3000';
+       return 'http://localhost:64481';
 
      };
      svc.getUrlHughesService = function () {

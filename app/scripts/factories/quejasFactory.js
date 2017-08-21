@@ -10,14 +10,85 @@ angular
       ObtenLista: '/BuscaQuejasSeparado2/GetBuscaQuejasSeparado2List',
       ValidaQueja: '/ValidaQuejaCompaniaAdic/GetDeepValidaQuejaCompaniaAdic',
       BuscaBloqueado: '/BuscaBloqueado/GetDeepBuscaBloqueado',
-      ConsultaQueja: '/Quejas/GetQuejasList', 
+      ConsultaQueja: '/Quejas/GetQuejasList',
       ObtenTecnicos: '/Muestra_Tecnicos_Almacen/GetMuestra_Tecnicos_AlmacenList',
       ObtenPrioridad: '/Softv_GetPrioridadQueja/GetSoftv_GetPrioridadQuejaList',
       UpdateQuejas: '/Quejas/UpdateQuejas',
       DameBonificacion: '/DameBonificacion/GetDameBonificacionList',
       EliminaQueja: '/uspBorraQuejasOrdenes/GetDeepuspBorraQuejasOrdenes',
-      GetuspInseraTblRelQuejaProblema: '/Quejas/GetuspInseraTblRelQuejaProblema'
+      GetuspInseraTblRelQuejaProblema: '/Quejas/GetuspInseraTblRelQuejaProblema',
+      UploadFile: '/Quejas/GetUploadFile',
+      ObtieneAvancesQueja: '/ObtieneAvancesQueja/GetDeepObtieneAvancesQueja',
+      GetFileAvanceQueja: '/Quejas/GetFileAvanceQueja'
     };
+
+
+    factory.GetFileAvanceQueja = function (avance,tipo) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'avance': avance,
+        'tipo':tipo
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.GetFileAvanceQueja, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.ObtieneAvancesQueja = function (clave) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'clave': clave
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      console.log(Parametros);
+      $http.post(globalService.getUrl() + paths.ObtieneAvancesQueja, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.UploadFile = function (file, description, orden) {
+      var deferred = $q.defer();
+      var data = new FormData();
+      for (var i = 0; i < file.length; i++) {
+        data.append('file' + i, file[i]);
+      }
+      data.append('description', description);
+      data.append('orden', orden);
+      data.append('usuario', $localStorage.currentUser.usuariosac);
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token,
+          'Content-Type': undefined
+        }
+      };
+      console.log(data);
+      $http.post(globalService.getUrl() + paths.UploadFile, data, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
+
 
     factory.ObtenPrioridad = function () {
       var deferred = $q.defer();

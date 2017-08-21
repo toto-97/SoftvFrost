@@ -226,6 +226,29 @@ angular
         }
       });
     }
+
+     function Avances() {
+      var options = {};
+      options.ClvOrden = vm.clv_queja;
+      var modalInstance = $uibModal.open({
+        animation: vm.animationsEnabled,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/procesos/ModalAvances.html',
+        controller: 'ModalAvancesCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        resolve: {
+          options: function () {
+            return options;
+          }
+        }
+      });
+
+
+    }
         
     function DescargaMaterial() {   
 
@@ -280,5 +303,6 @@ angular
     vm.IEstatus = true;
     vm.idBitacora=0;
     vm.idTecnicoBitacora=0;
+    vm.Avances=Avances;
 
   });

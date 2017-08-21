@@ -1,0 +1,62 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title"><i class="fa fa-thumb-tack"></i> Avances de reporte</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="col-md-12">
+        1.-Describe brevemente el avance:
+        <textarea class="form-control input-sm" ng-model="ctrl.descripcion" placeholder="Descripción del avance"></textarea>
+      </div>
+      <div class="col-md-12">
+        2.- Selecciona el archivo
+        <p class="text-muted">(Solo archivos PDF e imagenes)</p>
+        <input type="file" id="file" ng-model="ctrl.file" accept="image/jpeg,image/png,application/pdf" class="btn btn-info btn-sm">
+      </div>
+      <div class="col-md-12">
+        <br>
+        <button class="btn btn-warning btn-block btn-xs" ng-click="ctrl.ValidaArchivo();">Guardar avance</button>
+      </div>
+      <div class="col-md-12">
+        <br>
+        <p class="text-center">Avances Anteriores:</p>
+        <table class="table">
+          <thead>
+            <td>Usuario</td>
+            <td>Avance</td>
+            <td>Fecha</td>
+            <td>Detalle</td>
+          </thead>
+          <thead>
+            <tbody>
+              <tr ng-repeat="x in ctrl.lista">
+                <td>{{x.Usuario}}</td>
+                <td>{{x.Comentario}}</td>
+                <td>{{x.Fecha}}</td>
+                <td><button class="btn btn-info btn-xs" ng-click="ctrl.GetFileAvanceQueja(x)"><i class="fa fa-eye"></i> Detalle</button></td>
+              </tr>
+            </tbody>
+          </thead>
+        </table>
+      </div>
+
+
+    </div>
+    <div class="col-md-7">
+      <div class="col-md-12" ng-show="$ctrl.showimg">
+      <img src="{{ctrl.Imagesrc}}" style="height: 800px; width: 500px;" >
+      </div>
+      <div class="col-md-12" ng-show="$ctrl.showpdf">
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Aceptar</button>
+
+</div>
