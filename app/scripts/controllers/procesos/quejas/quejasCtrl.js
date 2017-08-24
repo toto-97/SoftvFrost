@@ -74,7 +74,7 @@ angular
 		function BuscaReporte() {
 			if (vm.Servicio == null) {
 				ngNotify.set('Por favor seleccione un tipo de servicio.', 'warn');
-			} else if (vm.Reporte == null || !(/^\d{1,9}/.test(vm.Reporte))) {
+			} else if (vm.Reporte === null || !(/^\d{1,9}/.test(vm.Reporte))) {
 				ngNotify.set('Ingresa un número de reporte válido.', 'warn');
 				vm.Reporte = '';
 			} else {
@@ -111,7 +111,7 @@ angular
 		}
 
 		function BuscaContrato() {
-			if (vm.Servicio == null || vm.Plaza == null) {
+			if (vm.Servicio === null || vm.Plaza === null) {
 				ngNotify.set('Por favor seleccione una compañía y un tipo de servicio.', 'warn');
 			} else if (!(/^\d{1,9}-\d{1,9}$/.test(vm.Contrato))) {
 				ngNotify.set('El número de contrato está formado por 2 grupos de números con un guion intermedio p.e. (1234-1)', 'primary');
@@ -145,34 +145,34 @@ angular
 					}
 				});
 			}
-			vm.Contrato = "";
+			vm.Contrato = '';
 		}
 
 		function BuscaporNombre() {
-			if (vm.Nombre == undefined || vm.Nombre == "") {
-				var NombreB = "";
+			if (vm.Nombre === undefined || vm.Nombre === '') {
+				var NombreB = '';
 			} else if (!(/^[A-Za-z\s\xF1\xD1]+$/.test(vm.Nombre))) {
-				var NombreB = "";
+				var NombreB = '';
 			} else {
 				var NombreB = vm.Nombre;
 			}
-			if (vm.APaterno == undefined || vm.APaterno == "") {
-				var APaternoB = "";
+			if (vm.APaterno === undefined || vm.APaterno === '') {
+				var APaternoB = '';
 			} else if (!(/^[A-Za-z\s\xF1\xD1]+$/.test(vm.APaterno))) {
 				var APaternoB = "";
 			} else {
 				var APaternoB = vm.APaterno;
 			}
-			if (vm.AMaterno == undefined || vm.AMaterno == "") {
+			if (vm.AMaterno === undefined || vm.AMaterno === '') {
 				var AmaternoB = "";
 			} else if (!(/^[A-Za-z\s\xF1\xD1]+$/.test(vm.AMaterno))) {
 				var AmaternoB = "";
 			} else {
 				var AmaternoB = vm.AMaterno;
 			}
-			if (vm.Servicio == undefined) {
+			if (vm.Servicio === undefined) {
 				ngNotify.set('Por favor seleccione un tipo de servicio.', 'warn');
-			} else if (NombreB == "" && APaternoB == "" && AmaternoB == "") {
+			} else if (NombreB === '' && APaternoB === '' && AmaternoB === '') {
 				ngNotify.set('Introduce un nombre válido.', 'warn');
 			} else {
 				var Parametros = {
@@ -204,9 +204,9 @@ angular
 					}
 				});
 			}
-			vm.Nombre = "";
-			vm.APaterno = "";
-			vm.AMaterno = "";
+			vm.Nombre = '';
+			vm.APaterno = '';
+			vm.AMaterno = '';
 		}
 
 		function BuscaporDireccion() {

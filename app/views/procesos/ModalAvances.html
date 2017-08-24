@@ -17,12 +17,13 @@
       </div>
       <div class="col-md-12">
         <br>
-        <button class="btn btn-warning btn-block btn-xs" ng-click="ctrl.ValidaArchivo();">Guardar avance</button>
+        <button class="btn btn-success btn-block btn-xs" ng-click="ctrl.ValidaArchivo();"><i class="fa fa-save"></i> Registrar avance</button>
       </div>
       <div class="col-md-12">
         <br>
         <p class="text-center">Avances Anteriores:</p>
-        <table class="table">
+        <div style="overflow-y: scroll; max-height: 300px; ">
+        <table class="table" style="font-size: 10px;">
           <thead>
             <td>Usuario</td>
             <td>Avance</td>
@@ -35,21 +36,23 @@
                 <td>{{x.Usuario}}</td>
                 <td>{{x.Comentario}}</td>
                 <td>{{x.Fecha}}</td>
-                <td><button class="btn btn-info btn-xs" ng-click="ctrl.GetFileAvanceQueja(x)"><i class="fa fa-eye"></i> Detalle</button></td>
+                <td><button class="btn btn-default-bright btn-xs" ng-click="ctrl.GetFileAvanceQueja(x)"><i class="fa fa-eye"></i> Detalle</button></td>
               </tr>
             </tbody>
           </thead>
         </table>
+        </div>
       </div>
 
 
     </div>
     <div class="col-md-7">
-      <div class="col-md-12" ng-show="$ctrl.showimg">
-      <img src="{{ctrl.Imagesrc}}" style="height: 800px; width: 500px;" >
+       <h4 class="text-center">Previsualización de documento</h4>
+      <div class="col-md-12" ng-show="ctrl.showimg">
+     <img ng-src="{{ctrl.Imagesrc}}" style="height: 400px; width: 450px;" >
       </div>
-      <div class="col-md-12" ng-show="$ctrl.showpdf">
-
+      <div class="col-md-12" ng-show="ctrl.showpdf" >
+      <iframe style="height: 600px; width: 450px;" ng-src="{{ctrl.Pdfsrc}}"> </iframe>
       </div>
 
     </div>
