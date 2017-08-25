@@ -8,7 +8,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.diagnostic',
 			data: {
-				pageTitle: 'STAR.GO | DIAGNOSTIC TOOLS',
+				pageTitle: 'BOSS | DIAGNOSTIC TOOLS',
 				permissions: {
 					only: ['sitediagnostictoolSelect'],
 					options: {
@@ -24,7 +24,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.onSite',
 			data: {
-				pageTitle: 'STAR.GO | SITE VALIDATION',
+				pageTitle: 'BOSS | SITE VALIDATION',
 				permissions: {
 					only: ['onsitevalidationtool1Select'],
 					options: {
@@ -40,7 +40,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.onSiteTwo',
 			data: {
-				pageTitle: 'BIENVENIDO | MONITOREO STAR.GO',
+				pageTitle: 'BIENVENIDO | MONITOREO BOSS',
 			},
 			url: '/monitoreo/details',
 			templateUrl: 'views/monitoreo/displayForSan.html',
@@ -50,7 +50,7 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.MapaTerminales',
 			data: {
-				pageTitle: 'BIENVENIDO | MONITOREO STAR.GO',
+				pageTitle: 'BIENVENIDO | MONITOREO BOSS',
 			},
 			url: '/monitoreo/MapaTerminales',
 			templateUrl: 'views/monitoreo/MapaTerminales.html',
@@ -60,11 +60,21 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 		{
 			name: 'home.monitoreo.DetalleTerminal',
 			data: {
-				pageTitle: 'BIENVENIDO | MONITOREO STAR.GO',
+				pageTitle: 'BIENVENIDO | MONITOREO BOSS',
 			},
 			url: '/monitoreo/DetalleTerminal?id',
 			templateUrl: 'views/monitoreo/DetalleTerminal.html',
 			controller: 'DetalleTerminalCtrl',
+			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.monitoreo.EstadoTerminales',
+			data: {
+				pageTitle: 'BIENVENIDO | MONITOREO BOSS',
+			},
+			url: '/monitoreo/EstadoTerminales',
+			templateUrl: 'views/monitoreo/EstadoTerminales.html',
+			controller: 'EstadoTerminalesCtrl',
 			controllerAs: '$ctrl'
 		}
 	];
