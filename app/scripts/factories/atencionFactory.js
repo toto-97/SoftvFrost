@@ -14,6 +14,7 @@ angular
       clasificacionProblemas: '/uspConsultaTblClasificacionProblemas/GetuspConsultaTblClasificacionProblemasList',
       MuestraTrabajos: '/MUESTRATRABAJOSQUEJAS/GetMUESTRATRABAJOSQUEJASList',
       ValidaContrato: '/uspContratoServ/GetuspContratoServList',
+      GetuspContratoServQueja: '/uspContratoServ/GetuspContratoServQueja',
       clasificacionQuejas: '/MUESTRACLASIFICACIONQUEJAS/GetMUESTRACLASIFICACIONQUEJASList',
       prioridadQueja: '/Softv_GetPrioridadQueja/GetSoftv_GetPrioridadQuejaList',
       AddLLamadasdeInternet: '/LLamadasdeInternet/AddLLamadasdeInternet',
@@ -29,16 +30,33 @@ angular
       GetBuscaSiTieneQueja: '/BuscaSiTieneQueja/GetBuscaSiTieneQueja'
 
     };
+    var factory = {};
+    factory.GetuspContratoServQueja = function (contrato, tiposerv) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'contrato': contrato,
+        'tiposerv': tiposerv
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetuspContratoServQueja, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
 
 
-    
-    var factory = {};   
-
-    factory.GetBuscaSiTieneQueja = function (ClvTipSer,Contrato) {
+    factory.GetBuscaSiTieneQueja = function (ClvTipSer, Contrato) {
       var deferred = $q.defer();
       var Parametros = {
         'ClvTipSer': ClvTipSer,
-        'Contrato':Contrato
+        'Contrato': Contrato
       };
       var config = {
         headers: {
@@ -54,7 +72,7 @@ angular
       return deferred.promise;
     };
 
-    
+
 
     factory.GetConAtenTelCte = function (Contrato) {
       var deferred = $q.defer();
