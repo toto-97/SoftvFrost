@@ -1,0 +1,497 @@
+<style type="text/css">
+  .scrollDiv {
+    height: 500px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+
+  .form-group>label,
+  .form-group .control-label {
+    font-size: 12px !important;
+    opacity: 0.8;
+    margin-bottom: 0 !important;
+  }
+
+</style>
+<form angular-validator-submit="$ctrl.guardar()" name="myForm" class="form-horizontal" novalidate angular-validator>
+  <div class="card animated fadeIn" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">Registro de memoria técnica</strong>
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> 
+                <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Memoria técnica</a></small>
+      </header>
+      <div class="tools">
+        <div class="btn-group">
+          <a class="btn btn-primary btn-sm" ui-sref="home.memoria.memoriastecnicas" title="Crear una nueva memoria técnica" type="submit"> Guardar</a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="text-muted"> Información principal</p>
+          <div class="form-group row ">
+            <label class="col-sm-3 control-label"># Orden</label>
+            <div class="col-sm-4">
+              <input type="password" class="form-control input-sm" name="password" placeholder="Ingresa #orden" required />
+            </div>
+            <div class="col-sm-3">
+              <button class="btn ink-reaction btn-floating-action btn-xs btn-info"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+
+          <div class="form-group row ">
+            <label class="col-sm-3 control-label">Folio instalación</label>
+            <div class="col-sm-4">
+              <input type="password" class="form-control input-sm" name="password" placeholder="Ingresa #orden" required />
+            </div>
+
+            <label class="col-sm-2 control-label">Contrato</label>
+            <div class="col-sm-2">
+              <input type="password" class="form-control input-sm" name="password" placeholder="" required />
+            </div>
+
+          </div>
+
+
+        </div>
+        <div class="col-md-6">
+          <p class="text-muted"> Datos de la empresa</p>
+
+          <div class="form-group row ">
+            <label class="col-sm-3 control-label">Distribuidor</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control input-sm" name="password" placeholder="Ingresa #orden" required />
+            </div>
+
+            <label class="col-sm-3 control-label">Fecha visita de sistio</label>
+            <div class="col-sm-3">
+              <input type="date" class="form-control input-sm" name="fsitio" placeholder="Ingresa #orden" required />
+            </div>
+          </div>
+
+          <div class="form-group row ">
+            <label class="col-sm-4 control-label">Nombre de Instalador</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control input-sm" name="nombreinstalador" placeholder="Ingresa el nombre del instalador" required
+              />
+            </div>
+          </div>
+
+          <div class="form-group row ">
+            <label class="col-sm-3 control-label">Hora de llegada</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control input-sm" name="nombreinstalador" placeholder="Ingresa el nombre del instalador" required
+              />
+            </div>
+            <label class="col-sm-3 control-label">Hora de salida</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control input-sm" name="nombreinstalador" placeholder="Ingresa el nombre del instalador" required
+              />
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+      <hr>
+      <div class="col-md-12">
+        <uib-tabset active="activeJustified" justified="false">
+          <uib-tab index="0" heading="Datos del sitio">
+            <br>
+            <div class="row">
+
+              <div class="col-md-3">
+
+                <div class="form-group row ">
+                  <label class="col-sm-5 control-label">site ID</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control input-sm" name="siteid" placeholder="" required />
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-5 control-label">Estado</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control input-sm" name="estado" placeholder="" required />
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-5 control-label">Municipio</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control input-sm" name="municipio" placeholder="" required />
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-5 control-label">Localidad</label>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control input-sm" name="localidad" placeholder="" required />
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-5 control-label">Domicilio de nofificación</label>
+                  <div class="col-sm-7">
+                    <textarea type="text" class="form-control input-sm" name="notificacion" rows="5"></textarea>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Cliente</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="notificacion">
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Direccion</label>
+                  <div class="col-sm-9">
+                    <textarea type="text" class="form-control input-sm" name="direccion" rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">C.P</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="codigopostal">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Teléfono</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="telefono">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Celular</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="celular">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-3">
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Recibe en sitio:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="recibe">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Plataforma satelital:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="plataforma">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Plan de servicio:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="plan">
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Tipo de servicio:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="tiposervicio">
+                  </div>
+                </div>
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Velocidad:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="velocidad">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Beam:</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="beam">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Fecha Activación:</label>
+                  <div class="col-sm-9">
+                    <input type="date" class="form-control input-sm" name="velocidad">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Estatus técnico:</label>
+                  <div class="col-sm-9">
+                    <input type="date" class="form-control input-sm" name="estatustecnico">
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </uib-tab>
+          <uib-tab index="1" heading="Mediciones Eléctricas">
+            <div class="row">
+              <br>
+              <div class="col-md-4">
+                <p class="text-center">Voltaje comercial</p>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Neutro-tierra :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="nt">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Fase-tierra :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="ft">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Fase-Neutro :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="fn">
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+
+                <p class="text-center">Voltaje UPS/No Break</p>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Neutro-tierra :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="nt">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Fase-tierra :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="ft">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Fase-Neutro :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="fn">
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+
+          </uib-tab>
+          <uib-tab index="2" heading="Datos de equipo y desempeño">
+
+            <div class="row">
+              <br>
+              <div class="col-md-4">
+
+
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Módem (serie) :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="nt">
+                  </div>
+                </div>
+
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Tamaño de antena :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="nt">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Valor de SQF :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="ft">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">UPS(serie) :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="fn">
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+
+
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Serie de Radio :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="nt">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Serie de router :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="nt">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">Marca Router :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="ft">
+                  </div>
+                </div>
+
+                <div class="form-group row ">
+                  <label class="col-sm-3 control-label">WiFi (serie) :</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control input-sm" name="fn">
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </uib-tab>
+          <uib-tab index="3" heading="Trabajos realizados">
+            <br>
+            <div class="row">
+
+              <div class="col-md-6">
+
+                <div class="col-md-6">
+                  <div class="row">
+                    <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" value="option3" checked=""><span>Instalación</span>
+													</label>
+                  </div>
+                  <div class="row">
+                    <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" value="option3" checked=""><span>Instalación Demo/Piloto </span>
+													</label>
+
+                  </div>
+                  <div class="row">
+                    <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" value="option3" checked=""><span>Apuntamiento </span>
+													</label>
+                  </div>
+                  <div class="row">
+                    <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" value="option3" checked=""><span>Reubicación </span>
+													</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <br>
+                  <div class="row">
+                    <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" value="option3" checked=""><span>Cambio de componentes </span>
+													</label>
+                  </div>
+                  <div class="row">
+                    <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" value="option3" checked=""><span>Mantenimiento </span>
+													</label>
+                  </div>
+
+                  <div class="row">
+                    <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" value="option3" checked=""><span>Site Survey </span>
+													</label>
+                  </div>
+
+                </div>
+
+
+
+
+
+              </div>
+
+              <div class="col-md-6">
+                <p>Detalles:</p>
+                <textarea rows="6" class="form-control input-sm" placeholder="Redacta brevemente los detalles de la instalación"></textarea>
+
+              </div>
+            </div>
+
+
+          </uib-tab>
+          <uib-tab index="4" heading="Cambio de equipo">
+            <br>
+            <div class="col-md-12">
+
+              <div class="col-md-6 col-md-offset-3">
+                <div class="col-md-3">
+                  Equipo a surtir
+                  <input type="text" class="form-control input-sm">
+                </div>
+                <div class="col-md-3">
+                  Serie Anterior
+                  <input type="text" class="form-control input-sm">
+                </div>
+                <div class="col-md-3">
+                  Serie Nueva
+                  <input type="text" class="form-control input-sm">
+                </div>
+                <div class="col-md-3">
+                  <br>
+                  <button class="btn btn-success btn-sm ">Agregar</button>
+                </div>
+                <div class="col-md-12 text-center">
+                  <table class="table">
+                    <thead>
+                      <th>Equipo a surtir,marca,modelo</th>
+                      <th>Serie anterior</th>
+                      <th>Serie nueva</th>
+                      <th>Opciones</th>
+                    </thead>
+                  </table>
+
+                </div>
+              </div>
+
+            </div>
+
+          </uib-tab>
+
+          <uib-tab index="5" heading="Carga de evidencias">
+
+
+          </uib-tab>
+        </uib-tabset>
+      </div>
+
+    </div>
+  </div>
+</form>
