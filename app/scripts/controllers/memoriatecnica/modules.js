@@ -37,7 +37,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
       data: {
         pageTitle: 'SOFTV | DETALLE MEMORIA TECNICA',
       },
-      url: '/memoriastecnicas/detalle/',
+      url: '/memoriastecnicas/detalle/:id',
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
       controller: 'detallememoriatecnicaCtrl',
       controllerAs: '$ctrl'

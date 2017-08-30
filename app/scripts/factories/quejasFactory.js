@@ -73,6 +73,7 @@ angular
       data.append('description', description);
       data.append('orden', orden);
       data.append('usuario', $localStorage.currentUser.usuariosac);
+      console.log(data);
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token,

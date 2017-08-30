@@ -6,6 +6,24 @@
   }
 
 
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+  }
+
+  .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+
   .form-group>label,
   .form-group .control-label {
     font-size: 12px !important;
@@ -115,7 +133,7 @@
               <label class="col-sm-5 control-label">Fecha visita de sitio</label>
               <div class="col-sm-7">
                 <input type="date" class="form-control input-sm" name="fechasitio" ng-model="$ctrl.fechasitio" validate-on="dirty" invalid-message="'La fecha es obligatoria'"
-                  placeholder="Ingresa #orden" required />
+                  placeholder="Ingresa #orden"  />
               </div>
             </div>
 
@@ -537,99 +555,102 @@
 
           </uib-tab>
 </form>
-          <uib-tab index="5" heading="Carga de evidencias">
+<uib-tab index="5" heading="Carga de evidencias">
 
-            <div class="col-md-12">
+  <div class="col-md-12">
 
-              <div class="col-md-12">
-                  <p>Selecciona el tipo de imagen</p>
-                  <select ng-model="$ctrl.tipoimagen">
 
+
+
+    <div class="col-md-6">
+      <div class="col-md-12">
+        <p>Selecciona el tipo de imagen</p>
+        <select ng-model="$ctrl.tipoimagen" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tiposresp track by item.IdTipo"
+          ng-model="selected">
+  <option value="">Selecciona el tipo </option>
                   </select>
-                </div>
-
-                <div class="col-md-12">
-                  <br>
-
-                  
-                  <input type="file" 
-                  multiple="multiple"
-                  id="file" nv-file-select uploader="$ctrl.uploader" /><br/>
-
-
-                </div>
-              <div class="col-md-6" style="overflow-y: scroll; max-height: 350px;" >
-                
-
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th width="50%">Elegir</th>
-                      <th width="50%">Nombre</th>
-                      <th width="50%">Tipo</th>
-                      <th width="50%">Preview</th>
-                      <th ng-show="uploader.isHTML5">Tamaño</th>
-                       <th>Eliminar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="item in $ctrl.uploader.queue">
-                      <td>
-                        <strong>{{ item.file.name }}</strong>
-                      </td>
-                      <td>
-                        <strong>{{ item.file.tipo }}</strong>
-                      </td>
-                      <td>
-                        <!-- Image preview -->
-                        <!--auto height-->
-
-                        <!--auto width-->
-                        <!--    <div ng-show="$ctrl.uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>-->
-                        <!--fixed width and height -->
-                        <div ng-thumb="{ file: item._file, width: 100, height: 100 }"></div>
-                      </td>
-                      <td ng-show="$ctrl.uploader.isHTML5" 
-                      nowrap>{{ item.file.size/1024/1024|number:2 }} MB
-                      </td>
-                      <td>
-
-                         <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                                        <span class="glyphicon glyphicon-trash"></span> Remove
-                                    </button>
-                      </td>
-
-
-
-                    </tr>
-                  </tbody>
-                </table>
-                <button ng-click="$ctrl.Guardarimagenes()" type="button">subir</button>
-
-
-
-              </div>
-              <div class="col-md-6">
-                <h3>Evidencias cargadas</h3>
-                <table class="table">
-                  <thead>
-                    <th>Tipo de imagen</th>
-                    <th>imagen</th>
-                  </thead>
-                  <tbody>
-
-                  </tbody>
-
-                </table>
-
-
-              </div>
-            </div>
-
-          </uib-tab>
-        </uib-tabset>
       </div>
+      {{$ctrl.tipoimagen}}
+      <div class="col-md-12">
+        <br>
+        <div class="fileUpload btn btn-primary">
+          <span>Elegir archivos</span>
+          <input type="file" ng-disabled="$ctrl.tipoimagen===''||$ctrl.tipoimagen===null" multiple="multiple" id="file" nv-file-select
+            uploader="$ctrl.uploader" class="upload" />
+        </div>
+
+        <!-- <input type="file" multiple="multiple" id="file" nv-file-select uploader="$ctrl.uploader" /><br/>-->
+
+
+      </div>
+      <div class="col-md-12" style="overflow-y: scroll; max-height: 350px;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th width="50%">Elegir</th>
+              <th width="50%">Nombre</th>
+              <th width="50%">Tipo</th>
+              <th width="50%">Preview</th>
+              <th ng-show="uploader.isHTML5">Tamaño</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in $ctrl.uploader.queue">
+              <td>
+                <strong>{{ item.file.name }}</strong>
+              </td>
+              <td>
+                <strong>{{ item.file.tipo }}</strong>
+              </td>
+              <td>              
+                <div ng-thumb="{ file: item._file, width: 100, height: 100 }"></div>
+              </td>
+              <td ng-show="$ctrl.uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB
+              </td>
+              <td>
+
+                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> Eliminar
+                                    </button>
+              </td>
+
+
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+    </div>
+    <div class="col-md-6">
+      <h3>Evidencias cargadas</h3>
+      <table class="table">
+        <thead>
+          
+          <th>Tipo de imagen</th>
+          <th>preview</th>
+        </thead>
+        <tbody>
+           <tr ng-repeat="x in $ctrl.Lista_evidencias">
+             
+             <td>{{x.Tipo_}}</td>
+             <td><img ng-src="{{x.Ruta}}" alt="" style="width: 100px; height: 100px; "></td>
+           </tr>
+        </tbody>
+
+      </table>
+
 
     </div>
   </div>
 
+</uib-tab>
+</uib-tabset>
+</div>
+
+</div>
+</div>

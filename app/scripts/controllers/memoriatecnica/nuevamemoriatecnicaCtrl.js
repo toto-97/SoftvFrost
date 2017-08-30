@@ -54,9 +54,29 @@ angular
     vm.cambioAparato = cambioAparato;
     vm.eliminaaparato = eliminaaparato;
     vm.guardar = guardar;
-    vm.Guardarimagenes=Guardarimagenes;
-    vm.uploader = new FileUploader();
-    console.log(vm.uploader);
+    vm.Guardarimagenes = Guardarimagenes;
+    vm.uploader = new FileUploader({
+      filters: [{
+          name: 'yourName1',
+          fn: function (item) {
+            var count = 0;
+            vm.uploader.queue.forEach(function (f) {
+              count += (f._file.name === item.name) ? 1 : 0;
+            });
+            if (count > 0) {
+              ngNotify.set('Un archivo con ese mismo nombre ya fue seleccionado', 'warn')
+              return false;
+            } else {
+              return true;
+            }
+          }
+        },
+
+
+
+      ]
+    });
+
     vm.trabajos = [{
         'Nombre': 'Instalación'
 
@@ -82,19 +102,24 @@ angular
     ];
     initialData();
 
-
     vm.uploader.onAfterAddingFile = function (fileItem) {
-      fileItem.file.idtipo = 1;
-      fileItem.file.tipo = 'System Info';
-      console.info('onAfterAddingFile', fileItem);
+      fileItem.file.idtipo = vm.tipoimagen.IdTipo;
+      fileItem.file.tipo = vm.tipoimagen.Nombre;
+      fileItem._file.idtipo = vm.tipoimagen.IdTipo;
+      fileItem._file.tipo = vm.tipoimagen.Nombre;
     };
 
-
     function initialData() {
+      memoriaFactory.ObtieneTiposImagenes().then(function (response) {
+        vm.tiposresp = response.GetObtieneTiposImagenesListResult;
+      });
 
     }
 
-    function eliminaaparato() {
+    function eliminaaparato(index) {
+      if (index > -1) {
+        vm.cambios.splice(index, 1);
+      }
 
     }
 
@@ -105,14 +130,19 @@ angular
       if ((vm.serieanterior !== '' && vm.serieanterior !== undefined) &&
         (vm.equiposurtir !== '' && vm.equiposurtir !== undefined) &&
         (vm.serienueva !== '' && vm.serienueva !== undefined)) {
-        var obj = {};
-        obj.serieanterior = vm.serieanterior;
-        obj.equiposurtir = vm.equiposurtir;
-        obj.serienueva = vm.serienueva;
-        vm.cambios.push(obj);
-        vm.serieanterior = '';
-        vm.equiposurtir = '';
-        vm.serienueva = '';
+
+        if (vm.serienueva !== vm.serieanterior) {
+          var obj = {};
+          obj.serieanterior = vm.serieanterior;
+          obj.equiposurtir = vm.equiposurtir;
+          obj.serienueva = vm.serienueva;
+          vm.cambios.push(obj);
+          vm.serieanterior = '';
+          vm.equiposurtir = '';
+          vm.serienueva = '';
+        } else {
+          ngNotify.set('Las series no pueden ser iguales', 'error');
+        }
 
       } else {
         ngNotify.set('Necesita completar todos los campos', 'error');
@@ -121,6 +151,8 @@ angular
 
 
     }
+
+
 
     function ischecked(valor) {
       var cant = 0;
@@ -136,10 +168,9 @@ angular
       return (value !== undefined && value !== '' && value !== null) ? true : false;
     }
 
-   function  Guardarimagenes() {
-      memoriaFactory.GuardaImagenesMemoriaTecnica($('#file').get(0).files).then(function (data) {
+    function Guardarimagenes() {
 
-      });
+
     }
 
 
@@ -198,26 +229,55 @@ angular
         'Detalles': (isvalid(vm.detalleinstalacion) === true) ? vm.detalleinstalacion : '',
         'Folio': (isvalid(vm.folio) === true) ? vm.folio : 0,
         'Clv_Orden': (isvalid(vm.numeroOrden) === true) ? vm.numeroOrden : 0,
-        'IdUsuario': $localStorage.currentUser.idUsuario,
-
+        'IdUsuario': $localStorage.currentUser.idUsuario
       };
 
-      console.log(obj);
+
       memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
 
         vm.IdMemoriaTecnica = response.GetGuardaMemoriaTecnicaListResult[0].IdMemoriaTecnica;
+        var file_options = [];
+        var files = [];
+        var tipos = [];
+        var count = 0;
+        vm.uploader.queue.forEach(function (f) {
+          if (tipos.includes(f._file.idtipo)) {
+            count += 1;
+          } else {
+            var options = {
+              'IdImagen': 0,
+              'Accion': 1,
+              'Tipo': f._file.idtipo,
+              'Nombre': f._file.name
+            }
+            file_options.push(options);
+            tipos.push(f._file.idtipo);
+            files.push(f._file);
+          }
 
-        var Parametros = {
+        });
+        if (count > 0) {
+          ngNotify.set('Existen imagenes con el mismo tipo', 'error');
+          return;
+        } else {
+          memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options).then(function (data) {
+            ngNotify.set('las imagenes se han guardado correctamente', 'success');
+            vm.uploader.clearQueue();
+          });
+        }
+        /*var Parametros = {
           'IdMemoriaTecnica': vm.IdMemoriaTecnica,
           'Equipo': vm.cambios[0].equiposurtir,
           'SerieAnterior': vm.cambios[0].serieanterior,
           'SerieNueva': vm.cambios[0].serienueva
-
         };
 
         memoriaFactory.GuardaEquiposSustituir(Parametros).then(function (data) {
           ngNotify.set('La memoria técnica se ha guardado correctamente ', 'success');
-        });
+
+       
+
+        });*/
 
       });
 
