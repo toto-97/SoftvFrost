@@ -91,7 +91,7 @@
               <td>{{x.Usuario}}</td>
               <td>
                 <a title="Consultar memoria técnica" ui-sref="home.memoria.detallememoria({ id: x.IdMemoriaTecnica})" class="btn ink-reaction  btn-xs btn-info"><i class="md md-content-paste"></i> CONSULTAR</a>
-                <a title="Editar memoria técnica" ui-sref="home.procesos.atencionEditar({ id: x.llamada})" ng-disabled="x.Clv_QUEJA>0"
+                <a title="Editar memoria técnica" ui-sref="home.memoria.editarmemoria({ id: x.IdMemoriaTecnica})" ng-disabled="x.Clv_QUEJA>0"
                   class="btn ink-reaction  btn-xs btn-warning" ng-click="$ctrl.editarEntrada(x.Consecutivo)"><i class="fa fa-edit"></i> Editar</a>
                   </td>
                   <td>

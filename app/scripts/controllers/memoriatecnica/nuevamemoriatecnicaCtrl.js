@@ -1,60 +1,18 @@
 'use strict';
 angular
-  .module('softvFrostApp')
-  .directive('ngThumb', ['$window', function ($window) {
-    var helper = {
-      support: !!($window.FileReader && $window.CanvasRenderingContext2D),
-      isFile: function (item) {
-        return angular.isObject(item) && item instanceof $window.File;
-      },
-      isImage: function (file) {
-        var type = '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
-        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-      }
-    };
-
-    return {
-      restrict: 'A',
-      template: '<canvas/>',
-      link: function (scope, element, attributes) {
-        if (!helper.support) return;
-
-        var params = scope.$eval(attributes.ngThumb);
-
-        if (!helper.isFile(params.file)) return;
-        if (!helper.isImage(params.file)) return;
-
-        var canvas = element.find('canvas');
-        var reader = new FileReader();
-
-        reader.onload = onLoadFile;
-        reader.readAsDataURL(params.file);
-
-        function onLoadFile(event) {
-          var img = new Image();
-          img.onload = onLoadImage;
-          img.src = event.target.result;
-        }
-
-        function onLoadImage() {
-          var width = params.width || this.width / this.height * params.height;
-          var height = params.height || this.height / this.width * params.width;
-          canvas.attr({
-            width: width,
-            height: height
-          });
-          canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
-        }
-      }
-    };
-  }])
+  .module('softvFrostApp')  
   .controller('nuevamemoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, $localStorage, $uibModal, $filter, FileUploader) {
     var vm = this;
     vm.cambios = [];
+    vm.cambios_eliminados = [];
     vm.cambioAparato = cambioAparato;
     vm.eliminaaparato = eliminaaparato;
     vm.guardar = guardar;
-    vm.Guardarimagenes = Guardarimagenes;
+    vm.BorraImagen = BorraImagen;
+    vm.showguardar = true;
+    vm.seleccionImagen = true;
+    vm.detalle = false;
+    vm.titulo = 'Registro de memoria técnica';
     vm.uploader = new FileUploader({
       filters: [{
           name: 'yourName1',
@@ -77,29 +35,7 @@ angular
       ]
     });
 
-    vm.trabajos = [{
-        'Nombre': 'Instalación'
 
-      },
-      {
-        'Nombre': 'Instalación Demo/Piloto'
-      },
-      {
-        'Nombre': 'Apuntamiento'
-      },
-      {
-        'Nombre': 'Reubicación'
-      },
-      {
-        'Nombre': 'Cambio de componentes'
-      },
-      {
-        'Nombre': 'Mantenimiento'
-      },
-      {
-        'Nombre': 'Site Survey'
-      },
-    ];
     initialData();
 
     vm.uploader.onAfterAddingFile = function (fileItem) {
@@ -113,11 +49,16 @@ angular
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
       });
+    }
 
+    function BorraImagen(index) {
+      if (index > -1) {
+        vm.cambios.splice(index, 1);
+      }
     }
 
     function eliminaaparato(index) {
-      if (index > -1) {
+      if (index > -1) {       
         vm.cambios.splice(index, 1);
       }
 
@@ -133,9 +74,10 @@ angular
 
         if (vm.serienueva !== vm.serieanterior) {
           var obj = {};
-          obj.serieanterior = vm.serieanterior;
-          obj.equiposurtir = vm.equiposurtir;
-          obj.serienueva = vm.serienueva;
+          obj.SerieAnterior = vm.serieanterior;
+          obj.Equipo = vm.equiposurtir;
+          obj.SerieNueva = vm.serienueva;
+          obj.Opcion = 1;          
           vm.cambios.push(obj);
           vm.serieanterior = '';
           vm.equiposurtir = '';
@@ -147,38 +89,15 @@ angular
       } else {
         ngNotify.set('Necesita completar todos los campos', 'error');
       }
-
-
-
-    }
-
-
-
-    function ischecked(valor) {
-      var cant = 0;
-      vm.trabajos.forEach(function (item) {
-        if (item.Nombre === valor) {
-          cant += (item.selected === true) ? 1 : 0;
-        }
-      });
-      return (cant > 0) ? true : false;
     }
 
     function isvalid(value) {
       return (value !== undefined && value !== '' && value !== null) ? true : false;
     }
 
-    function Guardarimagenes() {
-
-
-    }
-
-
     function guardar() {
-
-
       var obj = {
-        'SAN': (isvalid(vm.siteid) === true) ? vm.siteid : 0,
+        'SAN': (isvalid(vm.SAN) === true) ? vm.SAN : 0,
         'Contrato': (isvalid(vm.contrato) === true) ? vm.contrato : 0,
         'Distribuidor': (isvalid(vm.distribuidor) === true) ? vm.distribuidor : '',
         'Instalador': (isvalid(vm.instalador) === true) ? vm.instalador : '',
@@ -219,22 +138,20 @@ angular
         'MarcaRouter': (isvalid(vm.marcarouter) === true) ? vm.marcarouter : '',
         'UPS': (isvalid(vm.upsserie) === true) ? vm.upsserie : '',
         'WiFi': (isvalid(vm.wifiserie) === true) ? vm.wifiserie : '',
-        'Instalacion': ischecked('Instalación'),
-        'InstalacionDemo': ischecked('Instalación Demo/Piloto'),
-        'Apuntamiento': ischecked('Apuntamiento'),
-        'Reubicacion': ischecked('Reubicación'),
-        'CambioComponentes': ischecked('Cambio de componentes'),
-        'Mantenimiento': ischecked('Mantenimiento'),
-        'SiteSurvey': ischecked('Site Survey'),
+        'Instalacion': vm.Instalacion,
+        'InstalacionDemo': vm.InstalacionDemo,
+        'Apuntamiento': vm.Apuntamiento,
+        'Reubicacion': vm.Reubicacion,
+        'CambioComponentes': vm.CambioComponentes,
+        'Mantenimiento': vm.Mantenimiento,
+        'SiteSurvey': vm.SiteSurvey,
         'Detalles': (isvalid(vm.detalleinstalacion) === true) ? vm.detalleinstalacion : '',
-        'Folio': (isvalid(vm.folio) === true) ? vm.folio : 0,
-        'Clv_Orden': (isvalid(vm.numeroOrden) === true) ? vm.numeroOrden : 0,
+        'Folio': (isvalid(vm.numerofolio) === true) ? vm.numerofolio : 0,
+        'Clv_Orden': (isvalid(vm.numeroorden) === true) ? vm.numeroorden : 0,
         'IdUsuario': $localStorage.currentUser.idUsuario
       };
 
-
       memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
-
         vm.IdMemoriaTecnica = response.GetGuardaMemoriaTecnicaListResult[0].IdMemoriaTecnica;
         var file_options = [];
         var files = [];
@@ -263,21 +180,25 @@ angular
           memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options).then(function (data) {
             ngNotify.set('las imagenes se han guardado correctamente', 'success');
             vm.uploader.clearQueue();
+            var equipos_ = [];
+            vm.cambios.forEach(function (item) {
+              var equipo = {}
+              equipo.IdEquipoSustituir = 0;
+              equipo.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+              equipo.Equipo = item.Equipo;
+              equipo.SerieAnterior = item.SerieAnterior;
+              equipo.SerieNueva = item.SerieNueva;
+              equipo.Opcion = item.Opcion;
+              equipos_.push(equipo)
+            });
+            memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
+              ngNotify.set('La memoria técnica se ha guardado correctamente', 'success')
+              $state.go('home.memoria.memoriastecnicas');
+            });
+
+
           });
         }
-        /*var Parametros = {
-          'IdMemoriaTecnica': vm.IdMemoriaTecnica,
-          'Equipo': vm.cambios[0].equiposurtir,
-          'SerieAnterior': vm.cambios[0].serieanterior,
-          'SerieNueva': vm.cambios[0].serienueva
-        };
-
-        memoriaFactory.GuardaEquiposSustituir(Parametros).then(function (data) {
-          ngNotify.set('La memoria técnica se ha guardado correctamente ', 'success');
-
-       
-
-        });*/
 
       });
 

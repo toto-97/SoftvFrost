@@ -28,7 +28,8 @@ angular.module('softvFrostApp', [
 		'permission', 'permission.ui',
 		'ui.mask','ngCsv',
 		'fixed.table.header',
-		'angularFileUpload'
+		'angularFileUpload',
+		'bootstrapLightbox'
 
 
 

@@ -6,22 +6,26 @@ angular
     var paths = {
       GuardaMemoriaTecnica: '/GuardaMemoriaTecnica/GetGuardaMemoriaTecnicaList',
       BuscaMemoriaTecnica: '/BuscaMemoriaTecnica/GetBuscaMemoriaTecnicaList',
-      GuardaImagenesMemoriaTecnica: '/GuardaImagenesMemoriaTecnica/GetGuardaImagenesMemoriaTecnicaList', 
+      GuardaImagenesMemoriaTecnica: '/GuardaImagenesMemoriaTecnica/GetGuardaImagenesMemoriaTecnicaList',
       GuardaObservacionMemoriaTecnica: '/GuardaObservacionMemoriaTecnica/GetGuardaObservacionMemoriaTecnicaList',
       GuardaEquiposSustituir: '/GuardaEquiposSustituir/GetGuardaEquiposSustituirList',
-      ObtieneTiposImagenes:'/ObtieneTiposImagenes/GetObtieneTiposImagenesList',
-      GetObtieneImagenesMemoriaTecnica:'/GuardaImagenesMemoriaTecnica/GetObtieneImagenesMemoriaTecnica'
+      ObtieneTiposImagenes: '/ObtieneTiposImagenes/GetObtieneTiposImagenesList',
+      GetObtieneImagenesMemoriaTecnica: '/GuardaImagenesMemoriaTecnica/GetObtieneImagenesMemoriaTecnica',
+      GetObtieneMemoriaTecnica: '/GuardaMemoriaTecnica/GetObtieneMemoriaTecnica',
+      UpdateGuardaMemoriaTecnica: '/GuardaMemoriaTecnica/UpdateGuardaMemoriaTecnica',
+      GetObtieneEquiposSustituir: '/GuardaEquiposSustituir/GetObtieneEquiposSustituir'
     };
 
-    factory.GuardaImagenesMemoriaTecnica = function (file,orden,options) {
+    factory.GuardaImagenesMemoriaTecnica = function (file, orden, options,eliminadas) {
       var deferred = $q.defer();
       var data = new FormData();
       for (var i = 0; i < file.length; i++) {
-         data.append('file' + i, file[i]);       
+        data.append('file' + i, file[i]);
       }
-       data.append('orden', orden);
-       data.append('options', JSON.stringify(options));
-    
+      data.append('orden', orden);
+      data.append('options', JSON.stringify(options));
+      data.append('eliminadas', JSON.stringify(eliminadas));
+
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token,
@@ -38,6 +42,46 @@ angular
     };
 
 
+    factory.GetObtieneEquiposSustituir = function (IdMemoriaTecnica) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'IdMemoriaTecnica': IdMemoriaTecnica
+      };
+      $http.post(globalService.getUrl() + paths.GetObtieneEquiposSustituir, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+    factory.GetObtieneMemoriaTecnica = function (IdMemoriaTecnica) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'IdMemoriaTecnica': IdMemoriaTecnica
+      };
+      $http.post(globalService.getUrl() + paths.GetObtieneMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
 
 
     factory.GetObtieneImagenesMemoriaTecnica = function (IdMemoriaTecnica) {
@@ -48,7 +92,7 @@ angular
         }
       };
       var Parametros = {
-        'IdMemoriaTecnica':IdMemoriaTecnica        
+        'IdMemoriaTecnica': IdMemoriaTecnica
       };
       $http.post(globalService.getUrl() + paths.GetObtieneImagenesMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
@@ -61,7 +105,7 @@ angular
 
 
 
-    factory.GuardaEquiposSustituir = function (object) {
+    factory.GuardaEquiposSustituir = function (equipos) {
       var deferred = $q.defer();
       var config = {
         headers: {
@@ -69,11 +113,7 @@ angular
         }
       };
       var Parametros = {
-        'IdMemoriaTecnica': object.IdMemoriaTecnica,
-        'Equipo': object.Equipo,
-        'SerieAnterior': object.SerieAnterior,
-        'SerieNueva': object.SerieNueva
-
+        'equipos': equipos
       };
       $http.post(globalService.getUrl() + paths.GuardaEquiposSustituir, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
@@ -84,7 +124,7 @@ angular
       return deferred.promise;
     };
 
-    
+
 
     factory.ObtieneTiposImagenes = function () {
       var deferred = $q.defer();
@@ -92,7 +132,7 @@ angular
         headers: {
           'Authorization': $localStorage.currentUser.token
         }
-      };      
+      };
       $http.get(globalService.getUrl() + paths.ObtieneTiposImagenes, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (data) {
@@ -101,6 +141,31 @@ angular
 
       return deferred.promise;
     };
+
+
+
+
+
+    factory.UpdateGuardaMemoriaTecnica = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'objGuardaMemoriaTecnica': obj
+      };
+      $http.post(globalService.getUrl() + paths.UpdateGuardaMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+
 
 
     factory.GuardaMemoriaTecnica = function (obj) {

@@ -41,6 +41,16 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
       controller: 'detallememoriatecnicaCtrl',
       controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.editarmemoria',
+      data: {
+        pageTitle: 'SOFTV | EDITAR MEMORIA TECNICA',
+      },
+      url: '/memoriastecnicas/edit/:id',
+      templateUrl: 'views/memorias/nuevamemoriatecnica.html',
+      controller: 'editamemoriatecnicaCtrl',
+      controllerAs: '$ctrl'
     }
   ];
 

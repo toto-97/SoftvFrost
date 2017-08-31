@@ -26,7 +26,7 @@ angular.module('softvFrostApp')
 
     //rutas locales
     svc.getUrl = function () {
-      return 'http://192.168.50.33:3000/SoftvWCFService.svc';
+      return 'http://localhost:64481/SoftvWCFService.svc';
 
     };
 
@@ -36,7 +36,7 @@ angular.module('softvFrostApp')
     };
 
     svc.getUrlmemoriatecnica = function () {
-      return 'http://192.168.50.33:3000/MemoriaTecnica';
+      return 'http://localhost:64481/MemoriaTecnica';
 
     };
     svc.getUrlHughesService = function () {
