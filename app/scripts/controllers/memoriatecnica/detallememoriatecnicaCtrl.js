@@ -10,10 +10,11 @@ angular
 
           memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
             vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
-            vm.Lista_evidencias.forEach(function (item) {
-              item.Ruta = globalService.getUrlmemoriatecnica() + '/' + item.Ruta;
-              item.url = item.Ruta;
-              item.thumbUrl = item.Ruta;
+            vm.Lista_evidencias.forEach(function (item) {             
+              item.Ruta = item.Ruta;
+              item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+              item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+              item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
             });
 
             console.log(vm.Lista_evidencias);
@@ -65,7 +66,7 @@ angular
         vm.serieradio = det.Radio;
         vm.Reubicacion = det.Reubicacion;
         vm.serierouter = det.Router;
-        vm.SAN=det.SAN;
+        vm.SAN = det.SAN;
         vm.sqf = det.SQF;
         vm.plan = det.Servicio;
         vm.siteid = det.SiteId;
@@ -81,7 +82,7 @@ angular
         vm.upcneutrotierra = det.VUPSNeutroTierra;
         vm.velocidad = det.Velocidad;
         vm.wifiserie = det.WiFi;
-        vm.numeroorden=det.Clv_Orden;
+        vm.numeroorden = det.Clv_Orden;
       }
 
 

@@ -32,7 +32,9 @@ angular
           'Content-Type': undefined
         }
       };
-      $http.post(globalService.getUrl() + paths.GuardaImagenesMemoriaTecnica, data, config).then(function (response) {
+      console.log(data);
+      console.log(config);
+      $http.post(globalService.getUrlmemoriatecnica() + paths.GuardaImagenesMemoriaTecnica, data, config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (response) {
         deferred.reject(response);

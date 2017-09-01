@@ -13,9 +13,9 @@ angular
               vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
               vm.Lista_evidencias.forEach(function (item) {
                 item.Ruta =  item.Ruta; 
-                item.url = globalService.getUrlmemoriatecnica() + '/'+item.Ruta;
-                item.thumbUrl = globalService.getUrlmemoriatecnica() + '/'+item.Ruta;              
-                item.RutaCompleta=globalService.getUrlmemoriatecnica() + '/' + item.Ruta;
+                item.url = globalService.getUrlmemoriatecnicaImages() + '/'+item.Ruta;
+                item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/'+item.Ruta;              
+                item.RutaCompleta=globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.Opcion = 3;
               });
 
