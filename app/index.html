@@ -13,12 +13,14 @@
   <link rel="stylesheet" href="bower_components/ng-notify/src/styles/ng-notify.css" />
   <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.css" />
   <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild -->
-  <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'
+  />
   <link type="text/css" rel="stylesheet" href="libs/theme-default/materialadmin.css?1425466319" />
   <link type="text/css" rel="stylesheet" href="libs/theme-default/font-awesome.min.css?1422529194" />
   <link type="text/css" rel="stylesheet" href="libs/theme-default/material-design-iconic-font.min.css?1421434286" />
@@ -73,12 +75,15 @@
   <script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
   <script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
   <script src="bower_components/angular-fixed-table-header/src/fixed-table-header.js"></script>
+  <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+  <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/modules.js"></script>
+  <script src="scripts/directives/ngThumb.js"></script>
   <script src="scripts/factories/permissionsFactory.js"></script>
   <script src="scripts/controllers/main.js"></script>
   <script src="scripts/controllers/login/LoginCtrl.js"></script>
@@ -148,8 +153,52 @@
   <script src="scripts/controllers/reportes/Reportes_generalPlataforma.js"></script>
   <script src="scripts/controllers/reportes/Reportes_datosDelSuscriptor.js"></script>
   <script src="scripts/controllers/reportes/Reportes_contrato.js"></script>
-  <!-- endbuild -->   
+
+  <!--procesos-->
+  <script src="scripts/controllers/procesos/modules.js"></script>
+  <script src="scripts/controllers/procesos/atencion/atencion.js"></script>
+  <script src="scripts/controllers/procesos/atencion/atencion.js"></script>
+  <script src="scripts/controllers/procesos/atencion/atencionDetalle.js"></script>
+  <script src="scripts/controllers/procesos/atencion/AtencionEditarCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/AtencionNuevaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalStatusClienteCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalAgendaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalBuscaClienteCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalDetalleCobroCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalDetalleLlamadaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalPreguntaAtencionCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalReportesCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalTicketsCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalSingleTicketCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalSingleNotaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalSingleQuejaCtrl.js"></script>
+
+  <script src="scripts/controllers/procesos/quejas/ModalAgendaQuejaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/ModalBonificacionCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/ModalConsultaQuejaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/quejasCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/ModalDescargaMaterialCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/ModalEliminaQuejaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/QuejaDetalleCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/QuejaEjecutaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/quejas/ModalAvancesCtrl.js"></script>
+
+  <script src="scripts/controllers/memoriatecnica/modules.js"></script>
+  <script src="scripts/controllers/memoriatecnica/detallememoriatecnicaCtrl.js"></script>
+  <script src="scripts/controllers/memoriatecnica/editamemoriatecnicaCtrl.js"></script>
+  <script src="scripts/controllers/memoriatecnica/memoriatecnicaCtrl.js"></script>
+  <script src="scripts/controllers/memoriatecnica/nuevamemoriatecnicaCtrl.js"></script>
+
+
+
+
+  <script src="scripts/factories/atencionFactory.js"></script>
+  <script src="scripts/factories/cajasFactory.js"></script>
+  <script src="scripts/factories/quejasFactory.js"></script>
+  <script src="scripts/factories/DescargaMaterialFactory.js"></script>
+  <script src="scripts/factories/OrdenesFactory.js"></script>
+  <script src="scripts/factories/memoriaFactory.js"></script>
+  <!-- endbuild -->
 
 
 </html>
-

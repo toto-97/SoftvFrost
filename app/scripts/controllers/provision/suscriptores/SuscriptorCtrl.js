@@ -67,7 +67,10 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
 
 
     } else if (id == 4) {
-      if (vm.brefe == '') {
+       if ((vm.bnombre == ''||vm.bnombre ==undefined) 
+       &&( vm.bApellidos==''||vm.bApellidos==undefined)
+       &&( vm.brefe==''|| vm.brefe==undefined)
+       ) {
         vm.tipoBusqueda = 0;
       } else {
         vm.bsan = '';
@@ -154,7 +157,7 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
       };
     }
 
-    if (vm.tipoBusqueda == undefined || vm.tipoBusqueda == 0) {
+   if (vm.tipoBusqueda == undefined || vm.tipoBusqueda == 0) {
       SuscriptorFactory.getSuscriptorList().then(function (data) {
         vm.suscriptores = data.GetSuscriptorListResult;
         $('.buscarSuscriptor').collapse('hide');

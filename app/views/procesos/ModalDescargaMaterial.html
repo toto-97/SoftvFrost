@@ -1,0 +1,138 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title"><i class="fa fa-thumb-tack"></i> Descarga material técnicos</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+  <div class="row">
+    <div class="col-sm-2">
+      <p>No. Bitácora:</p>
+    </div>
+    <div class="col-md-2">
+      <input type="text" class="form-control" ng-model="ctrl.No_Bitacora" disabled>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <p>Clasificación del material:</p>
+      <select 
+        class="form-control" 
+        name="material" 
+        ng-disabled="ctrl.Detalle"
+        ng-model="ctrl.SlctMaterial" 
+        ng-options="M.Descripcion for M in ctrl.Material track by M.catTipoArticuloClave"
+        ng-change="ctrl.BuscarNombreArticulo()">
+        <option value="">---Selecciona----</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <p>Descripción de artículo:</p>
+      <select 
+        class="form-control" 
+        name="articulo"
+        ng-disabled="ctrl.Detalle"
+        ng-model="ctrl.SlctArticulo"
+        ng-options="A.Nombre for A in ctrl.DescripcionArticulo track by A.IdArticulo"
+        ng-change="ctrl.BuscarTipoArticulo()">
+        <option value="">---Selecciona----</option>
+      </select>
+    </div>
+    
+    <div class="col-md-4">
+      <p ng-show="ctrl.MostrarCD">Cantidad</p>
+      <input type="number" class="form-control" ng-disabled="ctrl.Detalle" ng-model="ctrl.CantidadDescarga" ng-show="ctrl.MostrarCD">
+      <p ng-show="ctrl.MostrarTM">Metraje:</p>
+      <select class="form-control" ng-model="ctrl.TipoMetraje" ng-change="ctrl.SlctTipoMetraje()" ng-show="ctrl.MostrarTM">
+        <option value="I">Interior</option>
+        <option value="E">Exterior</option>
+      </select>
+    </div>
+    <!--
+    <div class="col-md-1">
+      <br>
+      <p ng-show="ctrl.MostrarTM">Metraje Interior</p>
+      <br>
+      <p ng-show="ctrl.MostrarTM">Exterior</p>
+    </div>
+    -->
+    <div class="col-md-2">
+      <p ng-show="ctrl.MostrarTM">Inicial</p>
+      <div>
+      <input type="number" class="form-control" ng-model="ctrl.MetrajeII" ng-show="ctrl.MostrarMII" placeholder="II">
+      <input type="number" class="form-control" ng-model="ctrl.MetrajeIE" ng-show="ctrl.MostrarMIE" placeholder="IE">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <p ng-show="ctrl.MostrarTM">Final</p>
+      <div>
+      <input type="number" class="form-control" ng-model="ctrl.MetrajeFI" ng-show="ctrl.MostrarMFI" placeholder="FI">
+      <input type="number" class="form-control" ng-model="ctrl.MetrajeFE" ng-show="ctrl.MostrarMFE" placeholder="FE">
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <button title="Agregar un artículo" class="btn btn-info btn-sm" ng-disabled="ctrl.Detalle" ng-click="ctrl.AgregarArticulo()">Agregar</button>
+    </div>
+  </div>
+  <br>
+  <!--inculyendo metraje exterior
+  <div class="row">
+    <table class="table">
+      <thead>
+        <th>Clave</th>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Técnico</th>
+        <th>Metraje inicial int.</th>
+        <th>Metraje final int.</th>
+        <th>Opciones</th>
+      </thead>
+      <tbody ng-model="ctrl.datos" ng-repeat="D in ctrl.DesMatArt">
+        <td>{{ D.Clave}}</td>
+        <td> {{D.Descripcion}} </td>
+        <td> {{D.Cantidad}} </td>
+        <td> {{D.Tecnico}} </td>
+        <td> {{D.metrajeInicio}} </td>
+        <td> {{D.metrajeFin}} </td>
+        <td> <button title="Eliminar artículo" class="btn btn-xs btn-danger " ng-click="ctrl.EliminarArticulo(D.Clave)" ng-disabled="ctrl.Detalle"><i class="fa fa-trash"></i> Eliminar</button> </td>
+      </tbody>
+    </table>
+  </div>
+  
+  -->
+  <div class="row">
+    <table class="table">
+      <thead>
+        <th>Clave</th>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Tecnico</th>
+        <th>Metraje inicial int.</th>
+        <th>Metraje final int.</th>
+        <th>Metraje inicial ext.</th>
+        <th>Metraje final ext.</th>
+        <th>Opciones</th>
+      </thead>
+      <tbody ng-model="ctrl.datos" ng-repeat="D in ctrl.DesMatArt">
+        <td>{{ D.Clave}}</td>
+        <td> {{D.Descripcion}} </td>
+        <td> {{D.Cantidad}} </td>
+        <td> {{D.Tecnico}} </td>
+        <td> {{D.metrajeInicio}} </td>
+        <td> {{D.metrajeFin}} </td>
+        <td> {{D.metrajeInicioExterior}} </td>
+        <td> {{D.metrajeFinExterior}} </td>
+        <td> <button title="Eliminar artículo" class="btn btn-xs btn-danger " ng-click="ctrl.EliminarArticulo(D.Clave)"><i class="fa fa-trash"></i> Eliminar</button> </td>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="modal-footer">
+  <button title="Cancelar cambios" class="btn btn-default-bright btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+  <button title="Guardar cambios" class="btn btn-primary btn-sm" type="button" ng-disabled="ctrl.Detalle" ng-click="ctrl.ok()">Guardar</button>
+</div>

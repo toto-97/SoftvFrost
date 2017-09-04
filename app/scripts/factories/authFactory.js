@@ -24,7 +24,8 @@ angular.module('softvFrostApp')
 							idRol: response.data.LogOnResult.IdRol,
 							idUsuario: response.data.LogOnResult.IdUsuario,
 							usuario: response.data.LogOnResult.Usuario,
-							menu: response.data.LogOnResult.Menu
+							menu: response.data.LogOnResult.Menu,
+							usuariosac:response.data.LogOnResult.UsuarioSAC
 						};
 						console.log($localStorage.currentUser);
 						deferred.resolve(true);
