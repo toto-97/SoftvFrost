@@ -121,7 +121,42 @@
       <br>
       <button class="btn pull-right btn-raised btn-success" type="button" ng-click="ctrl.aplicaComando()">Aplicar</button>
     </div>
-</div>
+  </div>
+  <!--Div de Cambio de coordenadas-->
+  <div class="form-group text-center row"  ng-if="ctrl.Comando.IdComando == 11" style="margin-left:20px;">
+    <h5><b>Nuevas Coordenadas y Validación de Cobertura</b></h5>
+    <div class="col-md-4">
+      <b>Latitud</b>
+      <input type="text" class="form-control" name="latitus" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+        required validate-on="dirty" placeholder="Ejemplo: 12.256555" ng-model="ctrl.LatitudNueva">
+    </div>
+    <div class="col-md-4">
+      <b>Longuitud</b><br>
+      <input type="text" name="longitud" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty"
+        class="form-control" placeholder="Ejemplo: -2.2888555" ng-model="ctrl.LongitudNueva">
+    </div>
+    <div class="col-md-1" style="margin-top:20px;">
+      <a class="btn btn-warning btn-sm" ng-click="ctrl.BuscaLatLong()"><i class="fa fa-globe"></i></a>
+    </div>
+  </div>
+  <div class="form-group text-center row"  ng-if="ctrl.Comando.IdComando == 11">
+    <br>
+    <div class="col-md-4" >
+      <a class="btn btn-primary btn-sm" ng-click="ctrl.ValidarServicio()"><i class="fa fa-check-square"></i> Validar Cobertura</a>
+    </div>
+    <div class="col-md-2">
+      <b>Beam a Mover</b><br>
+      <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="ctrl.BeamIDNuevo" ng-disabled="true"
+      />
+    </div>
+    <div class="col-md-2">
+      <b>Satellite a Mover</b><br>
+      <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="ctrl.SatelliteIDNuevo" ng-disabled="true"
+      />
+    </div>
+  </div>
+  
+
 <div class="modal-footer">
     <button class="btn btn-default" type="button" ng-click="ctrl.cancel()">Cerrar</button>
 </div>

@@ -14,30 +14,50 @@
 	      <div class="panel form-element-padding">
 	         <div class="row form-group text-center">
 	            <h5><b>Gráfica de Consumo de Terminal por Fechas</b></h5>
-	            <div class="col-md-2">
-	               <b>Fecha Inicio</b><br>
+	            <div class="col-md-4">
+	               <b>Fecha Inicio</b>
 	               <input type="datetime-local" class="form-control input-sm" validate-on="dirty" name="fecha" required-message="'Este campo es obligatorio.'"
 	                  required validate-on="dirty" ng-model="ctrl.FechaInicio">
 	            </div>
-	            <div class="col-md-2">
-	               <b>Fecha Fin</b><br>
+	            <div class="col-md-4">
+	               <b>Fecha Fin</b>
 	               <input type="datetime-local" class="form-control input-sm" validate-on="dirty" name="fecha" required-message="'Este campo es obligatorio.'"
 	                  required validate-on="dirty" ng-model="ctrl.FechaFin">
 	            </div>
-	            <div class="col-md-4">
-                        <label class="text-muted">Beam</label>
-                        <select class="form-control input-sm" ng-model="$ctrl.beam" ng-options="v.Name for v in $ctrl.Beams track by v.BeamId ">
-                         <option value="">Selecciona</option>
-                         </select>
+	            <div class="col-md-2">
+					<b>Beam</b>
+					<select class="form-control input-sm" ng-model="$ctrl.beam" ng-options="v.Name for v in $ctrl.Beams track by v.BeamId ">
+						<option value="">Selecciona</option>
+					</select>
                 </div>
 	            <div class="col-md-2">
 	               <button class="btn pull-right btn-raised btn-success" type="button" ng-click="$ctrl.graficar()">Graficar</button>
 	            </div>
 	         </div>
 	         <div class="row form-group">
-	            <div class="col-md-12">
+	            <div class="col-md-8" style="margin-top:10px">
 	               <canvas id="chartjs-0" class="chartjs" width="770" height="385" style="display: block; width: 770px; height: 385px;"></canvas>
-	            </div>
+				</div>
+				<div class="col-md-4" style="margin-top:10px">
+					<div class="panel form-element-padding" >
+						<table class="table">
+							<thead>
+								<tr>
+								<th>Status Técnico</th>
+								<th>Cantidad</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr dir-paginate="x in $ctrl.resultados|itemsPerPage:15">
+								<td>{{ x.TerminalStatus }}</td>
+								<td>{{ x.Cantidad }}</td>
+								</tr>
+							</tbody>
+						</table>
+						<dir-pagination-controls max-size="15" direction-links="true" boundary-links="true">
+        				</dir-pagination-controls>
+					</div>
+				</div>
 	         </div>
 	      </div>
 	    </div>

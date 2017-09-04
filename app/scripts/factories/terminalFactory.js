@@ -30,7 +30,8 @@ angular.module('softvFrostApp')
             GetValidaEjecucionComando:'/Comando/GetValidaEjecucionComando',			
 			hughesSwap: '/Swap',
 			hughesHistoricoConsumo: '/Historico',
-			hughesConsumoGrafica: '/ConsumoGrafica'
+			hughesConsumoGrafica: '/ConsumoGrafica',
+			hughesCambioCoordenadas: '/CambioCoordenadas'
 		};
 
 		factory.sigleMovimiento = function(id) {
@@ -499,6 +500,19 @@ angular.module('softvFrostApp')
 			
 			var parametros = obj;
 			$http.post(globalService.getUrlHughesService() + paths.hughesConsumoGrafica, JSON.stringify(parametros)).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.hughesCambioCoordenadas = function(obj) {
+			var deferred = $q.defer();
+			
+			var parametros = obj;
+			$http.post(globalService.getUrlHughesService() + paths.hughesCambioCoordenadas, JSON.stringify(parametros)).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
