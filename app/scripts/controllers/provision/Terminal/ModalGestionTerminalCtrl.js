@@ -12,32 +12,63 @@ angular
         console.log(data);
         //Vamos a dejar los comandos dependiendo del estado de la terminal
         if (vm.Terminal.Estatus == "Incompleta") { //Pendiente
-          vm.Comandos.splice(9, 1);
-          vm.Comandos.splice(8, 1);
-          vm.Comandos.splice(7, 1);
-          vm.Comandos.splice(6, 1);
-          vm.Comandos.splice(5, 1);
-          vm.Comandos.splice(4, 1);
-          vm.Comandos.splice(3, 1);
-          vm.Comandos.splice(2, 1);
-          vm.Comandos.splice(1, 1);
+          var index = 0;
+          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
+          vm.Comandos.splice(index, 1);
         } else if (vm.Terminal.Estatus == "Pendiente") { //Pendiente
-          vm.Comandos.splice(9, 1);
-          vm.Comandos.splice(8, 1);
-          vm.Comandos.splice(7, 1);
-          vm.Comandos.splice(6, 1);
-          vm.Comandos.splice(5, 1);
-          vm.Comandos.splice(4, 1);
-          vm.Comandos.splice(3, 1);
-          vm.Comandos.splice(2, 1);
-          vm.Comandos.splice(1, 1);
-          vm.Comandos.splice(0, 1);
+          var index = 0;
+          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
+          vm.Comandos.splice(index, 1);
         } else if (vm.Terminal.Estatus == "Activa") { //Activa
-          vm.Comandos.splice(8, 1);
-          vm.Comandos.splice(7, 1);
-          vm.Comandos.splice(6, 1);
-          vm.Comandos.splice(2, 1);
-          vm.Comandos.splice(0, 1);
+          var index = 0;
+          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
+          vm.Comandos.splice(index, 1);
           terminalFactory.getServicioList().then(function (data) {
             vm.Servicios = data.GetServicioListResult;
           });
@@ -64,14 +95,24 @@ angular
           });
           console.log(vm.Comandos);
         } else if (vm.Terminal.Estatus == "Suspendida") { //Suspendida
-          vm.Comandos.splice(9, 1);
-          vm.Comandos.splice(8, 1);
-          vm.Comandos.splice(7, 1);
-          vm.Comandos.splice(6, 1);
-          vm.Comandos.splice(5, 1);
-          vm.Comandos.splice(4, 1);
-          vm.Comandos.splice(1, 1);
-          vm.Comandos.splice(0, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Activar Terminal");
+          vm.Comandos.splice(index, 1);
           //Nos vamos a traer el fap status y el consumo
           var obj = new Object();
           obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
@@ -86,16 +127,29 @@ angular
             }
           });
         } else if (vm.Terminal.Estatus == "Cancelada") { //Cancelada
-          vm.Comandos.splice(9, 1);
-          vm.Comandos.splice(8, 1);
-          vm.Comandos.splice(7, 1);
-          vm.Comandos.splice(6, 1);
-          vm.Comandos.splice(5, 1);
-          vm.Comandos.splice(4, 1);
-          vm.Comandos.splice(3, 1);
-          vm.Comandos.splice(2, 1);
-          vm.Comandos.splice(1, 1);
-          vm.Comandos.splice(0, 1);
+          var index = 0;
+          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
+          vm.Comandos.splice(index, 1);
+          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
+          vm.Comandos.splice(index, 1);
         }
       });
     }
@@ -136,9 +190,9 @@ angular
                   obj.servicio = vm.Terminal.Servicio;
                   //Validamos las coordenadas para traernos el satelite y el beam
                   var parametros = new Object();
-                  parametros.servicio = vm.Servicio.Nombre;
-                  parametros.latitud = vm.Latitud;
-                  parametros.longitud = vm.Longuitud;
+                  parametros.servicio = vm.Terminal.Servicio;
+                  parametros.latitud = vm.Terminal.Latitud;
+                  parametros.longitud = vm.Terminal.Longitud;
                   terminalFactory.hughesValidaServicio(parametros).then(function (hughesDataSPQ) {
                     //console.log(hughesData);
                     vm.BeamID = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.BeamID;
@@ -603,6 +657,71 @@ angular
               terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {});
             });
           }
+          else if (vm.Comando.IdComando == 11) //Move
+          {
+            if (vm.BeamIDNuevo != '' && vm.BeamIDNuevo != null)
+            {
+              parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+              console.log("Aqui");
+              terminalFactory.hughesCambioCoordenadas(parametros).then(function (hughesData) {
+                console.log(hughesData);
+                //Guarda el movimiento
+                var Obj2 = new Object();
+                Obj2.objMovimiento = new Object();
+                Obj2.objMovimiento.SAN = vm.Terminal.SAN;
+                Obj2.objMovimiento.IdComando = 11; //Hardcodeado a la tabla de Comando
+                Obj2.objMovimiento.IdUsuario = 0;
+                Obj2.objMovimiento.IdTicket = 0;
+                Obj2.objMovimiento.OrderId = 0;
+                vm.fechaAuxiliar = new Date();
+                Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+                Obj2.objMovimiento.Mensaje = hughesData.message;
+                Obj2.objMovimiento.IdOrigen = 2; //Hardcodeado a la tabla de OrigenMovimiento
+                Obj2.objMovimiento.Detalle1 = vm.Terminal.Latitud + '/' + vm.Terminal.Longitud;
+                Obj2.objMovimiento.Detalle2 = vm.LatitudNueva + '/' + vm.LongitudNueva;
+                //Vamos a procesar dependiendo del status obtenido de hughes
+                if (hughesData.message != "OK") {
+                  ngNotify.set('Error al aplicar comando Move. Consulte el detalle del movimiento para más información', 'error');
+                  //Ponemos el movimiento como no exitoso
+                  Obj2.objMovimiento.Exitoso = 0;
+                } else {
+                  //Ponemos el movimiento como  exitoso
+                  Obj2.objMovimiento.Exitoso = 1;
+                  var Obj4 = new Object();
+                  Obj4.objTerminal = new Object();
+                  Obj4.objTerminal.SatellitedID = vm.SatelliteIDNuevo;
+                  Obj4.objTerminal.BeamID = vm.BeamIDNuevo;
+                  Obj4.objTerminal.Polarization = vm.PolarizationNuevo;
+                  Obj4.objTerminal.SAN = vm.Terminal.SAN;
+                  //Actualizamos información adicional de la terminal
+                  console.log(Obj4);
+                  terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
+                    //Actualiza el estatus en la base en caso de que haya sido exitoso
+                    var Obj3 = new Object();
+                    Obj3.objTerminal = new Object();
+                    Obj3.objTerminal.SAN = vm.Terminal.SAN;
+                    Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
+                    Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
+                    Obj3.objTerminal.Latitud = vm.LatitudNueva;
+                    Obj3.objTerminal.Longitud = vm.LongitudNueva;
+                    Obj3.objTerminal.Estatus = vm.Terminal.Estatus;
+                    Obj3.objTerminal.FechaAlta = vm.Terminal.FechaAlta;
+                    Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
+                    Obj3.objTerminal.ESN = vm.Terminal.ESN;
+                    Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
+                    terminalFactory.updateTerminal(Obj3).then(function (data) {
+                      ngNotify.set('Move aplicado correctamente', 'success');
+                    });
+                  });
+                }
+                terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {});
+              });
+            }
+            else
+            {
+              ngNotify.set('Es necesario validar las nuevas coordenadas para aplicar el comando Move', 'info');
+            }
+          }
         }
       });
     }
@@ -625,11 +744,65 @@ angular
       return globalService.getType() + a;
     };
 
+    function BuscaLatLong() {
+      var obj = {
+        lat: 23.96617587126503,
+        long: -101.953125
+      };
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/provision/ModalGetLatLong.html',
+        controller: 'ModalGetLatLongCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: 'lg',
+        resolve: {
+          datosGis: function () {
+            return obj;
+          }
+        }
+      });
+    }
+
+    $rootScope.$on('get_LatLong', function (e, detalle) {
+      vm.LatitudNueva = detalle[0];
+      vm.LongitudNueva = detalle[1];
+    });
+
+    function ValidarServicio() {
+      if((vm.LatitudNueva != '' && vm.LongitudNueva != '') && (vm.LatitudNueva != null && vm.LongitudNueva != null))
+      {
+        var parametros = new Object();
+        parametros.servicio = vm.Terminal.Servicio;
+        parametros.latitud = vm.LatitudNueva;
+        parametros.longitud = vm.LongitudNueva;
+        //Obtiene el nombre del frupo de servicios disponibles en esa área
+        terminalFactory.hughesValidaServicio(parametros).then(function (hughesData) {
+          console.log(hughesData);
+          if (hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.AvailabilityFlag != 'true') {
+            ngNotify.set('Sin área de cobertura', 'error');
+          } else {
+            ngNotify.set('Dentro del área de cobertura','success');
+            vm.BeamIDNuevo = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.BeamID;
+            vm.SatelliteIDNuevo = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.SatellitedID;
+            vm.PolarizationNuevo = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
+          }
+        });
+      }
+      else{
+        ngNotify.set('Es necesario capturar las coordenadas para validar el servicio','info');
+      }
+    }
+
     var vm = this;
     vm.cancel = cancel;
     vm.ok = ok;
     initialData();
     vm.aplicaComando = aplicaComando;
-
+    vm.BuscaLatLong = BuscaLatLong;
+    vm.ValidarServicio = ValidarServicio;
 
   });

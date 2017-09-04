@@ -40,7 +40,8 @@ angular.module('softvFrostApp')
 
      };
      svc.getUrlHughesService = function () {
-       return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
+       //return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
+       return 'http://localhost:21590/SoftvFrostAPI';
      };
 
      svc.getUrlBeams = function () {
@@ -53,7 +54,7 @@ angular.module('softvFrostApp')
      };
 
      svc.getType = function () {
-       return 'TLV';
+       return 'TEV';
 
      };
 
