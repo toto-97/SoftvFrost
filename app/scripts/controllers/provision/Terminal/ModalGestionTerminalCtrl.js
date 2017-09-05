@@ -11,73 +11,44 @@ angular
         vm.Comandos = data.GetComandoListResult;
         console.log(data);
         //Vamos a dejar los comandos dependiendo del estado de la terminal
-        if (vm.Terminal.Estatus == "Incompleta") { //Pendiente
-          var index = 0;
-          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
-          vm.Comandos.splice(index, 1);
+        if (vm.Terminal.Estatus == "Incompleta") { //Incompleta
+          obtieneIndex("Suspender Terminal");
+          obtieneIndex("Reactivar Terminal");
+          obtieneIndex("Cancelar Terminal");
+          obtieneIndex("Cambiar servicio");
+          obtieneIndex("Ver status de Movimiento");
+          obtieneIndex("Cancelar Movimiento");
+          obtieneIndex("Activar terminal");
+          obtieneIndex("Swap");
+          obtieneIndex("Mover");
+          obtieneIndex("Token");
         } else if (vm.Terminal.Estatus == "Pendiente") { //Pendiente
-          var index = 0;
-          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
-          vm.Comandos.splice(index, 1);
+          obtieneIndex("Suspender Terminal");
+          obtieneIndex("Reactivar Terminal");
+          obtieneIndex("Cancelar Terminal");
+          obtieneIndex("Crear Terminal");
+          obtieneIndex("Cambiar servicio");
+          obtieneIndex("Ver status de Movimiento");
+          obtieneIndex("Cancelar Movimiento");
+          obtieneIndex("Activar terminal");
+          obtieneIndex("Swap");
+          obtieneIndex("Mover");
+          obtieneIndex("Token");
         } else if (vm.Terminal.Estatus == "Activa") { //Activa
-          var index = 0;
-          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
-          vm.Comandos.splice(index, 1);
+          obtieneIndex("Crear Terminal");
+          obtieneIndex("Reactivar Terminal");
+          obtieneIndex("Ver status de Movimiento");
+          obtieneIndex("Cancelar Movimiento");
+          obtieneIndex("Activar terminal");
           terminalFactory.getServicioList().then(function (data) {
             vm.Servicios = data.GetServicioListResult;
           });
           //Nos vamos a traer el fap status y el consumo
-          var obj = new Object();
+          var obj = {};
           obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
           terminalFactory.hughesConsumoDeTerminal(obj).then(function (hughesData) {
             console.log(hughesData);
-            vm.Consumo = new Object();
+            vm.Consumo = {};
             vm.Consumo.Disponible = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.AnyTimeBandwidthAvailable;
             vm.Consumo.Consumido = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.AnyTimeBandwidthUsed;
             vm.Consumo.DiaRelleno = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.RefillDayOfMonth;
@@ -94,27 +65,18 @@ angular
             }
           });
           console.log(vm.Comandos);
-        } else if (vm.Terminal.Estatus == "Suspendida") { //Suspendida
-          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Activar Terminal");
-          vm.Comandos.splice(index, 1);
+        } else if (vm.Terminal.Estatus === "Suspendida") { //Suspendida
+          obtieneIndex("Crear Terminal");
+          obtieneIndex("Suspender Terminal");
+          obtieneIndex("Token");
+          obtieneIndex("Cambiar servicio");
+          obtieneIndex("Ver status de Movimiento");
+          obtieneIndex("Swap");
+          obtieneIndex("Mover");
+          obtieneIndex("Cancelar Movimiento");
+          obtieneIndex("Activar terminal");
           //Nos vamos a traer el fap status y el consumo
-          var obj = new Object();
+          var obj = {};
           obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
             console.log(hughesData);
@@ -127,36 +89,33 @@ angular
             }
           });
         } else if (vm.Terminal.Estatus == "Cancelada") { //Cancelada
-          var index = 0;
-          index = vm.Comandos.findIndex(x => x.Nombre=="Suspender Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Reactivar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Crear Terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cambiar servicio");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Ver status de Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Cancelar Movimiento");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Activar terminal");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Swap");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Habilitar Move");
-          vm.Comandos.splice(index, 1);
-          index = vm.Comandos.findIndex(x => x.Nombre=="Token");
-          vm.Comandos.splice(index, 1);
+          obtieneIndex("Suspender Terminal");
+          obtieneIndex("Reactivar Terminal");
+          obtieneIndex("Cancelar Terminal");
+          obtieneIndex("Crear Terminal");
+          obtieneIndex("Cambiar servicio");
+          obtieneIndex("Ver status de Movimiento");
+          obtieneIndex("Cancelar Movimiento");
+          obtieneIndex("Activar terminal");
+          obtieneIndex("Swap");
+          obtieneIndex("Mover");
+          obtieneIndex("Token");
         }
       });
     }
 
+    function obtieneIndex(cadena){
+      var indexAux=0;
+      vm.Comandos.forEach(function(item, index){ 
+        if (item.Nombre === cadena){
+          indexAux=index;
+        }});
+      vm.Comandos.splice(indexAux, 1);
+    }
+
     function aplicaComando() {
       console.log(vm.Terminal);
-      var parametros = new Object();
+      var parametros = {};
 
       terminalFactory.GetValidaEjecucionComando(vm.Comando.IdComando).then(function (data) {
         if (data.GetValidaEjecucionComandoResult == 0) {
@@ -170,7 +129,7 @@ angular
 
             terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
               var suscriptor = data.GetSuscriptorResult;
-              var obj = new Object();
+              var obj = {};
               //Crea la terminal en la plataforma de Hughes
               terminalFactory.getSequenceId().then(function (Sequence) {
                 obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
@@ -189,7 +148,7 @@ angular
                   obj.email = suscriptor.Email;
                   obj.servicio = vm.Terminal.Servicio;
                   //Validamos las coordenadas para traernos el satelite y el beam
-                  var parametros = new Object();
+                  var parametros = {};
                   parametros.servicio = vm.Terminal.Servicio;
                   parametros.latitud = vm.Terminal.Latitud;
                   parametros.longitud = vm.Terminal.Longitud;
@@ -200,8 +159,8 @@ angular
                     vm.Polarization = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
                     terminalFactory.hughesCrearTerminal(obj).then(function (hughesData) {
                       console.log(hughesData);
-                      var Obj2 = new Object();
-                      Obj2.objMovimiento = new Object();
+                      var Obj2 = {};
+                      Obj2.objMovimiento = {};
                       Obj2.objMovimiento.SAN = vm.Terminal.SAN;
                       Obj2.objMovimiento.IdComando = 1; //Hardcodeado a la tabla de Comando
                       Obj2.objMovimiento.IdUsuario = 0;
@@ -219,8 +178,8 @@ angular
                         Obj2.objMovimiento.Exitoso = 0;
                       } else {
                         //Actualiza el estatus en la base en caso de que haya sido exitoso
-                        var Obj3 = new Object();
-                        Obj3.objTerminal = new Object();
+                        var Obj3 = {};
+                        Obj3.objTerminal = {};
                         Obj3.objTerminal.SAN = vm.Terminal.SAN;
                         Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
                         Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
@@ -239,8 +198,8 @@ angular
                         Obj2.objMovimiento.Exitoso = 1;
 
                         //Objeto para actualizar el SatelliteId y BeamId a la terminal
-                        var Obj3 = new Object();
-                        Obj3.objTerminal = new Object();
+                        var Obj3 = {};
+                        Obj3.objTerminal = {};
                         Obj3.objTerminal.SatellitedID = vm.SatelliteID;
                         Obj3.objTerminal.BeamID = vm.BeamID;
                         Obj3.objTerminal.Polarization = vm.Polarization;
@@ -268,8 +227,8 @@ angular
                 console.log(hughesData);
                 if (hughesData.StandardResponse.Code != 5) {
                   //Guarda el movimiento sin OrderID
-                  var Obj2 = new Object();
-                  Obj2.objMovimiento = new Object();
+                  var Obj2 = {};
+                  Obj2.objMovimiento = {};
                   Obj2.objMovimiento.SAN = vm.Terminal.SAN;
                   Obj2.objMovimiento.IdComando = 2; //Hardcodeado a la tabla de Comando
                   Obj2.objMovimiento.IdUsuario = 0;
@@ -286,8 +245,8 @@ angular
                   ngNotify.set('Error al suspender la terminal. Consulte el movimiento para más información', 'error');
                 } else {
                   //Guarda el movimiento con OrderId
-                  var Obj2 = new Object();
-                  Obj2.objMovimiento = new Object();
+                  var Obj2 = {};
+                  Obj2.objMovimiento = {};
                   Obj2.objMovimiento.SAN = vm.Terminal.SAN;
                   Obj2.objMovimiento.IdComando = 2; //Hardcodeado a la tabla de Comando
                   Obj2.objMovimiento.IdUsuario = 0;
@@ -302,8 +261,8 @@ angular
                   Obj2.objMovimiento.Exitoso = 1;
                   terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
 
-                    var Obj3 = new Object();
-                    Obj3.objTerminal = new Object();
+                    var Obj3 = {};
+                    Obj3.objTerminal = {};
                     Obj3.objTerminal.SAN = vm.Terminal.SAN;
                     Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
                     Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
@@ -335,8 +294,8 @@ angular
                 console.log(hughesData);
                 if (hughesData.StandardResponse.Code != 5) {
                   //Guarda el movimiento sin OrderID
-                  var Obj2 = new Object();
-                  Obj2.objMovimiento = new Object();
+                  var Obj2 = {};
+                  Obj2.objMovimiento = {};
                   Obj2.objMovimiento.SAN = vm.Terminal.SAN;
                   Obj2.objMovimiento.IdComando = 3; //Hardcodeado a la tabla de Comando
                   Obj2.objMovimiento.IdUsuario = 0;
@@ -353,8 +312,8 @@ angular
                   ngNotify.set('Error al reactivar la terminal. Consulte el movimiento para más información', 'error');
                 } else {
                   //Guarda el movimiento con OrderId
-                  var Obj2 = new Object();
-                  Obj2.objMovimiento = new Object();
+                  var Obj2 = {};
+                  Obj2.objMovimiento = {};
                   Obj2.objMovimiento.SAN = vm.Terminal.SAN;
                   Obj2.objMovimiento.IdComando = 3; //Hardcodeado a la tabla de Comando
                   Obj2.objMovimiento.IdUsuario = 0;
@@ -370,8 +329,8 @@ angular
                   terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
 
                     //Actualiza el estatus en la base en caso de que haya sido exitoso
-                    var Obj3 = new Object();
-                    Obj3.objTerminal = new Object();
+                    var Obj3 = {};
+                    Obj3.objTerminal = {};
                     Obj3.objTerminal.SAN = vm.Terminal.SAN;
                     Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
                     Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
@@ -404,8 +363,8 @@ angular
 								console.log(hughesData);
 								if (hughesData.StandardResponse.Code != 5) {
 									//Guarda el movimiento sin OrderID
-									var Obj2 = new Object();
-									Obj2.objMovimiento = new Object();
+									var Obj2 = {};
+									Obj2.objMovimiento = {};
 									Obj2.objMovimiento.SAN = vm.Terminal.SAN;
 									Obj2.objMovimiento.IdComando = 4;//Hardcodeado a la tabla de Comando
 									Obj2.objMovimiento.IdUsuario = 0;
@@ -424,8 +383,8 @@ angular
 								}
 								else {
 									//Guarda el movimiento con OrderId
-									var Obj2 = new Object();
-									Obj2.objMovimiento = new Object();
+									var Obj2 = {};
+									Obj2.objMovimiento = {};
 									Obj2.objMovimiento.SAN = vm.Terminal.SAN;
 									Obj2.objMovimiento.IdComando = 4;//Hardcodeado a la tabla de Comando
 									Obj2.objMovimiento.IdUsuario = 0;
@@ -441,8 +400,8 @@ angular
 									terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
 									});
 									//Actualiza el estatus en la base en caso de que haya sido exitoso
-									var Obj3 = new Object();
-									Obj3.objTerminal = new Object();
+									var Obj3 = {};
+									Obj3.objTerminal = {};
 									Obj3.objTerminal.SAN = vm.Terminal.SAN;
 									Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
 									Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
@@ -467,8 +426,8 @@ angular
 						terminalFactory.hughesToken(parametros).then(function (hughesData) {
 							console.log(hughesData);
 							//Guarda el movimiento
-							var Obj2 = new Object();
-							Obj2.objMovimiento = new Object();
+							var Obj2 = {};
+							Obj2.objMovimiento = {};
 							Obj2.objMovimiento.SAN = vm.Terminal.SAN;
 							Obj2.objMovimiento.IdComando = 5;//Hardcodeado a la tabla de Comando
 							Obj2.objMovimiento.IdUsuario = 0;
@@ -512,8 +471,8 @@ angular
 										//Vamos a procesar dependiendo del status obtenido de hughes
 										if (hughesData.StandardResponse.OrderId == 0) {
 											//Guarda el movimiento con OrderId
-											var Obj2 = new Object();
-											Obj2.objMovimiento = new Object();
+											var Obj2 = {};
+											Obj2.objMovimiento = {};
 											Obj2.objMovimiento.SAN = vm.Terminal.SAN;
 											Obj2.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
 											Obj2.objMovimiento.IdUsuario = 0;
@@ -532,8 +491,8 @@ angular
 										}
 										else {
 											//Guarda el movimiento con OrderId
-											var Obj2 = new Object();
-											Obj2.objMovimiento = new Object();
+											var Obj2 = {};
+											Obj2.objMovimiento = {};
 											Obj2.objMovimiento.SAN = vm.Terminal.SAN;
 											Obj2.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
 											Obj2.objMovimiento.IdUsuario = 0;
@@ -549,8 +508,8 @@ angular
 											terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
 											});
 											//Actualiza el servicio en la base en caso de que haya realizado con exito
-											var Obj3 = new Object();
-											Obj3.objTerminal = new Object();
+											var Obj3 = {};
+											Obj3.objTerminal = {};
 											Obj3.objTerminal.SAN = vm.Terminal.SAN;
 											Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
 											Obj3.objTerminal.IdServicio = vm.Servicio.IdServicio;
@@ -584,8 +543,8 @@ angular
 							terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {
 								console.log(hughesData);
 								//Guarda el movimiento
-								var Obj2 = new Object();
-								Obj2.objMovimiento = new Object();
+								var Obj2 = {};
+								Obj2.objMovimiento = {};
 								Obj2.objMovimiento.SAN = vm.Terminal.SAN;
 								Obj2.objMovimiento.IdComando = 9;//Hardcodeado a la tabla de Comando
 								Obj2.objMovimiento.IdUsuario = 0;
@@ -605,8 +564,8 @@ angular
 								}
 								else {
 									//Actualiza el estatus en la base en caso de que haya activado en Hughes
-									var Obj3 = new Object();
-									Obj3.objTerminal = new Object();
+									var Obj3 = {};
+									Obj3.objTerminal = {};
 									Obj3.objTerminal.SAN = vm.Terminal.SAN;
 									Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
 									Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
@@ -631,8 +590,8 @@ angular
             terminalFactory.hughesSwap(parametros).then(function (hughesData) {
               console.log(hughesData);
               //Guarda el movimiento
-              var Obj2 = new Object();
-              Obj2.objMovimiento = new Object();
+              var Obj2 = {};
+              Obj2.objMovimiento = {};
               Obj2.objMovimiento.SAN = vm.Terminal.SAN;
               Obj2.objMovimiento.IdComando = 10; //Hardcodeado a la tabla de Comando
               Obj2.objMovimiento.IdUsuario = 0;
@@ -666,8 +625,8 @@ angular
               terminalFactory.hughesCambioCoordenadas(parametros).then(function (hughesData) {
                 console.log(hughesData);
                 //Guarda el movimiento
-                var Obj2 = new Object();
-                Obj2.objMovimiento = new Object();
+                var Obj2 = {};
+                Obj2.objMovimiento = {};
                 Obj2.objMovimiento.SAN = vm.Terminal.SAN;
                 Obj2.objMovimiento.IdComando = 11; //Hardcodeado a la tabla de Comando
                 Obj2.objMovimiento.IdUsuario = 0;
@@ -687,8 +646,8 @@ angular
                 } else {
                   //Ponemos el movimiento como  exitoso
                   Obj2.objMovimiento.Exitoso = 1;
-                  var Obj4 = new Object();
-                  Obj4.objTerminal = new Object();
+                  var Obj4 = {};
+                  Obj4.objTerminal = {};
                   Obj4.objTerminal.SatellitedID = vm.SatelliteIDNuevo;
                   Obj4.objTerminal.BeamID = vm.BeamIDNuevo;
                   Obj4.objTerminal.Polarization = vm.PolarizationNuevo;
@@ -697,8 +656,8 @@ angular
                   console.log(Obj4);
                   terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
                     //Actualiza el estatus en la base en caso de que haya sido exitoso
-                    var Obj3 = new Object();
-                    Obj3.objTerminal = new Object();
+                    var Obj3 = {};
+                    Obj3.objTerminal = {};
                     Obj3.objTerminal.SAN = vm.Terminal.SAN;
                     Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
                     Obj3.objTerminal.IdServicio = vm.Terminal.IdServicio;
@@ -775,7 +734,7 @@ angular
     function ValidarServicio() {
       if((vm.LatitudNueva != '' && vm.LongitudNueva != '') && (vm.LatitudNueva != null && vm.LongitudNueva != null))
       {
-        var parametros = new Object();
+        var parametros = {};
         parametros.servicio = vm.Terminal.Servicio;
         parametros.latitud = vm.LatitudNueva;
         parametros.longitud = vm.LongitudNueva;
