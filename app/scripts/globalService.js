@@ -28,38 +28,6 @@ angular.module('softvFrostApp')
        return 'TEV';
      };*/
 
-
-
-    svc.getUrlHughesMonitoreo = function () {
-    return 'http://189.254.231.35:9090/api';
-
-    //rutas locales
-    svc.getUrl = function () {
-      return 'http://192.168.50.33:3000/SoftvWCFService.svc';
-
-
-    };
-
-    svc.getUrlReportes = function () {
-      return 'http://192.168.50.33:3000';
-
-    };*/
-
-    svc.getUrlmemoriatecnica = function () {
-      return 'http://192.168.50.33:3500/SoftvWCFService.svc';
-
-    };
-
-     svc.getUrlmemoriatecnicaImages = function () {
-      return 'http://192.168.50.33:3500/MemoriaTecnica';
-
-    };
-
-    svc.getUrlHughesService = function () {
-      return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
-    };
-
-
     //rutas locales
      svc.getUrl = function () {
        return 'http://192.168.50.33:3000/SoftvWCFService.svc';
@@ -90,11 +58,6 @@ angular.module('softvFrostApp')
        return 'TEV';
 
      };
-
-    svc.getType = function () {
-      return 'TLV';
-
-    };
 
 
     return svc;
