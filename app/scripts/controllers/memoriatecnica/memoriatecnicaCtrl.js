@@ -2,20 +2,23 @@
 angular
   .module('softvFrostApp')
   .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory) {
+    
     function initialData() {
-      BuscaMemoriaTecnica();
+      BuscaMemoriaTecnica(7);
     }
 
-    function BuscaMemoriaTecnica() {
-
+    function BuscaMemoriaTecnica(op) {
       var params = {
-        'Folio': (vm.op === 1 && (vm.folio !== undefined && vm.folio !== null && vm.folio !== '')) ? vm.folio : 0,
-        'Fecha': (vm.op === 2 && (vm.fecha !== undefined && vm.fecha !== null && vm.fecha !== '')) ? vm.fecha : '',
+        'Folio': (op === 1) ? vm.folio : 0,
+        'Fecha': (op === 2) ? vm.fecha : '',
         'IdUsuario': '',
-        'orden': (vm.op === 3 && (vm.orden !== undefined && vm.orden !== null && vm.orden !== '')) ? vm.orden : 0,
-        'op': vm.op
-      };
-      console.log(params);
+        'orden': (op === 3) ? vm.orden : 0,
+        'op': op,
+        'SAN': (op === 4) ? vm.SAN : 0,
+        'Cliente': (op === 5) ? vm.cliente : '',
+        'Contrato': 0,
+        'Tecnico': (op === 6) ? vm.tecnico : ''
+      };     
       memoriaFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {
           vm.memorias = data.GetBuscaMemoriaTecnicaListResult;
@@ -24,9 +27,19 @@ angular
     }
 
 
+    function reportepdf(id) {
+      alert(id);
+      memoriaFactory.GetReportepdf(id).then(function (data) {
+        console.log(data);
+      });
+
+    }
+
+
 
     var vm = this;
     vm.op = 0;
     vm.BuscaMemoriaTecnica = BuscaMemoriaTecnica;
+    vm.reportepdf = reportepdf;
     initialData();
   });

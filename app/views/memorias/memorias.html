@@ -33,28 +33,81 @@
 
         <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
           <div class="panel-body">
-            <div class="row">
-              <div class="col-md-2">
-                <strong>Folio</strong>
-                <input type="number" class="form-control input-sm" ng-change="$ctrl.op=1" name="folio" ng-model="$ctrl.folio" placeholder="">
+            <uib-tabset active="active">
+              <uib-tab index="0" heading="filtros">
+                <div class="row">
+                  <br>
 
-              </div>
-              <div class="col-md-2">
-                <strong>Orden </strong>
-                <input type="number" class="form-control input-sm" ng-change="$ctrl.op=3" ng-model="$ctrl.orden" name="orden" placeholder="">
 
-              </div>
-              <div class="col-md-2">
-                <strong>Fecha </strong>
-                <input type="date" class="form-control input-sm" ng-change="$ctrl.op=2" ng-model="$ctrl.fecha" name="fecha" placeholder="">
-              </div>
-            </div>
+                  <div class="col-md-4">
+                    <div class="col-md-8">
+                      <strong>Folio</strong>
+                      <input type="number" class="form-control input-sm" name="folio" ng-model="$ctrl.folio" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(1)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-8">
+                      <strong>Orden </strong>
+                      <input type="number" class="form-control input-sm" ng-model="$ctrl.orden" name="orden" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(3)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-8">
+                      <strong>Fecha </strong>
+                      <input type="date" class="form-control input-sm" ng-model="$ctrl.fecha" name="fecha" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(2)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                  </div>
+                </div>
+              </uib-tab>
+
+              <uib-tab index="1" heading="Avanzado">
+                <div class="row">
+                  <br>
+
+
+                  <div class="col-md-4">
+                    <div class="col-md-8">
+                      <strong>SAN</strong>
+                      <input type="number" class="form-control input-sm" name="san" ng-model="$ctrl.SAN" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(4)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-8">
+                      <strong>Cliente </strong>
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.cliente" name="cliente" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(5)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="col-md-8">
+                      <strong>Tecnico</strong>
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.tecnico" name="tecnico" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(6)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                  </div>
+                </div>
+              </uib-tab>
+            </uib-tabset>
+
             <br/>
-
-
-            <footer class="text-right">
-              <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica()"><i class="fa fa-search"></i> Buscar</button>
-            </footer>
 
 
           </div>
@@ -93,10 +146,10 @@
                 <a title="Consultar memoria técnica" ui-sref="home.memoria.detallememoria({ id: x.IdMemoriaTecnica})" class="btn ink-reaction  btn-xs btn-info"><i class="md md-content-paste"></i> CONSULTAR</a>
                 <a title="Editar memoria técnica" ui-sref="home.memoria.editarmemoria({ id: x.IdMemoriaTecnica})" ng-disabled="x.Clv_QUEJA>0"
                   class="btn ink-reaction  btn-xs btn-warning" ng-click="$ctrl.editarEntrada(x.Consecutivo)"><i class="fa fa-edit"></i> Editar</a>
-                  </td>
-                  <td>
-                    <button class="btn btn-danger btn-xs"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> pdf</button>
-                  </td>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.reportepdf(x.IdMemoriaTecnica)"><i class="fa fa-file-pdf-o"  aria-hidden="true"></i> pdf</button>
+              </td>
             </tr>
           </tbody>
         </table>

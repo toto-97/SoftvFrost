@@ -78,652 +78,707 @@
         </div>
       </div>
     </div>
-    <fieldset ng-disabled="$ctrl.detalle"> 
-    <div class="card-body">
+    <fieldset ng-disabled="$ctrl.detalle">
+      <div class="card-body">
 
-      <div class="row">
-        <div class="col-md-5">
-          <p class="text-center"> Información principal</p>
-          <div class="form-group row ">
-            <label class="col-sm-3 control-label"># Orden</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control input-sm" name="numeroOrden" ng-model="$ctrl.numeroorden" validate-on="dirty" invalid-message="'El número de la orden es obligatorio'"
-                placeholder="Ingresa #orden" required />
+        <div class="row">
+          <div class="col-md-5">
+            <p class="text-center"> Información principal</p>
+            <div class="form-group row ">
+              <label class="col-sm-3 control-label"># Orden</label>
+              <div class="col-sm-4">
+                <input type="number" class="form-control input-sm" name="numeroOrden" ng-model="$ctrl.numeroorden" validate-on="dirty" invalid-message="'El número de la orden es obligatorio'"
+                  placeholder="Ingresa #orden" required />
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.validar()">Validar</button>
+              </div>
             </div>
-            <div class="col-sm-3">
-              <button type="button" class="btn ink-reaction btn-floating-action btn-xs btn-info"><i class="fa fa-search"></i></button>
+
+            <div class="form-group row ">
+              <label class="col-sm-3 control-label">Folio instalación</label>
+              <div class="col-sm-4">
+                <input type="number" class="form-control input-sm" ng-disabled="$ctrl.blockgenerafolio" name="numerofolio" placeholder="Ingresa # folio"
+                  ng-model="$ctrl.numerofolio" />
+              </div>
+              <div class="col-sm-3">
+                <label class="checkbox-inline checkbox-styled checkbox-info">
+                            <input type="checkbox"  ng-model="$ctrl.generafolio" 
+                            ng-disabled="$ctrl.blockgenerafolio"
+                            ng-change="$ctrl.obtenfolio()"
+                            ><span>{{$ctrl.mensajefolio}}</span>
+													</label>
+              </div>
+
+
             </div>
+            <div class="form-group row ">
+              <label class="col-sm-3 control-label">Contrato</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control input-sm" name="contrato" ng-model="$ctrl.contratocompania" validate-on="dirty" invalid-message="'El número de la orden es obligatorio'"
+                  name="password" placeholder="" required />
+              </div>
+            </div>
+
+
           </div>
+          <div class="col-md-7">
 
-          <div class="form-group row ">
-            <label class="col-sm-3 control-label">Folio instalación</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control input-sm" name="numerofolio" placeholder="Ingresa # folio" ng-model="$ctrl.numerofolio"
-                validate-on="dirty" invalid-message="'El número de la folio es obligatorio'" required />
+            <p class="text-center"> Datos de la empresa</p>
+
+            <div class="col-md-6">
+
+              <div class="form-group row ">
+                <label class="col-sm-5 control-label">Distribuidor</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control input-sm" ng-model="$ctrl.distribuidor" name="distribuidor" validate-on="dirty" invalid-message="'El distribuidor es obligatorio'"
+                    placeholder="" required />
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="form-group row ">
+
+                <label class="col-sm-5 control-label">Fecha visita de sitio</label>
+                <div class="col-sm-7">
+                  <input type="date" class="form-control input-sm" name="fechasitio" ng-model="$ctrl.fechasitio" validate-on="dirty" invalid-message="'La fecha es obligatoria'"
+                    placeholder="Ingresa #orden" />
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group row ">
+                <label class="col-sm-5 control-label">Hora de llegada</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control input-sm" name="horallegada" ng-model="$ctrl.horallegada" validate-on="dirty" invalid-message="'La hora es obligatoria'"
+                    placeholder="" required />
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group row ">
+                <label class="col-sm-5 control-label">Hora de salida</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control input-sm" name="horasalida" ng-model="$ctrl.horasalida" validate-on="dirty" invalid-message="'La hora es obligatoria'"
+                    placeholder="" required />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group row ">
+                <label class="col-sm-5 control-label">Nombre de Instalador</label>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control input-sm" ng-model="$ctrl.instalador" name="nombreinstalador" validate-on="dirty"
+                    invalid-message="'El nombre es obligatorio'" placeholder="Ingresa el nombre del instalador" required />
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
             </div>
 
 
 
-          </div>
-          <div class="form-group row ">
-            <label class="col-sm-3 control-label">Contrato</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control input-sm" name="contrato" ng-model="$ctrl.contrato" validate-on="dirty" invalid-message="'El número de la orden es obligatorio'"
-                name="password" placeholder="" required />
-            </div>
-          </div>
 
+
+
+
+          </div>
 
         </div>
-        <div class="col-md-7">
 
-          <p class="text-center"> Datos de la empresa</p>
-
-          <div class="col-md-6">
-
-            <div class="form-group row ">
-              <label class="col-sm-5 control-label">Distribuidor</label>
-              <div class="col-sm-7">
-                <input type="text" class="form-control input-sm" ng-model="$ctrl.distribuidor" name="distribuidor" validate-on="dirty" invalid-message="'El distribuidor es obligatorio'"
-                  placeholder="" required />
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-md-6">
-
-            <div class="form-group row ">
-
-              <label class="col-sm-5 control-label">Fecha visita de sitio</label>
-              <div class="col-sm-7">
-                <input type="date" class="form-control input-sm" name="fechasitio" ng-model="$ctrl.fechasitio" validate-on="dirty" invalid-message="'La fecha es obligatoria'"
-                  placeholder="Ingresa #orden" />
-              </div>
-            </div>
-
-          </div>
-
-
-          <div class="col-md-6">
-            <div class="form-group row ">
-              <label class="col-sm-5 control-label">Hora de llegada</label>
-              <div class="col-sm-7">
-                <input type="text" class="form-control input-sm" name="horallegada" ng-model="$ctrl.horallegada" validate-on="dirty" invalid-message="'La hora es obligatoria'"
-                  placeholder="" required />
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group row ">
-              <label class="col-sm-5 control-label">Hora de salida</label>
-              <div class="col-sm-7">
-                <input type="text" class="form-control input-sm" name="horasalida" ng-model="$ctrl.horasalida" validate-on="dirty" invalid-message="'La hora es obligatoria'"
-                  placeholder="" required />
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group row ">
-              <label class="col-sm-5 control-label">Nombre de Instalador</label>
-              <div class="col-sm-7">
-                <input type="text" class="form-control input-sm" ng-model="$ctrl.instalador" name="nombreinstalador" validate-on="dirty"
-                  invalid-message="'El nombre es obligatorio'" placeholder="Ingresa el nombre del instalador" required />
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-          </div>
-
-
-
-
-
-
-
-        </div>
-
-      </div>
-
-      <hr>
-      <div class="col-md-12">
-        <uib-tabset active="activeJustified" justified="false">
-          <uib-tab index="0" heading="Datos del sitio">
-            <br>
-            <div class="row">
-
-              <div class="col-md-3">
-
-                <div class="form-group row ">
-                  <label class="col-sm-5 control-label">site ID</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control input-sm" name="siteid" placeholder="" ng-model="$ctrl.siteid" />
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-5 control-label">Estado</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control input-sm" name="estado" ng-model="$ctrl.estado" placeholder="" />
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-5 control-label">Municipio</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control input-sm" name="municipio" ng-model="$ctrl.municipio" placeholder="" />
-                  </div>
-                </div>
-                <div class="form-group row ">
-                  <label class="col-sm-5 control-label">Localidad</label>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control input-sm" name="localidad" ng-model="$ctrl.localidad" placeholder="" />
-                  </div>
-                </div>
-                <div class="form-group row ">
-                  <label class="col-sm-5 control-label">Domicilio de nofificación</label>
-                  <div class="col-sm-7">
-                    <textarea type="text" class="form-control input-sm" name="notificacion" ng-model="$ctrl.domicilionotificacion" rows="5"></textarea>
-                  </div>
-                </div>
-
-
-              </div>
-
-              <div class="col-md-3">
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Cliente</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="cliente" ng-model="$ctrl.cliente">
-                  </div>
-                </div>
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Direccion</label>
-                  <div class="col-sm-9">
-                    <textarea type="text" class="form-control input-sm" ng-model="$ctrl.direccion" name="direccion" rows="5"></textarea>
-                  </div>
-                </div>
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">C.P</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="codigopostal" ng-model="$ctrl.codigopostal">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Teléfono</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="telefono" ng-model="$ctrl.telefono">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Celular</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="celular" ng-model="$ctrl.celular">
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="col-md-3">
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Recibe en sitio:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="recibe" ng-model="$ctrl.recibe">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Plataforma satelital:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.plataforma" name="plataforma">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Plan de servicio:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="plan" ng-model="$ctrl.plan">
-                  </div>
-                </div>
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Tipo de servicio:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="tiposervicio" ng-model="$ctrl.tiposervicio">
-                  </div>
-                </div>
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Velocidad:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="velocidad" ng-model="$ctrl.velocidad">
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="col-md-3">
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Beam:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="beam" ng-model="$ctrl.beam">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Fecha Activación:</label>
-                  <div class="col-sm-9">
-                    <input type="date" class="form-control input-sm" name="fechaactivacion" ng-model="$ctrl.fechaactivacion">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Estatus técnico:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="estatustecnico" ng-model="$ctrl.estatustecnico">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Latitud:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="latitud" ng-model="$ctrl.latitud">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Longitud:</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="longitud" ng-model="$ctrl.longitud">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">SAN:</label>
-                  <div class="col-sm-9">
-                    <input type="number" class="form-control input-sm" name="SAN" ng-model="$ctrl.SAN">
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-
-          </uib-tab>
-          <uib-tab index="1" heading="Mediciones Eléctricas">
-            <div class="row">
+        <hr>
+        <div class="col-md-12">
+          <uib-tabset active="activeJustified" justified="false">
+            <uib-tab index="0" heading="Datos del sitio">
               <br>
-              <div class="col-md-4">
-                <p class="text-center">Voltaje comercial</p>
+              <div class="row">
 
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Neutro-tierra :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="vcneutrotierra" ng-model="$ctrl.vcneutrotierra">
+                <div class="col-md-3">
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">site ID</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="siteid" placeholder="" ng-model="$ctrl.siteid" />
+                    </div>
                   </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Estado</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="estado" ng-model="$ctrl.estado" placeholder="" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Municipio</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="municipio" ng-model="$ctrl.municipio" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Localidad</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="localidad" ng-model="$ctrl.localidad" placeholder="" />
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Domicilio de nofificación</label>
+                    <div class="col-sm-7">
+                      <textarea type="text" class="form-control input-sm" name="notificacion" ng-model="$ctrl.domicilionotificacion" rows="5"></textarea>
+                    </div>
+                  </div>
+
+
                 </div>
 
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Fase-tierra :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="vcfasetierra" ng-model="$ctrl.vcfasetierra">
+                <div class="col-md-3">
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Cliente</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="cliente" ng-model="$ctrl.cliente">
+                    </div>
                   </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Direccion</label>
+                    <div class="col-sm-9">
+                      <textarea type="text" class="form-control input-sm" ng-model="$ctrl.direccion" name="direccion" rows="5"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">C.P</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="codigopostal" ng-model="$ctrl.codigopostal">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Teléfono</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="telefono" ng-model="$ctrl.telefono">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Celular</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="celular" ng-model="$ctrl.celular">
+                    </div>
+                  </div>
+
                 </div>
 
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Fase-Neutro :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.vcfaseneutro" name="vcfaseneutro">
+                <div class="col-md-3">
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Recibe en sitio:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="recibe" ng-model="$ctrl.recibe">
+                    </div>
                   </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Plataforma satelital:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.plataforma" name="plataforma">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Plan de servicio:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="plan" ng-model="$ctrl.plan">
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Tipo de servicio:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="tiposervicio" ng-model="$ctrl.tiposervicio">
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Velocidad:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="velocidad" ng-model="$ctrl.velocidad">
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Beam:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="beam" ng-model="$ctrl.beam">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Fecha Activación:</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control input-sm" name="fechaactivacion" ng-model="$ctrl.fechaactivacion">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Estatus técnico:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="estatustecnico" ng-model="$ctrl.estatustecnico">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Latitud:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="latitud" ng-model="$ctrl.latitud">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Longitud:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="longitud" ng-model="$ctrl.longitud">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">SAN:</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control input-sm" name="SAN" ng-model="$ctrl.SAN">
+                    </div>
+                  </div>
+
                 </div>
 
               </div>
-              <div class="col-md-4">
 
-                <p class="text-center">Voltaje UPS/No Break</p>
 
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Neutro-tierra :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="upcneutrotierra" ng-model="$ctrl.upcneutrotierra">
+            </uib-tab>
+            <uib-tab index="1" heading="Mediciones Eléctricas">
+              <div class="row">
+                <br>
+                <div class="col-md-4">
+                  <p class="text-center">Voltaje comercial</p>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Neutro-tierra :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="vcneutrotierra" ng-model="$ctrl.vcneutrotierra">
+                    </div>
                   </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Fase-tierra :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="vcfasetierra" ng-model="$ctrl.vcfasetierra">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Fase-Neutro :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.vcfaseneutro" name="vcfaseneutro">
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+
+                  <p class="text-center">Voltaje UPS/No Break</p>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Neutro-tierra :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="upcneutrotierra" ng-model="$ctrl.upcneutrotierra">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Fase-tierra :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.upcfasetierra" name="upcfasetierra">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Fase-Neutro :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="$ctrl.upcfaseneutro" ng-model="$ctrl.upcfaseneutro">
+                    </div>
+                  </div>
+
                 </div>
 
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Fase-tierra :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.upcfasetierra" name="upcfasetierra">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Fase-Neutro :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="$ctrl.upcfaseneutro" ng-model="$ctrl.upcfaseneutro">
-                  </div>
-                </div>
 
               </div>
 
 
-            </div>
+
+            </uib-tab>
+            <uib-tab index="2" heading="Datos de Equipo y Desempeño">
+
+              <div class="row">
+                <br>
+                <div class="col-md-4">
 
 
 
-          </uib-tab>
-          <uib-tab index="2" heading="Datos de equipo y desempeño">
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Módem (serie) :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="modem" ng-model="$ctrl.modem">
+                    </div>
+                  </div>
 
-            <div class="row">
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Tamaño de antena :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="tamanoantena" ng-model="$ctrl.tamanoantena">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Valor de SQF :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="sqf" ng-model="$ctrl.sqf">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">UPS(serie) :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="upsserie" ng-model="$ctrl.upsserie">
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-md-4">
+
+
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Serie de Radio :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.serieradio" name="serieradio">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Serie de router :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.serierouter" name="serierouter">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Marca Router :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="marcarouter" ng-model="$ctrl.marcarouter">
+
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">WiFi (serie) :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="wifiserie" ng-model="$ctrl.wifiserie">
+                    </div>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+            </uib-tab>
+            <uib-tab index="3" heading="Trabajos Realizados">
               <br>
-              <div class="col-md-4">
-
-
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Módem (serie) :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="modem" ng-model="$ctrl.modem">
-                  </div>
-                </div>
-
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Tamaño de antena :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="tamanoantena" ng-model="$ctrl.tamanoantena">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Valor de SQF :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="sqf" ng-model="$ctrl.sqf">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">UPS(serie) :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="upsserie" ng-model="$ctrl.upsserie">
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-md-4">
-
-
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Serie de Radio :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.serieradio" name="serieradio">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Serie de router :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.serierouter" name="serierouter">
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">Marca Router :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="marcarouter" ng-model="$ctrl.marcarouter">
-
-                  </div>
-                </div>
-
-                <div class="form-group row ">
-                  <label class="col-sm-3 control-label">WiFi (serie) :</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control input-sm" name="wifiserie" ng-model="$ctrl.wifiserie">
-                  </div>
-                </div>
-
-              </div>
-
-
-            </div>
-
-          </uib-tab>
-          <uib-tab index="3" heading="Trabajos realizados">
-            <br>
-            <div class="row">
-
-              <div class="col-md-6">
+              <div class="row">
 
                 <div class="col-md-6">
-                  <div class="row">
-                    <label class="checkbox-inline checkbox-styled checkbox-info">
+
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox"
                             ng-disabled="$ctrl.detalle"
                              ng-model="$ctrl.Instalacion" ><span>Instalación</span>
 													</label>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="checkbox-inline checkbox-styled checkbox-info">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox"
                             ng-disabled="$ctrl.detalle"
                              ng-model="$ctrl.Mantenimiento" ><span>Mantenimiento</span>
 													</label>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="checkbox-inline checkbox-styled checkbox-info">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox" 
                             ng-disabled="$ctrl.detalle"
                             ng-model="$ctrl.CambioComponentes" ><span>Cambio de componentes</span>
 													</label>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="checkbox-inline checkbox-styled checkbox-info">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox"
                             ng-disabled="$ctrl.detalle"
                              ng-model="$ctrl.SiteSurvey" ><span>Site Survey</span>
 													</label>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="checkbox-inline checkbox-styled checkbox-info">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox"
                             ng-disabled="$ctrl.detalle"
                              ng-model="$ctrl.InstalacionDemo" ><span>Instalación Demo/Piloto</span>
 													</label>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="checkbox-inline checkbox-styled checkbox-info">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox" 
                             ng-disabled="$ctrl.detalle"
                             ng-model="$ctrl.Reubicacion" ><span>Reubicación</span>
 													</label>
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-6">
-                  <div class="row">
-                    <label class="checkbox-inline checkbox-styled checkbox-info">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox"
                             ng-disabled="$ctrl.detalle"
                              ng-model="$ctrl.Apuntamiento" ><span>Apuntamiento</span>
 													</label>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-md-6">
+                  <p>Detalles:</p>
+                  <textarea rows="6" class="form-control input-sm" name="detalleinstalacion" ng-model="$ctrl.detalleinstalacion" placeholder="Redacta brevemente los detalles de la instalación"></textarea>
+
+                </div>
+              </div>
+
+
+            </uib-tab>
+            <uib-tab index="4" heading="Cambio de Equipos">
+              <br>
+              <div class="col-md-12">
+
+                <div class="col-md-6 col-md-offset-3">
+                  <div class="col-md-3">
+                    Equipo a surtir
+                    <input type="text" class="form-control input-sm" name="equiposurtir" ng-model="$ctrl.equiposurtir">
+                  </div>
+                  <div class="col-md-3">
+                    Serie Anterior
+                    <input type="text" class="form-control input-sm" name="serieanterior" ng-model="$ctrl.serieanterior">
+                  </div>
+                  <div class="col-md-3">
+                    Serie Nueva
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.serienueva" name="serienueva">
+                  </div>
+                  <div class="col-md-3">
+                    <br>
+                    <button type="button" class="btn btn-success btn-sm" ng-disabled="$ctrl.detalle" ng-click="$ctrl.cambioAparato()">Agregar</button>
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <table class="table">
+                      <thead>
+                        <th>Equipo a surtir,marca,modelo</th>
+                        <th>Serie anterior</th>
+                        <th>Serie nueva</th>
+                        <th>Opciones</th>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="s in $ctrl.cambios">
+                          <td>{{s.Equipo}}</td>
+                          <td>{{s.SerieAnterior}}</td>
+                          <td>{{s.SerieNueva}}</td>
+                          <td><button type="button" ng-disabled="$ctrl.detalle" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaaparato($index)">
+                        <i class="fa fa-trash"></i> Eliminar</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
                   </div>
                 </div>
 
               </div>
 
-              <div class="col-md-6">
-                <p>Detalles:</p>
-                <textarea rows="6" class="form-control input-sm" name="detalleinstalacion" ng-model="$ctrl.detalleinstalacion" placeholder="Redacta brevemente los detalles de la instalación"></textarea>
+            </uib-tab>
 
-              </div>
-            </div>
+            <uib-tab index="5" heading="Equipos Digitales">
+              <br>
+              <div class="col-md-8 col-md-offset-2" style="padding: 10px;">
 
-
-          </uib-tab>
-          <uib-tab index="4" heading="Cambio de equipo">
-            <br>
-            <div class="col-md-12">
-
-              <div class="col-md-6 col-md-offset-3">
-                <div class="col-md-3">
-                  Equipo a surtir
-                  <input type="text" class="form-control input-sm" name="equiposurtir" ng-model="$ctrl.equiposurtir">
-                </div>
-                <div class="col-md-3">
-                  Serie Anterior
-                  <input type="text" class="form-control input-sm" name="serieanterior" ng-model="$ctrl.serieanterior">
-                </div>
-                <div class="col-md-3">
-                  Serie Nueva
-                  <input type="text" class="form-control input-sm" ng-model="$ctrl.serienueva" name="serienueva">
-                </div>
-                <div class="col-md-3">
-                  <br>
-                  <button type="button" class="btn btn-success btn-sm" ng-disabled="$ctrl.detalle" ng-click="$ctrl.cambioAparato()">Agregar</button>
-                </div>
-                <div class="col-md-12 text-center">
-                  <table class="table">
-                    <thead>
-                      <th>Equipo a surtir,marca,modelo</th>
-                      <th>Serie anterior</th>
-                      <th>Serie nueva</th>
-                      <th>Opciones</th>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="s in $ctrl.cambios">
-                        <td>{{s.Equipo}}</td>
-                        <td>{{s.SerieAnterior}}</td>
-                        <td>{{s.SerieNueva}}</td>
-                        <td><button type="button" ng-disabled="$ctrl.detalle" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaaparato($index)">
-                        <i class="fa fa-trash"></i> Eliminar</button></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                </div>
-              </div>
-
-            </div>
-
-          </uib-tab>
-          <uib-tab index="5" heading="Carga de evidencias">
-
-            <div class="col-md-12">
-              <div class="col-md-6" ng-show="$ctrl.seleccionImagen">
-                <h3 class="text-center text-danger">Cargar evidencias</h3>
                 <div class="col-md-6">
-                  <p>Selecciona el tipo de imagen</p>
-                  <select ng-model="$ctrl.tipoimagen" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tiposresp track by item.IdTipo"
-                    ng-model="selected">
+                  <h5 class="text-primary text-center">Ingresa el aparato</h5>
+                  <div class="col-md-12">
+                    <b> Nombre de paquete</b>
+                    <input type="text" class="form-control" name="paquete" ng-model="$ctrl.paquete">
+                  </div>
+                  <div class="col-md-12">
+                    <b>Serie de aparato</b>
+                    <input type="text" class="form-control" name="serieanterior" ng-model="$ctrl.seriedigital">
+                  </div>
+
+                  <div class="col-md-12 text-center">
+                    <br>
+                    <button type="button" class="btn btn-success btn-sm" ng-disabled="$ctrl.detalle" ng-click="$ctrl.addAparatodig()">Agregar</button>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h5 class="text-primary text-center">Aparatos Agregados</h5>
+                  <ul class="list divider-full-bleed">
+											<li class="tile" ng-repeat="x in $ctrl.aparatosdigitales">
+												<a class="tile-content ink-reaction" >
+													<div class="tile-icon">
+														<img src="../../assets/img/avatar2.jpg?1404026449" alt="">
+													</div>
+                          <div class="tile-text">{{x.serie}}</div>
+												</a>
+												<a class="btn btn-flat ink-reaction" ng-click="$ctrl.eliminaaparatodig($index);">
+													<i class="fa fa-trash"></i>
+												</a>
+											</li>	
+										
+										</ul>
+
+                </div>
+
+
+
+              </div>
+
+            </uib-tab>
+
+
+            <uib-tab index="6" heading="Carga de Imagenes">
+              <br>
+              <div class="col-md-12">
+                <div class="col-md-6" ng-show="$ctrl.seleccionImagen">
+                  <h4 class="text-center text-danger"><i class="fa fa-picture-o"></i> Subir Imagenes</h4>
+                  <div class="col-md-6">
+                    <p class="text-primary">Selecciona el tipo de imagen</p>
+                    <select ng-model="$ctrl.tipoimagen" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tiposresp track by item.IdTipo"
+                      ng-model="selected">
                       <option value="">Selecciona el tipo </option>
                   </select>
-                </div>
-                
-                <div class="col-md-6">
-                  <br>
-                  <div class="fileUpload btn btn-primary">
-                    <span>Elegir archivos</span>
-                    <input type="file" ng-disabled="$ctrl.tipoimagen===''||$ctrl.tipoimagen===null" multiple="multiple" id="file" nv-file-select
-                      uploader="$ctrl.uploader" class="upload" />
-                  </div>    
+                  </div>
+
+                  <div class="col-md-6">
+                    <br>
+                    <div class="fileUpload btn btn-sm btn-primary">
+                      <span>Elegir archivos</span>
+                      <input type="file" ng-disabled="$ctrl.tipoimagen===''||$ctrl.tipoimagen===null" multiple="multiple" id="file" nv-file-select
+                        uploader="$ctrl.uploader" class="upload" />
+                    </div>
 
 
-                </div>
-                <div class="col-md-12" style="overflow-y: scroll; max-height: 350px;">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th width="50%">Elegir</th>
-                        <th width="50%">Nombre</th>
-                        <th width="50%">Tipo</th>
-                        <th width="50%">Preview</th>
-                        <th ng-show="uploader.isHTML5">Tamaño</th>
-                        <th>Eliminar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="item in $ctrl.uploader.queue">
-                        <td>
-                          <strong>{{ item.file.name }}</strong>
-                        </td>
-                        <td>
-                          <strong>{{ item.file.tipo }}</strong>
-                        </td>
-                        <td>
-                          <div ng-thumb="{ file: item._file, width: 100, height: 100 }"></div>
-                        </td>
-                        <td ng-show="$ctrl.uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB
-                        </td>
-                        <td>
+                  </div>
+                  <div class="col-md-12" style="overflow-y: scroll; max-height: 350px;">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th width="50%">Elegir</th>
+                          <th width="50%">Nombre</th>
+                          <th width="50%">Tipo</th>
+                          <th width="50%">Preview</th>
+                          <th ng-show="uploader.isHTML5">Tamaño</th>
+                          <th>Eliminar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="item in $ctrl.uploader.queue">
+                          <td>
+                            <strong>{{ item.file.name }}</strong>
+                          </td>
+                          <td>
+                            <strong>{{ item.file.tipo }}</strong>
+                          </td>
+                          <td>
+                            <div ng-thumb="{ file: item._file, width: 100, height: 100 }"></div>
+                          </td>
+                          <td ng-show="$ctrl.uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB
+                          </td>
+                          <td>
 
-                          <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
                                         <span class="glyphicon glyphicon-trash"></span> Eliminar
                                     </button>
-                        </td>
+                          </td>
 
 
 
-                      </tr>
-                    </tbody>
-                  </table>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+
+
+
                 </div>
+                <div class="col-md-6  text-center">
+                  <h4 class="text-center text-danger"><i class="fa fa-picture-o"></i> Imagenes cargadas</h4>
+                  <div class="col-md-12" style="overflow-y: scroll; max-height: 350px;">
+                    <table class="table">
+                      <thead>
 
+                        <th>Tipo de imagen</th>
+                        <th>preview</th>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="x in $ctrl.Lista_evidencias">
 
+                          <td>{{x.Tipo_}}</td>
+                          <td>
 
+                            <img class="img-thumbnail" ng-click="$ctrl.openLightboxModal($index)" ng-src="{{x.RutaCompleta}}" alt="" style="width: 100px; height: 100px; "></td>
+                          <td><button type="button" ng-click="$ctrl.BorraImagen($index)" ng-disabled="$ctrl.detalle" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Eliminar</button></td>
+                        </tr>
+                      </tbody>
 
+                    </table>
+                  </div>
+
+                </div>
               </div>
-              <div class="col-md-6">
-                <h3 class="text-center text-danger">Evidencias cargadas</h3>
-                <table class="table">
-                  <thead>
 
-                    <th>Tipo de imagen</th>
-                    <th>preview</th>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="x in $ctrl.Lista_evidencias">
+            </uib-tab>
+          </uib-tabset>
+        </div>
 
-                      <td>{{x.Tipo_}}</td>
-                      <td>
-
-                        <img class="img-thumbnail" ng-click="$ctrl.openLightboxModal($index)" ng-src="{{x.RutaCompleta}}" alt="" style="width: 100px; height: 100px; "></td>
-                      <td><button type="button" ng-click="$ctrl.BorraImagen($index)" ng-disabled="$ctrl.detalle" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Eliminar</button></td>
-                    </tr>
-                  </tbody>
-
-                </table>
-
-
-              </div>
-            </div>
-
-          </uib-tab>
-        </uib-tabset>
       </div>
-
-    </div>
     </fieldset>
   </div>
 </form>

@@ -3,6 +3,9 @@ angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaCtrl',
     function ($state, ngNotify, memoriaFactory, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox) {
+
+
+
       function initialData() {
 
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
@@ -12,10 +15,10 @@ angular
             memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
               vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
               vm.Lista_evidencias.forEach(function (item) {
-                item.Ruta =  item.Ruta; 
-                item.url = globalService.getUrlmemoriatecnicaImages() + '/'+item.Ruta;
-                item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/'+item.Ruta;              
-                item.RutaCompleta=globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+                item.Ruta = item.Ruta;
+                item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+                item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+                item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.Opcion = 3;
               });
 
@@ -32,6 +35,21 @@ angular
                   equipo.Opcion = 2;
                   vm.cambios.push(equipo);
                 });
+
+                memoriaFactory.GetObtieneDigitalMemoriaTecnica().then(function (result) {
+                  var ed = result.GetObtieneDigitalMemoriaTecnicaResult;
+                  ed.forEach(function (item) {
+                    var equipodig = {};
+                    equipodig.IdEquipoSustituir = item.IdEquipoSustituir;
+                    equipodig.IdMemoriaTecnica = item.IdMemoriaTecnica;
+                    equipodig.Equipo = '';
+                    equipodig.SerieAnterior = item.SerieAnterior;
+                    equipodig.paquete = item.paquete;
+                    equipodig.Opcion = 2;
+                    vm.aparatosdigitales.push(equipodig);
+                  });
+
+                });
               });
 
             });
@@ -39,7 +57,13 @@ angular
         });
       }
 
-
+      function addAparatodig() {
+        var aparato = {
+          'paquete': vm.paquete,
+          'serie': vm.seriedigital
+        };
+        vm.aparatosdigitales.push(aparato);
+      }
 
 
       function BorraImagen(index) {
@@ -53,19 +77,29 @@ angular
 
 
       function eliminaaparato(index) {
-
         if (index > -1) {
           var obj = vm.cambios[index];
           vm.cambios.splice(index, 1);
-
           if (obj.IdEquipoSustituir > 0) {
-            vm.cambios_eliminados.push(obj);
             obj.Opcion = 2;
+            vm.cambios_eliminados.push(obj);
+
           }
-
         }
-
       }
+
+      function eliminaaparatodig(index) {
+        if (index > -1) {
+          var obj = vm.aparatosdigitales[index];
+          vm.aparatosdigitales.splice(index, 1);
+          if (obj.IdEquipoSustituir > 0) {
+            obj.Opcion = 2;
+            vm.digitales_eliminados.push(obj);
+
+          }
+        }
+      }
+
 
       function cambioAparato() {
         if ((vm.serieanterior !== '' && vm.serieanterior !== undefined) &&
@@ -91,15 +125,13 @@ angular
         } else {
           ngNotify.set('Necesita completar todos los campos', 'error');
         }
-
-
-
       }
 
 
       function isvalid(value) {
         return (value !== undefined && value !== '' && value !== null) ? true : false;
       }
+
 
       function guardar() {
 
@@ -161,10 +193,6 @@ angular
 
 
         memoriaFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
-          console.log(response);
-
-
-
           var equipos_ = [];
           vm.cambios.forEach(function (item) {
 
@@ -194,43 +222,68 @@ angular
           console.log(equipos_);
 
 
-          memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
-            console.log(result);
-            var file_options = [];
-            var files = [];
-            var tipos = [];
-            var count = 0;
-            vm.uploader.queue.forEach(function (f) {
-              if (tipos.includes(f._file.idtipo)) {
-                count += 1;
-              } else {
-                var options = {
-                  'IdImagen': 0,
-                  'Accion': 1,
-                  'Tipo': f._file.idtipo,
-                  'Nombre': f._file.name
-                }
-                file_options.push(options);
-                tipos.push(f._file.idtipo);
-                files.push(f._file);
-              }
-
-            });
-            if (count > 0) {
-              ngNotify.set('Existen imagenes con el mismo tipo', 'error');
-              return;
-            } else {
-              memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
-                vm.uploader.clearQueue();
-                ngNotify.set('La memoria técnica  se ha guardado correctamente', 'success');
-                $state.go('home.memoria.memoriastecnicas');
-                
-              });
+          var equiposdig_ = [];
+          vm.aparatosdigitales.forEach(function (item) {
+            if (item.Opcion === 1) {
+              var equipo = {};
+              equipo.IdEquipoSustituir = item.IdEquipoSustituir;
+              equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
+              equipo.Equipo = '';
+              equipo.SerieAnterior = item.SerieAnterior;
+              equipo.SerieNueva = '';
+              equipo.paquete = item.paquete;
+              equipo.Opcion = item.Opcion;
+              equiposdig_.push(equipo);
             }
-
-
           });
 
+          vm.digitales_eliminados.forEach(function (item) {
+            var equipo = {};
+            equipo.IdEquipoSustituir = item.IdEquipoSustituir;
+            equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
+            equipo.Equipo = '';
+            equipo.SerieAnterior = item.SerieAnterior;
+            equipo.SerieNueva = '';
+            equipo.Opcion = item.Opcion;
+            equiposdig_.push(equipo);
+          });
+          console.log(equiposdig_);
+          memoriaFactory.GetGuardaEquiposDigital(equiposdig_).then(function (data) {
+
+            memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
+              console.log(result);
+              var file_options = [];
+              var files = [];
+              var tipos = [];
+              var count = 0;
+              vm.uploader.queue.forEach(function (f) {
+                if (tipos.includes(f._file.idtipo)) {
+                  count += 1;
+                } else {
+                  var options = {
+                    'IdImagen': 0,
+                    'Accion': 1,
+                    'Tipo': f._file.idtipo,
+                    'Nombre': f._file.name
+                  };
+                  file_options.push(options);
+                  tipos.push(f._file.idtipo);
+                  files.push(f._file);
+                }
+
+              });
+              if (count > 0) {
+                ngNotify.set('Existen imagenes con el mismo tipo', 'error');
+                return;
+              } else {
+                memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
+                  vm.uploader.clearQueue();
+                  ngNotify.set('La memoria técnica  se ha guardado correctamente', 'success');
+                  $state.go('home.memoria.memoriastecnicas');
+                });
+              }
+            });
+          });
         });
 
       }
@@ -255,6 +308,9 @@ angular
         vm.fechaactivacion = det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
         vm.numerofolio = det.Folio;
+        vm.mensajefolio = (vm.numerofolio > 0) ? 'Folio generado' : 'Generar Folio';
+        vm.generafolio = (vm.numerofolio > 0) ? true : false;
+        vm.blockgenerafolio = (vm.numerofolio > 0) ? true : false;
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
@@ -294,11 +350,26 @@ angular
         vm.titulo = 'Edición de memoria técnica #' + vm.IdMemoriaTecnica;
       }
 
+      function obtenfolio() {
+
+        memoriaFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
+          .then(function (response) {
+            vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
+            vm.mensajefolio = (vm.numerofolio > 0) ? 'Folio generado' : 'Generar Folio';
+            vm.generafolio = (vm.numerofolio > 0) ? true : false;
+            vm.blockgenerafolio = (vm.numerofolio > 0) ? true : false;
+
+          });
+
+      }
+
 
       var openLightboxModal =
         function (index) {
           Lightbox.openModal(vm.Lista_evidencias, index);
         };
+
+
       var vm = this;
       vm.uploader = new FileUploader();
       vm.id = $stateParams.id;
@@ -314,7 +385,11 @@ angular
       vm.eliminaaparato = eliminaaparato;
       vm.Imagenes_eliminadas = [];
       vm.BorraImagen = BorraImagen;
-
+      vm.obtenfolio = obtenfolio;
+      vm.aparatosdigitales = [];
+      vm.digitales_eliminados = [];
+      vm.eliminaaparatodig = eliminaaparatodig;
+      vm.addAparatodig = addAparatodig;
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;

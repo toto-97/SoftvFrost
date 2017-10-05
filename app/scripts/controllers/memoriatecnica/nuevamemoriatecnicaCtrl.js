@@ -1,42 +1,103 @@
 'use strict';
 angular
-  .module('softvFrostApp')  
+  .module('softvFrostApp')
   .controller('nuevamemoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, $localStorage, $uibModal, $filter, FileUploader) {
     var vm = this;
     vm.cambios = [];
     vm.cambios_eliminados = [];
+    vm.aparatosdigitales = [];
     vm.cambioAparato = cambioAparato;
     vm.eliminaaparato = eliminaaparato;
     vm.guardar = guardar;
     vm.BorraImagen = BorraImagen;
-    vm.showguardar = true;
+    vm.showguardar = false;
     vm.seleccionImagen = true;
     vm.detalle = false;
+    vm.validar = validar;
+    vm.generafolio = false;
+    vm.mensajefolio = 'Generar Folio';
+    vm.blockgenerafolio = true;
+    vm.obtenfolio = obtenfolio;
     vm.titulo = 'Registro de memoria técnica';
+    vm.addAparatodig = addAparatodig;
+    vm.eliminaaparatodig = eliminaaparatodig;
+    initialData();
+
+    function getValidationdata(obj) {
+      var results = obj;
+      vm.celular = results.Celular;
+      vm.cliente = results.Cliente;
+      vm.beam = results.Beam;
+      vm.contrato = results.Contrato;
+      vm.direccion = results.Direccion;
+      vm.distribuidor = results.Distribuidor;
+      vm.estado = results.Estado;
+      vm.latitud = results.Latitud;
+      vm.localidad = results.Localidad;
+      vm.longitud = results.Longitud;
+      vm.municipio = results.Municipio;
+      vm.plataforma = results.Plataforma;
+      vm.contratocompania = results.contratocompania;
+      vm.SAN = results.SAN;
+      vm.plan = results.Servicio;
+      vm.telefono = results.Telefono;
+    }
+
+    function obtenfolio() {
+
+    }
+
+
+    function validar() {
+      memoriaFactory.GetObtieneDatosPorOrden(vm.numeroorden).then(function (result) {
+        console.log(result);
+        if (result.GetObtieneDatosPorOrdenResult.length > 0) {
+          if (result.GetObtieneDatosPorOrdenResult[0].Error > 0) {
+            ngNotify.set(result.GetObtieneDatosPorOrdenResult[0].Msg, 'error');
+            getValidationdata(result.GetObtieneDatosPorOrdenResult[0]);
+          } else {
+            getValidationdata(result.GetObtieneDatosPorOrdenResult[0]);
+            vm.showguardar = true;
+          }
+        } else {
+          ngNotify.set('El Numero de orden ingresado no es válido ,intente con otro', 'warn');
+        }
+      });
+    }
+
     vm.uploader = new FileUploader({
       filters: [{
-          name: 'yourName1',
-          fn: function (item) {
-            var count = 0;
-            vm.uploader.queue.forEach(function (f) {
-              count += (f._file.name === item.name) ? 1 : 0;
-            });
-            if (count > 0) {
-              ngNotify.set('Un archivo con ese mismo nombre ya fue seleccionado', 'warn')
-              return false;
-            } else {
-              return true;
-            }
+        name: 'yourName1',
+        fn: function (item) {
+          var count = 0;
+          vm.uploader.queue.forEach(function (f) {
+            count += (f._file.name === item.name) ? 1 : 0;
+          });
+          if (count > 0) {
+            ngNotify.set('Un archivo con ese mismo nombre ya fue seleccionado', 'warn')
+            return false;
+          } else {
+            return true;
           }
-        },
-
-
-
-      ]
+        }
+      }]
     });
 
 
-    initialData();
+    function addAparatodig() {
+      var aparato = {
+        'paquete': vm.paquete,
+        'serie': vm.seriedigital
+      };
+      vm.aparatosdigitales.push(aparato);
+    }
+
+    function eliminaaparatodig(index) {
+      if (index > -1) {
+        vm.aparatosdigitales.splice(index, 1);
+      }
+    }
+
 
     vm.uploader.onAfterAddingFile = function (fileItem) {
       fileItem.file.idtipo = vm.tipoimagen.IdTipo;
@@ -58,11 +119,12 @@ angular
     }
 
     function eliminaaparato(index) {
-      if (index > -1) {       
+      if (index > -1) {
         vm.cambios.splice(index, 1);
       }
-
     }
+
+
 
 
 
@@ -77,7 +139,7 @@ angular
           obj.SerieAnterior = vm.serieanterior;
           obj.Equipo = vm.equiposurtir;
           obj.SerieNueva = vm.serienueva;
-          obj.Opcion = 1;          
+          obj.Opcion = 1;
           vm.cambios.push(obj);
           vm.serieanterior = '';
           vm.equiposurtir = '';
@@ -101,7 +163,7 @@ angular
         'Contrato': (isvalid(vm.contrato) === true) ? vm.contrato : 0,
         'Distribuidor': (isvalid(vm.distribuidor) === true) ? vm.distribuidor : '',
         'Instalador': (isvalid(vm.instalador) === true) ? vm.instalador : '',
-        'FechaVisita': (isvalid(vm.fechasitio) === true) ? $filter('date')(vm.fechasitio, 'yyyy-MM-dd') : '',
+        'FechaVisita': (isvalid(vm.fechasitio) === true) ? $filter('date')(vm.fechasitio, 'yyyy/MM/dd') : '',
         'HoraLlegada': (isvalid(vm.horallegada) === true) ? vm.horallegada : '',
         'HoraSalida': (isvalid(vm.horasalida) === true) ? vm.horasalida : '',
         'SiteId': (isvalid(vm.siteid) === true) ? vm.siteid : 0,
@@ -123,7 +185,7 @@ angular
         'Longitud': vm.longitud,
         'Beam': (isvalid(vm.beam) === true) ? vm.beam : '',
         'EstatusTecnico': (isvalid(vm.estatustecnico) === true) ? vm.estatustecnico : '',
-        'FechaActivacion': (isvalid(vm.fechaactivacion) === true) ? $filter('date')(vm.fechaactivacion, 'yyyy-MM-dd') : '',
+        'FechaActivacion': (isvalid(vm.fechaactivacion) === true) ? $filter('date')(vm.fechaactivacion, 'yyyy/MM/dd') : '',
         'VCNeutroTierra': (isvalid(vm.vcneutrotierra) === true) ? vm.vcneutrotierra : '',
         'VCFaseTierra': (isvalid(vm.vcfasetierra) === true) ? vm.vcfasetierra : '',
         'VCFaseNeutro': (isvalid(vm.vcfaseneutro) === true) ? vm.vcfaseneutro : '',
@@ -192,8 +254,27 @@ angular
               equipos_.push(equipo)
             });
             memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
-              ngNotify.set('La memoria técnica se ha guardado correctamente', 'success')
-              $state.go('home.memoria.memoriastecnicas');
+
+
+              var equiposdig = [];
+              vm.aparatosdigitales.forEach(function (item) {
+                var equipo = {};
+                equipo.IdEquipoSustituir = 0;
+                equipo.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+                equipo.Equipo = '';
+                equipo.SerieAnterior = item.serie;
+                equipo.SerieNueva = '';
+                equipo.Opcion = 1;
+                equipo.paquete = item.paquete;
+                equiposdig.push(equipo);
+              });
+              memoriaFactory.GetGuardaEquiposDigital(equiposdig).then(function (data) {
+                ngNotify.set('La memoria técnica se ha guardado correctamente', 'success')
+                $state.go('home.memoria.memoriastecnicas');
+              });
+
+
+
             });
 
 
