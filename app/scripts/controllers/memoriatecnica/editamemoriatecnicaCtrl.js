@@ -4,13 +4,11 @@ angular
   .controller('editamemoriatecnicaCtrl',
     function ($state, ngNotify, memoriaFactory, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox) {
 
-
-
       function initialData() {
-
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
           vm.tiposresp = response.GetObtieneTiposImagenesListResult;
           memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
+            console.log(data);
             detalle(data.GetObtieneMemoriaTecnicaResult[0]);
             memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
               vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
@@ -22,9 +20,8 @@ angular
                 item.Opcion = 3;
               });
 
-              memoriaFactory.GetObtieneEquiposSustituir(vm.id).then(function (result) {
+              memoriaFactory.GetObtieneEquiposSustituir( vm.IdMemoriaTecnica).then(function (result) {
                 var eq = result.GetObtieneEquiposSustituirResult;
-
                 eq.forEach(function (item) {
                   var equipo = {};
                   equipo.IdEquipoSustituir = item.IdEquipoSustituir;
@@ -35,8 +32,7 @@ angular
                   equipo.Opcion = 2;
                   vm.cambios.push(equipo);
                 });
-
-                memoriaFactory.GetObtieneDigitalMemoriaTecnica().then(function (result) {
+                memoriaFactory.GetObtieneDigitalMemoriaTecnica( vm.IdMemoriaTecnica).then(function (result) {
                   var ed = result.GetObtieneDigitalMemoriaTecnicaResult;
                   ed.forEach(function (item) {
                     var equipodig = {};
@@ -48,21 +44,23 @@ angular
                     equipodig.Opcion = 2;
                     vm.aparatosdigitales.push(equipodig);
                   });
-
                 });
               });
-
             });
           });
         });
       }
 
       function addAparatodig() {
-        var aparato = {
-          'paquete': vm.paquete,
-          'serie': vm.seriedigital
-        };
-        vm.aparatosdigitales.push(aparato);
+        var obj = {};
+        obj.SerieAnterior = vm.seriedigital;
+        //obj.Equipo = '';
+        //obj.SerieNueva = '';
+        obj.IdEquipoSustituir = 0;
+        obj.IdMemoriaTecnica = vm.id;
+        obj.paquete = vm.paquete;
+        obj.Opcion = 1;
+        vm.aparatosdigitales.push(obj);
       }
 
 
@@ -113,7 +111,7 @@ angular
             obj.IdEquipoSustituir = 0;
             obj.IdMemoriaTecnica = vm.id;
             obj.Opcion = 1;
-            console.log(obj);
+            
             vm.cambios.push(obj);
             vm.serieanterior = '';
             vm.equiposurtir = '';
@@ -141,7 +139,7 @@ angular
           'Contrato': (isvalid(vm.contrato) === true) ? vm.contrato : 0,
           'Distribuidor': (isvalid(vm.distribuidor) === true) ? vm.distribuidor : '',
           'Instalador': (isvalid(vm.instalador) === true) ? vm.instalador : '',
-          'FechaVisita': (isvalid(vm.fechasitio) === true) ? $filter('date')(vm.fechasitio, 'yyyy-MM-dd') : '',
+          'FechaVisita': (isvalid(vm.fechasitio) === true) ? vm.fechasitio:'',// $filter('date')(vm.fechasitio, 'yyyy-MM-dd') : '',
           'HoraLlegada': (isvalid(vm.horallegada) === true) ? vm.horallegada : '',
           'HoraSalida': (isvalid(vm.horasalida) === true) ? vm.horasalida : '',
           'SiteId': (isvalid(vm.siteid) === true) ? vm.siteid : '',
@@ -163,7 +161,7 @@ angular
           'Longitud': vm.longitud,
           'Beam': (isvalid(vm.beam) === true) ? vm.beam : '',
           'EstatusTecnico': (isvalid(vm.estatustecnico) === true) ? vm.estatustecnico : '',
-          'FechaActivacion': (isvalid(vm.fechaactivacion) === true) ? $filter('date')(vm.fechaactivacion, 'yyyy-MM-dd') : '',
+          'FechaActivacion': (isvalid(vm.fechaactivacion) === true)? vm.fechaactivacion :'',// ? $filter('date')(vm.fechaactivacion, 'yyyy-MM-dd') : '',
           'VCNeutroTierra': (isvalid(vm.vcneutrotierra) === true) ? vm.vcneutrotierra : '',
           'VCFaseTierra': (isvalid(vm.vcfasetierra) === true) ? vm.vcfasetierra : '',
           'VCFaseNeutro': (isvalid(vm.vcfaseneutro) === true) ? vm.vcfaseneutro : '',
@@ -193,65 +191,29 @@ angular
 
 
         memoriaFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
-          var equipos_ = [];
-          vm.cambios.forEach(function (item) {
-
-            if (item.Opcion === 1) {
-              var equipo = {};
-              equipo.IdEquipoSustituir = item.IdEquipoSustituir;
-              equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
-              equipo.Equipo = item.Equipo;
-              equipo.SerieAnterior = item.SerieAnterior;
-              equipo.SerieNueva = item.SerieNueva;
-              equipo.Opcion = item.Opcion;
-              equipos_.push(equipo);
-            }
-
-          });
-
-          vm.cambios_eliminados.forEach(function (item) {
-            var equipo = {};
-            equipo.IdEquipoSustituir = item.IdEquipoSustituir;
-            equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
-            equipo.Equipo = item.Equipo;
-            equipo.SerieAnterior = item.SerieAnterior;
-            equipo.SerieNueva = item.SerieNueva;
-            equipo.Opcion = item.Opcion;
-            equipos_.push(equipo);
-          });
-          console.log(equipos_);
-
-
           var equiposdig_ = [];
           vm.aparatosdigitales.forEach(function (item) {
             if (item.Opcion === 1) {
-              var equipo = {};
-              equipo.IdEquipoSustituir = item.IdEquipoSustituir;
-              equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
-              equipo.Equipo = '';
-              equipo.SerieAnterior = item.SerieAnterior;
-              equipo.SerieNueva = '';
-              equipo.paquete = item.paquete;
-              equipo.Opcion = item.Opcion;
-              equiposdig_.push(equipo);
+              equiposdig_.push(item);
             }
           });
-
           vm.digitales_eliminados.forEach(function (item) {
-            var equipo = {};
-            equipo.IdEquipoSustituir = item.IdEquipoSustituir;
-            equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
-            equipo.Equipo = '';
-            equipo.SerieAnterior = item.SerieAnterior;
-            equipo.SerieNueva = '';
-            equipo.Opcion = item.Opcion;
-            equiposdig_.push(equipo);
+            equiposdig_.push(item);
           });
-          console.log(equiposdig_);
+          var equipos_ = [];
+          vm.cambios.forEach(function (item) {
+            if (item.Opcion === 1) {
+              equipos_.push(item);
+            }
+          });
+          vm.cambios_eliminados.forEach(function (item) {
+            equipos_.push(item);
+          });
+
           memoriaFactory.GetGuardaEquiposDigital(equiposdig_).then(function (data) {
 
             memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
-              console.log(result);
+             
               var file_options = [];
               var files = [];
               var tipos = [];
@@ -346,6 +308,7 @@ angular
         vm.upcneutrotierra = det.VUPSNeutroTierra;
         vm.velocidad = det.Velocidad;
         vm.wifiserie = det.WiFi;
+        vm.contratocompania=det.contratocompania;
 
         vm.titulo = 'Edición de memoria técnica #' + vm.IdMemoriaTecnica;
       }
@@ -390,6 +353,8 @@ angular
       vm.digitales_eliminados = [];
       vm.eliminaaparatodig = eliminaaparatodig;
       vm.addAparatodig = addAparatodig;
+      vm.blockorden=true;
+      vm.blockcontrato=true;
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;

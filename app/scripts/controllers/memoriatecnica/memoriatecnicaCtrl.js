@@ -1,9 +1,23 @@
 'use strict';
 angular
   .module('softvFrostApp')
-  .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory) {
-    
+  .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment,$firebaseArray,toaster) {
+
     function initialData() {
+  
+        
+     
+      //console.log(moment().format('L'));
+      /*var ref = firebase.database().ref().child("messages");
+      console.log(ref);
+      vm.messages = $firebaseArray(ref);
+      vm.messages.$add({
+        'Idmemoria': 1,
+        'Fecha': moment().format('L'),
+        'Hora': moment().format('LT')
+      });
+*/
+
       BuscaMemoriaTecnica(7);
     }
 
@@ -18,7 +32,7 @@ angular
         'Cliente': (op === 5) ? vm.cliente : '',
         'Contrato': 0,
         'Tecnico': (op === 6) ? vm.tecnico : ''
-      };     
+      };
       memoriaFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {
           vm.memorias = data.GetBuscaMemoriaTecnicaListResult;

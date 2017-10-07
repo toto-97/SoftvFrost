@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('softvFrostApp')
-  .controller('nuevamemoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, $localStorage, $uibModal, $filter, FileUploader) {
+  .controller('nuevamemoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, $localStorage, $uibModal, $filter, FileUploader, $firebaseArray,moment) {
     var vm = this;
     vm.cambios = [];
     vm.cambios_eliminados = [];
@@ -21,6 +21,9 @@ angular
     vm.titulo = 'Registro de memoria técnica';
     vm.addAparatodig = addAparatodig;
     vm.eliminaaparatodig = eliminaaparatodig;
+    vm.blockorden = false;
+    vm.blockcontrato = false;
+    vm.Imagenes_eliminadas = [];
     initialData();
 
     function getValidationdata(obj) {
@@ -85,11 +88,13 @@ angular
 
 
     function addAparatodig() {
-      var aparato = {
-        'paquete': vm.paquete,
-        'serie': vm.seriedigital
-      };
-      vm.aparatosdigitales.push(aparato);
+      var obj = {};
+      obj.SerieAnterior = vm.seriedigital;
+      obj.IdEquipoSustituir = 0;
+      obj.IdMemoriaTecnica = 0;
+      obj.paquete = vm.paquete;
+      obj.Opcion = 1;
+      vm.aparatosdigitales.push(obj);
     }
 
     function eliminaaparatodig(index) {
@@ -239,45 +244,25 @@ angular
           ngNotify.set('Existen imagenes con el mismo tipo', 'error');
           return;
         } else {
-          memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options).then(function (data) {
+          memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options,[]).then(function (data) {
             ngNotify.set('las imagenes se han guardado correctamente', 'success');
             vm.uploader.clearQueue();
-            var equipos_ = [];
-            vm.cambios.forEach(function (item) {
-              var equipo = {}
-              equipo.IdEquipoSustituir = 0;
-              equipo.IdMemoriaTecnica = vm.IdMemoriaTecnica;
-              equipo.Equipo = item.Equipo;
-              equipo.SerieAnterior = item.SerieAnterior;
-              equipo.SerieNueva = item.SerieNueva;
-              equipo.Opcion = item.Opcion;
-              equipos_.push(equipo)
-            });
-            memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
+            memoriaFactory.GuardaEquiposSustituir(vm.cambios).then(function (result) {
+              memoriaFactory.GetGuardaEquiposDigital(vm.aparatosdigitales).then(function (data) {
+
+              var ref = firebase.database().ref().child("messages");
+                vm.messages = $firebaseArray(ref);
+                vm.messages.$add({
+                  'Idmemoria': vm.IdMemoriaTecnica,
+                  'Fecha':moment().format('L'),
+                  'Hora':moment().format('LT')
+                });
 
 
-              var equiposdig = [];
-              vm.aparatosdigitales.forEach(function (item) {
-                var equipo = {};
-                equipo.IdEquipoSustituir = 0;
-                equipo.IdMemoriaTecnica = vm.IdMemoriaTecnica;
-                equipo.Equipo = '';
-                equipo.SerieAnterior = item.serie;
-                equipo.SerieNueva = '';
-                equipo.Opcion = 1;
-                equipo.paquete = item.paquete;
-                equiposdig.push(equipo);
-              });
-              memoriaFactory.GetGuardaEquiposDigital(equiposdig).then(function (data) {
                 ngNotify.set('La memoria técnica se ha guardado correctamente', 'success')
                 $state.go('home.memoria.memoriastecnicas');
               });
-
-
-
             });
-
-
           });
         }
 

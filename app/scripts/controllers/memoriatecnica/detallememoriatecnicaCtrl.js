@@ -6,6 +6,9 @@ angular
       function initialData() {
         memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
           detalle(data.GetObtieneMemoriaTecnicaResult[0]);
+         
+
+     
 
 
           memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
@@ -15,6 +18,35 @@ angular
               item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
               item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
               item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+
+             memoriaFactory.GetObtieneEquiposSustituir( vm.IdMemoriaTecnica).then(function (result) {
+                var eq = result.GetObtieneEquiposSustituirResult;
+                eq.forEach(function (item) {
+                  var equipo = {};
+                  equipo.IdEquipoSustituir = item.IdEquipoSustituir;
+                  equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
+                  equipo.Equipo = item.Equipo;
+                  equipo.SerieAnterior = item.SerieAnterior;
+                  equipo.SerieNueva = item.SerieNueva;
+                  equipo.Opcion = 2;
+                  vm.cambios.push(equipo);
+                });
+                memoriaFactory.GetObtieneDigitalMemoriaTecnica( vm.IdMemoriaTecnica).then(function (result) {
+                  var ed = result.GetObtieneDigitalMemoriaTecnicaResult;
+                  ed.forEach(function (item) {
+                    var equipodig = {};
+                    equipodig.IdEquipoSustituir = item.IdEquipoSustituir;
+                    equipodig.IdMemoriaTecnica = item.IdMemoriaTecnica;
+                    equipodig.Equipo = '';
+                    equipodig.SerieAnterior = item.SerieAnterior;
+                    equipodig.paquete = item.paquete;
+                    equipodig.Opcion = 2;
+                    vm.aparatosdigitales.push(equipodig);
+                  });
+                });
+              });
+
+
             });
 
             console.log(vm.Lista_evidencias);
@@ -94,6 +126,8 @@ angular
       vm.uploader = new FileUploader();
       vm.id = $stateParams.id;
       initialData();
+      vm.cambios = [];
+      vm.aparatosdigitales = [];
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = false;
       vm.seleccionImagen = false;

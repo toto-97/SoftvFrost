@@ -51,7 +51,19 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
       controller: 'editamemoriatecnicaCtrl',
       controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.bitacora',
+      data: {
+        pageTitle: 'SOFTV | BITACORA',
+      },
+      url: '/bitacora',
+      templateUrl: 'views/memorias/bitacora.html',
+      controller: 'bitacoraCtrl',
+      controllerAs: '$ctrl'
     }
+
+    
   ];
 
   states.forEach(function (state) {

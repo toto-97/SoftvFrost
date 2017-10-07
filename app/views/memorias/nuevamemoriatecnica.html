@@ -87,11 +87,14 @@
             <div class="form-group row ">
               <label class="col-sm-3 control-label"># Orden</label>
               <div class="col-sm-4">
-                <input type="number" class="form-control input-sm" name="numeroOrden" ng-model="$ctrl.numeroorden" validate-on="dirty" invalid-message="'El número de la orden es obligatorio'"
-                  placeholder="Ingresa #orden" required />
+                <input type="number" class="form-control input-sm" name="numeroOrden" ng-disabled="$ctrl.blockorden" ng-model="$ctrl.numeroorden"
+                  validate-on="dirty" invalid-message="'El número de la orden es obligatorio'" placeholder="Ingresa #orden"
+                  required />
               </div>
               <div class="col-sm-3">
-                <button type="button" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.validar()">Validar</button>
+                <button type="button"
+                ng-disabled="$ctrl.blockorden"
+                 class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.validar()">Validar</button>
               </div>
             </div>
 
@@ -115,8 +118,9 @@
             <div class="form-group row ">
               <label class="col-sm-3 control-label">Contrato</label>
               <div class="col-sm-4">
-                <input type="text" class="form-control input-sm" name="contrato" ng-model="$ctrl.contratocompania" validate-on="dirty" invalid-message="'El número de la orden es obligatorio'"
-                  name="password" placeholder="" required />
+                <input type="text" class="form-control input-sm" ng-disabled="$ctrl.blockcontrato" name="contrato" ng-model="$ctrl.contratocompania"
+                  validate-on="dirty" invalid-message="'El número de la orden es obligatorio'" name="password" placeholder=""
+                  required />
               </div>
             </div>
 
@@ -144,8 +148,9 @@
 
                 <label class="col-sm-5 control-label">Fecha visita de sitio</label>
                 <div class="col-sm-7">
-                  <input type="date" class="form-control input-sm" name="fechasitio" ng-model="$ctrl.fechasitio" validate-on="dirty" invalid-message="'La fecha es obligatoria'"
-                    placeholder="Ingresa #orden" />
+                  <input type="text" class="form-control input-sm" name="fechasitio" ng-model="$ctrl.fechasitio" placeholder="DD/MM/YYYY" model-view-value="true"
+                    ui-mask="99/99/9999" validate-on="dirty" invalid-message="'La fecha es obligatoria'" placeholder="Ingresa #orden"
+                  />
                 </div>
               </div>
 
@@ -156,8 +161,8 @@
               <div class="form-group row ">
                 <label class="col-sm-5 control-label">Hora de llegada</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control input-sm" name="horallegada" ng-model="$ctrl.horallegada" validate-on="dirty" invalid-message="'La hora es obligatoria'"
-                    placeholder="" required />
+                  <input type="text" placeholder="hh:mm" ui-mask="99:99" class="form-control input-sm" name="horallegada" ng-model="$ctrl.horallegada"
+                    validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder="" required />
                 </div>
 
               </div>
@@ -168,8 +173,8 @@
               <div class="form-group row ">
                 <label class="col-sm-5 control-label">Hora de salida</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control input-sm" name="horasalida" ng-model="$ctrl.horasalida" validate-on="dirty" invalid-message="'La hora es obligatoria'"
-                    placeholder="" required />
+                  <input type="text" class="form-control input-sm" name="horasalida" placeholder="hh:mm" ui-mask="99:99" ng-model="$ctrl.horasalida"
+                    validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder="" required />
                 </div>
               </div>
             </div>
@@ -326,7 +331,8 @@
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Fecha Activación:</label>
                     <div class="col-sm-9">
-                      <input type="date" class="form-control input-sm" name="fechaactivacion" ng-model="$ctrl.fechaactivacion">
+                      <input type="text" placeholder="DD/MM/YYYY" ui-mask="99/99/9999" model-view-value="true" class="form-control input-sm" name="fechaactivacion"
+                        ng-model="$ctrl.fechaactivacion">
                     </div>
                   </div>
 
@@ -367,8 +373,8 @@
             <uib-tab index="1" heading="Mediciones Eléctricas">
               <div class="row">
                 <br>
-                <div class="col-md-4">
-                  <p class="text-center">Voltaje comercial</p>
+                <div class="col-md-4 col-md-offset-2">
+                  <h5 class="text-center text-primary">Voltaje comercial</h5>
 
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Neutro-tierra :</label>
@@ -394,7 +400,7 @@
                 </div>
                 <div class="col-md-4">
 
-                  <p class="text-center">Voltaje UPS/No Break</p>
+                  <h5 class="text-center text-primary ">Voltaje UPS/No Break</h5>
 
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Neutro-tierra :</label>
@@ -429,7 +435,7 @@
 
               <div class="row">
                 <br>
-                <div class="col-md-4">
+                <div class="col-md-4 col-md-offset-2">
 
 
 
@@ -506,7 +512,7 @@
               <br>
               <div class="row">
 
-                <div class="col-md-6">
+                <div class="col-md-4 col-md-offset-2">
 
                   <div class="col-md-6">
                     <div class="row">
@@ -580,7 +586,7 @@
 
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <p>Detalles:</p>
                   <textarea rows="6" class="form-control input-sm" name="detalleinstalacion" ng-model="$ctrl.detalleinstalacion" placeholder="Redacta brevemente los detalles de la instalación"></textarea>
 
@@ -593,43 +599,52 @@
               <br>
               <div class="col-md-12">
 
-                <div class="col-md-6 col-md-offset-3">
-                  <div class="col-md-3">
-                    Equipo a surtir
-                    <input type="text" class="form-control input-sm" name="equiposurtir" ng-model="$ctrl.equiposurtir">
-                  </div>
-                  <div class="col-md-3">
-                    Serie Anterior
-                    <input type="text" class="form-control input-sm" name="serieanterior" ng-model="$ctrl.serieanterior">
-                  </div>
-                  <div class="col-md-3">
-                    Serie Nueva
-                    <input type="text" class="form-control input-sm" ng-model="$ctrl.serienueva" name="serienueva">
-                  </div>
-                  <div class="col-md-3">
-                    <br>
-                    <button type="button" class="btn btn-success btn-sm" ng-disabled="$ctrl.detalle" ng-click="$ctrl.cambioAparato()">Agregar</button>
-                  </div>
-                  <div class="col-md-12 text-center">
-                    <table class="table">
-                      <thead>
-                        <th>Equipo a surtir,marca,modelo</th>
-                        <th>Serie anterior</th>
-                        <th>Serie nueva</th>
-                        <th>Opciones</th>
-                      </thead>
-                      <tbody>
-                        <tr ng-repeat="s in $ctrl.cambios">
-                          <td>{{s.Equipo}}</td>
-                          <td>{{s.SerieAnterior}}</td>
-                          <td>{{s.SerieNueva}}</td>
-                          <td><button type="button" ng-disabled="$ctrl.detalle" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaaparato($index)">
-                        <i class="fa fa-trash"></i> Eliminar</button></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="col-md-8 col-md-offset-2" style="padding: 10px;">
+                  <div class="col-md-4">
+                    <div class="col-md-12">
+                      Equipo a surtir
+                      <input type="text" class="form-control" name="equiposurtir" ng-model="$ctrl.equiposurtir">
+                    </div>
+                    <div class="col-md-12">
+                      Serie Anterior
+                      <input type="text" class="form-control" name="serieanterior" ng-model="$ctrl.serieanterior">
+                    </div>
+                    <div class="col-md-12">
+                      Serie Nueva
+                      <input type="text" class="form-control " ng-model="$ctrl.serienueva" name="serienueva">
+                    </div>
+                    <div class="col-md-12">
+                      <br>
+                      <button type="button" class="btn btn-success btn-sm" ng-disabled="$ctrl.detalle" ng-click="$ctrl.cambioAparato()">Agregar</button>
+                    </div>
 
                   </div>
+                  <div class="col-md-8">
+                    <h5 class="text-primary text-center">Aparatos Agregados</h5>
+                    <div class="col-md-12">
+                      <table class="table">
+                        <thead>
+                          <th>Modelo</th>
+                          <th>Serie anterior</th>
+                          <th>Serie nueva</th>
+                          <th>Opciones</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="s in $ctrl.cambios">
+                            <td>{{s.Equipo}}</td>
+                            <td>{{s.SerieAnterior}}</td>
+                            <td>{{s.SerieNueva}}</td>
+                            <td><button type="button" ng-disabled="$ctrl.detalle" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaaparato($index)">
+                        <i class="fa fa-trash"></i> Eliminar</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </div>
+                  </div>
+
+
+
                 </div>
 
               </div>
@@ -659,19 +674,19 @@
                 <div class="col-md-6">
                   <h5 class="text-primary text-center">Aparatos Agregados</h5>
                   <ul class="list divider-full-bleed">
-											<li class="tile" ng-repeat="x in $ctrl.aparatosdigitales">
-												<a class="tile-content ink-reaction" >
-													<div class="tile-icon">
-														<img src="../../assets/img/avatar2.jpg?1404026449" alt="">
-													</div>
-                          <div class="tile-text">{{x.serie}}</div>
-												</a>
-												<a class="btn btn-flat ink-reaction" ng-click="$ctrl.eliminaaparatodig($index);">
-													<i class="fa fa-trash"></i>
-												</a>
-											</li>	
-										
-										</ul>
+                    <li class="tile" ng-repeat="x in $ctrl.aparatosdigitales">
+                      <a class="tile-content ink-reaction">
+                        <div class="tile-icon">
+                          <img src="../../assets/img/avatar2.jpg?1404026449" alt="">
+                        </div>
+                        <div class="tile-text">{{x.SerieAnterior}}</div>
+                      </a>
+                      <a class="btn btn-flat ink-reaction" ng-click="$ctrl.eliminaaparatodig($index);">
+                        <i class="fa fa-trash"></i>
+                      </a>
+                    </li>
+
+                  </ul>
 
                 </div>
 

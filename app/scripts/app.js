@@ -29,8 +29,11 @@ angular.module('softvFrostApp', [
 		'ui.mask','ngCsv',
 		'fixed.table.header',
 		'angularFileUpload',
-		'bootstrapLightbox'
-
+		'bootstrapLightbox',
+		'firebase',
+		'angularMoment',
+'toaster', 
+'ngAnimate'
 
 
 	])
@@ -75,8 +78,9 @@ angular.module('softvFrostApp', [
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 	}])
 	.constant('APP_CONFIG', window.appConfig)
-	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', 'permissionsFactory', 'PermPermissionStore', function($rootScope, $state, $stateParams, $localStorage, $location, permissionsFactory, PermPermissionStore) {
+	.run(['$rootScope', '$state', '$stateParams', '$localStorage', '$location', 'permissionsFactory', 'PermPermissionStore','amMoment', function($rootScope, $state, $stateParams, $localStorage, $location, permissionsFactory, PermPermissionStore,amMoment) {
 		$rootScope.$state = $state;
+		amMoment.changeLocale('es');
 		$rootScope.$stateParams = $stateParams;
 		if ($localStorage.currentUser) {
 			//$location.path('/auth/login');
