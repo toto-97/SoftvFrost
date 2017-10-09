@@ -12,7 +12,7 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
       vm.Nombre = vm.Rol.Nombre;
       vm.Descripcion = vm.Rol.Descripcion;
       vm.IdRol = vm.Rol.IdRol;
-      vm.RecibeMensaje=(vm.Rol.RecibeMensaje===null || vm.Rol.RecibeMensaje===undefined)? false:vm.Rol.RecibeMensaje;
+      
       console.log(vm.Recibemensaje);
     });
 
@@ -37,7 +37,7 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
     obj.Nombre = vm.Nombre;
     obj.Descripcion = vm.Descripcion;
     obj.Estado = vm.Estatus;
-    obj.RecibeMensaje=vm.RecibeMensaje;
+    
     console.log(obj);
     rolFactory.UpdateRole(obj).then(function (data) {
 

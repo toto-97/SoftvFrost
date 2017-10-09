@@ -81,7 +81,7 @@ angular.module('softvFrostApp')
           'Nombre': object.Nombre,
           'Descripcion': object.Descripcion,
           'Estado': object.Estado,
-          'RecibeMensaje':object.RecibeMensaje
+         
         }
       };
       var config = {
@@ -136,7 +136,7 @@ angular.module('softvFrostApp')
           'Nombre': object.Nombre,
           'Descripcion': object.Descripcion,
           'Estado': object.Estado,
-          'RecibeMensaje':object.RecibeMensaje
+          
         }
       };
       var config = {

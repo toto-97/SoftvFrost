@@ -28,7 +28,8 @@ angular.module('softvFrostApp')
 							usuario: response.data.LogOnResult.Usuario,
 							menu: response.data.LogOnResult.Menu,
 							usuariosac:response.data.LogOnResult.UsuarioSAC,
-							Recibemensaje:(response.data.LogOnResult.Role.RecibeMensaje===null)?false:response.data.LogOnResult.Role.RecibeMensaje
+							Recibemensaje:(response.data.LogOnResult.RecibeMensaje===null)?false:response.data.LogOnResult.RecibeMensaje,
+							status:false
 							//Recibemensaje:(response.data.LogOnResult.Recibemensaje==null)?false:response.data.LogOnResult.Recibemensaje
 						};
 						console.log($localStorage.currentUser);

@@ -19,7 +19,26 @@ angular
       GetGeneraFolioMemoriaTecnica: '/BuscaMemoriaTecnica/GetGeneraFolioMemoriaTecnica',
       GetGuardaEquiposDigital: '/GuardaEquiposSustituir/GetGuardaEquiposDigital',
       GetObtieneDigitalMemoriaTecnica: '/GuardaEquiposSustituir/GetObtieneDigitalMemoriaTecnica',
-      GetObtieneBitacoraPorIdMemoria: '/BuscaMemoriaTecnica/GetObtieneBitacoraPorIdMemoria'
+      GetObtieneBitacoraPorIdMemoria: '/BuscaMemoriaTecnica/GetObtieneBitacoraPorIdMemoria',
+      GetReporteMemoria: '/BuscaMemoriaTecnica/GetReporteMemoria'
+    };
+
+
+    factory.GetReporteMemoria = function () {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+
+      $http.get(globalService.getUrl() + paths.GetReporteMemoria, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     };
 
 

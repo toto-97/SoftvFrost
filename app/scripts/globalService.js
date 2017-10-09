@@ -40,6 +40,11 @@ angular.module('softvFrostApp')
 
     };
 
+    svc.getUrlmemoriatecnicareportes = function () {
+      return 'http://localhost:64482';
+
+    };
+
      svc.getUrlmemoriatecnicaImages = function () {
       return 'http://localhost:64482/MemoriaTecnica';
 

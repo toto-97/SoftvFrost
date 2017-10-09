@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * @ngdoc overview
@@ -9,41 +9,41 @@
  * Main module of the application.
  */
 angular
-  .module("softvFrostApp", [
-    "smart-table",
-    "ngSanitize",
-    "ngCsv",
-    "ngTableToCsv",
-    "ngAnimate",
-    "ngSanitize",
-    "ngNotify",
-    "angularValidator",
-    "ngStorage",
-    "base64",
-    "ui.router",
-    "angularUtils.directives.dirPagination",
-    "ngStorage",
-    "ui.bootstrap",
-    "blockUI",
-    "ngMap",
-    "permission",
-    "permission.ui",
-    "ui.mask",
-    "ngCsv",
-    "fixed.table.header",
-    "angularFileUpload",
-    "bootstrapLightbox",
-    "firebase",
-    "angularMoment",
+  .module('softvFrostApp', [
+    'smart-table',
+    'ngSanitize',
+    'ngCsv',
+    'ngTableToCsv',
+    'ngAnimate',
+    'ngSanitize',
+    'ngNotify',
+    'angularValidator',
+    'ngStorage',
+    'base64',
+    'ui.router',
+    'angularUtils.directives.dirPagination',
+    'ngStorage',
+    'ui.bootstrap',
+    'blockUI',
+    'ngMap',
+    'permission',
+    'permission.ui',
+    'ui.mask',
+    'ngCsv',
+    'fixed.table.header',
+    'angularFileUpload',
+    'bootstrapLightbox',
+    'firebase',
+    'angularMoment',
     //"toaster",
-    "ngAnimate"
+    'ngAnimate'
   ])
   .config([
-    "$provide",
-    "$urlRouterProvider",
-    "$httpProvider",
-    "$qProvider",
-    "blockUIConfig",
+    '$provide',
+    '$urlRouterProvider',
+    '$httpProvider',
+    '$qProvider',
+    'blockUIConfig',
     function(
       $provide,
       $urlRouterProvider,
@@ -53,35 +53,35 @@ angular
     ) {
       $qProvider.errorOnUnhandledRejections(false);
 
-      $urlRouterProvider.otherwise("/auth/login");
-      blockUIConfig.templateUrl = "views/loading.html";
+      $urlRouterProvider.otherwise('/auth/login');
+      blockUIConfig.templateUrl = 'views/loading.html';
 
-      $provide.factory("ErrorHttpInterceptor", function(
+      $provide.factory('ErrorHttpInterceptor', function(
         $q,
         $injector,
         $localStorage,
         $location
       ) {
         function notifyError(rejection) {
-          var notify = $injector.get("ngNotify");
+          var notify = $injector.get('ngNotify');
           if (
             rejection.data ===
-            "Acceso no autorizado, favor de validar autenticación"
+            'Acceso no autorizado, favor de validar autenticación'
           ) {
             delete $localStorage.currentUser;
             notify.set(
-              "Acceso no autorizado, por favor inicia sesión nuevamente.",
+              'Acceso no autorizado, por favor inicia sesión nuevamente.',
               {
-                type: "error",
+                type: 'error',
                 duration: 4000
               }
             );
-            $location.path("/auth/");
+            $location.path('/auth/');
             return;
           }
-          var content = "¡Se ha generado un error! \n" + rejection.data;
+          var content = '¡Se ha generado un error! \n' + rejection.data;
           notify.set(content, {
-            type: "error",
+            type: 'error',
             duration: 4000
           });
         }
@@ -96,23 +96,23 @@ angular
           }
         };
       });
-      $httpProvider.interceptors.push("ErrorHttpInterceptor");
-      $httpProvider.defaults.headers.post["Content-Type"] =
-        "application/json; charset=utf-8";
+      $httpProvider.interceptors.push('ErrorHttpInterceptor');
+      $httpProvider.defaults.headers.post['Content-Type'] =
+        'application/json; charset=utf-8';
 
-      delete $httpProvider.defaults.headers.common["X-Requested-With"];
+      delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
   ])
-  .constant("APP_CONFIG", window.appConfig)
+  .constant('APP_CONFIG', window.appConfig)
   .run([
-    "$rootScope",
-    "$state",
-    "$stateParams",
-    "$localStorage",
-    "$location",
-    "permissionsFactory",
-    "PermPermissionStore",
-    "amMoment",
+    '$rootScope',
+    '$state',
+    '$stateParams',
+    '$localStorage',
+    '$location',
+    'permissionsFactory',
+    'PermPermissionStore',
+    'amMoment',
     function(
       $rootScope,
       $state,
@@ -124,20 +124,20 @@ angular
       amMoment
     ) {
       $rootScope.$state = $state;
-      amMoment.changeLocale("es");
+      amMoment.changeLocale('es');
       $rootScope.$stateParams = $stateParams;
       if ($localStorage.currentUser) {
         //$location.path('/auth/login');
         var permissions = permissionsFactory.on();
-        PermPermissionStore.definePermission("anonymous", function() {
+        PermPermissionStore.definePermission('anonymous', function() {
           return false;
         });
         PermPermissionStore.defineManyPermissions(permissions, function() {
           return true;
         });
       } else {
-        $location.path("/auth/login");
-        PermPermissionStore.definePermission("anonymous", function() {
+        $location.path('/auth/login');
+        PermPermissionStore.definePermission('anonymous', function() {
           return true;
         });
       }
