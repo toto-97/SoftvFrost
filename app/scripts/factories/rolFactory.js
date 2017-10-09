@@ -80,7 +80,8 @@ angular.module('softvFrostApp')
         'objRole': {
           'Nombre': object.Nombre,
           'Descripcion': object.Descripcion,
-          'Estado': object.Estado
+          'Estado': object.Estado,
+          'RecibeMensaje':object.RecibeMensaje
         }
       };
       var config = {
@@ -134,7 +135,8 @@ angular.module('softvFrostApp')
           'IdRol': object.IdRol,
           'Nombre': object.Nombre,
           'Descripcion': object.Descripcion,
-          'Estado': object.Estado
+          'Estado': object.Estado,
+          'RecibeMensaje':object.RecibeMensaje
         }
       };
       var config = {

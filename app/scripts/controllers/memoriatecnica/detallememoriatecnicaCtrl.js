@@ -6,11 +6,6 @@ angular
       function initialData() {
         memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
           detalle(data.GetObtieneMemoriaTecnicaResult[0]);
-         
-
-     
-
-
           memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
             vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
             vm.Lista_evidencias.forEach(function (item) {             
@@ -127,6 +122,7 @@ angular
       vm.id = $stateParams.id;
       initialData();
       vm.cambios = [];
+      var notas=[];
       vm.aparatosdigitales = [];
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = false;

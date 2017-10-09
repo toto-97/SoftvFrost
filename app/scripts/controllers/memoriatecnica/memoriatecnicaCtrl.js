@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('softvFrostApp')
-  .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment,$firebaseArray,toaster) {
+  .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment,$firebaseArray) {
 
     function initialData() {
   

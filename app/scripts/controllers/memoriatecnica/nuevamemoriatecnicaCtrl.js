@@ -4,6 +4,7 @@ angular
   .controller('nuevamemoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, $localStorage, $uibModal, $filter, FileUploader, $firebaseArray,moment) {
     var vm = this;
     vm.cambios = [];
+    var notas=[];
     vm.cambios_eliminados = [];
     vm.aparatosdigitales = [];
     vm.cambioAparato = cambioAparato;

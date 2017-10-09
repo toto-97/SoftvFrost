@@ -15,6 +15,8 @@ function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify,terminalFacto
     obj.Nombre = vm.Nombre;
     obj.Descripcion = vm.Descripcion;
     obj.Estado = vm.Estatus;
+    obj.RecibeMensaje=vm.RecibeMensaje;
+    console.log(obj);
     rolFactory.AddRole(obj).then(function(data) {
       vm.IdRol=data.AddRoleResult;
        

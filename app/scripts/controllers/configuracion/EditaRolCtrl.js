@@ -6,11 +6,14 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
   function init() {
     var id = $stateParams.id;
     rolFactory.GetRoleById(id).then(function (data) {
+      console.log(data);
       vm.Rol = data.GetRoleByIdResult
       vm.Estatus = vm.Rol.Estado;
       vm.Nombre = vm.Rol.Nombre;
       vm.Descripcion = vm.Rol.Descripcion;
       vm.IdRol = vm.Rol.IdRol;
+      vm.RecibeMensaje=(vm.Rol.RecibeMensaje===null || vm.Rol.RecibeMensaje===undefined)? false:vm.Rol.RecibeMensaje;
+      console.log(vm.Recibemensaje);
     });
 
     terminalFactory.getComandoList().then(function (data) {     
@@ -34,6 +37,8 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
     obj.Nombre = vm.Nombre;
     obj.Descripcion = vm.Descripcion;
     obj.Estado = vm.Estatus;
+    obj.RecibeMensaje=vm.RecibeMensaje;
+    console.log(obj);
     rolFactory.UpdateRole(obj).then(function (data) {
 
       var Lista_comandos = [];

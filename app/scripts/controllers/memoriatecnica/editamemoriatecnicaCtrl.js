@@ -355,6 +355,7 @@ angular
       vm.addAparatodig = addAparatodig;
       vm.blockorden=true;
       vm.blockcontrato=true;
+      var notas=[];
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;
