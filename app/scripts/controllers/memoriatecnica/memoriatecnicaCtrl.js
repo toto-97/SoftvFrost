@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('softvFrostApp')
-  .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment,$firebaseArray) {
+  .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment,$firebaseArray,globalService) {
 
     function initialData() {
   
@@ -41,10 +41,33 @@ angular
     }
 
 
-    function reportepdf(id) {
-      alert(id);
+    function reportepdf(id) {    
       memoriaFactory.GetReportepdf(id).then(function (data) {
         console.log(data);
+
+         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportepdfResult;
+          //document.getElementById("downloadbtn").click();
+          var anchor = angular.element('<a/>');
+          anchor.attr({
+            href: vm.url,
+            target: '_blank',
+            download: vm.url
+          })[0].click();
+      });
+
+    }
+
+      function getreportexls(id) {    
+      memoriaFactory.GetReportexls(id).then(function (data) {
+        console.log(data);
+         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportexlsResult;
+          //document.getElementById("downloadbtn").click();
+          var anchor = angular.element('<a/>');
+          anchor.attr({
+            href: vm.url,
+            target: '_blank',
+            download: vm.url
+          })[0].click();
       });
 
     }
@@ -55,5 +78,6 @@ angular
     vm.op = 0;
     vm.BuscaMemoriaTecnica = BuscaMemoriaTecnica;
     vm.reportepdf = reportepdf;
+    vm.getreportexls=getreportexls;
     initialData();
   });

@@ -8,13 +8,13 @@ angular
           detalle(data.GetObtieneMemoriaTecnicaResult[0]);
           memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
             vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
-            vm.Lista_evidencias.forEach(function (item) {             
+            vm.Lista_evidencias.forEach(function (item) {
               item.Ruta = item.Ruta;
               item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
               item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
               item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
 
-             memoriaFactory.GetObtieneEquiposSustituir( vm.IdMemoriaTecnica).then(function (result) {
+              memoriaFactory.GetObtieneEquiposSustituir(vm.IdMemoriaTecnica).then(function (result) {
                 var eq = result.GetObtieneEquiposSustituirResult;
                 eq.forEach(function (item) {
                   var equipo = {};
@@ -26,7 +26,7 @@ angular
                   equipo.Opcion = 2;
                   vm.cambios.push(equipo);
                 });
-                memoriaFactory.GetObtieneDigitalMemoriaTecnica( vm.IdMemoriaTecnica).then(function (result) {
+                memoriaFactory.GetObtieneDigitalMemoriaTecnica(vm.IdMemoriaTecnica).then(function (result) {
                   var ed = result.GetObtieneDigitalMemoriaTecnicaResult;
                   ed.forEach(function (item) {
                     var equipodig = {};
@@ -38,6 +38,22 @@ angular
                     equipodig.Opcion = 2;
                     vm.aparatosdigitales.push(equipodig);
                   });
+                  memoriaFactory.GetObtieneObservacionesMemoriaTecnica(vm.IdMemoriaTecnica).then(function (result) {
+                    console.log(result.GetObtieneObservacionesMemoriaTecnicaResult);
+                    var notas = result.GetObtieneObservacionesMemoriaTecnicaResult;
+                    notas.forEach(function (item) {
+                      console.log(item);
+                      var obj = {};
+                      obj.Observacion = item.Observacion;
+                      obj.IdUsuario = 0;
+                      obj.IdObservacion = 0;
+                      obj.Fecha = item.Fecha;
+                      obj.Nombre = item.Nombre;
+                      vm.notas_ant.push(obj);
+
+                    });
+                  });
+
                 });
               });
 
@@ -122,7 +138,8 @@ angular
       vm.id = $stateParams.id;
       initialData();
       vm.cambios = [];
-      var notas=[];
+      vm.notas = [];
+      vm.notas_ant=[];
       vm.aparatosdigitales = [];
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = false;

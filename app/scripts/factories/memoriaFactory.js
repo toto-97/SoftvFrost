@@ -9,7 +9,8 @@ angular
       GetObtieneDatosPorOrden: '/BuscaMemoriaTecnica/GetObtieneDatosPorOrden',
       GuardaImagenesMemoriaTecnica: '/GuardaImagenesMemoriaTecnica/GetGuardaImagenesMemoriaTecnicaList',
       GetReportepdf: '/GuardaImagenesMemoriaTecnica/GetReportepdf',
-      GuardaObservacionMemoriaTecnica: '/GuardaObservacionMemoriaTecnica/GetGuardaObservacionMemoriaTecnicaList',
+      GetGuardaObservacionMemoriaTecnicaList: '/GuardaObservacionMemoriaTecnica/GetGuardaObservacionMemoriaTecnicaList',
+      GetObtieneObservacionesMemoriaTecnica: '/GuardaObservacionMemoriaTecnica/GetObtieneObservacionesMemoriaTecnica',
       GuardaEquiposSustituir: '/GuardaEquiposSustituir/GetGuardaEquiposSustituirList',
       ObtieneTiposImagenes: '/ObtieneTiposImagenes/GetObtieneTiposImagenesList',
       GetObtieneImagenesMemoriaTecnica: '/GuardaImagenesMemoriaTecnica/GetObtieneImagenesMemoriaTecnica',
@@ -20,7 +21,51 @@ angular
       GetGuardaEquiposDigital: '/GuardaEquiposSustituir/GetGuardaEquiposDigital',
       GetObtieneDigitalMemoriaTecnica: '/GuardaEquiposSustituir/GetObtieneDigitalMemoriaTecnica',
       GetObtieneBitacoraPorIdMemoria: '/BuscaMemoriaTecnica/GetObtieneBitacoraPorIdMemoria',
-      GetReporteMemoria: '/BuscaMemoriaTecnica/GetReporteMemoria'
+      GetReporteMemoria: '/BuscaMemoriaTecnica/GetReporteMemoria',
+      GetReportexls:'/GuardaImagenesMemoriaTecnica/GetReportexls'
+    };
+
+
+
+     factory.GetGuardaObservacionMemoriaTecnicaList = function (obj) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'IdMemoriaTecnica':obj.IdMemoriaTecnica,
+        'Observacion':obj.Observacion,
+        'IdUsuario':$localStorage.currentUser.idUsuario
+      };
+      $http.post(globalService.getUrl() + paths.GetGuardaObservacionMemoriaTecnicaList, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+
+     factory.GetObtieneObservacionesMemoriaTecnica = function (IdMemoriaTecnica) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'IdMemoriaTecnica': IdMemoriaTecnica
+      };
+      $http.post(globalService.getUrl() + paths.GetObtieneObservacionesMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     };
 
 
@@ -161,6 +206,26 @@ angular
         'idmemoria': idmemoria
       };
       $http.post(globalService.getUrlmemoriatecnica() + paths.GetReportepdf, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.GetReportexls = function (idmemoria) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'idmemoria': idmemoria
+      };
+      $http.post(globalService.getUrlmemoriatecnica() + paths.GetReportexls, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (data) {
         deferred.reject(data);

@@ -92,9 +92,7 @@
                   required />
               </div>
               <div class="col-sm-3">
-                <button type="button"
-                ng-disabled="$ctrl.blockorden"
-                 class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.validar()">Validar</button>
+                <button type="button" ng-disabled="$ctrl.blockorden" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.validar()">Validar</button>
               </div>
             </div>
 
@@ -793,15 +791,53 @@
             <uib-tab index="7" heading="Notas">
               <div class="col-md-12">
                 <div class="col-md-3">
-                    <p class="text-primary">Agrega Nota: </p>
-                    <textarea placeholder="Agrega aqui el contenido de la nota....."
-                     class="form-control" ng-model="detallenota">
+                  <p class="text-primary">Agrega Nota: </p>
+                  <textarea placeholder="Agrega aqui el contenido de la nota....." class="form-control" ng-model="$ctrl.detallenota" rows="8">
                     
                     </textarea>
 
-                    <button class="btn btn-info btn-sm"><i class="fa fa-save"></i> Guardar</button>
-                </div> 
-                
+                  <button class="btn btn-info btn-sm" type="button" ng-disabled="$ctrl.notas.length > 0" ng-click="$ctrl.guardaNota()"><i class="fa fa-save"></i> agregar</button>
+                </div>
+                <div class="col-md-9" style="overflow-y: scroll; max-height: 400px;">
+
+                  <div class="tab-pane" id="activity">
+                    <ul class="timeline collapse-lg timeline-hairline">
+                      <li class="timeline-inverted" ng-repeat="x in $ctrl.notas">
+                        <div class="timeline-circ circ-xl style-primary"><i class="md md-event"></i></div>
+                        <div class="timeline-entry">
+                          <div class="card style-default-light">
+                            <div class="card-body small-padding">
+                              <p><em>{{x.Observacion}}</em></p>
+                              <span class="text-medium">Nota de  <span class="text-primary">{{x.Nombre}}</span></span><br>
+                              <span class="opacity-50">
+														{{x.Fecha}}
+														</span>
+                            </div>
+                          </div>
+                        </div>
+                        <!--end .timeline-entry -->
+                      </li>
+
+                        <li class="timeline-inverted" ng-repeat="x in $ctrl.notas_ant">
+                        <div class="timeline-circ circ-xl style-primary"><i class="md md-event"></i></div>
+                        <div class="timeline-entry">
+                          <div class="card style-default-light">
+                            <div class="card-body small-padding">
+                              <p><em>{{x.Observacion}}</em></p>
+                              <span class="text-medium">Nota de  <span class="text-primary">{{x.Nombre}}</span></span><br>
+                              <span class="opacity-50">
+														{{x.Fecha}}
+														</span>
+                            </div>
+                          </div>
+                        </div>
+                        <!--end .timeline-entry -->
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+
 
               </div>
             </uib-tab>
