@@ -26,7 +26,7 @@ angular.module('softvFrostApp')
 
     //rutas locales
     svc.getUrl = function () {
-      return 'http://localhost:64481/SoftvWCFService.svc';
+      return 'http://localhost:8000/SoftvWCFService.svc';
 
     };
 

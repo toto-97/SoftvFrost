@@ -42,6 +42,20 @@ angular
       }
 
       function initialData() {
+
+        var id = $stateParams.id;
+        GetdataFire().then(function (result) {
+          result.forEach(function (item, index) {
+            if (parseInt(item.Idmemoria) === parseInt(id)) {
+              deleteFile(index).then(function (result) {
+                console.log(result);
+              });
+
+            }
+          });
+
+        });
+        return;
        
 
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
