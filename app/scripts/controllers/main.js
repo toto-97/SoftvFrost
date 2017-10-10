@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the softvFrostApp
  */
-angular.module('softvFrostApp').controller('MainCtrl', function(
+angular.module('softvFrostApp').controller('MainCtrl', function (
   $localStorage,
   $window,
   $location,
@@ -15,52 +15,52 @@ angular.module('softvFrostApp').controller('MainCtrl', function(
   $firebaseArray,
   firebase,
   //toaster,
-  ngNotify
+  ngNotify,
+  $q
 ) {
   this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
-  var config = {
-      apiKey: 'AIzaSyBFtB3eFrr1Br5ohphAGtQ5c8ONQQw5C-Y',
-      authDomain: 'boss-5fbab.firebaseapp.com',
-      databaseURL: 'https://boss-5fbab.firebaseio.com',
-      projectId: 'boss-5fbab',
-      storageBucket: 'boss-5fbab.appspot.com',
-      messagingSenderId: '1031430485862'
-    };
-    firebase.initializeApp(config);
-  this.$onInit = function() {
-    
+  /* var config = {
+       apiKey: 'AIzaSyBFtB3eFrr1Br5ohphAGtQ5c8ONQQw5C-Y',
+       authDomain: 'boss-5fbab.firebaseapp.com',
+       databaseURL: 'https://boss-5fbab.firebaseio.com',
+       projectId: 'boss-5fbab',
+       storageBucket: 'boss-5fbab.appspot.com',
+       messagingSenderId: '1031430485862'
+     };
+     firebase.initializeApp(config);*/
+  this.$onInit = function () {
+
 
     if ($localStorage.currentUser) {
       vm.menus = $localStorage.currentUser.menu;
       vm.usuario = $localStorage.currentUser.usuario;
-      rolFactory.GetRoleList().then(function(data) {
-        data.GetRoleListResult.forEach(function(item) {
+      rolFactory.GetRoleList().then(function (data) {
+        data.GetRoleListResult.forEach(function (item) {
           if (item.IdRol === $localStorage.currentUser.idRol) {
             vm.rol = item.Nombre;
           }
         });
 
-        if ($localStorage.currentUser.status === false) {
-          $localStorage.currentUser.status = true;
-          fn60sec();
-          setInterval(fn60sec, 60 * 100000);
-        }
+
         if ($localStorage.currentUser.Recibemensaje === true) {
           var ref = firebase
             .database()
             .ref()
             .child('messages');
           vm.messages = $firebaseArray(ref);
+          vm.messages.$loaded().then(function (notes) {
+            vm.count = notes.length;
+          });
           var first = true;
 
-          ref.on('child_removed', function(snapshot) {
+          ref.on('child_removed', function (snapshot) {
             console.log(snapshot);
-            vm.messages.$loaded().then(function(notes) {
+            vm.messages.$loaded().then(function (notes) {
               vm.count = notes.length;
             });
           });
 
-          ref.limitToLast(1).on('child_added', function(snap) {
+          /*ref.limitToLast(1).on('child_added', function(snap) {
             vm.messages.$loaded().then(function(notes) {
               vm.count = notes.length;
             });
@@ -76,8 +76,59 @@ angular.module('softvFrostApp').controller('MainCtrl', function(
                 }
               );
             }
+          });*/
+
+
+          ref.once("value", function (snap) {
+
+            //TODO: display initial state...
+            // Object.keys not supported in IE 8, but has a polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+            var keys = Object.keys(snap.val() || {});
+            var lastIdInSnapshot = keys[keys.length - 1];
+            console.log(snap);
+            console.log(snap.key);
+            console.log(lastIdInSnapshot);
+            ref.orderByKey().startAt(lastIdInSnapshot).on("child_added", function (newMessSnapshot) {
+
+              if (snap.key === lastIdInSnapshot) {
+                return;
+              }
+              if (first) {
+                first = false;
+              } else {
+                vm.messages.$loaded().then(function (notes) {
+                  vm.count = notes.length;
+
+                  GetdataFire().then(function (result) {
+                    console.log(result);
+                    result.forEach(function (item, index) {
+                      if (item.$id === snap.key) {
+
+                        console.log(item);
+
+
+                      }
+                    });
+
+                  });
+
+
+
+
+                  ngNotify.set('<i class="fa fa-user"></i> Atención se ha generado una nueva memoria técnica.', {
+                    theme: 'pitchy',
+                    html: true
+                  });
+                });
+
+              }
+            });
           });
-        }
+
+
+
+
+        };
       });
     } else {
       $location.path('/auth/login');
@@ -89,18 +140,31 @@ angular.module('softvFrostApp').controller('MainCtrl', function(
     $window.location.reload();
   }
 
-  function fn60sec() {
-    ngNotify.set(
-      '<i class="fa fa-exclamation-triangle"></i> ¡Atención! tienes  Memorias Tecnicas pendientes,consultalas aqui <a  href="#!/home/memoriastecnicas"><i>ir a menu</i></a>',
-      {
-        theme: 'pitchy',
-        html: true,
-        sticky: true
-      }
-    );
-    // ngNotify.set('se ha generado una nueva memoria tècnica','grimace');
-    // toaster.pop("info", "se ha generado una nueva memoria", "text");
+
+  function GetdataFire() {
+
+     var ref = firebase
+            .database()
+            .ref()
+            .child('messages');
+    var defered = $q.defer();
+    var promise = defered.promise;
+    var registros = [];
+    var posts = $firebaseArray(ref);
+    posts.$loaded().then(function (x) {
+      x.forEach(function (item) {
+        registros.push(item);
+      });
+      defered.resolve(registros);
+    }).catch(function (err) {
+      defered.reject(err);
+    });
+    return promise;
   }
+
+
+
+
 
   var vm = this;
   vm.logOut = logOut;

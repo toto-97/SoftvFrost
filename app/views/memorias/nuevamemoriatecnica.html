@@ -120,6 +120,14 @@
                   validate-on="dirty" invalid-message="'El número de la orden es obligatorio'" name="password" placeholder=""
                   required />
               </div>
+                <div class="col-sm-3">
+                <label class="checkbox-inline checkbox-styled checkbox-info">
+                            <input type="checkbox"  ng-model="$ctrl.combo" 
+                            ng-disabled="$ctrl.blockcontrato"
+                            
+                            ><span>Es combo</span>
+													</label>
+              </div>
             </div>
 
 
@@ -649,7 +657,7 @@
 
             </uib-tab>
 
-            <uib-tab index="5" heading="Equipos Digitales">
+            <uib-tab ng-if="$ctrl.combo==true" index="5" heading="Equipos Digitales" >
               <br>
               <div class="col-md-8 col-md-offset-2" style="padding: 10px;">
 

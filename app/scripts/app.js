@@ -44,7 +44,7 @@ angular
     '$httpProvider',
     '$qProvider',
     'blockUIConfig',
-    function(
+    function (
       $provide,
       $urlRouterProvider,
       $httpProvider,
@@ -56,7 +56,7 @@ angular
       $urlRouterProvider.otherwise('/auth/login');
       blockUIConfig.templateUrl = 'views/loading.html';
 
-      $provide.factory('ErrorHttpInterceptor', function(
+      $provide.factory('ErrorHttpInterceptor', function (
         $q,
         $injector,
         $localStorage,
@@ -70,8 +70,7 @@ angular
           ) {
             delete $localStorage.currentUser;
             notify.set(
-              'Acceso no autorizado, por favor inicia sesión nuevamente.',
-              {
+              'Acceso no autorizado, por favor inicia sesión nuevamente.', {
                 type: 'error',
                 duration: 4000
               }
@@ -86,11 +85,11 @@ angular
           });
         }
         return {
-          requestError: function(rejection) {
+          requestError: function (rejection) {
             notifyError(rejection);
             return $q.reject(rejection);
           },
-          responseError: function(rejection) {
+          responseError: function (rejection) {
             notifyError(rejection);
             return $q.reject(rejection);
           }
@@ -107,37 +106,72 @@ angular
   .run([
     '$rootScope',
     '$state',
+    '$injector',
     '$stateParams',
     '$localStorage',
     '$location',
     'permissionsFactory',
     'PermPermissionStore',
     'amMoment',
-    function(
+
+    function (
+
       $rootScope,
       $state,
+      $injector,
       $stateParams,
       $localStorage,
       $location,
       permissionsFactory,
       PermPermissionStore,
       amMoment
+
     ) {
       $rootScope.$state = $state;
       amMoment.changeLocale('es');
       $rootScope.$stateParams = $stateParams;
       if ($localStorage.currentUser) {
+
+        if ($localStorage.currentUser.Recibemensaje === true) {
+        
+         var fire = $injector.get('firebase');
+          var config = {
+            apiKey: 'AIzaSyBFtB3eFrr1Br5ohphAGtQ5c8ONQQw5C-Y',
+            authDomain: 'boss-5fbab.firebaseapp.com',
+            databaseURL: 'https://boss-5fbab.firebaseio.com',
+            projectId: 'boss-5fbab',
+            storageBucket: 'boss-5fbab.appspot.com',
+            messagingSenderId: '1031430485862'
+          };
+          fire.initializeApp(config);
+
+
+          setInterval(function () {
+
+            var notify = $injector.get('ngNotify');
+            // console.log('hahahaah');
+            notify.set(
+              '<i class="fa fa-exclamation-triangle"></i> ¡Atención! tienes  Memorias Tecnicas pendientes,consultalas aqui <a  href="#!/home/memoriastecnicas"><i>ir a menu</i></a>', {
+                theme: 'pitchy',
+                html: true,
+                sticky: true
+              }
+            );
+          }, 60000);
+        }
+
+
         //$location.path('/auth/login');
         var permissions = permissionsFactory.on();
-        PermPermissionStore.definePermission('anonymous', function() {
+        PermPermissionStore.definePermission('anonymous', function () {
           return false;
         });
-        PermPermissionStore.defineManyPermissions(permissions, function() {
+        PermPermissionStore.defineManyPermissions(permissions, function () {
           return true;
         });
       } else {
         $location.path('/auth/login');
-        PermPermissionStore.definePermission('anonymous', function() {
+        PermPermissionStore.definePermission('anonymous', function () {
           return true;
         });
       }
