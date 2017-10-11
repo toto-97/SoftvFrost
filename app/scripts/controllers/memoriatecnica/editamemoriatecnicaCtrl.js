@@ -228,7 +228,7 @@ angular
           'FechaVisita': (isvalid(vm.fechasitio) === true) ? vm.fechasitio : '', // $filter('date')(vm.fechasitio, 'yyyy-MM-dd') : '',
           'HoraLlegada': (isvalid(vm.horallegada) === true) ? vm.horallegada : '',
           'HoraSalida': (isvalid(vm.horasalida) === true) ? vm.horasalida : '',
-          'SiteId': (isvalid(vm.siteid) === true) ? vm.siteid : '',
+          'SiteId': 0,
           'Cliente': (isvalid(vm.cliente) === true) ? vm.cliente : '',
           'Estado': (isvalid(vm.estado) === true) ? vm.estado : '',
           'Municipio': (isvalid(vm.municipio) === true) ? vm.municipio : '',
