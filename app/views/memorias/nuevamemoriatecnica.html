@@ -122,8 +122,8 @@
               </div>
                 <div class="col-sm-3">
                 <label class="checkbox-inline checkbox-styled checkbox-info">
-                            <input type="checkbox"  ng-model="$ctrl.combo" 
-                            ng-disabled="$ctrl.blockcontrato"
+                            <input type="checkbox"  ng-model="$ctrl.Combo" 
+                            ng-disabled="true"
                             
                             ><span>Es combo</span>
 													</label>
@@ -263,7 +263,9 @@
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Direccion</label>
                     <div class="col-sm-9">
-                      <textarea type="text" class="form-control input-sm" ng-model="$ctrl.direccion" name="direccion" rows="5"></textarea>
+                      <textarea type="text" class="form-control input-sm" ng-model="$ctrl.direccion" name="direccion" rows="5">
+                          
+                      </textarea>
                     </div>
                   </div>
                   <div class="form-group row ">
@@ -295,6 +297,13 @@
                     <label class="col-sm-3 control-label">Recibe en sitio:</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control input-sm" name="recibe" ng-model="$ctrl.recibe">
+                    </div>
+                  </div>
+
+                   <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Nombre persona que valida el servicio:</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="nombrevalida" ng-model="$ctrl.PersonaValidaServicio">
                     </div>
                   </div>
 
@@ -657,7 +666,7 @@
 
             </uib-tab>
 
-            <uib-tab ng-if="$ctrl.combo==true" index="5" heading="Equipos Digitales" >
+            <uib-tab ng-if="$ctrl.Combo==true" index="5" heading="Equipos Digitales" >
               <br>
               <div class="col-md-8 col-md-offset-2" style="padding: 10px;">
 
@@ -796,11 +805,12 @@
               </div>
 
             </uib-tab>
-            <uib-tab index="7" heading="Notas">
+            <uib-tab index="7" heading=""  >
+            <uib-tab-heading> Notas   <span class="badge pull-right">{{$ctrl.notas.length+$ctrl.notas_ant.length}}</span></uib-tab-heading>
               <div class="col-md-12">
                 <div class="col-md-3">
                   <p class="text-primary">Agrega Nota: </p>
-                  <textarea placeholder="Agrega aqui el contenido de la nota....." class="form-control" ng-model="$ctrl.detallenota" rows="8">
+                  <textarea placeholder="Agrega aqui el contenido de la nota....." class="form-control" ng-model="$ctrl.detallenota" rows="5">
                     
                     </textarea>
 
@@ -815,12 +825,18 @@
                         <div class="timeline-entry">
                           <div class="card style-default-light">
                             <div class="card-body small-padding">
+                              <!-- <div class="col-md-8">
+
+                               </div>
+                               <div class="col-md-4"></div>-->
                               <p><em>{{x.Observacion}}</em></p>
                               <span class="text-medium">Nota de  <span class="text-primary">{{x.Nombre}}</span></span><br>
-                              <span class="opacity-50">
+                              <span class="opacity-50">                              
 														{{x.Fecha}}
 														</span>
+                             <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaNota()"><i class="fa fa-trash"></i>Eliminar nota</button>
                             </div>
+                           
                           </div>
                         </div>
                         <!--end .timeline-entry -->

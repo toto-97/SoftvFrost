@@ -2,7 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaCtrl',
-    function ($state, ngNotify, memoriaFactory,moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q) {
+    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q) {
 
       var ref = firebase
         .database()
@@ -100,19 +100,19 @@ angular
 
                   memoriaFactory.GetObtieneObservacionesMemoriaTecnica(vm.id).then(function (result) {
                     console.log(result.GetObtieneObservacionesMemoriaTecnicaResult);
-                    var notas=result.GetObtieneObservacionesMemoriaTecnicaResult;
-                    notas.forEach(function(item){
+                    var notas = result.GetObtieneObservacionesMemoriaTecnicaResult;
+                    notas.forEach(function (item) {
                       console.log(item);
-                       var obj = {};
-                    obj.Observacion = item.Observacion;
-                    obj.IdUsuario =0;
-                    obj.IdObservacion = 0;
-                    obj.Fecha = item.Fecha;
-                    obj.Nombre = item.Nombre;
-                    vm.notas_ant.push(obj);
+                      var obj = {};
+                      obj.Observacion = item.Observacion;
+                      obj.IdUsuario = 0;
+                      obj.IdObservacion = 0;
+                      obj.Fecha = item.Fecha;
+                      obj.Nombre = item.Nombre;
+                      vm.notas_ant.push(obj);
 
                     });
-                   
+
 
                   });
 
@@ -126,14 +126,14 @@ angular
 
 
       function guardaNota() {
-      var obj = {};
-      obj.Observacion = vm.detallenota;
-      obj.IdUsuario = $localStorage.currentUser.idUsuario;
-      obj.IdObservacion = 0;
-      obj.Fecha = moment().format('L');
-      obj.Nombre = $localStorage.currentUser.nombre;
-      vm.notas.push(obj);
-    }
+        var obj = {};
+        obj.Observacion = vm.detallenota;
+        obj.IdUsuario = $localStorage.currentUser.idUsuario;
+        obj.IdObservacion = 0;
+        obj.Fecha = moment().format('L');
+        obj.Nombre = $localStorage.currentUser.nombre;
+        vm.notas.push(obj);
+      }
 
       function addAparatodig() {
         var obj = {};
@@ -270,7 +270,8 @@ angular
           'Detalles': (isvalid(vm.detalleinstalacion) === true) ? vm.detalleinstalacion : '',
           'Folio': (isvalid(vm.numerofolio) === true) ? vm.numerofolio : 0,
           'Clv_Orden': (isvalid(vm.numeroorden) === true) ? vm.numeroorden : 0,
-          'IdUsuario': $localStorage.currentUser.idUsuario
+          'IdUsuario': $localStorage.currentUser.idUsuario,
+          'PersonaValidaServicio': vm.PersonaValidaServicio
         };
 
         memoriaFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
@@ -297,7 +298,12 @@ angular
 
             memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
 
-
+              if (vm.notas.length > 0) {
+                var objnota = vm.notas[0];
+                objnota.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+                console.log(objnota);
+                memoriaFactory.GetGuardaObservacionMemoriaTecnicaList(objnota).then(function (resp) {});
+              }
 
               var file_options = [];
               var files = [];
@@ -394,7 +400,8 @@ angular
         vm.velocidad = det.Velocidad;
         vm.wifiserie = det.WiFi;
         vm.contratocompania = det.contratocompania;
-
+        vm.PersonaValidaServicio = det.PersonaValidaServicio;
+        vm.Combo = det.Combo;
         vm.titulo = 'Edición de memoria técnica #' + vm.IdMemoriaTecnica;
       }
 
@@ -406,7 +413,7 @@ angular
             var id = vm.IdMemoriaTecnica;
             GetdataFire().then(function (result) {
               result.forEach(function (item, index) {
-                if (parseInt(item.Idmemoria) === parseInt(id)) {
+                if (parseInt(item.Id) === parseInt(id)) {
                   deleteFile(index).then(function (result) {
                     console.log(result);
                   });
@@ -433,7 +440,13 @@ angular
         };
 
 
+        function eliminaNota(){
+      vm.notas = [];
+    }
+
+
       var vm = this;
+      vm.eliminaNota=eliminaNota;
       vm.uploader = new FileUploader();
       vm.id = $stateParams.id;
       initialData();
@@ -455,9 +468,9 @@ angular
       vm.addAparatodig = addAparatodig;
       vm.blockorden = true;
       vm.blockcontrato = true;
-      vm.guardaNota=guardaNota;
+      vm.guardaNota = guardaNota;
       vm.notas = [];
-      vm.notas_ant=[];
+      vm.notas_ant = [];
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;

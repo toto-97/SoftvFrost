@@ -15,8 +15,8 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
   $firebaseArray,
   firebase,
   //toaster,
-  ngNotify,
-  $q
+  ngNotify
+  
 ) {
   this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
   /* var config = {
@@ -79,7 +79,7 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
           });*/
 
 
-          ref.once("value", function (snap) {
+          ref.once('value', function (snap) {
 
             //TODO: display initial state...
             // Object.keys not supported in IE 8, but has a polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
@@ -88,8 +88,8 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
             console.log(snap);
             console.log(snap.key);
             console.log(lastIdInSnapshot);
-            ref.orderByKey().startAt(lastIdInSnapshot).on("child_added", function (newMessSnapshot) {
-
+            ref.orderByKey().startAt(lastIdInSnapshot).on('child_added', function (newMessSnapshot) {
+              console.log(newMessSnapshot);
               if (snap.key === lastIdInSnapshot) {
                 return;
               }
@@ -99,25 +99,20 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
                 vm.messages.$loaded().then(function (notes) {
                   vm.count = notes.length;
 
-                  GetdataFire().then(function (result) {
+                /*  GetdataFire().then(function (result) {
                     console.log(result);
-                    result.forEach(function (item, index) {
+                    result.forEach(function (item) {
                       if (item.$id === snap.key) {
-
                         console.log(item);
-
-
                       }
                     });
 
                   });
-
-
-
-
-                  ngNotify.set('<i class="fa fa-user"></i> Atención se ha generado una nueva memoria técnica.', {
+*/
+                  ngNotify.set('<i class="fa fa-bell"></i> tienes una nueva notificación', {
                     theme: 'pitchy',
-                    html: true
+                    html: true,
+                    type: 'success'
                   });
                 });
 
@@ -128,7 +123,7 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
 
 
 
-        };
+        }
       });
     } else {
       $location.path('/auth/login');
@@ -141,12 +136,12 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
   }
 
 
-  function GetdataFire() {
+  /*function GetdataFire() {
 
-     var ref = firebase
-            .database()
-            .ref()
-            .child('messages');
+    var ref = firebase
+      .database()
+      .ref()
+      .child('messages');
     var defered = $q.defer();
     var promise = defered.promise;
     var registros = [];
@@ -160,7 +155,7 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
       defered.reject(err);
     });
     return promise;
-  }
+  }*/
 
 
 

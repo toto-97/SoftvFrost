@@ -17,6 +17,7 @@ angular
     var vm = this;
     vm.cambios = [];
     vm.notas = [];
+    vm.notas_ant = [];
     vm.cambios_eliminados = [];
     vm.aparatosdigitales = [];
     vm.cambioAparato = cambioAparato;
@@ -37,9 +38,15 @@ angular
     vm.blockorden = false;
     vm.blockcontrato = false;
     vm.Imagenes_eliminadas = [];
-    vm.guardaNota=guardaNota;
-  
+    vm.guardaNota = guardaNota;
+    vm.eliminaNota=eliminaNota;
+
     initialData();
+
+
+    function eliminaNota(){
+      vm.notas = [];
+    }
 
     function getValidationdata(obj) {
       var results = obj;
@@ -47,7 +54,7 @@ angular
       vm.cliente = results.Cliente;
       vm.beam = results.Beam;
       vm.contrato = results.Contrato;
-      vm.direccion = results.Direccion;
+      vm.direccion = results.Direccion+'\nCol.'+results.Colonia;
       vm.distribuidor = results.Distribuidor;
       vm.estado = results.Estado;
       vm.latitud = results.Latitud;
@@ -59,6 +66,9 @@ angular
       vm.SAN = results.SAN;
       vm.plan = results.Servicio;
       vm.telefono = results.Telefono;
+      vm.Combo=results.Combo;
+      vm.codigopostal=results.CodigoPostal;
+      
     }
 
     function obtenfolio() {}
@@ -133,16 +143,8 @@ angular
     };
 
     function initialData() {
-      /* var ref = firebase
-         .database()
-         .ref()
-         .child("messages");
-       vm.messages = $firebaseArray(ref);
-       vm.messages.$add({
-         Idmemoria: 1,
-         Fecha: moment().format("L"),
-         Hora: moment().format("LT")
-       });*/
+      vm.fechasitio=moment().format('L');     
+      vm.horallegada=moment().format('LT');
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
       });
@@ -257,7 +259,8 @@ angular
         Detalles: isvalid(vm.detalleinstalacion) === true ? vm.detalleinstalacion : "",
         Folio: isvalid(vm.numerofolio) === true ? vm.numerofolio : 0,
         Clv_Orden: isvalid(vm.numeroorden) === true ? vm.numeroorden : 0,
-        IdUsuario: $localStorage.currentUser.idUsuario
+        IdUsuario: $localStorage.currentUser.idUsuario,
+        PersonaValidaServicio:vm.PersonaValidaServicio
       };
 
       memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
@@ -295,8 +298,8 @@ angular
                   .GetGuardaEquiposDigital(vm.aparatosdigitales)
                   .then(function (data) {
                     if (vm.notas.length > 0) {
-                      var objnota=vm.notas[0];
-                      objnota.IdMemoriaTecnica=vm.IdMemoriaTecnica;
+                      var objnota = vm.notas[0];
+                      objnota.IdMemoriaTecnica = vm.IdMemoriaTecnica;
                       console.log(objnota);
                       memoriaFactory.GetGuardaObservacionMemoriaTecnicaList(objnota).then(function (resp) {});
                     }
@@ -310,8 +313,8 @@ angular
                       Id: vm.IdMemoriaTecnica,
                       Fecha: moment().format("L"),
                       Hora: moment().format("LT"),
-                      Mensaje:'Se ha generado una nueva memoria técnica',
-                      Tipo:1
+                      Mensaje: 'Se ha generado una nueva memoria técnica',
+                      Tipo: 1
                     });
 
                     ngNotify.set(
