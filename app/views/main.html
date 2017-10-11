@@ -36,7 +36,7 @@
 							<ul class="dropdown-menu animation-expand" style="width: 500px; height: 350px; overflow: auto">
 								<li class="dropdown-header">Mensajes de hoy</li>
 								<li>
-									<a ng-if="x.Tipo==1" class="alert alert-callout alert-warning" ui-sref="home.memoria.detallememoria({ id: x.Idmemoria})" ng-repeat="x in $ctrl.messages">
+									<a ng-if="x.Tipo==1" class="alert alert-callout alert-warning" ui-sref="home.memoria.detallememoria({ id: x.Id})" ng-repeat="x in $ctrl.messages">
 										<img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
                     <strong>{{x.Mensaje}} # {{x.Id}}</strong><br>
                     <small>{{x.Fecha}} {{x.Hora}}</small>

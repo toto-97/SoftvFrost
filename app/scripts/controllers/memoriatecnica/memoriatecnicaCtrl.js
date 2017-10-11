@@ -2,23 +2,9 @@
 angular
   .module('softvFrostApp')
   .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment, $firebaseArray,
-    firebase, globalService,$q) {
+    firebase, globalService, $q, $window) {
 
     function initialData() {
-
-
-
-      //console.log(moment().format('L'));
-      /*var ref = firebase.database().ref().child("messages");
-      console.log(ref);
-      vm.messages = $firebaseArray(ref);
-      vm.messages.$add({
-        'Idmemoria': 1,
-        'Fecha': moment().format('L'),
-        'Hora': moment().format('LT')
-      });
-*/
-
       BuscaMemoriaTecnica(7);
     }
 
@@ -43,32 +29,60 @@ angular
 
 
     function reportepdf(id) {
+
+      vm.url = '';
       memoriaFactory.GetReportepdf(id).then(function (data) {
         console.log(data);
 
         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportepdfResult;
-        //document.getElementById("downloadbtn").click();
-        var anchor = angular.element('<a/>');
-        anchor.attr({
-          href: vm.url,
-          target: '_blank',
-          download: vm.url
-        })[0].click();
+        //  $window.open( vm.url, '_self');
+        /* var anchor = angular.element('<a/>');
+         anchor.attr({
+           href: vm.url,
+           target: '_blank',
+           download: vm.url
+         })[0].click();*/
+
+        var isChrome = !!window.chrome && !!window.chrome.webstore;
+        var isIE = /*@cc_on!@*/ false || !!document.documentMode;
+        var isEdge = !isIE && !!window.StyleMedia;
+
+
+        if (isChrome) {
+          var url = window.URL || window.webkitURL;
+
+          var downloadLink = angular.element('<a></a>');
+          downloadLink.attr('href', vm.url);
+          downloadLink.attr('target', '_self');
+          downloadLink.attr('download', 'invoice.pdf');
+          downloadLink[0].click();
+        } else if (isEdge || isIE) {
+          window.navigator.msSaveOrOpenBlob(vm.url, 'invoice.pdf');
+
+        } else {
+          var fileURL = vm.url;
+          window.open(fileURL);
+        }
+
+
+
       });
 
     }
 
     function getreportexls(id) {
+      vm.url = '';
       memoriaFactory.GetReportexls(id).then(function (data) {
         console.log(data);
         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportexlsResult;
-        //document.getElementById("downloadbtn").click();
-        var anchor = angular.element('<a/>');
-        anchor.attr({
-          href: vm.url,
-          target: '_blank',
-          download: vm.url
-        })[0].click();
+        $window.open(vm.url, '_self');
+
+        /* var anchor = angular.element('<a/>');
+         anchor.attr({
+           href: vm.url,
+           target: '_blank',
+           download: vm.url
+         })[0].click();*/
       });
 
     }
@@ -149,7 +163,7 @@ angular
     vm.BuscaMemoriaTecnica = BuscaMemoriaTecnica;
     vm.reportepdf = reportepdf;
     vm.getreportexls = getreportexls;
-    vm.add=add;
-    vm.deletechild=deletechild;
+    vm.add = add;
+    vm.deletechild = deletechild;
     initialData();
   });

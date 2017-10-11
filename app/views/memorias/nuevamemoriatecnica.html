@@ -167,7 +167,9 @@
               <div class="form-group row ">
                 <label class="col-sm-5 control-label">Hora de llegada</label>
                 <div class="col-sm-7">
-                  <input type="text" placeholder="hh:mm" ui-mask="99:99" class="form-control input-sm" name="horallegada" ng-model="$ctrl.horallegada"
+                  <input type="text" placeholder="hh:mm" ui-mask="99:99"
+                  model-view-value="true"
+                   class="form-control input-sm" name="horallegada" ng-model="$ctrl.horallegada"
                     validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder="" required />
                 </div>
 
@@ -179,7 +181,9 @@
               <div class="form-group row ">
                 <label class="col-sm-5 control-label">Hora de salida</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control input-sm" name="horasalida" placeholder="hh:mm" ui-mask="99:99" ng-model="$ctrl.horasalida"
+                  <input type="text" class="form-control input-sm" 
+                  model-view-value="true"
+                  name="horasalida" placeholder="hh:mm" ui-mask="99:99" ng-model="$ctrl.horasalida"
                     validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder="" required />
                 </div>
               </div>
@@ -677,9 +681,14 @@
                     <input type="text" class="form-control" name="paquete" ng-model="$ctrl.paquete">
                   </div>
                   <div class="col-md-12">
+                    <b>Equipo</b>
+                    <input type="text" class="form-control" name="equipodigital" ng-model="$ctrl.equipodigital">
+                  </div>
+                  <div class="col-md-12">
                     <b>Serie de aparato</b>
                     <input type="text" class="form-control" name="serieanterior" ng-model="$ctrl.seriedigital">
                   </div>
+
 
                   <div class="col-md-12 text-center">
                     <br>
@@ -694,7 +703,7 @@
                         <div class="tile-icon">
                           <img src="../../assets/img/avatar2.jpg?1404026449" alt="">
                         </div>
-                        <div class="tile-text">{{x.SerieAnterior}}</div>
+                        <div class="tile-text">{{x.Equipo}} | {{x.SerieAnterior}}</div>
                       </a>
                       <a class="btn btn-flat ink-reaction" ng-click="$ctrl.eliminaaparatodig($index);">
                         <i class="fa fa-trash"></i>

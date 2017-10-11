@@ -91,9 +91,10 @@ angular
                     var equipodig = {};
                     equipodig.IdEquipoSustituir = item.IdEquipoSustituir;
                     equipodig.IdMemoriaTecnica = item.IdMemoriaTecnica;
-                    equipodig.Equipo = '';
+                    equipodig.Equipo = item.Equipo;
                     equipodig.SerieAnterior = item.SerieAnterior;
                     equipodig.paquete = item.paquete;
+                    
                     equipodig.Opcion = 2;
                     vm.aparatosdigitales.push(equipodig);
                   });
@@ -144,6 +145,7 @@ angular
         obj.IdMemoriaTecnica = vm.id;
         obj.paquete = vm.paquete;
         obj.Opcion = 1;
+        obj.Equipo = vm.equipodigital;
         vm.aparatosdigitales.push(obj);
       }
 
@@ -440,13 +442,13 @@ angular
         };
 
 
-        function eliminaNota(){
-      vm.notas = [];
-    }
+      function eliminaNota() {
+        vm.notas = [];
+      }
 
 
       var vm = this;
-      vm.eliminaNota=eliminaNota;
+      vm.eliminaNota = eliminaNota;
       vm.uploader = new FileUploader();
       vm.id = $stateParams.id;
       initialData();

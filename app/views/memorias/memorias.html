@@ -61,7 +61,8 @@
                   <div class="col-md-4">
                     <div class="col-md-8">
                       <strong>Fecha </strong>
-                      <input type="date" class="form-control input-sm" ng-model="$ctrl.fecha" name="fecha" placeholder="">
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.fecha" model-view-value="true"
+                    ui-mask="99/99/9999" name="fecha" placeholder="">
                     </div>
                     <div class="col-md-4">
                       <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(2)"><i class="fa fa-search"></i> Buscar</button>
@@ -161,10 +162,10 @@
         </div>
       </div>
     </div>
-    **nancy ignora esto solo es para pruebas
-    <input type="text" ng-model="$ctrl.addtest">
+    <a type="button" id="url" ng-href="{{$ctrl.url}}" ></a>
+   <!-- <input type="text" ng-model="$ctrl.addtest">
     <button  ng-click="$ctrl.add()"> add </button>
     <input type="text" ng-model="$ctrl.deletetest">
-    <button  ng-click="$ctrl.deletechild()"> delete </button>
+    <button  ng-click="$ctrl.deletechild()"> delete </button>-->
   </div>
 </div>

@@ -36,13 +36,13 @@ angular.module('softvFrostApp')
     };
 
     svc.getUrlmemoriatecnica = function () {
-       return 'http://192.168.50.33:3500/SoftvWCFService.svc';
+      return 'http://192.168.50.33:3500/SoftvWCFService.svc';
      // return 'http://localhost:64482/SoftvWCFService.svc';
     };
 
     svc.getUrlmemoriatecnicareportes = function () {
       return 'http://192.168.50.33:3500';
-    // return 'http://localhost:64482';
+     //return 'http://localhost:64482';
     };
 
     svc.getUrlmemoriatecnicaImages = function () {

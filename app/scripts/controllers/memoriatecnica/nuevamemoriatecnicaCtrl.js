@@ -126,6 +126,7 @@ angular
       obj.IdMemoriaTecnica = 0;
       obj.paquete = vm.paquete;
       obj.Opcion = 1;
+      obj.Equipo=vm.equipodigital;
       vm.aparatosdigitales.push(obj);
     }
 
