@@ -143,12 +143,14 @@ angular
       fileItem.file.tipo = vm.tipoimagen.Nombre;
       fileItem._file.idtipo = vm.tipoimagen.IdTipo;
       fileItem._file.tipo = vm.tipoimagen.Nombre;
-      fileItem.IdUsuario= $localStorage.currentUser.idUsuario
+      fileItem.IdUsuario= $localStorage.currentUser.idUsuario;
     };
 
     function initialData() {
       vm.fechasitio = moment().format('L');
-      vm.horallegada = moment().format('LT');
+      vm.horallegada = moment().format('HH:mm');
+      vm.instalador=$localStorage.currentUser.usuario;
+      console.log( vm.horallegada);
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
       });

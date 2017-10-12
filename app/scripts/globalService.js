@@ -27,7 +27,7 @@ angular.module('softvFrostApp')
     //rutas locales
     svc.getUrl = function () {
       return 'http://192.168.50.33:3000/SoftvWCFService.svc';
-    // return 'http://localhost:64481/SoftvWCFService.svc';
+     //return 'http://localhost:64481/SoftvWCFService.svc';
     };
 
     svc.getUrlReportes = function () {
@@ -47,7 +47,7 @@ angular.module('softvFrostApp')
 
     svc.getUrlmemoriatecnicaImages = function () {
      return 'http://192.168.50.33:3500/MemoriaTecnica';
-    //  return 'http://localhost:64482/MemoriaTecnica';
+     // return 'http://localhost:64482/MemoriaTecnica';
     };
 
     svc.getUrlHughesService = function () {
@@ -60,12 +60,10 @@ angular.module('softvFrostApp')
 
     svc.getUrlHughesMonitoreo = function () {
       return 'http://192.168.50.33:3000/BossMonitoreo/api';
-
     };
 
     svc.getType = function () {
       return 'TLV';
-
     };
 
     return svc;
