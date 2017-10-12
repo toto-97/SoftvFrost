@@ -43,21 +43,7 @@ angular
 
       function initialData() {
 
-        /*   var id = $stateParams.id;
-           GetdataFire().then(function (result) {
-             result.forEach(function (item, index) {
-               if (parseInt(item.Idmemoria) === parseInt(id)) {
-                 deleteFile(index).then(function (result) {
-                   console.log(result);
-                 });
-
-               }
-             });
-
-           });
-           return;*/
-
-
+       
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
           vm.tiposresp = response.GetObtieneTiposImagenesListResult;
           memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
@@ -70,7 +56,7 @@ angular
                 item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
-                item.Opcion = 3;
+                item.Opcion = 2;
               });
 
               memoriaFactory.GetObtieneEquiposSustituir(vm.IdMemoriaTecnica).then(function (result) {
@@ -94,7 +80,6 @@ angular
                     equipodig.Equipo = item.Equipo;
                     equipodig.SerieAnterior = item.SerieAnterior;
                     equipodig.paquete = item.paquete;
-                    
                     equipodig.Opcion = 2;
                     vm.aparatosdigitales.push(equipodig);
                   });
@@ -144,7 +129,8 @@ angular
         obj.IdEquipoSustituir = 0;
         obj.IdMemoriaTecnica = vm.id;
         obj.paquete = vm.paquete;
-        obj.Opcion = 1;
+        obj.Opcion = 3;
+        obj.IdUsuario = $localStorage.currentUser.idUsuario;
         obj.Equipo = vm.equipodigital;
         vm.aparatosdigitales.push(obj);
       }
@@ -154,6 +140,7 @@ angular
         if (index > -1) {
           var obj = vm.Lista_evidencias[index];
           obj.Opcion = 2;
+          obj.IdUsuario = $localStorage.currentUser.idUsuario;
           vm.Imagenes_eliminadas.push(obj);
           vm.Lista_evidencias.splice(index, 1);
         }
@@ -166,6 +153,7 @@ angular
           vm.cambios.splice(index, 1);
           if (obj.IdEquipoSustituir > 0) {
             obj.Opcion = 2;
+             obj.IdUsuario = $localStorage.currentUser.idUsuario;
             vm.cambios_eliminados.push(obj);
 
           }
@@ -178,6 +166,7 @@ angular
           vm.aparatosdigitales.splice(index, 1);
           if (obj.IdEquipoSustituir > 0) {
             obj.Opcion = 2;
+            obj.IdUsuario = $localStorage.currentUser.idUsuario;
             vm.digitales_eliminados.push(obj);
 
           }
@@ -196,7 +185,8 @@ angular
             obj.SerieNueva = vm.serienueva;
             obj.IdEquipoSustituir = 0;
             obj.IdMemoriaTecnica = vm.id;
-            obj.Opcion = 1;
+            obj.IdUsuario = $localStorage.currentUser.idUsuario;
+            obj.Opcion = 3;
 
             vm.cambios.push(obj);
             vm.serieanterior = '';
@@ -279,7 +269,7 @@ angular
         memoriaFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
           var equiposdig_ = [];
           vm.aparatosdigitales.forEach(function (item) {
-            if (item.Opcion === 1) {
+            if (item.Opcion === 3) {
               equiposdig_.push(item);
             }
           });
@@ -288,7 +278,7 @@ angular
           });
           var equipos_ = [];
           vm.cambios.forEach(function (item) {
-            if (item.Opcion === 1) {
+            if (item.Opcion === 3) {
               equipos_.push(item);
             }
           });
@@ -311,32 +301,26 @@ angular
               var files = [];
               var tipos = [];
               var count = 0;
-              vm.uploader.queue.forEach(function (f) {
-                if (tipos.includes(f._file.idtipo)) {
-                  count += 1;
-                } else {
+              vm.uploader.queue.forEach(function (f) {                
                   var options = {
                     'IdImagen': 0,
-                    'Accion': 1,
+                    'Accion': 3,
                     'Tipo': f._file.idtipo,
-                    'Nombre': f._file.name
+                    'Nombre': f._file.name,
+                    'IdUsuario':$localStorage.currentUser.idUsuario
                   };
                   file_options.push(options);
                   tipos.push(f._file.idtipo);
-                  files.push(f._file);
-                }
+                  files.push(f._file);            
 
               });
-              if (count > 0) {
-                ngNotify.set('Existen imagenes con el mismo tipo', 'error');
-                return;
-              } else {
-                memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
-                  vm.uploader.clearQueue();
-                  ngNotify.set('La memoria técnica  se ha guardado correctamente', 'success');
-                  $state.go('home.memoria.memoriastecnicas');
-                });
-              }
+
+              memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
+                vm.uploader.clearQueue();
+                ngNotify.set('La memoria técnica  se ha guardado correctamente', 'success');
+                $state.go('home.memoria.memoriastecnicas');
+              });
+
             });
           });
         });
@@ -477,6 +461,7 @@ angular
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;
         fileItem._file.idtipo = vm.tipoimagen.IdTipo;
-        fileItem._file.tipo = vm.tipoimagen.Nombre;
+        fileItem._file.tipo = vm.tipoimagen.Nombre;       
+        fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
       };
     });

@@ -60,6 +60,17 @@
     margin: 6px 0 0 6px;
   }
 
+  .nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.846153846;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: none;
+    opacity: 0.9;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
 </style>
 <form angular-validator-submit="$ctrl.guardar()" name="myForm" class="form-horizontal" novalidate angular-validator>
 
@@ -83,7 +94,7 @@
 
         <div class="row">
           <div class="col-md-5">
-            <p class="text-center"> Información principal</p>
+            <p><b class="text-center text-primary"> Información principal</b></p>
             <div class="form-group row ">
               <label class="col-sm-3 control-label"># Orden</label>
               <div class="col-sm-4">
@@ -120,7 +131,7 @@
                   validate-on="dirty" invalid-message="'El número de la orden es obligatorio'" name="password" placeholder=""
                   required />
               </div>
-                <div class="col-sm-3">
+              <div class="col-sm-3">
                 <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox"  ng-model="$ctrl.Combo" 
                             ng-disabled="true"
@@ -134,7 +145,7 @@
           </div>
           <div class="col-md-7">
 
-            <p class="text-center"> Datos de la empresa</p>
+            <p><b class="text-center text-primary"> Datos de la empresa</b></p>
 
             <div class="col-md-6">
 
@@ -149,9 +160,7 @@
             </div>
 
             <div class="col-md-6">
-
               <div class="form-group row ">
-
                 <label class="col-sm-5 control-label">Fecha visita de sitio</label>
                 <div class="col-sm-7">
                   <input type="text" class="form-control input-sm" name="fechasitio" ng-model="$ctrl.fechasitio" placeholder="DD/MM/YYYY" model-view-value="true"
@@ -167,10 +176,9 @@
               <div class="form-group row ">
                 <label class="col-sm-5 control-label">Hora de llegada</label>
                 <div class="col-sm-7">
-                  <input type="text" placeholder="hh:mm" ui-mask="99:99"
-                  model-view-value="true"
-                   class="form-control input-sm" name="horallegada" ng-model="$ctrl.horallegada"
-                    validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder="" required />
+                  <input type="text" placeholder="hh:mm" ui-mask="99:99" model-view-value="true" class="form-control input-sm" name="horallegada"
+                    ng-model="$ctrl.horallegada" validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder=""
+                    required />
                 </div>
 
               </div>
@@ -181,10 +189,9 @@
               <div class="form-group row ">
                 <label class="col-sm-5 control-label">Hora de salida</label>
                 <div class="col-sm-7">
-                  <input type="text" class="form-control input-sm" 
-                  model-view-value="true"
-                  name="horasalida" placeholder="hh:mm" ui-mask="99:99" ng-model="$ctrl.horasalida"
-                    validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder="" required />
+                  <input type="text" class="form-control input-sm" model-view-value="true" name="horasalida" placeholder="hh:mm" ui-mask="99:99"
+                    ng-model="$ctrl.horasalida" validate-on="dirty" invalid-message="'La hora es obligatoria'" placeholder=""
+                    required />
                 </div>
               </div>
             </div>
@@ -212,26 +219,78 @@
 
         </div>
 
-        <hr>
-        <div class="col-md-12">
+
+        <div class="col-md-12  col-sm-12 col-lg-12">
           <uib-tabset active="activeJustified" justified="false">
             <uib-tab index="0" heading="Datos del sitio">
               <br>
               <div class="row">
 
-                <div class="col-md-3">
+                <div class="col-md-4">
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Cliente</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="cliente" ng-model="$ctrl.cliente">
+                    </div>
+                  </div>
 
-                 <!-- <div class="form-group row ">
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Direccion</label>
+                    <div class="col-sm-7">
+                      <textarea type="text" class="form-control input-sm" ng-model="$ctrl.direccion" name="direccion" rows="3">
+                          
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">C.P</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="codigopostal" ng-model="$ctrl.codigopostal">
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Teléfono</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="telefono" ng-model="$ctrl.telefono">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Celular</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="celular" ng-model="$ctrl.celular">
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Domicilio de nofificación</label>
+                    <div class="col-sm-7">
+                      <textarea type="text" class="form-control input-sm" name="notificacion" ng-model="$ctrl.domicilionotificacion" rows="3"></textarea>
+                    </div>
+                  </div>
+                  <!-- <div class="form-group row ">
                     <label class="col-sm-5 control-label">site ID</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control input-sm" name="siteid" placeholder="" ng-model="$ctrl.siteid" />
                     </div>
                   </div>-->
 
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class="col-md-4">
+
                   <div class="form-group row ">
-                    <label class="col-sm-5 control-label">Estado</label>
+                    <label class="col-sm-5 control-label">Localidad</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control input-sm" name="estado" ng-model="$ctrl.estado" placeholder="" />
+                      <input type="text" class="form-control input-sm" name="localidad" ng-model="$ctrl.localidad" placeholder="" />
                     </div>
                   </div>
 
@@ -241,147 +300,114 @@
                       <input type="text" class="form-control input-sm" name="municipio" ng-model="$ctrl.municipio" placeholder="" />
                     </div>
                   </div>
+
                   <div class="form-group row ">
-                    <label class="col-sm-5 control-label">Localidad</label>
+                    <label class="col-sm-5 control-label">Estado</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control input-sm" name="localidad" ng-model="$ctrl.localidad" placeholder="" />
+                      <input type="text" class="form-control input-sm" name="estado" ng-model="$ctrl.estado" placeholder="" />
                     </div>
                   </div>
+
                   <div class="form-group row ">
-                    <label class="col-sm-5 control-label">Domicilio de nofificación</label>
+                    <label class="col-sm-5 control-label">Nombre persona que valida el servicio:</label>
                     <div class="col-sm-7">
-                      <textarea type="text" class="form-control input-sm" name="notificacion" ng-model="$ctrl.domicilionotificacion" rows="5"></textarea>
-                    </div>
-                  </div>
-
-
-                </div>
-
-                <div class="col-md-3">
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Cliente</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="cliente" ng-model="$ctrl.cliente">
-                    </div>
-                  </div>
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Direccion</label>
-                    <div class="col-sm-9">
-                      <textarea type="text" class="form-control input-sm" ng-model="$ctrl.direccion" name="direccion" rows="5">
-                          
-                      </textarea>
-                    </div>
-                  </div>
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">C.P</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="codigopostal" ng-model="$ctrl.codigopostal">
-                    </div>
-                  </div>
-
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Teléfono</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="telefono" ng-model="$ctrl.telefono">
-                    </div>
-                  </div>
-
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Celular</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="celular" ng-model="$ctrl.celular">
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-md-3">
-
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Recibe en sitio:</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="recibe" ng-model="$ctrl.recibe">
-                    </div>
-                  </div>
-
-                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Nombre persona que valida el servicio:</label>
-                    <div class="col-sm-9">
                       <input type="text" class="form-control input-sm" name="nombrevalida" ng-model="$ctrl.PersonaValidaServicio">
                     </div>
                   </div>
 
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Plataforma satelital:</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-5 control-label">Recibe en sitio:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="recibe" ng-model="$ctrl.recibe">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Tipo de servicio:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="tiposervicio" ng-model="$ctrl.tiposervicio">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Plan de servicio:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="plan" ng-model="$ctrl.plan">
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <div class="col-md-4">
+
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Plataforma satelital:</label>
+                    <div class="col-sm-7">
                       <input type="text" class="form-control input-sm" ng-model="$ctrl.plataforma" name="plataforma">
                     </div>
                   </div>
 
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Plan de servicio:</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="plan" ng-model="$ctrl.plan">
-                    </div>
-                  </div>
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Tipo de servicio:</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="tiposervicio" ng-model="$ctrl.tiposervicio">
-                    </div>
-                  </div>
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Velocidad:</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="velocidad" ng-model="$ctrl.velocidad">
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="col-md-3">
-                  <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Beam:</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-5 control-label">Beam:</label>
+                    <div class="col-sm-7">
                       <input type="text" class="form-control input-sm" name="beam" ng-model="$ctrl.beam">
                     </div>
                   </div>
 
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Fecha Activación:</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-5 control-label">Fecha Activación:</label>
+                    <div class="col-sm-7">
                       <input type="text" placeholder="DD/MM/YYYY" ui-mask="99/99/9999" model-view-value="true" class="form-control input-sm" name="fechaactivacion"
                         ng-model="$ctrl.fechaactivacion">
                     </div>
                   </div>
 
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Estatus técnico:</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="estatustecnico" ng-model="$ctrl.estatustecnico">
+                    <label class="col-sm-5 control-label">SAN:</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control input-sm" name="SAN" ng-model="$ctrl.SAN">
                     </div>
                   </div>
 
+
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Latitud:</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-5 control-label">Latitud:</label>
+                    <div class="col-sm-7">
                       <input type="text" class="form-control input-sm" name="latitud" ng-model="$ctrl.latitud">
                     </div>
                   </div>
 
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Longitud:</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-5 control-label">Longitud:</label>
+                    <div class="col-sm-7">
                       <input type="text" class="form-control input-sm" name="longitud" ng-model="$ctrl.longitud">
                     </div>
                   </div>
 
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">SAN:</label>
-                    <div class="col-sm-9">
-                      <input type="number" class="form-control input-sm" name="SAN" ng-model="$ctrl.SAN">
+                    <label class="col-sm-5 control-label">Velocidad:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="velocidad" ng-model="$ctrl.velocidad">
                     </div>
                   </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Estatus técnico:</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="estatustecnico" ng-model="$ctrl.estatustecnico">
+                    </div>
+                  </div>
+
+
 
                 </div>
 
@@ -670,7 +696,7 @@
 
             </uib-tab>
 
-            <uib-tab ng-if="$ctrl.Combo==true" index="5" heading="Equipos Digitales" >
+            <uib-tab ng-if="$ctrl.Combo==true" index="5" heading="Equipos Digitales">
               <br>
               <div class="col-md-8 col-md-offset-2" style="padding: 10px;">
 
@@ -703,7 +729,7 @@
                         <div class="tile-icon">
                           <img src="../../assets/img/avatar2.jpg?1404026449" alt="">
                         </div>
-                        <div class="tile-text">{{x.Equipo}} | {{x.SerieAnterior}}</div>
+                        <div class="tile-text"><b class="text-info">{{x.paquete}}</b><br>{{x.Equipo}} | {{x.SerieAnterior}}</div>
                       </a>
                       <a class="btn btn-flat ink-reaction" ng-click="$ctrl.eliminaaparatodig($index);">
                         <i class="fa fa-trash"></i>
@@ -814,8 +840,8 @@
               </div>
 
             </uib-tab>
-            <uib-tab index="7" heading=""  >
-            <uib-tab-heading> Notas   <span class="badge pull-right">{{$ctrl.notas.length+$ctrl.notas_ant.length}}</span></uib-tab-heading>
+            <uib-tab index="7" heading="">
+              <uib-tab-heading> Notas <span class="badge pull-right">{{$ctrl.notas.length+$ctrl.notas_ant.length}}</span></uib-tab-heading>
               <div class="col-md-12">
                 <div class="col-md-3">
                   <p class="text-primary">Agrega Nota: </p>
@@ -843,15 +869,15 @@
                               <span class="opacity-50">                              
 														{{x.Fecha}}
 														</span>
-                             <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaNota()"><i class="fa fa-trash"></i>Eliminar nota</button>
+                              <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaNota()"><i class="fa fa-trash"></i>Eliminar nota</button>
                             </div>
-                           
+
                           </div>
                         </div>
                         <!--end .timeline-entry -->
                       </li>
 
-                        <li class="timeline-inverted" ng-repeat="x in $ctrl.notas_ant">
+                      <li class="timeline-inverted" ng-repeat="x in $ctrl.notas_ant">
                         <div class="timeline-circ circ-xl style-primary"><i class="md md-event"></i></div>
                         <div class="timeline-entry">
                           <div class="card style-default-light">

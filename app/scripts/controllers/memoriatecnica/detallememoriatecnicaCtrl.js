@@ -48,9 +48,9 @@ angular
                   var equipodig = {};
                   equipodig.IdEquipoSustituir = item.IdEquipoSustituir;
                   equipodig.IdMemoriaTecnica = item.IdMemoriaTecnica;
-                  equipodig.Equipo = '';
+                  equipodig.Equipo = item.Equipo;
                   equipodig.SerieAnterior = item.SerieAnterior;
-                  equipodig.paquete = item.paquete;
+                  equipodig.paquete = item.paquete;                  
                   equipodig.Opcion = 2;
                   vm.aparatosdigitales.push(equipodig);
                 });
@@ -133,6 +133,7 @@ angular
         vm.numeroorden = det.Clv_Orden;
         vm.PersonaValidaServicio = det.PersonaValidaServicio;
         vm.Combo = det.Combo;
+        vm.contratocompania=det.contratocompania;
       }
 
 
