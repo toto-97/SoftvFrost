@@ -29,7 +29,7 @@
     </form>
   </div>
 
-  <div class="panel-group col-md-12" style="margin-top: -10px;" ng-show="$ctrl.showSan">
+  <div class="panel-group col-md-12" style="margin-top: -10px;" >
     <div class="card panel">
       <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#diagnostic" data-target="#diagnostic-1" aria-expanded="false">
         <header>Diagnostic Tools</header>
@@ -39,7 +39,7 @@
       </div>
       <div id="diagnostic-1" class="collapse diagnostic" aria-expanded="false" style="height: 0px;">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="row">
               <div class="col-md-6 text-right">
                 <p><strong>SAN:</strong></p>
@@ -140,7 +140,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="row">
               <div class="col-md-6 text-right">
                 <p><strong>UL/DL Group:</strong></p>
@@ -237,7 +237,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="row">
               <div class="col-md-6 text-right">
                 <p><strong>UL Atten:</strong></p>
@@ -329,6 +329,88 @@
                 <p>{{ $ctrl.diagnosticData.CRO_Status }}</p>
               </div>
             </div>
+          </div>
+
+          <div class="col-md-3">
+
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>IPv4 address:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.IPv4Address }}</p>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>Pv6 address:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.IPv6Address }}</p>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>Terminal Status:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.terminalStatus }}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>Gateway ID:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.gatewayID }}</p>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>Current Fap Status:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.fapStatus }}</p>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>Available Tokens:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.availTokens }}</p>
+              </div>
+            </div>
+
+
+            
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>Vlan ID:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.vnId }}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 text-right">
+                <p><strong>Overall Usage:</strong></p>
+              </div>
+              <div class="col-md-6 text-left" style="margin-left:-20px;">
+                <p>{{ $ctrl.datosterminal.overallUsage }}</p>
+              </div>
+            </div>
+              
           </div>
         </div>
       </div>

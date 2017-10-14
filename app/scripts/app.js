@@ -132,20 +132,20 @@ angular
       $rootScope.$stateParams = $stateParams;
       if ($localStorage.currentUser) {
 
+
+
+        var fire = $injector.get('firebase');
+        var config = {
+          apiKey: 'AIzaSyBFtB3eFrr1Br5ohphAGtQ5c8ONQQw5C-Y',
+          authDomain: 'boss-5fbab.firebaseapp.com',
+          databaseURL: 'https://boss-5fbab.firebaseio.com',
+          projectId: 'boss-5fbab',
+          storageBucket: 'boss-5fbab.appspot.com',
+          messagingSenderId: '1031430485862'
+        };
+        fire.initializeApp(config);
+
         if ($localStorage.currentUser.Recibemensaje === true) {
-        
-         var fire = $injector.get('firebase');
-          var config = {
-            apiKey: 'AIzaSyBFtB3eFrr1Br5ohphAGtQ5c8ONQQw5C-Y',
-            authDomain: 'boss-5fbab.firebaseapp.com',
-            databaseURL: 'https://boss-5fbab.firebaseio.com',
-            projectId: 'boss-5fbab',
-            storageBucket: 'boss-5fbab.appspot.com',
-            messagingSenderId: '1031430485862'
-          };
-          fire.initializeApp(config);
-
-
           setInterval(function () {
 
             var notify = $injector.get('ngNotify');

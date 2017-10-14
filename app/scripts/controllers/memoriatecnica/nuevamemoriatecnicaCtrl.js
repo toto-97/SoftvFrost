@@ -147,7 +147,9 @@ angular
     };
 
     function initialData() {
-      vm.fechasitio = moment().format('L');
+      var fechaHoy = new Date();
+		 
+      vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
       vm.horallegada = moment().format('HH:mm');
       vm.instalador=$localStorage.currentUser.usuario;
       console.log( vm.horallegada);
