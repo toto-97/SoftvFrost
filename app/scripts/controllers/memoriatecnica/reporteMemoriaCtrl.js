@@ -3,7 +3,7 @@ angular.module('softvFrostApp')
   .controller('reporteMemoriaCtrl', function ($http, reportesFactory, $timeout, ngNotify, $state, memoriaFactory) {
       var vm = this;
       vm.filename = "Reporte";
-      var reportHeaderPdf = "Reporte de Ordenes";
+      var reportHeaderPdf = "Reporte Memoria técnica ";
       Getdata();
       vm.crearTodoAsCsv = crearTodoAsCsv;
       vm.createPdfTodo = createPdfTodo;
@@ -37,12 +37,15 @@ angular.module('softvFrostApp')
 
 
 
-      function crearTodoAsCsv() {
+      function crearTodoAsCsv(crear) {
+
+     var info=(crear==='todo')?vm.rowCollection4 :vm.displayedCollection4;
+
         $timeout(function () {
-          for (var i = 0; i < vm.rowCollection4.length; i++) {
-            delete vm.rowCollection4[i].BaseIdUser;
-            delete vm.rowCollection4[i].BaseRemoteIp;
-            delete vm.rowCollection4[i].$$hashKey;
+          for (var i = 0; i < info.length; i++) {
+            delete info[i].BaseIdUser;
+            delete info[i].BaseRemoteIp;
+            delete info[i].$$hashKey;
           }
           vm.arrayReporte = [];
           // ENCABEZADOS
@@ -56,8 +59,8 @@ angular.module('softvFrostApp')
 
           }];
 
-          for (var i = 0; i < vm.rowCollection4.length; i++) {
-            vm.arrayReporte.push(vm.rowCollection4[i]);
+          for (var i = 0; i < info.length; i++) {
+            vm.arrayReporte.push(info[i]);
           }
 
           angular.element('#csvDos').triggerHandler('click');
@@ -65,19 +68,26 @@ angular.module('softvFrostApp')
       };
 
 
+      
+
+
 
 
       function createPdfTodo(pdfAcrear) {
         var rows = [];
         var columns = ['Clv_orden', 'Folio', 'Usuario', 'Fecha Activacion', 'Fecha Check', 'Fecha Ejecucion'];
-        for (var i = 0; i < vm.rowCollection4.length; i++) {
+
+        var info=(pdfAcrear==='todo')?vm.rowCollection4 :vm.displayedCollection4;
+
+      
+        for (var i = 0; i < info.length; i++) {
           var row = [];
-          row.push(vm.rowCollection4[i].Clv_orden);
-          row.push(vm.rowCollection4[i].Folio);
-          row.push(vm.rowCollection4[i].Usuario);
-          row.push(vm.rowCollection4[i].fechaactivacion);
-          row.push(vm.rowCollection4[i].fechacheck);
-          row.push(vm.rowCollection4[i].fechaejecucion);
+          row.push(info[i].Clv_orden);
+          row.push(info[i].Folio);
+          row.push(info[i].Usuario);
+          row.push(info[i].fechaactivacion);
+          row.push(info[i].fechacheck);
+          row.push(info[i].fechaejecucion);
           rows.push(row);
         }
 

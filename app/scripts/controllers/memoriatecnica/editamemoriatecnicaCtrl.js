@@ -43,7 +43,7 @@ angular
 
       function initialData() {
 
-       
+
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
           vm.tiposresp = response.GetObtieneTiposImagenesListResult;
           memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
@@ -153,7 +153,7 @@ angular
           vm.cambios.splice(index, 1);
           if (obj.IdEquipoSustituir > 0) {
             obj.Opcion = 2;
-             obj.IdUsuario = $localStorage.currentUser.idUsuario;
+            obj.IdUsuario = $localStorage.currentUser.idUsuario;
             vm.cambios_eliminados.push(obj);
 
           }
@@ -266,6 +266,33 @@ angular
           'PersonaValidaServicio': vm.PersonaValidaServicio
         };
 
+        var file_options = [];
+        var files = [];
+        var tipos = [];
+        var count = 0;
+        vm.uploader.queue.forEach(function (f) {
+
+          if (tipos.includes(f._file.idtipo)) {
+            count += 1;
+          } else {
+            var options = {
+              'IdImagen': 0,
+              'Accion': 3,
+              'Tipo': f._file.idtipo,
+              'Nombre': f._file.name,
+              'IdUsuario': $localStorage.currentUser.idUsuario
+            };
+            file_options.push(options);
+            tipos.push(f._file.idtipo);
+            files.push(f._file);
+          }
+        });
+
+        if (count > 1) {
+          ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
+          return;
+        }
+
         memoriaFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
           var equiposdig_ = [];
           vm.aparatosdigitales.forEach(function (item) {
@@ -297,23 +324,7 @@ angular
                 memoriaFactory.GetGuardaObservacionMemoriaTecnicaList(objnota).then(function (resp) {});
               }
 
-              var file_options = [];
-              var files = [];
-              var tipos = [];
-              var count = 0;
-              vm.uploader.queue.forEach(function (f) {                
-                  var options = {
-                    'IdImagen': 0,
-                    'Accion': 3,
-                    'Tipo': f._file.idtipo,
-                    'Nombre': f._file.name,
-                    'IdUsuario':$localStorage.currentUser.idUsuario
-                  };
-                  file_options.push(options);
-                  tipos.push(f._file.idtipo);
-                  files.push(f._file);            
 
-              });
 
               memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
                 vm.uploader.clearQueue();
@@ -411,9 +422,9 @@ angular
 
 
             vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
-            vm.mensajefolio = (vm.numerofolio > 0) ? 'Folio generado' : 'Generar Folio';
-            vm.generafolio = (vm.numerofolio > 0) ? true : false;
-            vm.blockgenerafolio = (vm.numerofolio > 0) ? true : false;
+            vm.mensajefolio = (vm.numerofolio.trim().length>0) ? 'Folio generado' : 'Generar Folio';
+            vm.generafolio = (vm.numerofolio.trim().length>0) ? true : false;
+            vm.blockgenerafolio = (vm.numerofolio.trim().length>0) ? true : false;
 
           });
 
@@ -461,7 +472,7 @@ angular
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;
         fileItem._file.idtipo = vm.tipoimagen.IdTipo;
-        fileItem._file.tipo = vm.tipoimagen.Nombre;       
+        fileItem._file.tipo = vm.tipoimagen.Nombre;
         fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
       };
     });

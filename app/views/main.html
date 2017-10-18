@@ -39,14 +39,16 @@
               <a ng-if="x.Tipo==1" class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoria({ id: x.Id})" ng-repeat="x in $ctrl.messages">
                 <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
                 <strong>{{x.Mensaje}} # {{x.Id}}</strong><br>
+                <strong>SAN: {{x.SAN}}</strong><br>
                 <small>{{x.Fecha}} {{x.Hora}}</small>
-                <small>{{x.Fecha}} {{x.Hora}}</small>
+
               </a>
               <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==2" class="alert alert-callout alert-warning">
                 <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
-                <strong>{{x.Mensaje}} # {{x.Id}}</strong><br>
+                <strong style="font-size: 10px;">{{x.Mensaje}} </strong><br>
+                <p> # {{x.Id}}</p>
                 <small>{{x.Fecha}} {{x.Hora}}</small>
-                <small>{{x.Fecha}} {{x.Hora}}</small>
+
               </a>
             </li>
 

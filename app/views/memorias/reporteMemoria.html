@@ -47,7 +47,7 @@
 <div class="card" style="margin-top:20px;padding-bottom: 30px">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
-      <strong style="font-weight:bold; border:none; margin-left:10px;">Titulo por confirmar</strong>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Reporte Memoria técnica</strong>
       <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Reportes</small>
     </header>
     <div class="tools">
@@ -111,26 +111,36 @@
               </tr>
             </tbody>
             <tfoot>
-              
-                  
-               
+
+
+
               </tr>
             </tfoot>
           </table>
-<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
-                  </dir-pagination-controls>
-
-
-          <div class="col-sm-3">
-            <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv()" style="white-space: normal"> Exportar CSV </button>
+          <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+          </dir-pagination-controls>
+          <div class="row">
+            <div class="col-sm-3">
+              <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv('todo')" style="white-space: normal"> Exportar CSV </button>
+            </div>
+            <div class="col-sm-3">
+              <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv('visible')" style="white-space: normal"> Exportar visible CSV </button>
+            </div>
+            <div class="col-sm-3">
+              <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('todo')" style="white-space: normal">Exportar PDF</button>
+            </div>
+            <div class="col-sm-3">
+              <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('visible')" style="white-space: normal">Exportar visible PDF</button>
+            </div>
           </div>
-          <div class="col-sm-3">
-            <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('visible')" style="white-space: normal">Exportar PDF</button>
-          </div>
+
+          <button class="btn btn-default" id="csvDos" ng-hide="true" csv-column-order="$ctrl.order" ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv"
+            field-separator="," decimal-separator="." add-bom="true"> esconder botón visible data as csv</button>
+          <!--csv-column-order="$ctrl.order"  -->
+
         </div>
 
-         <button class="btn btn-default" id="csvDos" ng-hide="true" csv-column-order="$ctrl.order"  ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv" field-separator="," decimal-separator="."  add-bom="true"
-                > esconder botón visible data as csv</button> <!--csv-column-order="$ctrl.order"  -->  
+
 
       </div>
     </div>

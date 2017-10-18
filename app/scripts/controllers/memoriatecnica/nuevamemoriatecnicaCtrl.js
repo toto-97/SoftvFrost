@@ -133,7 +133,7 @@ angular
 
     function eliminaaparatodig(index) {
       if (index > -1) {
-         //vm.aparatosdigitales[index].IdUsuario = $localStorage.currentUser.idUsuario;
+        //vm.aparatosdigitales[index].IdUsuario = $localStorage.currentUser.idUsuario;
         vm.aparatosdigitales.splice(index, 1);
       }
     }
@@ -143,16 +143,16 @@ angular
       fileItem.file.tipo = vm.tipoimagen.Nombre;
       fileItem._file.idtipo = vm.tipoimagen.IdTipo;
       fileItem._file.tipo = vm.tipoimagen.Nombre;
-      fileItem.IdUsuario= $localStorage.currentUser.idUsuario;
+      fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
     };
 
     function initialData() {
       var fechaHoy = new Date();
-		 
+
       vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
       vm.horallegada = moment().format('HH:mm');
-      vm.instalador=$localStorage.currentUser.usuario;
-      console.log( vm.horallegada);
+      vm.instalador = $localStorage.currentUser.usuario;
+      console.log(vm.horallegada);
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
       });
@@ -183,9 +183,9 @@ angular
           obj.Equipo = vm.equiposurtir;
           obj.SerieNueva = vm.serienueva;
           obj.Opcion = 1;
-           obj.IdEquipoSustituir = 0;
-           obj.IdMemoriaTecnica=0;
-            obj.Opcion = 1;
+          obj.IdEquipoSustituir = 0;
+          obj.IdMemoriaTecnica = 0;
+          obj.Opcion = 1;
           obj.IdUsuario = $localStorage.currentUser.idUsuario;
           vm.cambios.push(obj);
           vm.serieanterior = "";
@@ -275,39 +275,52 @@ angular
         PersonaValidaServicio: vm.PersonaValidaServicio
       };
 
-      memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
-        vm.IdMemoriaTecnica = response.GetGuardaMemoriaTecnicaListResult[0].IdMemoriaTecnica;
-        var file_options = [];
-        var files = [];
-        var tipos = [];
-        var count = 0;
-        vm.uploader.queue.forEach(function (f) {
 
+      var file_options = [];
+      var files = [];
+      var tipos = [];
+      var count = 0;
+      vm.uploader.queue.forEach(function (f) {
+       
+
+        if (tipos.includes(f._file.idtipo)) {
+          count += 1;
+        } else {
           var options = {
             IdImagen: 0,
             Accion: 1,
             Tipo: f._file.idtipo,
             Nombre: f._file.name,
-            IdUsuario:$localStorage.currentUser.idUsuario
+            IdUsuario: $localStorage.currentUser.idUsuario
           };
           file_options.push(options);
           tipos.push(f._file.idtipo);
           files.push(f._file);
+        }
+      });
 
-        });
+      if (count > 1) {
+        ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
+        return;
+      }
+
+
+      memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
+        vm.IdMemoriaTecnica = response.GetGuardaMemoriaTecnicaListResult[0].IdMemoriaTecnica;
+
 
         memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, []).then(function (data) {
           ngNotify.set("las imagenes se han guardado correctamente", "success");
           vm.uploader.clearQueue();
 
-           
-           vm.cambios.forEach(function(item){
-             item.IdMemoriaTecnica=vm.IdMemoriaTecnica;
-           });
 
-           vm.aparatosdigitales.forEach(function(item){
-             item.IdMemoriaTecnica=vm.IdMemoriaTecnica;
-           });
+          vm.cambios.forEach(function (item) {
+            item.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+          });
+
+          vm.aparatosdigitales.forEach(function (item) {
+            item.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+          });
 
           memoriaFactory
             .GuardaEquiposSustituir(vm.cambios)
@@ -332,7 +345,9 @@ angular
                     Fecha: moment().format("L"),
                     Hora: moment().format("LT"),
                     Mensaje: 'Se ha generado una nueva memoria técnica',
-                    Tipo: 1
+                    Tipo: 1,
+                    SAN: vm.SAN
+
                   });
                   ngNotify.set("La memoria técnica se ha guardado correctamente", "success");
                   $state.go("home.memoria.memoriastecnicas");
