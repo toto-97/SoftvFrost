@@ -1,6 +1,6 @@
 <div class="modal-header">
-    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
-    <h4 class="modal-title">Gestión Terminal #{{ctrl.Terminal.SAN}}</h4>
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title">Gestión Terminal #{{ctrl.Terminal.SAN}}</h4>
 </div>
 <div class="modal-body" style="padding-top:20px;">
   <div class="col-md-12">
@@ -20,10 +20,10 @@
       <b style="font-size:14px;">ESN:</b><br>
       <p style="font-size:14px;">{{ctrl.Terminal.ESN}}</p>
     </div>
-   
+
   </div>
   <div class="col-md-12">
-     <div class="col-md-3">
+    <div class="col-md-3">
       <b style="font-size:14px;">Fecha Alta:</b>
       <p style="font-size:14px;">{{ctrl.Terminal.FechaAlta}}</p>
     </div>
@@ -45,12 +45,12 @@
       <b style="font-size:14px;">Status:</b>
       <p style="font-size:14px;">{{ctrl.Terminal.Estatus}}</p>
     </div>
-    
+
     <div class="col-md-3">
       <b style="font-size:14px;">Fap Status:</b>
       <p style="font-size:14px;">{{ctrl.FapStatus}}</p>
     </div>
-     <div class="col-md-3">
+    <div class="col-md-3">
       <b style="font-size:14px;">SatelliteID:</b>
       <p style="font-size:14px;">{{ctrl.Terminal.SatellitedID}}</p>
     </div>
@@ -59,13 +59,13 @@
       <p style="font-size:14px;">{{ctrl.Terminal.BeamID}}</p>
     </div>
   </div>
- <div class="col-md-12">
-<b style="font-size:14px;">Comentarios:</b><br>
-   <textarea ng-model="ctrl.Terminal.Comentarios" disabled class="form-control input-sm">
+  <div class="col-md-12">
+    <b style="font-size:14px;">Comentarios:</b><br>
+    <textarea ng-model="ctrl.Terminal.Comentarios" disabled class="form-control input-sm">
 
    </textarea>
-   
-  <!--  <div class="col-md-4">
+
+    <!--  <div class="col-md-4">
       <b style="font-size:14px;">Polarization:</b><br>
       <p style="font-size:14px;">{{ctrl.Terminal.Polarization}}</p>
     </div>-->
@@ -99,64 +99,88 @@
 <hr>
 <div class="row form-group text-center">
   <h5><b>Transacciones</b></h5>
-    <div class="col-md-4" style="padding-left: 25px;">
-      <b>Comando</b>
-      <br>
-      <select ng-model="ctrl.Comando" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Comandos track by item.IdComando" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+  <div class="col-md-4" style="padding-left: 25px;">
+    <b>Comando</b>
+    <br>
+    <select ng-model="ctrl.Comando" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Comandos track by item.IdComando"
+      validate-on="dirty" required-message="'Este campo es obligatorio.'" required ng-change="ctrl.CambioComando()">
         <option value="">Selecciona un comando</option>
         </select>
-    </div>
-    <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 5">
-        <b>Cantidad (GB)</b>
-        <input type="text" name="cantidadToken" validate-on="dirty" class="form-control" ng-model="ctrl.cantidadToken" required-message="'Error!, Este campo es obligatorio.'" required>
-    </div>
-    <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 6">
-      <b>Servicio</b>
-      <br>
-      <select ng-model="ctrl.Servicio" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Servicios track by item.IdServicio" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+  </div>
+  <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 5">
+    <b>Cantidad (GB)</b>
+    <input type="text" name="cantidadToken" validate-on="dirty" class="form-control" ng-model="ctrl.cantidadToken" required-message="'Error!, Este campo es obligatorio.'"
+      required>
+  </div>
+  <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 6">
+    <b>Servicio</b>
+    <br>
+    <select ng-model="ctrl.Servicio" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Servicios track by item.IdServicio"
+      validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
         <option value="">Selecciona un servicio</option>
         </select>
-    </div>
-    <div class="col-md-2" >
-      <br>
-      <button class="btn pull-right btn-raised btn-success" type="button" ng-click="ctrl.aplicaComando()">Aplicar</button>
-    </div>
   </div>
-  <!--Div de Cambio de coordenadas-->
-  <div class="form-group text-center row"  ng-if="ctrl.Comando.IdComando == 11" style="margin-left:20px;">
-    <h5><b>Nuevas Coordenadas y Validación de Cobertura</b></h5>
-    <div class="col-md-4">
-      <b>Latitud</b>
-      <input type="text" class="form-control" name="latitus" validate-on="dirty" required-message="'Este campo es obligatorio.'"
-        required validate-on="dirty" placeholder="Ejemplo: 12.256555" ng-model="ctrl.LatitudNueva">
-    </div>
-    <div class="col-md-4">
-      <b>Longuitud</b><br>
-      <input type="text" name="longitud" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty"
-        class="form-control" placeholder="Ejemplo: -2.2888555" ng-model="ctrl.LongitudNueva">
-    </div>
-    <div class="col-md-1" style="margin-top:20px;">
-      <a class="btn btn-warning btn-sm" ng-click="ctrl.BuscaLatLong()"><i class="fa fa-globe"></i></a>
-    </div>
-  </div>
-  <div class="form-group text-center row"  ng-if="ctrl.Comando.IdComando == 11">
+  <div class="col-md-2">
     <br>
-    <div class="col-md-4" >
-      <a class="btn btn-primary btn-sm" ng-click="ctrl.ValidarServicio()"><i class="fa fa-check-square"></i> Validar Cobertura</a>
-    </div>
-    <div class="col-md-2">
-      <b>Beam a Mover</b><br>
-      <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="ctrl.BeamIDNuevo" ng-disabled="true"
-      />
-    </div>
-    <div class="col-md-2">
-      <b>Satellite a Mover</b><br>
-      <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="ctrl.SatelliteIDNuevo" ng-disabled="true"
-      />
-    </div>
+    <button class="btn pull-right btn-raised btn-success" type="button" ng-click="ctrl.aplicaComando()">Aplicar</button>
   </div>
-  
+</div>
+<!--Div de Cambio de coordenadas-->
+<div class="form-group text-center row" ng-if="ctrl.Comando.IdComando == 11" style="margin-left:20px;">
+  <h5><b>Nuevas Coordenadas y Validación de Cobertura</b></h5>
+  <div class="col-md-4">
+    <b>Latitud</b>
+    <input type="text" class="form-control" name="latitus" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+      required validate-on="dirty" placeholder="Ejemplo: 12.256555" ng-model="ctrl.LatitudNueva">
+  </div>
+  <div class="col-md-4">
+    <b>Longuitud</b><br>
+    <input type="text" name="longitud" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty"
+      class="form-control" placeholder="Ejemplo: -2.2888555" ng-model="ctrl.LongitudNueva">
+  </div>
+  <div class="col-md-1" style="margin-top:20px;">
+    <a class="btn btn-warning btn-sm" ng-click="ctrl.BuscaLatLong()"><i class="fa fa-globe"></i></a>
+  </div>
+</div>
+<div class="form-group text-center row" ng-if="ctrl.Comando.IdComando == 11">
+  <br>
+  <div class="col-md-4">
+    <a class="btn btn-primary btn-sm" ng-click="ctrl.ValidarServicio()"><i class="fa fa-check-square"></i> Validar Cobertura</a>
+  </div>
+  <div class="col-md-2">
+    <b>Beam a Mover</b><br>
+    <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="ctrl.BeamIDNuevo" ng-disabled="true"
+    />
+  </div>
+  <div class="col-md-2">
+    <b>Satellite a Mover</b><br>
+    <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="ctrl.SatelliteIDNuevo"
+      ng-disabled="true" />
+  </div>
+</div>
+
+<!--Div de Cambio de IP-->
+<div class="form-group text-center row" ng-if="ctrl.Comando.IdComando == 12" style="margin-left:20px;margin-right:20px;">
+  <h5><b>Nueva IP</b></h5>
+  <div class="col-md-4">
+    <b>Pool de IP Actual</b>
+    <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="ctrl.PoolActual" ng-disabled="true" style="margin-top:5px;"
+    />
+  </div>
+  <div class="col-md-4">
+    <b>IP Actual</b>
+    <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="ctrl.IPActual" ng-disabled="true" style="margin-top:5px;"
+    />
+  </div>
+  <div class="col-md-4">
+    <b>Pool de IP a mover</b><br>
+    <select ng-model="ctrl.Pool" class="form-control" name="comando" ng-options="item.IP for item in ctrl.Pools track by item.Clv_Pool"
+      validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+    <option value="">Selecciona un Pool</option>
+    </select>
+  </div>
+</div>
 
 <div class="modal-footer">
-    <button class="btn btn-default" type="button" ng-click="ctrl.cancel()">Cerrar</button>
+  <button class="btn btn-default" type="button" ng-click="ctrl.cancel()">Cerrar</button>
 </div>

@@ -1,0 +1,80 @@
+<form name="myForm" class="form-horizontal" novalidate angular-validator>
+    <div class="card" style="margin-top:20px; ">
+        <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+            <header>
+                <strong style="font-weight:bold; border:none; margin-left:10px;">Nuevo Pool Direcciones IP</strong>
+                <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Configuración de Direcciones IP>Consulta Pool Direcciones IP</small>
+            </header>
+            <div class="tools">
+                <button class="btn btn-default btn-sm" ui-sref="home.configuracionip.pools">Cancelar</button>
+                <button class="btn btn-error btn-sm" ng-click="$ctrl.EliminaPool()">Eliminar</button>
+            </div>
+        </div>
+        <div class="card-body" style="margin-bottom:100px;">
+
+            <div class="row ">
+                <div class="col-md-4">
+                    <b>SubRed</b>
+                    <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.IP" required-message="'Este campo es obligatorio.'"
+                        placeholder="192.168.10.0" required>
+                </div>
+                <div class="col-md-2">
+                    <b>Máscara de Red</b>
+                    <input type="text" class="form-control" ng-model="$ctrl.MascaraRed" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+                        required placeholder="19">
+                </div>
+                <div class="col-md-2">
+                    <b>Beam</b>
+                    <input type="text" class="form-control" ng-model="$ctrl.Beam" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+                        required placeholder="19">
+                </div>
+                <div class="col-md-4">
+                    <b>Servicio</b>
+                    <input type="text" class="form-control" ng-model="$ctrl.Servicio" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+                        required placeholder="19">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <br />
+                    <b>Listado de IPs Asignadas</b>
+                    <table st-table="$ctrl.displayedCollection" st-safe-src="$ctrl.rowCollection" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
+                        <thead>
+                            <tr>
+                                <th st-sort="IP">IP</th>
+                                <th st-sort="SAN">SAN</th>
+                                <th st-sort="Referencia">Referencia</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <input st-search="IP" placeholder="IP" class="input-sm form-control" type="search" />
+                                </th>
+                                <th>
+                                    <input st-search="SAN" placeholder="SAN" class="input-sm form-control" type="search" />
+                                </th>
+                                <th>
+                                    <input st-search="Referencia" placeholder="Referencia" class="input-sm form-control" type="search" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="row in $ctrl.displayedCollection|orderBy:sortKey:reverse|itemsPerPage:10">
+                                <td>{{row.IP}}</td>
+                                <td>{{row.SAN}}</td>
+                                <td>{{row.Referencia}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="18" class="text-left">
+                                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                                    </dir-pagination-controls>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+</form>

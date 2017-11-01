@@ -4,7 +4,7 @@ angular.module('softvFrostApp')
 		var states = [{
 			name: 'home',
 			data: {
-				pageTitle: 'BIENVENIDO | STAR.GO',
+				pageTitle: 'BIENVENIDO | BOSS',
 				permissions: {
 					except: ['anonymous'],
 					options: {
@@ -24,7 +24,7 @@ angular.module('softvFrostApp')
 		{
 			name: 'home.dashboard',
 			data: {
-				pageTitle: 'BIENVENIDO | STAR.GO',
+				pageTitle: 'BIENVENIDO | BOSS',
 				permissions: {
 					except: ['anonymous'],
 					options: {
@@ -39,7 +39,7 @@ angular.module('softvFrostApp')
 			name: 'login',
 			url: '/auth/login?esn',
 			data: {
-				pageTitle: 'BIENVENIDO | STAR.GO'
+				pageTitle: 'BIENVENIDO | BOSS'
 			},
 			views: {
 				'loginview': {

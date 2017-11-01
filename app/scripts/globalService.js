@@ -29,35 +29,34 @@ angular.module('softvFrostApp')
      };*/
 
     //rutas locales
-     svc.getUrl = function () {
-       return 'http://192.168.50.33:3000/SoftvWCFService.svc';
-
-
-     };
-     svc.getUrlHughesService = function () {
-       //return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
-       return 'http://localhost:21590/SoftvFrostAPI';
-     };
-
-     svc.getUrlBeams = function () {
-       return 'http://189.254.231.35/beams/';
-     };
+    svc.getUrl = function () {
+      //return 'http://192.168.50.33:3100/SoftvWCFService.svc';
+      return 'http://localhost:8081/SoftvWCFService.svc';
+    };
+    svc.getUrlHughesService = function () {
+      return 'http://192.168.50.33:3100/BossAPI/SoftvFrostAPI';
+      //return 'http://localhost:21590/SoftvFrostAPI';
+    };
 
     svc.getUrlBeams = function () {
       return 'http://189.254.231.35/beams/';
     };
 
+  svc.getUrlBeams = function () {
+    return 'http://189.254.231.35/beams/';
+  };
 
-    svc.getUrlHughesMonitoreo = function () {
-      return 'http://192.168.50.33:3000/BossMonitoreo/api';
+
+  svc.getUrlHughesMonitoreo = function () {
+    return 'http://192.168.50.33:3100/BossMonitoreo/api';
+
+  };
+
+
+    svc.getType = function () {
+      return 'TEV';
 
     };
-
-
-     svc.getType = function () {
-       return 'TEV';
-
-     };
 
 
     return svc;
