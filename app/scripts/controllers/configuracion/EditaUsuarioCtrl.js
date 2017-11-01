@@ -15,6 +15,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 		var userid = $stateParams.id;
 		usuarioFactory.GetUserDetail(userid).then(function(data) {
 			var user = data.GetUserListbyIdUserResult[0];
+			console.log(user);
 			vm.Id = user.IdUsuario;
 			rolFactory.GetRoleList().then(function(data) {
 				vm.Roles = data.GetRoleListResult;
@@ -23,11 +24,14 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 						vm.Rol = vm.Roles[a];
 					}
 				}
+				
 				vm.Nombre = user.Nombre;
 				vm.Correo = user.Email;
 				vm.Descripcion = user.Usuario;
 				vm.Password = user.Password;
 				vm.Contrasena = user.Password;
+				vm.RecibeMensaje=(user.RecibeMensaje===null)? false: user.RecibeMensaje;
+				
 			});
 		});
 	}
@@ -42,7 +46,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 				obj.Email = vm.Correo;
 				obj.Usuario = vm.Descripcion;
 				obj.Password = vm.Contrasena;
-
+                obj.RecibeMensaje=vm.RecibeMensaje;
 				usuarioFactory.UpdateUsuario(obj).then(function(data) {
 					$state.go('home.provision.usuarios');
 					ngNotify.set('Usuario editado correctamente.', 'success');
@@ -58,7 +62,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 			obj.Email = vm.Correo;
 			obj.Usuario = vm.Descripcion;
 			obj.Password = vm.Contrasena;
-
+            obj.RecibeMensaje=vm.RecibeMensaje;
 			usuarioFactory.UpdateUsuario(obj).then(function(data) {
 				$state.go('home.provision.usuarios');
 				ngNotify.set('Usuario editado correctamente.', 'success');

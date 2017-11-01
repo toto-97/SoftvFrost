@@ -11,7 +11,7 @@ angular
         vm.Comandos = data.GetComandoListResult;
         console.log(data);
         //Vamos a dejar los comandos dependiendo del estado de la terminal
-        if (vm.Terminal.Estatus == "Incompleta") { //Incompleta
+        if (vm.Terminal.Estatus ==="Incompleta") { //Incompleta
           obtieneIndex("Suspender Terminal");
           obtieneIndex("Reactivar Terminal");
           obtieneIndex("Cancelar Terminal");
@@ -35,7 +35,7 @@ angular
           obtieneIndex("Swap");
           obtieneIndex("Mover");
           obtieneIndex("Token");
-        } else if (vm.Terminal.Estatus == "Activa") { //Activa
+        } else if (vm.Terminal.Estatus ==="Activa") { //Activa
           obtieneIndex("Crear Terminal");
           obtieneIndex("Reactivar Terminal");
           obtieneIndex("Ver status de Movimiento");
@@ -57,16 +57,16 @@ angular
           });
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
             console.log(hughesData);
-            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == -1) {
+            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===-1) {
               vm.FapStatus = "Not Activated";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == 0) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===0) {
               vm.FapStatus = "Unthrottled";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == 1) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===1) {
               vm.FapStatus = "Throttled";
             }
           });
           console.log(vm.Comandos);
-        } else if (vm.Terminal.Estatus === "Suspendida") { //Suspendida
+        } else if (vm.Terminal.Estatus ==="Suspendida") { //Suspendida
           obtieneIndex("Crear Terminal");
           obtieneIndex("Suspender Terminal");
           obtieneIndex("Token");
@@ -82,15 +82,15 @@ angular
           obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
             console.log(hughesData);
-            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == -1) {
+            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===-1) {
               vm.FapStatus = "Not Activated";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == 0) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===0) {
               vm.FapStatus = "Unthrottled";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == 1) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===1) {
               vm.FapStatus = "Throttled";
             }
           });
-        } else if (vm.Terminal.Estatus == "Cancelada") { //Cancelada
+        } else if (vm.Terminal.Estatus ==="Cancelada") { //Cancelada
           obtieneIndex("Suspender Terminal");
           obtieneIndex("Reactivar Terminal");
           obtieneIndex("Cancelar Terminal");
@@ -107,12 +107,13 @@ angular
       });
     }
 
-    function obtieneIndex(cadena){
-      var indexAux=0;
-      vm.Comandos.forEach(function(item, index){ 
-        if (item.Nombre === cadena){
-          indexAux=index;
-        }});
+    function obtieneIndex(cadena) {
+      var indexAux = 0;
+      vm.Comandos.forEach(function (item, index) {
+        if (item.Nombre ===cadena) {
+          indexAux = index;
+        }
+      });
       vm.Comandos.splice(indexAux, 1);
     }
 
@@ -121,7 +122,7 @@ angular
       var parametros = {};
 
       terminalFactory.GetValidaEjecucionComando(vm.Comando.IdComando).then(function (data) {
-        if (data.GetValidaEjecucionComandoResult == 0) {
+        if (data.GetValidaEjecucionComandoResult ===0) {
           ngNotify.set('¡Atención! No tiene permisos para aplicar este comando', 'warn');
           return;
         } else {
@@ -607,7 +608,7 @@ angular
               Obj2.objMovimiento.Detalle1 = "";
               Obj2.objMovimiento.Detalle2 = '';
               //Vamos a procesar dependiendo del status obtenido de hughes
-              if (hughesData.status == "false") {
+              if (hughesData.status ==="false") {
                 ngNotify.set('Error al aplicar comando Swap. Consulte el detalle del movimiento para más información', 'error');
                 //Ponemos el movimiento como no exitoso
                 Obj2.objMovimiento.Exitoso = 0;
@@ -621,8 +622,7 @@ angular
           }
           else if (vm.Comando.IdComando === 11) //Move
           {
-            if (vm.BeamIDNuevo != '' && vm.BeamIDNuevo != null)
-            {
+            if (vm.BeamIDNuevo != '' && vm.BeamIDNuevo != null) {
               parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
               console.log("Aqui");
               terminalFactory.hughesCambioCoordenadas(parametros).then(function (hughesData) {
@@ -678,9 +678,7 @@ angular
                 }
                 terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {});
               });
-            }
-            else
-            {
+            } else {
               ngNotify.set('Es necesario validar las nuevas coordenadas para aplicar el comando Move', 'info');
             }
           }
@@ -800,8 +798,7 @@ angular
     });
 
     function ValidarServicio() {
-      if((vm.LatitudNueva != '' && vm.LongitudNueva != '') && (vm.LatitudNueva != null && vm.LongitudNueva != null))
-      {
+      if ((vm.LatitudNueva != '' && vm.LongitudNueva != '') && (vm.LatitudNueva != null && vm.LongitudNueva != null)) {
         var parametros = {};
         parametros.servicio = vm.Terminal.Servicio;
         parametros.latitud = vm.LatitudNueva;
@@ -812,15 +809,14 @@ angular
           if (hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.AvailabilityFlag != 'true') {
             ngNotify.set('Sin área de cobertura', 'error');
           } else {
-            ngNotify.set('Dentro del área de cobertura','success');
+            ngNotify.set('Dentro del área de cobertura', 'success');
             vm.BeamIDNuevo = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.BeamID;
             vm.SatelliteIDNuevo = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.SatellitedID;
             vm.PolarizationNuevo = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
           }
         });
-      }
-      else{
-        ngNotify.set('Es necesario capturar las coordenadas para validar el servicio','info');
+      } else {
+        ngNotify.set('Es necesario capturar las coordenadas para validar el servicio', 'info');
       }
     }
 

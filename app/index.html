@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.css" />
   <link rel="stylesheet" href="bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css" />
+  <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
@@ -33,12 +34,18 @@
   <script src="libs/LibreriasGraficas/Chart.bundle.js"></script>
 
   <script src="libs/LibreriasGraficas2/utils.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+
+
+
+
 </head>
 
 <body id="mimin" class="menubar-hoverable header-fixed">
   <div ui-view="loginview"></div>
   <div ui-view="homeview"></div>
-
+  <toaster-container toaster-options="{'close-button': true}"></toaster-container>
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -77,10 +84,18 @@
   <script src="bower_components/angular-fixed-table-header/src/fixed-table-header.js"></script>
   <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
   <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+  <script src="bower_components/firebase/firebase.js"></script>
+  <script src="bower_components/angularfire/dist/angularfire.js"></script>
+  <script src="bower_components/angular-moment/angular-moment.js"></script>
+  <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script>
+    // Initialize Firebase
+
+  </script>
   <script src="scripts/app.js"></script>
   <script src="scripts/modules.js"></script>
   <script src="scripts/directives/ngThumb.js"></script>
@@ -188,13 +203,14 @@
   <script src="scripts/controllers/memoriatecnica/editamemoriatecnicaCtrl.js"></script>
   <script src="scripts/controllers/memoriatecnica/memoriatecnicaCtrl.js"></script>
   <script src="scripts/controllers/memoriatecnica/nuevamemoriatecnicaCtrl.js"></script>
+  <script src="scripts/controllers/memoriatecnica/bitacoraCtrl.js"></script>
+  <script src="scripts/controllers/memoriatecnica/manualesCtrl.js"></script>
+  <script src="scripts/controllers/memoriatecnica/reporteMemoriaCtrl.js"></script>
 
   <script src="scripts/controllers/configuracionip/catalogoPoolsCtrl.js"></script>
   <script src="scripts/controllers/configuracionip/nuevoPoolsCtrl.js"></script>
   <script src="scripts/controllers/configuracionip/editaPoolsCtrl.js"></script>
   <script src="scripts/controllers/configuracionip/modules.js"></script>
-
-
 
 
   <script src="scripts/factories/atencionFactory.js"></script>

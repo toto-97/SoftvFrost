@@ -73,7 +73,9 @@ angular.module('softvFrostApp')
 					'Nombre': object.Nombre,
 					'Email': object.Email,
 					'Usuario': object.Usuario,
-					'Password': object.Password
+					'Password': object.Password,
+					'RecibeMensaje':object.RecibeMensaje
+					
 				}
 			};
 			var config = {
@@ -99,7 +101,9 @@ angular.module('softvFrostApp')
 					'Nombre': object.Nombre,
 					'Email': object.Email,
 					'Usuario': object.Usuario,
-					'Password': object.Password
+					'Password': object.Password,
+					'RecibeMensaje':object.RecibeMensaje
+					
 				}
 			};
 			var config = {

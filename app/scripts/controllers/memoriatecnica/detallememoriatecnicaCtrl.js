@@ -6,16 +6,64 @@ angular
       function initialData() {
         memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
           detalle(data.GetObtieneMemoriaTecnicaResult[0]);
-
-
           memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
             vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
-            vm.Lista_evidencias.forEach(function (item) {             
+            vm.Lista_evidencias.forEach(function (item) {
               item.Ruta = item.Ruta;
               item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
               item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
               item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
             });
+            memoriaFactory.GetObtieneObservacionesMemoriaTecnica(vm.id).then(function (result) {
+              console.log(result.GetObtieneObservacionesMemoriaTecnicaResult);
+              var notas = result.GetObtieneObservacionesMemoriaTecnicaResult;
+              notas.forEach(function (item) {
+                console.log(item);
+                var obj = {};
+                obj.Observacion = item.Observacion;
+                obj.IdUsuario = 0;
+                obj.IdObservacion = 0;
+                obj.Fecha = item.Fecha;
+                obj.Nombre = item.Nombre;
+                vm.notas_ant.push(obj);
+
+              });
+            });
+
+            memoriaFactory.GetObtieneEquiposSustituir(vm.id).then(function (result) {
+              var eq = result.GetObtieneEquiposSustituirResult;
+              eq.forEach(function (item) {
+                var equipo = {};
+                equipo.IdEquipoSustituir = item.IdEquipoSustituir;
+                equipo.IdMemoriaTecnica = item.IdMemoriaTecnica;
+                equipo.Equipo = item.Equipo;
+                equipo.SerieAnterior = item.SerieAnterior;
+                equipo.SerieNueva = item.SerieNueva;
+                equipo.Opcion = 2;
+                vm.cambios.push(equipo);
+              });
+              memoriaFactory.GetObtieneDigitalMemoriaTecnica(vm.id).then(function (result) {
+                var ed = result.GetObtieneDigitalMemoriaTecnicaResult;
+                ed.forEach(function (item) {
+                  var equipodig = {};
+                  equipodig.IdEquipoSustituir = item.IdEquipoSustituir;
+                  equipodig.IdMemoriaTecnica = item.IdMemoriaTecnica;
+                  equipodig.Equipo = item.Equipo;
+                  equipodig.SerieAnterior = item.SerieAnterior;
+                  equipodig.paquete = item.paquete;                  
+                  equipodig.Opcion = 2;
+                  vm.aparatosdigitales.push(equipodig);
+                });
+
+
+
+
+
+              });
+            });
+
+
+
 
             console.log(vm.Lista_evidencias);
 
@@ -83,6 +131,9 @@ angular
         vm.velocidad = det.Velocidad;
         vm.wifiserie = det.WiFi;
         vm.numeroorden = det.Clv_Orden;
+        vm.PersonaValidaServicio = det.PersonaValidaServicio;
+        vm.Combo = det.Combo;
+        vm.contratocompania=det.contratocompania;
       }
 
 
@@ -94,6 +145,10 @@ angular
       vm.uploader = new FileUploader();
       vm.id = $stateParams.id;
       initialData();
+      vm.cambios = [];
+      vm.notas = [];
+      vm.notas_ant = [];
+      vm.aparatosdigitales = [];
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = false;
       vm.seleccionImagen = false;

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-  .controller('DiagnosticCtrl', function (diagnosticFactory, OVTFactory, ngNotify, globalService) {
+  .controller('DiagnosticCtrl', function (diagnosticFactory, mapaBeamFactory, OVTFactory, ngNotify, globalService) {
     this.$onInit = function () {
 
       diagnosticFactory.getLoginUid().then(function (data) {
@@ -8,11 +8,18 @@ angular.module('softvFrostApp')
         $('.diagnostic').collapse();
         $('.diagnosis').collapse();
         $('.table-info').collapse();
+
       });
 
 
 
+
+
     }
+
+
+
+
 
     function hughesGetSanCompuesto(obj) {
       var a = obj.toString();
@@ -44,6 +51,13 @@ angular.module('softvFrostApp')
         if (datos.length > 0) {
           vm.diagnosticData = datos[0];
           vm.showSan = true;
+
+          mapaBeamFactory.GetTerminalStatus(hughesGetSanCompuesto(vm.san)).then(function (response) {
+            console.log(JSON.parse(response));
+            vm.datosterminal = JSON.parse(response);
+          });
+
+
         } else {
           vm.diagnosticData = datos[0];
           vm.showSan = true;
@@ -78,7 +92,7 @@ angular.module('softvFrostApp')
     function acctionButtons(param) {
 
 
-    
+
       var sanData = {
         token: vm.token,
         san: hughesGetSanCompuesto(vm.san),

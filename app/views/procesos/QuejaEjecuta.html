@@ -1,40 +1,40 @@
 <style>
-.input-yellow {
-  
+  .input-yellow {
+
     background-color: rgba(255, 249, 59, 0.71);
     animation-name: anim;
-	animation-duration: 1s;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
   }
 
   .input-normal {
-   
+
     background-color: #ffffff;
   }
 
 
-   .input-yellow.bezier {
-	animation-timing-function: cubic-bezier(.8,0,.2,1);
-}
- .input-yellow.steps {
-	animation-name: anim-half;  
-	animation-timing-function: steps(1,end);
-}
+  .input-yellow.bezier {
+    animation-timing-function: cubic-bezier(.8, 0, .2, 1);
+  }
 
-@keyframes anim {
-	to {
-		background-color: #ffffff;
-	
-	}
-}
-@keyframes anim-half {
-	50% {
-		background-color: #f5ff3b;
-	
-	}
-}
+  .input-yellow.steps {
+    animation-name: anim-half;
+    animation-timing-function: steps(1, end);
+  }
+
+  @keyframes anim {
+    to {
+      background-color: #ffffff;
+    }
+  }
+
+  @keyframes anim-half {
+    50% {
+      background-color: #f5ff3b;
+    }
+  }
 
 
 
@@ -43,12 +43,17 @@
     overflow: auto;
   }
 
-  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  .table>thead>tr>th,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>tbody>tr>td,
+  .table>tfoot>tr>td {
     padding: 1px 8px;
     line-height: 1.846153846;
     vertical-align: top;
     border-top: 1px solid rgba(189, 193, 193, 0.2);
-}
+  }
 
 </style>
 
@@ -165,8 +170,8 @@
 
         <div class="col-md-4 " style="font-size:12px;">
 
-         
-  <b style="font-size: 14px; color: #06599a;"><i class="md md-access-time"></i> Fechas de:</b><br>
+
+          <b style="font-size: 14px; color: #06599a;"><i class="md md-access-time"></i> Fechas de:</b><br>
           <table class="table">
             <tr>
               <td><label>Solicitud</label></td>
@@ -181,60 +186,49 @@
               </td>
 
             </tr>
-            <tr  ng-class="(QuejaForm.FechaEjecucion.$valid==false || QuejaForm.horaEjecucion.$valid==false  )?'input-yellow':'input-normal'">
+            <tr ng-class="(QuejaForm.FechaEjecucion.$valid==false || QuejaForm.horaEjecucion.$valid==false  )?'input-yellow':'input-normal'">
               <td>
                 <label class="control-label">Ejecución</label>
               </td>
               <td>
 
-                <input type="text" 
-                class="form-control input-sm"  
-                ng-model="$ctrl.FechaEjecucion" placeholder="DD/MM/YYYY"
-                 name="FechaEjecucion" 
-                 required-message="'Requerido'"
-                  ng-required="!$ctrl.FEjecucion" 
-                  validate-on="dirty" 
-                  ui-mask="99/99/9999"
-                  model-view-value="true" 
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaEjecucion" placeholder="DD/MM/YYYY" name="FechaEjecucion"
+                  required-message="'Requerido'" ng-required="!$ctrl.FEjecucion" validate-on="dirty" ui-mask="99/99/9999" model-view-value="true"
                   ng-disabled="$ctrl.FEjecucion">
               </td>
               <td>
-                <input type="text" class="form-control input-sm"  ng-model="$ctrl.HoraEjecucion" placeholder="hh:mm AA"
-              name="horaEjecucion" required-message="'Requerido'" ng-required="!$ctrl.FEjecucion" validate-on="dirty" ui-mask="99:99 AA"
-              model-view-value="true" ng-disabled="$ctrl.FEjecucion">
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraEjecucion" placeholder="hh:mm AA" name="horaEjecucion"
+                  required-message="'Requerido'" ng-required="!$ctrl.FEjecucion" validate-on="dirty" ui-mask="99:99 AA" model-view-value="true"
+                  ng-disabled="$ctrl.FEjecucion">
               </td>
 
             </tr>
             <tr ng-class="(QuejaForm.Fechav1.$valid==false || QuejaForm.HoraV1.$valid==false  )?'input-yellow':'input-normal'">
-                <td>
-                  <label>Visita 1</label>
-                </td>
-                <td>
-                   <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita1"  placeholder="DD/MM/YYYY"
-              name="Fechav1" required-message="'Requerido'" ng-required="!$ctrl.FVisita1" validate-on="dirty" ui-mask="99/99/9999"
-              model-view-value="true" ng-disabled="$ctrl.FVisita1">
-                </td>
-                <td>
-                  <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita1"  placeholder="hh:mm AA"
-              name="HoraV1" required-message="'Requerido'" ng-required="!$ctrl.FVisita1" validate-on="dirty" ui-mask="99:99 AA"
-              model-view-value="true" ng-disabled="$ctrl.FVisita1">
-                </td>
+              <td>
+                <label>Visita 1</label>
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita1" placeholder="DD/MM/YYYY" name="Fechav1" required-message="'Requerido'"
+                  ng-required="!$ctrl.FVisita1" validate-on="dirty" ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FVisita1">
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita1" placeholder="hh:mm AA" name="HoraV1" required-message="'Requerido'"
+                  ng-required="!$ctrl.FVisita1" validate-on="dirty" ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FVisita1">
+              </td>
 
             </tr>
             <tr ng-class="(QuejaForm.FechaV2.$valid==false || QuejaForm.Horav2.$valid==false  )?'input-yellow':'input-normal'">
-             <td>
-               <label>Visita 2</label>
-             </td>
-             <td>
-               <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita2"  placeholder="DD/MM/YYYY"
-              name="FechaV2" required-message="'Requerido'" ng-required="!$ctrl.FVisita2" validate-on="dirty" ui-mask="99/99/9999"
-              model-view-value="true" ng-disabled="$ctrl.FVisita2">
-             </td>
-             <td>
-               <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita2"  placeholder="hh:mm AA"
-              name="Horav2" required-message="'Requerido'" ng-required="!$ctrl.FVisita2" validate-on="dirty" ui-mask="99:99 AA"
-              model-view-value="true" ng-disabled="$ctrl.FVisita2">
-             </td>
+              <td>
+                <label>Visita 2</label>
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita2" placeholder="DD/MM/YYYY" name="FechaV2" required-message="'Requerido'"
+                  ng-required="!$ctrl.FVisita2" validate-on="dirty" ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FVisita2">
+              </td>
+              <td>
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita2" placeholder="hh:mm AA" name="Horav2" required-message="'Requerido'"
+                  ng-required="!$ctrl.FVisita2" validate-on="dirty" ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FVisita2">
+              </td>
 
             </tr>
             <tr ng-class="(QuejaForm.Fechav3.$valid==false || QuejaForm.horav3.$valid==false  )?'input-yellow':'input-normal'">
@@ -242,29 +236,28 @@
                 <label>Visita 3</label>
               </td>
               <td>
-                 <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita3"  placeholder="DD/MM/YYYY"
-              ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FVisita3" name="Fechav3" required-message="'Requerido'"
-              ng-required="!$ctrl.FVisita3" validate-on="dirty">
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita3" placeholder="DD/MM/YYYY" ui-mask="99/99/9999"
+                  model-view-value="true" ng-disabled="$ctrl.FVisita3" name="Fechav3" required-message="'Requerido'" ng-required="!$ctrl.FVisita3"
+                  validate-on="dirty">
               </td>
               <td>
-                 <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita3"  placeholder="hh:mm AA"
-              ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FVisita3" name="horav3" required-message="'Requerido'"
-              ng-required="!$ctrl.FVisita3" validate-on="dirty">
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita3" placeholder="hh:mm AA" ui-mask="99:99 AA" model-view-value="true"
+                  ng-disabled="$ctrl.FVisita3" name="horav3" required-message="'Requerido'" ng-required="!$ctrl.FVisita3" validate-on="dirty">
               </td>
             </tr>
-            <tr  ng-class="(QuejaForm.Fechaproceso.$valid==false || QuejaForm.horaproceso.$valid==false  )?'input-yellow':'input-normal'">
+            <tr ng-class="(QuejaForm.Fechaproceso.$valid==false || QuejaForm.horaproceso.$valid==false  )?'input-yellow':'input-normal'">
               <td>
                 <label>En proceso</label>
               </td>
               <td>
-                <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaProceso"  placeholder="DD/MM/YYYY"
-              ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FProceso" name="Fechaproceso" required-message="'Requerido'"
-              ng-required="!$ctrl.FProceso" validate-on="dirty">
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaProceso" placeholder="DD/MM/YYYY" ui-mask="99/99/9999"
+                  model-view-value="true" ng-disabled="$ctrl.FProceso" name="Fechaproceso" required-message="'Requerido'" ng-required="!$ctrl.FProceso"
+                  validate-on="dirty">
               </td>
               <td>
-                <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraProceso"  placeholder="hh:mm AA"
-              ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FProceso" name="horaproceso" required-message="'Requerido'"
-              ng-required="!$ctrl.FProceso" validate-on="dirty">
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraProceso" placeholder="hh:mm AA" ui-mask="99:99 AA" model-view-value="true"
+                  ng-disabled="$ctrl.FProceso" name="horaproceso" required-message="'Requerido'" ng-required="!$ctrl.FProceso"
+                  validate-on="dirty">
               </td>
             </tr>
             <tr>
@@ -273,11 +266,11 @@
               </td>
               <td>
                 <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaEjecucuionReal" placeholder="DD/MM/YYYY" ui-mask="99/99/9999"
-              model-view-value="true" ng-disabled="true">
+                  model-view-value="true" ng-disabled="true">
               </td>
               <td>
-                 <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraEjecucuionReal" placeholder="hh:mm AA" ui-mask="99:99 AA"
-              model-view-value="true" ng-disabled="true">
+                <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraEjecucuionReal" placeholder="hh:mm AA" ui-mask="99:99 AA"
+                  model-view-value="true" ng-disabled="true">
               </td>
             </tr>
 
@@ -285,18 +278,17 @@
           </table>
 
 
-        
+
           <div class="col-md-12">
-           
+
             <b>Departamento Responsable:</b> {{$ctrl.Departamento}}
 
           </div>
           <div class="col-md-12">
 
-            <select class="form-control input-sm"
-            ng-class="(QuejaForm.Tecnico.$valid==false)?'input-yellow':'input-normal'"
-             name="Tecnico" required-message="'Este campo es obligatorio.'" required validate-on="dirty"
-              ng-model="$ctrl.Tecnico" ng-disabled="$ctrl.BlockTecnico" ng-options="item as item.Nombre for item in $ctrl.Tecnicos track by item.clv_Tecnico">
+            <select class="form-control input-sm" ng-class="(QuejaForm.Tecnico.$valid==false)?'input-yellow':'input-normal'" name="Tecnico"
+              required-message="'Este campo es obligatorio.'" required validate-on="dirty" ng-model="$ctrl.Tecnico" ng-disabled="$ctrl.BlockTecnico"
+              ng-options="item as item.Nombre for item in $ctrl.Tecnicos track by item.clv_Tecnico">
                        <option value="">Selecciona Técnico</option>
                        </select>
           </div>
@@ -354,9 +346,9 @@
           <div class="col-md-12">
             <div class="col-md-6">
               <b>Tipo solución</b>
-              <select  ng-class="(QuejaForm.solucion.$valid==false)?'input-yellow':'input-normal'"    class="form-control input-sm" name="solucion" required-message="'Este campo es obligatorio.'" ng-required="$ctrl.Estatus=='E'"
-                validate-on="dirty" ng-model="$ctrl.Trabajo" ng-options="item as item.DESCRIPCION for item in $ctrl.Trabajos track by item.CLV_TRABAJO"
-                ng-disabled="$ctrl.BloqElemnt">
+              <select ng-class="(QuejaForm.solucion.$valid==false)?'input-yellow':'input-normal'" class="form-control input-sm" name="solucion"
+                required-message="'Este campo es obligatorio.'" ng-required="$ctrl.Estatus=='E'" validate-on="dirty" ng-model="$ctrl.Trabajo"
+                ng-options="item as item.DESCRIPCION for item in $ctrl.Trabajos track by item.CLV_TRABAJO" ng-disabled="$ctrl.BloqElemnt">
                 <option value="">Selecciona</option>
               </select>
             </div>
@@ -366,12 +358,9 @@
                                     </label> </div>-->
             <div class="col-md-12">
               <b> Problema real:</b>
-              <textarea 
-              class="form-control input-sm" 
-              name="Problema"
-              ng-class="(QuejaForm.Problema.$valid==false)?'input-yellow':'input-normal'"
-               required-message="'Este campo es obligatorio.'" ng-required="$ctrl.Estatus=='E'"
-                validate-on="dirty" ng-disabled="$ctrl.Iprobreal" ng-model="$ctrl.ProblemaReal" placeholder="Redacta brevemente el problema real que derivo la queja">
+              <textarea class="form-control input-sm" name="Problema" ng-class="(QuejaForm.Problema.$valid==false)?'input-yellow':'input-normal'"
+                required-message="'Este campo es obligatorio.'" ng-required="$ctrl.Estatus=='E'" validate-on="dirty" ng-disabled="$ctrl.Iprobreal"
+                ng-model="$ctrl.ProblemaReal" placeholder="Redacta brevemente el problema real que derivo la queja">
 
                       </textarea>
             </div>

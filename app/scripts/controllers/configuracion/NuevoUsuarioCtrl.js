@@ -30,6 +30,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 				obj.Email = vm.Correo;
 				obj.Usuario = vm.Descripcion;
 				obj.Password = vm.Contrasena;
+				obj.RecibeMensaje=vm.RecibeMensaje;
 				usuarioFactory.AddUsuario(obj).then(function (data) {
 					$state.go('home.provision.usuarios');
 					ngNotify.set('Usuario agregado correctamente.', 'success');
