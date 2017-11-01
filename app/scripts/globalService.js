@@ -24,73 +24,73 @@ angular.module('softvFrostApp')
      };*/
 
 
-    //rutas locales
+      //rutas locales
+  //   svc.getUrl = function () {
+  //     return 'http://localhost:64481/SoftvWCFService.svc';
+  //  // return 'http://192.168.50.33:3000/SoftvWCFService.svc';
+  //   };
+
+  //   svc.getUrlReportes = function () {
+  //    return 'http://192.168.50.33:3000/';
+
+  //   };
+
+  //   svc.getUrlmemoriatecnica = function () {
+  // //  return 'http://192.168.50.33:3500/SoftvWCFService.svc';
+  //   // return 'http://localhost:64482/SoftvWCFService.svc';
+  //   };
+
+  //   svc.getUrlmemoriatecnicareportes = function () {
+  //   return 'http://192.168.50.33:3500';
+  //    //return 'http://localhost:64482';
+  //   };
+
+  //   svc.getUrlmemoriatecnicaImages = function () {
+  //    return 'http://192.168.50.33:3500/MemoriaTecnica';
+  //   // return 'http://localhost:64482/MemoriaTecnica';
+  //   };
+
+  //   svc.getUrlHughesService = function () {
+  //     return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
+  //   };
+
+  //   svc.getUrlBeams = function () {
+  //     return 'http://189.254.231.35/beams/';
+  //   };
+
+  //   svc.getUrlHughesMonitoreo = function () {
+  //     return 'http://192.168.50.33:3000/BossMonitoreo/api';
+  //   };
+
+  //   svc.getType = function () {
+  //     return 'TEV';
+  //   };
+
+
+    //rutas server de pruebas
     svc.getUrl = function () {
-      return 'http://localhost:64481/SoftvWCFService.svc';
-   //  return 'http://192.168.50.33:3000/SoftvWCFService.svc';
+      //  return 'http://172.16.126.44:3000/SoftvWCFService.svc';     
+      return 'http://172.16.126.44:3000/SoftvWCFService.svc';
     };
 
     svc.getUrlReportes = function () {
-     return 'http://192.168.50.33:3000/';
+      return 'http://172.16.126.44:3000/';
 
     };
 
     svc.getUrlmemoriatecnica = function () {
-    return 'http://192.168.50.33:3500/SoftvWCFService.svc';
-    // return 'http://localhost:64482/SoftvWCFService.svc';
-    };
+      return 'http://172.16.126.44:3500/SoftvWCFService.svc';
 
-    svc.getUrlmemoriatecnicareportes = function () {
-      return 'http://192.168.50.33:3500';
-     //return 'http://localhost:64482';
-    };
-
-    svc.getUrlmemoriatecnicaImages = function () {
-     return 'http://192.168.50.33:3500/MemoriaTecnica';
-     // return 'http://localhost:64482/MemoriaTecnica';
-    };
-
-    svc.getUrlHughesService = function () {
-      return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
-    };
-
-    svc.getUrlBeams = function () {
-      return 'http://189.254.231.35/beams/';
-    };
-
-    svc.getUrlHughesMonitoreo = function () {
-      return 'http://192.168.50.33:3000/BossMonitoreo/api';
-    };
-
-    svc.getType = function () {
-      return 'TEV';
-    };
-
-
-     //rutas server de pruebas
-  /* svc.getUrl = function () {
-    //  return 'http://172.16.126.44:3000/SoftvWCFService.svc';     
-       return 'http://172.16.126.44:3000/SoftvWCFService.svc';
-    };
-
-    svc.getUrlReportes = function () {
-     return 'http://172.16.126.44:3000/';
-
-    };
-
-    svc.getUrlmemoriatecnica = function () {
-    return 'http://172.16.126.44:3500/SoftvWCFService.svc';
-    
     };
 
     svc.getUrlmemoriatecnicareportes = function () {
       return 'http://172.16.126.44:3500';
-    
+
     };
 
     svc.getUrlmemoriatecnicaImages = function () {
-     return 'http://172.16.126.44:3500/MemoriaTecnica';
-     
+      return 'http://172.16.126.44:3500/MemoriaTecnica';
+
     };
 
     svc.getUrlHughesService = function () {
@@ -106,8 +106,8 @@ angular.module('softvFrostApp')
     };
 
     svc.getType = function () {
-      return 'TEV';
-    };*/
+      return 'TLV';
+    };
 
 
 

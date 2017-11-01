@@ -16,49 +16,55 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-md-5">
-        <div class="col-md-12">
-          <b>Nombre de rol</b>
-          <input type="text" class="form-control col-md-4" ng-model="$ctrl.Nombre" name="Nombre" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty">
-        </div>
-    
-      
-        <div class="col-md-12">
-          <br>
-          <b>Descripción de rol</b>
-          <textarea class="form-control col-md-4" ng-model="$ctrl.Descripcion" name="Descripcion" required-message="'Este campo es obligatorio.'" placeholder="Describe brevemente las funciones de este rol en el sistema" validate-on="dirty" required validate-on="dirty"></textarea>
-        </div>
-    
-    
-        <div class="col-md-12">
-          <br>
-          <b>Status</b>
-          <div><label class="checkbox-inline checkbox-styled checkbox-info"><input type="checkbox" ng-model="$ctrl.Estatus"><span> Activo</span></label></div>
+        <div class="col-md-4">
+          <h5 class="text-primary text-center">Datos del Rol</h5>
+          <div class="col-md-12">
+            <b>Nombre de rol</b>
+            <input type="text" class="form-control col-md-4" ng-model="$ctrl.Nombre" name="Nombre" required-message="'Este campo es obligatorio.'"
+              validate-on="dirty" required validate-on="dirty">
+          </div>
+
+
+          <div class="col-md-12">
+            <br>
+            <b>Descripción de rol</b>
+            <textarea class="form-control col-md-4" ng-model="$ctrl.Descripcion" name="Descripcion" required-message="'Este campo es obligatorio.'"
+              placeholder="Describe brevemente las funciones de este rol en el sistema" validate-on="dirty" required validate-on="dirty"></textarea>
+          </div>
+
+
+          <div class="col-md-12">
+            <br>
+            <b>Status</b>
+            <div><label class="checkbox-inline checkbox-styled checkbox-info"><input type="checkbox" ng-model="$ctrl.Estatus"><span> Activo</span></label></div>
+
+          </div>
+
 
         </div>
-       
-      
+        <div class="col-md-4  text-center">
+          <h5 class="text-primary text-center">Comandos para aplicar</h5>
+          <div class="col-md-12" style=" overflow-y:scroll; max-height:300px;">
+            <table class="table" style="font-size:12px;">
+              <thead>
+                <th>Comando</th>
+                <th>Selecciona</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in $ctrl.comandos">
+                  <td>{{x.Nombre}}</td>
+                  <td>
+                    <div><label class="checkbox-inline checkbox-styled checkbox-info"><input type="checkbox" ng-model="x.selected"><span> </span></label></div>
+
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+          </div>
         </div>
-        <div class="col-md-5  text-center " style=" overflow-y:scroll; max-height:300px;">
-         <table class="table" style="font-size:12px;">
-           <thead>
-             <th>Comando</th>
-             <th>Selecciona</th>
-           </thead>
-           <tbody>
-            <tr ng-repeat="x in $ctrl.comandos">
-             <td>{{x.Nombre}}</td>
-             <td>
-                 <div><label class="checkbox-inline checkbox-styled checkbox-info"><input type="checkbox" ng-model="x.selected"><span> </span></label></div>
-
-             </td>
-            </tr>
-
-           </tbody>
-
-         </table>
-
-        </div>
+        
 
       </div>
     </div>

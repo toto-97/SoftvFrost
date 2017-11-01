@@ -152,6 +152,7 @@ angular
       vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
       vm.horallegada = moment().format('HH:mm');
       vm.instalador = $localStorage.currentUser.usuario;
+      vm.permitecheck= $localStorage.currentUser.CheckMemoria;
       console.log(vm.horallegada);
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;

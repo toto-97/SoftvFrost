@@ -468,6 +468,7 @@ angular
       vm.guardaNota = guardaNota;
       vm.notas = [];
       vm.notas_ant = [];
+      vm.permitecheck=$localStorage.currentUser.CheckMemoria;
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;
