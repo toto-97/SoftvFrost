@@ -281,12 +281,7 @@ angular
       var files = [];
       var tipos = [];
       var count = 0;
-      vm.uploader.queue.forEach(function (f) {
-       
-
-        if (tipos.includes(f._file.idtipo)) {
-          count += 1;
-        } else {
+      vm.uploader.queue.forEach(function (f) {        
           var options = {
             IdImagen: 0,
             Accion: 1,
@@ -297,7 +292,7 @@ angular
           file_options.push(options);
           tipos.push(f._file.idtipo);
           files.push(f._file);
-        }
+        
       });
 
       if (count > 1) {

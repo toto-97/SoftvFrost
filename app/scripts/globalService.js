@@ -67,6 +67,37 @@ angular.module('softvFrostApp')
   //   };
 
 
+//rutas server demo
+svc.getUrl = function () {
+  //  return 'http://172.16.126.44:3000/SoftvWCFService.svc';     
+  return 'http://189.254.231.35:1212/appservices/SoftvWCFService.svc';
+};
+svc.getUrlReportes = function () {
+  return 'http://189.254.231.35:1212/appservices';
+
+};
+
+svc.getUrlmemoriatecnica = function () {
+  return 'http://189.254.231.35:1212/memoria/SoftvWCFService.svc';
+
+};
+
+svc.getUrlmemoriatecnicareportes = function () {
+  return 'http://189.254.231.35:1212/memoria';
+
+};
+
+svc.getUrlmemoriatecnicaImages = function () {
+  return 'http://189.254.231.35:1212/memoria/MemoriaTecnica';
+
+};
+
+
+svc.getType = function () {
+  return 'TLV';
+};
+
+/* 
     //rutas server de pruebas
     svc.getUrl = function () {
       //  return 'http://172.16.126.44:3000/SoftvWCFService.svc';     
@@ -108,7 +139,7 @@ angular.module('softvFrostApp')
     svc.getType = function () {
       return 'TLV';
     };
-
+ */
 
 
 
