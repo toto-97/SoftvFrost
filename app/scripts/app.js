@@ -136,12 +136,12 @@ angular
 
         var fire = $injector.get('firebase');
         var config = {
-          apiKey: "AIzaSyAYdB8E1qTsBG9BN3bcbsPgnatIALFHalg",
-          authDomain: "boss-10e7a.firebaseapp.com",
-          databaseURL: "https://boss-10e7a.firebaseio.com",
-          projectId: "boss-10e7a",
-          storageBucket: "boss-10e7a.appspot.com",
-          messagingSenderId: "458631148306"
+          apiKey: 'AIzaSyAYdB8E1qTsBG9BN3bcbsPgnatIALFHalg',
+          authDomain: 'boss-10e7a.firebaseapp.com',
+          databaseURL: 'https://boss-10e7a.firebaseio.com',
+          projectId: 'boss-10e7a',
+          storageBucket: 'boss-10e7a.appspot.com',
+          messagingSenderId: '458631148306'
         };
         fire.initializeApp(config);
 
