@@ -280,7 +280,7 @@ angular
       var file_options = [];
       var files = [];
       var tipos = [];
-      var count = 0;
+     
       vm.uploader.queue.forEach(function (f) {        
           var options = {
             IdImagen: 0,
@@ -293,12 +293,7 @@ angular
           tipos.push(f._file.idtipo);
           files.push(f._file);
         
-      });
-
-      if (count > 1) {
-        ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
-        return;
-      }
+      });     
 
 
       memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
