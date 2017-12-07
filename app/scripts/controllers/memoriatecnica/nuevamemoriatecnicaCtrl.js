@@ -156,6 +156,21 @@ angular
       console.log(vm.horallegada);
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
+        
+        memoriaFactory.GetTipoServicio().then(function(tipos){
+         console.log(tipos);
+            
+         memoriaFactory.GetEstatusTecnico().then(function(estatus){
+           console.log(estatus);
+
+           memoriaFactory.GetTecnicosMemoriaTecnica().then(function(tecnicos){
+            console.log(tecnicos);
+           });
+
+         });
+
+        });
+
       });
     }
 
