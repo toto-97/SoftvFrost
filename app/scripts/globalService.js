@@ -16,17 +16,17 @@ angular.module('softvFrostApp')
      };
 
      svc.getUrlmemoriatecnica = function () {
-     return 'http://189.254.231.35:12121/SoftvWCFService.svc';
+     return 'http://189.254.231.35:12121/MemoriaTecnica/SoftvWCFService.svc';
    
     };
 
     svc.getUrlmemoriatecnicareportes = function () {
-    return 'http://189.254.231.35:12121';
+    return 'http://189.254.231.35:12121/MemoriaTecnica';
   
     };
 
     svc.getUrlmemoriatecnicaImages = function () {
-     return 'http://189.254.231.35:12121/MemoriaTecnica';
+     return 'http://189.254.231.35:12121/MemoriaTecnica/MemoriaTecnica';
    
     };
 
