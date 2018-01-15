@@ -23,8 +23,6 @@
                                 <th st-sort="IP">Red</th>
                                 <th st-sort="MascaraRed">Máscara de Red</th>
                                 <th st-sort="HostMinimo">Rango</th>
-                                <th st-sort="Asignadas">Asignadas</th>
-                                <th st-sort="Disponibles">Disponibles</th>
                                 <th st-sort="Accion">Acciones</th>
                             </tr>
                             <tr>
@@ -44,12 +42,6 @@
                                     <input st-search="HostMinimo" placeholder="Rango" class="input-sm form-control" type="search" />
                                 </th>
                                 <th>
-                                    <input st-search="Asignadas" placeholder="Asignadas" class="input-sm form-control" type="search" />
-                                </th>
-                                <th>
-                                    <input st-search="Disponibles" placeholder="Disponibles" class="input-sm form-control" type="search" />
-                                </th>
-                                <th>
 
                                 </th>
                             </tr>
@@ -61,8 +53,6 @@
                                 <td>{{row.IP}}</td>
                                 <td>/{{row.MascaraRed}}</td>
                                 <td>{{row.HostMinimo}} - {{row.HostMaximo}}</td>
-                                <td>{{row.Asignadas}}</td>
-                                <td>{{row.Disponibles}}</td>
                                 <td>
                                     <a ui-sref="home.configuracionip.editapools({id:row.Clv_Pool})" permission permission-only="'usuariosUpdate'" class="btn  btn-xs btn-warning"
                                         data-toggle="tooltip" data-placement="top" title="" data-original-title="Consultar Pool de IPs"><i class="fa fa-pencil" aria-hidden="true"></i></a>

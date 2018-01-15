@@ -18,7 +18,7 @@
 
         <div class="panel form-element-padding">
           <div class="panel-body">
-            <div class="col-md-8 ">
+            <div class="col-md-8 " id="bodyTerminal">
               <div class="row form-group">
                 <div class="col-md-10">
                   <b>Suscriptor</b>
@@ -57,7 +57,7 @@
               </div>
               <div class="row">
                 <br>
-                <div class="col-md-4" style="margin-top:10px;">
+                <div class="col-md-3" style="margin-top:10px;">
                   <a class="btn btn-primary btn-sm" ng-click="$ctrl.ValidarServicio()"><i class="fa fa-check-square"></i> Validar Cobertura</a>
                 </div>
                 <div class="col-md-2">
@@ -65,10 +65,20 @@
                   <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="$ctrl.BeamID" ng-disabled="true"
                   />
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <b>Satellite</b><br>
                   <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SatelliteID" ng-disabled="true"
                   />
+                </div>
+                <div class="col-md-2">
+                  <!--<input type="checkbox" class="form-control input-sm" name="Empresarial" ng-model="$ctrl.Empresarial" ng-disabled="$ctrl.HabilitaEmpresarial"
+                  > Empresarial-->
+                  <label class="checkbox-inline checkbox-styled checkbox-info">
+                            <input type="checkbox"  ng-model="$ctrl.Empresarial" 
+                            ng-disabled="$ctrl.HabilitaEmpresarial"
+                            ng-change="$ctrl.ObtieneSubredes()"
+                            ><span>Empresarial</span>
+                          </label>
                 </div>
               </div>
               <div class="row form-group">
@@ -102,6 +112,73 @@
                   <textarea class="form-control input-sm" ng-model="$ctrl.Comentarios" placeholder="Captura las observaciones "></textarea>
                 </div>
               </div>
+              <!-- Parte de IP para terminales empresariales -->
+              <!--    Primera prueba
+              <div class="card-panel" ng-if="$ctrl.Empresarial" >
+                <div class="card-head card-head-xs" data-toggle="collapse" data-parent="#suscriptor" data-target="#suscriptor-1"
+                aria-expanded="false">
+                  <header>Datos de IP : Terminal Empresarial</header>
+                </div>
+                <div id="IPDatos" class="row form-group" >
+                  <div class="col-md-6">
+                    <br>
+                    <b>SubRed</b>
+                    <br>
+                    <select ng-model="$ctrl.SubRed" class="form-control" name="servicio" ng-options="item as item.IP for item in $ctrl.SubRedes track by item.Clv_Pool"
+                      validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+                      <option value="">selecciona</option>
+                      </select>
+                  </div>
+                  <div class="col-md-4">
+                    <b>Servicio de SubRed</b><br>
+                    <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.Servicio" ng-disabled="true"
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <b>SubRed IPv6</b><br>
+                    <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.IPv6" ng-disabled="true"
+                    />
+                  </div>
+                </div>
+              </div>-->
+              <!--    Prueba      -->
+              <div class="panel-heading" ng-if="$ctrl.Empresarial">
+                <div class="tools">
+                  <div class="panel-group" id="suscriptor">
+                    <div class="card panel">
+                      <div class="card-head card-head-xs" data-parent="#suscriptor" data-target="#suscriptor-1"
+                        aria-expanded="false">
+                        <header><b>Datos de IP : Terminal Empresarial</b></header>
+                        
+                      </div>
+                      <div id="suscriptor-1" class=" buscarSuscriptor" aria-expanded="false" style="height: 0px;">
+                        <div class="panel-body">
+                          <div class="col-md-4">
+                          <b>SubRed</b>
+                          <select ng-model="$ctrl.SubRed" class="form-control" name="servicio" ng-options="item as item.IP for item in $ctrl.SubRedes track by item.Clv_Pool"
+                            validate-on="dirty" required-message="'Este campo es obligatorio.'" >
+                            <option value="">selecciona</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                          <b>Servicio de SubRed</b><br>
+                          <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.Servicio" ng-disabled="true"
+                          />
+                        </div>
+                        <div class="col-md-4">
+                          <b>SubRed IPv6</b><br>
+                          <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.IPv6" ng-disabled="true"
+                          />
+                        </div>
+                        </div>
+                        <!-- panel body -->
+                      </div>
+                    </div>
+                    <!--end .panel -->
+                  </div>
+                </div>
+              </div>
+              <!--                  Fin Prueba                     -->
             </div>
           </div>
         </div>

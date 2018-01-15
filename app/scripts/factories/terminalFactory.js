@@ -31,7 +31,9 @@ angular.module('softvFrostApp')
 			hughesSwap: '/Swap',
 			hughesHistoricoConsumo: '/Historico',
 			hughesConsumoGrafica: '/ConsumoGrafica',
-			hughesCambioCoordenadas: '/CambioCoordenadas'
+			hughesCambioCoordenadas: '/CambioCoordenadas',
+			obtienePoolsServicioBeam: '/ObtieneDatosPool/GetObtienePoolsBeamServicio',
+			hughesCrearTerminalIP: "/CrearTerminalIP"
 		};
 
 		factory.sigleMovimiento = function(id) {
@@ -513,6 +515,35 @@ angular.module('softvFrostApp')
 			
 			var parametros = obj;
 			$http.post(globalService.getUrlHughesService() + paths.hughesCambioCoordenadas, JSON.stringify(parametros)).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.obtienePoolsServicioBeam = function(obj) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			var parametros = obj;
+			$http.post(globalService.getUrl() + paths.obtienePoolsServicioBeam, JSON.stringify(parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.hughesCrearTerminalIP = function(obj) {
+			var deferred = $q.defer();
+			var parametros = obj;
+			$http.post(globalService.getUrlHughesService() + paths.hughesCrearTerminalIP, JSON.stringify(parametros)).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);

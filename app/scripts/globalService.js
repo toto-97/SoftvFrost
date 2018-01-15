@@ -25,9 +25,10 @@ angular.module('softvFrostApp')
 
 
     //rutas locales
-    svc.getUrl = function () {
-      return 'http://localhost:64481/SoftvWCFService.svc';
-   //  return 'http://192.168.50.33:3000/SoftvWCFService.svc';
+    svc.getUrl = function () {//Softv Serviioc Boss con atencion
+      return 'http://172.16.126.44:8089/SoftvWCFService.svc';
+      //return 'http://localhost:64481/SoftvWCFService.svc';
+      //return 'http://192.168.50.33:3000/SoftvWCFService.svc';
     };
 
     svc.getUrlReportes = function () {
@@ -50,8 +51,10 @@ angular.module('softvFrostApp')
      // return 'http://localhost:64482/MemoriaTecnica';
     };
 
-    svc.getUrlHughesService = function () {
-      return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
+    svc.getUrlHughesService = function () {//SoftvForstAPI local
+      //return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
+      //return 'http://189.254.231.35:9092/SoftvFrostAPI';
+      return "http://localhost:21590/SoftvFrostAPI";
     };
 
     svc.getUrlBeams = function () {
@@ -66,7 +69,8 @@ angular.module('softvFrostApp')
       return 'TEV';
     };
 
-  };
+    return svc;
+  });
 
      //rutas server de pruebas
   /* svc.getUrl = function () {
@@ -114,5 +118,5 @@ angular.module('softvFrostApp')
 
 
 
-    return svc;
-  });
+    //return svc;
+  //});

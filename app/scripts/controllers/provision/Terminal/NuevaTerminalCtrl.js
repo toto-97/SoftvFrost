@@ -4,10 +4,12 @@ angular.module('softvFrostApp').controller('NuevaTerminalCtrl', NuevaTerminalCtr
 function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootScope, ngNotify, $state, $filter, $stateParams,globalService) {
 	var vm = this;
 	vm.titulo = 'Nueva Terminal';
+	vm.HabilitaEmpresarial = true;
 	vm.BuscaSuscriptor = BuscaSuscriptor;
 	vm.ValidarServicio = ValidarServicio;
 	vm.BuscaLatLong = BuscaLatLong;
 	vm.GuardaTerminal = GuardaTerminal;
+	vm.ObtieneSubredes = ObtieneSubredes;
 	vm.FechaAlta = new Date();
 	vm.ListaStatus = [{
 		'clave': 'Pendiente',
@@ -102,6 +104,9 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							vm.BeamID = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.BeamID;
 							vm.SatelliteID = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.SatellitedID;
 							vm.Polarization = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
+
+							//Habilitamos el check de empresarial
+							vm.HabilitaEmpresarial = false;
 						}
 					});
 				});
@@ -112,6 +117,19 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		}
 		else{
 			ngNotify.set('Es necesario capturar las coordenadas para validar el servicio','info');
+		}
+	}
+
+	function ObtieneSubredes(){
+		if (vm.Empresarial === true)
+		{
+			var parametros = {};
+			parametros.IdServicio = vm.Servicio.IdServicio;
+			parametros.Beam = vm.BeamID;
+			terminalFactory.obtienePoolsServicioBeam(parametros).then(function (hughesData) {
+				console.log(hughesData);
+				vm.SubRedes = hughesData.GetObtienePoolsBeamServicioResult;
+			});
 		}
 	}
 
@@ -185,87 +203,182 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 			'ESN': vm.ESN,
 			'Comentarios': vm.Comentarios
 		};
-		//Guarda la terminal en la base y obtiene el SAN
-		terminalFactory.GuardaTerminal(parametros).then(function (data) {
-			var obj = new Object();
-			//Crea la terminal en la plataforma de Hughes
-			terminalFactory.getSequenceId().then(function (Sequence) {
-				obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-				obj.SAN = hughesGetSanCompuesto(data.AddTerminalResult);
-				obj.nombre = vm.FirstNameSuscriptor;
-				obj.apellido = vm.LastNameSuscriptor;
-				obj.direccion = vm.Calle + ' ' + vm.Numero;
-				obj.ciudad = vm.Ciudad;
-				obj.estado = vm.estado.Codigo;
-				obj.codigoPostal = vm.CP;
-				obj.latitud = vm.Latitud;
-				obj.longitud = vm.Longuitud;
-				obj.telefono = vm.Telefono;
-				obj.email = vm.Email;
-				obj.servicio = vm.Servicio.Nombre;
-				//alert(JSON.stringify(obj));
-				terminalFactory.hughesCrearTerminal(obj).then(function (hughesData) {
-					console.log(hughesData);
-					var Obj2 = new Object();
-					Obj2.objMovimiento = new Object();
-					Obj2.objMovimiento.SAN = data.AddTerminalResult;
-					Obj2.objMovimiento.IdComando = 1;//Hardcodeado a la tabla de Comando
-					Obj2.objMovimiento.IdUsuario = 0;
-					Obj2.objMovimiento.IdTicket = 0;
-					Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
-					vm.fechaAuxiliar = new Date();
-					Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-					Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
-					Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
-					Obj2.objMovimiento.Detalle1 = '';
-					Obj2.objMovimiento.Detalle2 = '';
+		//Si es empersarial ponemos los datos de la IP
+		if (vm.Empresarial === true){
+			console.log('Empresarial1');
+			//Guarda la terminal en la base y obtiene el SAN
+			terminalFactory.GuardaTerminal(parametros).then(function (data) {
+				var obj = new Object();
+				console.log('Empresarial1');
+				//Crea la terminal en la plataforma de Hughes
+				terminalFactory.getSequenceId().then(function (Sequence) {
+					obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
+					obj.SAN = hughesGetSanCompuesto(data.AddTerminalResult);
+					obj.nombre = vm.FirstNameSuscriptor;
+					obj.apellido = vm.LastNameSuscriptor;
+					obj.direccion = vm.Calle + ' ' + vm.Numero;
+					obj.ciudad = vm.Ciudad;
+					obj.estado = vm.estado.Codigo;
+					obj.codigoPostal = vm.CP;
+					obj.latitud = vm.Latitud;
+					obj.longitud = vm.Longuitud;
+					obj.telefono = vm.Telefono;
+					obj.email = vm.Email;
+					obj.servicio = vm.Servicio.Nombre;
+					//Los nuevos de IP
+					obj.IPv4SubnetMask = vm.SubRed.MascaraRed;
+		            obj.VlanID = 1;
+		            obj.MappedIPv4Subnet = vm.SubRed.IP;
+		            obj.IPv6PrefixLen = vm.SubRed.MascaraIPv6;
+		            obj.MappedIPv6Prefix = 60;//vm.SubRed.MascaraIPv6;
+		            obj.MappedIPv4Prefix = 29;//vm.SubRed.MascaraRed;
+					//alert(JSON.stringify(obj));
+					terminalFactory.hughesCrearTerminalIP(obj).then(function (hughesData) {
+						console.log(hughesData);
+						var Obj2 = new Object();
+						Obj2.objMovimiento = new Object();
+						Obj2.objMovimiento.SAN = data.AddTerminalResult;
+						Obj2.objMovimiento.IdComando = 1;//Hardcodeado a la tabla de Comando
+						Obj2.objMovimiento.IdUsuario = 0;
+						Obj2.objMovimiento.IdTicket = 0;
+						Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
+						vm.fechaAuxiliar = new Date();
+						Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+						Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
+						Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
+						Obj2.objMovimiento.Detalle1 = '';
+						Obj2.objMovimiento.Detalle2 = '';
 
-					if (hughesData.StandardResponse.Code!='5') {
-							//----------------------------------
-						var Obj3=new Object();
-						Obj3.objTerminal=new Object();
-						Obj3.objTerminal.SAN=data.AddTerminalResult;
-						Obj3.objTerminal.IdSuscriptor=vm.IdSuscriptor;
-						Obj3.objTerminal.IdServicio=vm.Servicio.IdServicio;
+						if (hughesData.StandardResponse.Code!='5') {
+								//----------------------------------
+							var Obj3=new Object();
+							Obj3.objTerminal=new Object();
+							Obj3.objTerminal.SAN=data.AddTerminalResult;
+							Obj3.objTerminal.IdSuscriptor=vm.IdSuscriptor;
+							Obj3.objTerminal.IdServicio=vm.Servicio.IdServicio;
 
-						Obj3.objTerminal.Latitud = vm.Latitud;
-						Obj3.objTerminal.Longitud = vm.Longuitud;
-						Obj3.objTerminal.Estatus = 'Incompleta';
-						Obj3.objTerminal.FechaAlta = vm.FechaAlta;
-						Obj3.objTerminal.FechaSuspension = '';
-						Obj3.objTerminal.ESN = vm.ESN;
-						Obj3.objTerminal.Comentarios = vm.Comentarios;
-						terminalFactory.updateTerminal(Obj3).then(function (data) {
-							ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
+							Obj3.objTerminal.Latitud = vm.Latitud;
+							Obj3.objTerminal.Longitud = vm.Longuitud;
+							Obj3.objTerminal.Estatus = 'Incompleta';
+							Obj3.objTerminal.FechaAlta = vm.FechaAlta;
+							Obj3.objTerminal.FechaSuspension = '';
+							Obj3.objTerminal.ESN = vm.ESN;
+							Obj3.objTerminal.Comentarios = vm.Comentarios;
+							terminalFactory.updateTerminal(Obj3).then(function (data) {
+								ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
+							});
+							//--------------------------------------------------
+
+							//Ponemos el movimiento como no exitoso
+							Obj2.objMovimiento.Exitoso=0;
+
+						} else {
+							//Objeto para actualizar el SatelliteId y BeamId a la terminal
+							var Obj4 = new Object();
+							Obj4.objTerminal = new Object();
+							Obj4.objTerminal.SatellitedID = vm.SatelliteID;
+							Obj4.objTerminal.BeamID = vm.BeamID;
+							Obj4.objTerminal.Polarization = vm.Polarization;
+							Obj4.objTerminal.SAN = data.AddTerminalResult;
+							//Actualizamos información adicional de la terminal
+							console.log(Obj4);
+							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
+							});
+							ngNotify.set('La terminal se ha guardado correctamente', 'success');
+							//Ponemos el movimiento como  exitoso
+							Obj2.objMovimiento.Exitoso=1;
+						}
+
+						terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
 						});
-						//--------------------------------------------------
-
-						//Ponemos el movimiento como no exitoso
-						Obj2.objMovimiento.Exitoso=0;
-
-					} else {
-						//Objeto para actualizar el SatelliteId y BeamId a la terminal
-						var Obj4 = new Object();
-						Obj4.objTerminal = new Object();
-						Obj4.objTerminal.SatellitedID = vm.SatelliteID;
-						Obj4.objTerminal.BeamID = vm.BeamID;
-						Obj4.objTerminal.Polarization = vm.Polarization;
-						Obj4.objTerminal.SAN = data.AddTerminalResult;
-						//Actualizamos información adicional de la terminal
-						console.log(Obj4);
-						terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
-						});
-						ngNotify.set('La terminal se ha guardado correctamente', 'success');
-						//Ponemos el movimiento como  exitoso
-						Obj2.objMovimiento.Exitoso=1;
-					}
-
-					terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
+						$state.go('home.provision.terminales');
 					});
-					$state.go('home.provision.terminales');
 				});
 			});
-		});
+		}
+		else{
+			//Guarda la terminal en la base y obtiene el SAN
+			terminalFactory.GuardaTerminal(parametros).then(function (data) {
+				var obj = new Object();
+				//Crea la terminal en la plataforma de Hughes
+				terminalFactory.getSequenceId().then(function (Sequence) {
+					obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
+					obj.SAN = hughesGetSanCompuesto(data.AddTerminalResult);
+					obj.nombre = vm.FirstNameSuscriptor;
+					obj.apellido = vm.LastNameSuscriptor;
+					obj.direccion = vm.Calle + ' ' + vm.Numero;
+					obj.ciudad = vm.Ciudad;
+					obj.estado = vm.estado.Codigo;
+					obj.codigoPostal = vm.CP;
+					obj.latitud = vm.Latitud;
+					obj.longitud = vm.Longuitud;
+					obj.telefono = vm.Telefono;
+					obj.email = vm.Email;
+					obj.servicio = vm.Servicio.Nombre;
+					//alert(JSON.stringify(obj));
+					terminalFactory.hughesCrearTerminal(obj).then(function (hughesData) {
+						console.log(hughesData);
+						var Obj2 = new Object();
+						Obj2.objMovimiento = new Object();
+						Obj2.objMovimiento.SAN = data.AddTerminalResult;
+						Obj2.objMovimiento.IdComando = 1;//Hardcodeado a la tabla de Comando
+						Obj2.objMovimiento.IdUsuario = 0;
+						Obj2.objMovimiento.IdTicket = 0;
+						Obj2.objMovimiento.OrderId = hughesData.StandardResponse.OrderId;
+						vm.fechaAuxiliar = new Date();
+						Obj2.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+						Obj2.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
+						Obj2.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
+						Obj2.objMovimiento.Detalle1 = '';
+						Obj2.objMovimiento.Detalle2 = '';
+
+						if (hughesData.StandardResponse.Code!='5') {
+								//----------------------------------
+							var Obj3=new Object();
+							Obj3.objTerminal=new Object();
+							Obj3.objTerminal.SAN=data.AddTerminalResult;
+							Obj3.objTerminal.IdSuscriptor=vm.IdSuscriptor;
+							Obj3.objTerminal.IdServicio=vm.Servicio.IdServicio;
+
+							Obj3.objTerminal.Latitud = vm.Latitud;
+							Obj3.objTerminal.Longitud = vm.Longuitud;
+							Obj3.objTerminal.Estatus = 'Incompleta';
+							Obj3.objTerminal.FechaAlta = vm.FechaAlta;
+							Obj3.objTerminal.FechaSuspension = '';
+							Obj3.objTerminal.ESN = vm.ESN;
+							Obj3.objTerminal.Comentarios = vm.Comentarios;
+							terminalFactory.updateTerminal(Obj3).then(function (data) {
+								ngNotify.set('Error al crear la terminal en la plataforma.', 'error');
+							});
+							//--------------------------------------------------
+
+							//Ponemos el movimiento como no exitoso
+							Obj2.objMovimiento.Exitoso=0;
+
+						} else {
+							//Objeto para actualizar el SatelliteId y BeamId a la terminal
+							var Obj4 = new Object();
+							Obj4.objTerminal = new Object();
+							Obj4.objTerminal.SatellitedID = vm.SatelliteID;
+							Obj4.objTerminal.BeamID = vm.BeamID;
+							Obj4.objTerminal.Polarization = vm.Polarization;
+							Obj4.objTerminal.SAN = data.AddTerminalResult;
+							//Actualizamos información adicional de la terminal
+							console.log(Obj4);
+							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
+							});
+							ngNotify.set('La terminal se ha guardado correctamente', 'success');
+							//Ponemos el movimiento como  exitoso
+							Obj2.objMovimiento.Exitoso=1;
+						}
+
+						terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
+						});
+						$state.go('home.provision.terminales');
+					});
+				});
+			});
+		}
 	}
 
 }

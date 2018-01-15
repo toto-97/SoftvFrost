@@ -40,6 +40,8 @@ function nuevoPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory) {
                 parametros.MascaraRed = vm.MascaraRed;
                 parametros.Beam = vm.Beam.BeamId;
                 parametros.IdServicio = vm.Servicio.IdServicio;
+                parametros.IPv6 = vm.IPv6;
+                parametros.MascaraIPv6 = vm.MascaraIPv6;
                 configuracionIPFactory.guardaPool(parametros).then(function (data) {
                     console.log(data);
                     if (data.GetGuardaPoolListResult[0].Error === 1) {
