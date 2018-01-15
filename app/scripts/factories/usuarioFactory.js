@@ -74,7 +74,8 @@ angular.module('softvFrostApp')
 					'Email': object.Email,
 					'Usuario': object.Usuario,
 					'Password': object.Password,
-					'RecibeMensaje':object.RecibeMensaje
+					'RecibeMensaje':object.RecibeMensaje,
+					'CheckMemoria':object.CheckMemoria
 					
 				}
 			};
@@ -102,10 +103,12 @@ angular.module('softvFrostApp')
 					'Email': object.Email,
 					'Usuario': object.Usuario,
 					'Password': object.Password,
-					'RecibeMensaje':object.RecibeMensaje
+					'RecibeMensaje':object.RecibeMensaje,
+					'CheckMemoria':object.CheckMemoria
 					
 				}
 			};
+			console.log('objeto enviado',Parametros);
 			var config = {
 				headers: {
 					'Authorization': $localStorage.currentUser.token

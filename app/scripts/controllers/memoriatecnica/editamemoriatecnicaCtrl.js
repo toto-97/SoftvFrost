@@ -269,12 +269,8 @@ angular
         var file_options = [];
         var files = [];
         var tipos = [];
-        var count = 0;
-        vm.uploader.queue.forEach(function (f) {
-
-          if (tipos.includes(f._file.idtipo)) {
-            count += 1;
-          } else {
+       
+        vm.uploader.queue.forEach(function (f) {         
             var options = {
               'IdImagen': 0,
               'Accion': 3,
@@ -285,13 +281,10 @@ angular
             file_options.push(options);
             tipos.push(f._file.idtipo);
             files.push(f._file);
-          }
+          
         });
 
-        if (count > 1) {
-          ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
-          return;
-        }
+       
 
         memoriaFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
           var equiposdig_ = [];
@@ -373,7 +366,7 @@ angular
         vm.longitud = det.Longitud;
         vm.Mantenimiento = det.Mantenimiento;
         vm.marcarouter = det.MarcaRouter;
-        vm.modem = det.Modem;
+        vm.modem =parseInt(det.Modem);
         vm.municipio = det.Municipio;
         vm.recibe = det.PersonaRecibe;
         vm.plataforma = det.Plataforma;
@@ -468,6 +461,7 @@ angular
       vm.guardaNota = guardaNota;
       vm.notas = [];
       vm.notas_ant = [];
+      vm.permitecheck=$localStorage.currentUser.CheckMemoria;
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;

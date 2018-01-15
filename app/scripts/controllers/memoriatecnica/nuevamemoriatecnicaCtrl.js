@@ -152,6 +152,7 @@ angular
       vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
       vm.horallegada = moment().format('HH:mm');
       vm.instalador = $localStorage.currentUser.usuario;
+      vm.permitecheck= $localStorage.currentUser.CheckMemoria;
       console.log(vm.horallegada);
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
@@ -279,13 +280,8 @@ angular
       var file_options = [];
       var files = [];
       var tipos = [];
-      var count = 0;
-      vm.uploader.queue.forEach(function (f) {
-       
-
-        if (tipos.includes(f._file.idtipo)) {
-          count += 1;
-        } else {
+     
+      vm.uploader.queue.forEach(function (f) {        
           var options = {
             IdImagen: 0,
             Accion: 1,
@@ -296,13 +292,8 @@ angular
           file_options.push(options);
           tipos.push(f._file.idtipo);
           files.push(f._file);
-        }
-      });
-
-      if (count > 1) {
-        ngNotify.set("El número de imagenes con el mismo tipo se ha sobrepasado maximo 2", "error");
-        return;
-      }
+        
+      });     
 
 
       memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {

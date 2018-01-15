@@ -74,7 +74,7 @@ angular
 
       function detalle(det) {
 
-
+       console.log(det);
 
         vm.Apuntamiento = det.Apuntamiento;
         vm.tamanoantena = det.Antena;
@@ -107,7 +107,7 @@ angular
         vm.longitud = det.Longitud;
         vm.Mantenimiento = det.Mantenimiento;
         vm.marcarouter = det.MarcaRouter;
-        vm.modem = det.Modem;
+        vm.modem = parseInt(det.Modem);
         vm.municipio = det.Municipio;
         vm.recibe = det.PersonaRecibe;
         vm.plataforma = det.Plataforma;

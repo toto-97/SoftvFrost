@@ -29,6 +29,7 @@ angular.module('softvFrostApp')
 							menu: response.data.LogOnResult.Menu,
 							usuariosac:response.data.LogOnResult.UsuarioSAC,
 							Recibemensaje:(response.data.LogOnResult.RecibeMensaje===null)?false:response.data.LogOnResult.RecibeMensaje,
+							CheckMemoria:(response.data.LogOnResult.CheckMemoria===null)?false:response.data.LogOnResult.CheckMemoria,
 							status:false
 							//Recibemensaje:(response.data.LogOnResult.Recibemensaje==null)?false:response.data.LogOnResult.Recibemensaje
 						};
