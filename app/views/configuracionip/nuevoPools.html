@@ -1,0 +1,54 @@
+<form angular-validator-submit="$ctrl.GuardaPool()" name="myForm" class="form-horizontal" novalidate angular-validator>
+    <div class="card" style="margin-top:20px; ">
+        <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+            <header>
+                <strong style="font-weight:bold; border:none; margin-left:10px;">Nuevo Pool Direcciones IP</strong>
+                <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Configuración de Direcciones IP>Nuevo Pool Direcciones IP</small>
+            </header>
+            <div class="tools">
+                <button class="btn btn-default btn-sm" ui-sref="home.configuracionip.pools">Cancelar</button>
+                <button class="btn btn-success btn-sm" type="submit">Guardar</button>
+            </div>
+        </div>
+        <div class="card-body" style="margin-bottom:100px;">
+
+            <div class="row ">
+                <div class="col-md-4">
+                    <b>SubRed</b>
+                    <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.IP" required-message="'Este campo es obligatorio.'"
+                        placeholder="192.168.10.0" required>
+                </div>
+                <div class="col-md-2">
+                    <b>Máscara de Red</b>
+                    <input type="text" class="form-control" ng-change="$ctrl.existe()" ng-model="$ctrl.MascaraRed" name="descripcion" validate-on="dirty"
+                        required-message="'Este campo es obligatorio.'" required placeholder="19">
+                </div>
+                <div class="col-md-2">
+                    <b>Beam</b>
+                    <select class="form-control" ng-options="item as item.BeamId for item in $ctrl.Beams track by item.BeamId" ng-model="$ctrl.Beam"
+                        name="rol" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+                          <option value="">selecciona</option>
+                      </select>
+                </div>
+                <div class="col-md-4">
+                    <b>Servicio</b>
+                    <select class="form-control" ng-options="item as item.Nombre for item in $ctrl.Servicios track by item.IdServicio" ng-model="$ctrl.Servicio"
+                        name="rol" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+                        <option value="">selecciona</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-4">
+                    <b>SubRed IPv6</b>
+                    <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.IPv6" required-message="'Este campo es obligatorio.'"
+                        placeholder="2001:0db8:85a3::1319:8a2e:0370:7344" required>
+                </div>
+                <div class="col-md-2">
+                    <b>Máscara de Red v6</b>
+                    <input type="text" class="form-control" ng-model="$ctrl.MascaraIPv6" name="descripcion" validate-on="dirty"
+                        required-message="'Este campo es obligatorio.'" required placeholder="19">
+                </div>
+            </div>
+        </div>
+</form>
