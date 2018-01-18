@@ -22,12 +22,98 @@ angular
       GetObtieneDigitalMemoriaTecnica: '/GuardaEquiposSustituir/GetObtieneDigitalMemoriaTecnica',
       GetObtieneBitacoraPorIdMemoria: '/BuscaMemoriaTecnica/GetObtieneBitacoraPorIdMemoria',
       GetReporteMemoria: '/BuscaMemoriaTecnica/GetReporteMemoria',
-      GetReportexls:'/GuardaImagenesMemoriaTecnica/GetReportexls'
+      GetReportexls:'/GuardaImagenesMemoriaTecnica/GetReportexls',
+      GetTipoServicio: '/ObtieneTiposImagenes/GetTipoServicio',
+      GetEstatusTecnico: '/ObtieneTiposImagenes/GetEstatusTecnico',
+      GetTecnicosMemoriaTecnica: '/ObtieneTiposImagenes/GetTecnicosMemoriaTecnica',
+      GetAparatosTecnico:'/ObtieneTiposImagenes/GetAparatosTecnico'
+    };
+
+
+    factory.GetAparatosTecnico = function (Tipo,Clv_Orden,IdTecnico,IdMemoriaTecnica) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+
+      var Parametros = {
+        'Tipo':Tipo ,
+        'IdTecnico':IdTecnico,
+        'Clv_Orden':Clv_Orden,
+        'IdMemoriaTecnica':IdMemoriaTecnica    
+      };      
+     
+      $http.post(globalService.getUrl() + paths.GetAparatosTecnico,JSON.stringify(Parametros),config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.GetTecnicosMemoriaTecnica = function (id) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+
+      var Parametros = {
+        'IdCompania':id       
+      };      
+     
+      $http.post(globalService.getUrl() + paths.GetTecnicosMemoriaTecnica,JSON.stringify(Parametros),config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.GetEstatusTecnico = function () {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+     
+      $http.get(globalService.getUrl() + paths.GetEstatusTecnico,config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.GetTipoServicio = function () {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+     
+      $http.get(globalService.getUrl() + paths.GetTipoServicio,config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     };
 
 
 
-     factory.GetGuardaObservacionMemoriaTecnicaList = function (obj) {
+     factory.GetGuardaObservacionMemoriaTecnicaList = function (notas) {
       var deferred = $q.defer();
       var config = {
         headers: {
@@ -35,9 +121,7 @@ angular
         }
       };
       var Parametros = {
-        'IdMemoriaTecnica':obj.IdMemoriaTecnica,
-        'Observacion':obj.Observacion,
-        'IdUsuario':$localStorage.currentUser.idUsuario
+        'notas':notas       
       };
       $http.post(globalService.getUrl() + paths.GetGuardaObservacionMemoriaTecnicaList, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
@@ -88,7 +172,7 @@ angular
 
 
 
-    factory.GetObtieneBitacoraPorIdMemoria = function (Idmemoria) {
+    factory.GetObtieneBitacoraPorIdMemoria = function (obj) {
       var deferred = $q.defer();
       var config = {
         headers: {
@@ -96,7 +180,11 @@ angular
         }
       };
       var Parametros = {
-        'Idmemoria': Idmemoria
+         'Idmemoria':obj.Idmemoria,
+          'Folio':obj.Folio,
+          'SAN':obj.SAN, 
+          'Contrato':obj.Contrato,
+          'Op':obj.Op        
       };
       $http.post(globalService.getUrl() + paths.GetObtieneBitacoraPorIdMemoria, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
