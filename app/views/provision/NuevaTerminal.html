@@ -70,16 +70,14 @@
                   <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SatelliteID" ng-disabled="true"
                   />
                 </div>
-                <div class="col-md-2">
-                  <!--<input type="checkbox" class="form-control input-sm" name="Empresarial" ng-model="$ctrl.Empresarial" ng-disabled="$ctrl.HabilitaEmpresarial"
-                  > Empresarial-->
+                <!--<div class="col-md-2">
                   <label class="checkbox-inline checkbox-styled checkbox-info">
                             <input type="checkbox"  ng-model="$ctrl.Empresarial" 
                             ng-disabled="$ctrl.HabilitaEmpresarial"
                             ng-change="$ctrl.ObtieneSubredes()"
                             ><span>Empresarial</span>
                           </label>
-                </div>
+                </div>-->
               </div>
               <div class="row form-group">
                 <br>
@@ -152,24 +150,29 @@
                         
                       </div>
                       <div id="suscriptor-1" class=" buscarSuscriptor" aria-expanded="false" style="height: 0px;">
-                        <div class="panel-body">
+                        <div class="row panel-body">
                           <div class="col-md-4">
                           <b>SubRed</b>
                           <select ng-model="$ctrl.SubRed" class="form-control" name="servicio" ng-options="item as item.IP for item in $ctrl.SubRedes track by item.Clv_Pool"
                             validate-on="dirty" required-message="'Este campo es obligatorio.'" >
                             <option value="">selecciona</option>
                             </select>
+                          </div>
+                          <div class="col-md-4">
+                            <b>Servicio de SubRed</b><br>
+                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.Servicio" ng-disabled="true"
+                            />
+                          </div>
+                          <div class="col-md-4">
+                            <b>SubRed IPv6</b><br>
+                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.IPv6" ng-disabled="true"
+                            />
+                          </div>
                         </div>
-                        <div class="col-md-4">
-                          <b>Servicio de SubRed</b><br>
-                          <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.Servicio" ng-disabled="true"
-                          />
-                        </div>
-                        <div class="col-md-4">
-                          <b>SubRed IPv6</b><br>
-                          <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.IPv6" ng-disabled="true"
-                          />
-                        </div>
+                        <div class="row" ng-if="$ctrl.AlertaSubred">
+                          <div class="col-md-12" >
+                            <b>No existe una SubRed para el servicio y beam seleccionado, la terminal se creará sin asignación de SubRed.</b><br>
+                          </div>
                         </div>
                         <!-- panel body -->
                       </div>

@@ -9,7 +9,7 @@ angular.module('softvFrostApp')
    //0601x-2L
 
 
-
+/*
     //rutas servidor producción
      svc.getUrl = function () {
        return 'http://189.254.231.35:9091/SoftvWCFService.svc';
@@ -47,22 +47,22 @@ angular.module('softvFrostApp')
        return 'TEV';
      };
 
+*/
 
-<<<<<<< HEAD
     //rutas locales
-    svc.getUrl = function () {//Softv Serviioc Boss con atencion
-      return 'http://172.16.126.44:8089/SoftvWCFService.svc';
+    //svc.getUrl = function () {//Softv Serviioc Boss con atencion
+      //return 'http://172.16.126.44:8089/SoftvWCFService.svc';
       //return 'http://localhost:64481/SoftvWCFService.svc';
       //return 'http://192.168.50.33:3000/SoftvWCFService.svc';
-=======
 
 
 
-    /*   //rutas locales
+
+      //rutas locales
     svc.getUrl = function () {
-     // return 'http://localhost:64481/SoftvWCFService.svc';
-    return 'http://192.168.50.33:3000/SoftvWCFService.svc';
->>>>>>> develop
+    return 'http://localhost:64481/SoftvWCFService.svc';
+    //return 'http://192.168.50.33:3000/SoftvWCFService.svc';
+    //return 'http://172.16.126.44:8089/SoftvWCFService.svc';
     };
 
     svc.getUrlReportes = function () {
@@ -100,17 +100,12 @@ angular.module('softvFrostApp')
     };
 
     svc.getType = function () {
-      return 'TEV';
+      return 'TEVT';
     };
 
-<<<<<<< HEAD
     return svc;
   });
-=======
- */
 
-
->>>>>>> develop
 
 
 

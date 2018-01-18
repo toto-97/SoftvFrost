@@ -33,7 +33,8 @@ angular.module('softvFrostApp')
 			hughesConsumoGrafica: '/ConsumoGrafica',
 			hughesCambioCoordenadas: '/CambioCoordenadas',
 			obtienePoolsServicioBeam: '/ObtieneDatosPool/GetObtienePoolsBeamServicio',
-			hughesCrearTerminalIP: "/CrearTerminalIP"
+			hughesCrearTerminalIP: "/CrearTerminalIP",
+			hughesCambioServicioIP: '/CambioServicioIP',
 		};
 
 		factory.sigleMovimiento = function(id) {
@@ -544,6 +545,19 @@ angular.module('softvFrostApp')
 			var deferred = $q.defer();
 			var parametros = obj;
 			$http.post(globalService.getUrlHughesService() + paths.hughesCrearTerminalIP, JSON.stringify(parametros)).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.hughesCambioServicioIP = function(obj) {
+			var deferred = $q.defer();
+			var parametros = JSON.stringify(obj);
+			//jQuery.support.cors = true;
+			$http.post(globalService.getUrlHughesService() + paths.hughesCambioServicioIP, parametros).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);

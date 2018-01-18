@@ -11,6 +11,8 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 	vm.GuardaTerminal = GuardaTerminal;
 	vm.ObtieneSubredes = ObtieneSubredes;
 	vm.FechaAlta = new Date();
+	vm.AlertaSubred = false;
+	vm.Empresarial = true;
 	vm.ListaStatus = [{
 		'clave': 'Pendiente',
 		'Nombre': 'Pendiente'
@@ -106,7 +108,22 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							vm.Polarization = hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
 
 							//Habilitamos el check de empresarial
-							vm.HabilitaEmpresarial = false;
+							//vm.HabilitaEmpresarial = false;
+
+							//Nos traemos las subredes del servicio y beam
+							var parametros2 = {};
+							parametros2.IdServicio = vm.Servicio.IdServicio;
+							parametros2.Beam = vm.BeamID;
+							terminalFactory.obtienePoolsServicioBeam(parametros2).then(function (hughesData) {
+								//console.log(hughesData);
+								vm.SubRedes = hughesData.GetObtienePoolsBeamServicioResult;
+								if (vm.SubRedes.length === 0){
+									vm.AlertaSubred = true;
+								}
+								else{
+									vm.AlertaSubred = false;
+								}
+							});
 						}
 					});
 				});
@@ -136,7 +153,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 	function hughesGetSanCompuesto(obj) {
 		var a = obj.toString();
 		var i;
-		for (i = a.length; i < 9; i++) {
+		for (i = a.length; i < 8; i++) {
 			a = '0' + a;
 		}
 
@@ -204,12 +221,10 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 			'Comentarios': vm.Comentarios
 		};
 		//Si es empersarial ponemos los datos de la IP
-		if (vm.Empresarial === true){
-			console.log('Empresarial1');
+		if (vm.SubRedes.length > 0 && vm.SubRed != undefined){
 			//Guarda la terminal en la base y obtiene el SAN
 			terminalFactory.GuardaTerminal(parametros).then(function (data) {
-				var obj = new Object();
-				console.log('Empresarial1');
+				var obj = {};
 				//Crea la terminal en la plataforma de Hughes
 				terminalFactory.getSequenceId().then(function (Sequence) {
 					obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
@@ -230,8 +245,8 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		            obj.VlanID = 1;
 		            obj.MappedIPv4Subnet = vm.SubRed.IP;
 		            obj.IPv6PrefixLen = vm.SubRed.MascaraIPv6;
-		            obj.MappedIPv6Prefix = 60;//vm.SubRed.MascaraIPv6;
-		            obj.MappedIPv4Prefix = 29;//vm.SubRed.MascaraRed;
+		            obj.MappedIPv6Prefix = vm.SubRed.IPv6;//vm.SubRed.MascaraIPv6;
+		            obj.MappedIPv4Prefix = vm.SubRed.MascaraRed;
 					//alert(JSON.stringify(obj));
 					terminalFactory.hughesCrearTerminalIP(obj).then(function (hughesData) {
 						console.log(hughesData);
@@ -280,6 +295,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							Obj4.objTerminal.BeamID = vm.BeamID;
 							Obj4.objTerminal.Polarization = vm.Polarization;
 							Obj4.objTerminal.SAN = data.AddTerminalResult;
+							Obj4.objTerminal.Clv_Pool = vm.SubRed.Clv_Pool;
 							//Actualizamos información adicional de la terminal
 							console.log(Obj4);
 							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
@@ -363,6 +379,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							Obj4.objTerminal.BeamID = vm.BeamID;
 							Obj4.objTerminal.Polarization = vm.Polarization;
 							Obj4.objTerminal.SAN = data.AddTerminalResult;
+							Obj4.objTerminal.Clv_Pool = 0;
 							//Actualizamos información adicional de la terminal
 							console.log(Obj4);
 							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
