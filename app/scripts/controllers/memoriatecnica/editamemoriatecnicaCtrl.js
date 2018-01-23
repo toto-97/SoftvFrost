@@ -373,7 +373,7 @@ angular
           'SAN': (isvalid(vm.SAN) === true) ? vm.SAN : 0,
           'Contrato': (isvalid(vm.contrato) === true) ? vm.contrato : 0,
           'Distribuidor': (isvalid(vm.distribuidor) === true) ? vm.distribuidor : '',
-          'Instalador': (isvalid(vm.instalador) === true) ? vm.instalador.Nombre: '',
+          'Instalador': vm.usuariosistema,
           'FechaVisita': (isvalid(vm.fechasitio) === true) ? vm.fechasitio : '', // $filter('date')(vm.fechasitio, 'yyyy-MM-dd') : '',
           'HoraLlegada': (isvalid(vm.horallegada) === true) ? vm.horallegada : '',
           'HoraSalida': (isvalid(vm.horasalida) === true) ? vm.horasalida : '',
