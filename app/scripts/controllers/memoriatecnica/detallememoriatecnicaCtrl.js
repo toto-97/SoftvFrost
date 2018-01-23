@@ -149,7 +149,7 @@ angular
       }
 
       function detalle(det) {
-     
+        vm.usuariosistema = det.Instalador;
         vm.Apuntamiento = det.Apuntamiento;
         vm.tamanoantena = det.Antena;
         vm.beam = det.Beam;
@@ -174,8 +174,7 @@ angular
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
         vm.IdUsuario = det.IdUsuario;
         vm.Instalacion = det.Instalacion;
-        vm.InstalacionDemo = det.InstalacionDemo;
-        vm.instalador = det.Instalador;
+        vm.InstalacionDemo = det.InstalacionDemo;       
         vm.latitud = det.Latitud;
         vm.localidad = det.Localidad;
         vm.longitud = det.Longitud;
