@@ -495,6 +495,7 @@ angular
       }
 
       function detalle(det) {
+        vm.usuariosistema='';
         vm.Apuntamiento = det.Apuntamiento;
         vm.tamanoantena = det.Antena;
         vm.beam = det.Beam;
@@ -523,7 +524,7 @@ angular
         vm.IdUsuario = det.IdUsuario;
         vm.Instalacion = det.Instalacion;
         vm.InstalacionDemo = det.InstalacionDemo;
-        vm.instalador = det.Instalador;
+        vm.usuariosistema = det.Instalador;
         vm.latitud = det.Latitud;
         vm.localidad = det.Localidad;
         vm.longitud = det.Longitud;
@@ -598,6 +599,8 @@ angular
       }
 
 
+     
+
       var openLightboxModal =
         function (index) {
           Lightbox.openModal(vm.Lista_evidencias, index);
@@ -639,6 +642,34 @@ angular
       vm.notas = [];
       vm.notas_ant = [];
       vm.permitecheck=$localStorage.currentUser.CheckMemoria;
+      vm.uploader = new FileUploader({
+        filters: [{
+          name: "yourName1",fn: function (item) {
+          var count = 0; 
+          var count2 = 0;         
+            vm.uploader.queue.forEach(function (f) {              
+              count += f._file.name === item.name ? 1 : 0;
+              count2 += f._file.idtipo === vm.tipoimagen.IdTipo ? 1 : 0;
+            });           
+            if (count > 0) {
+            ngNotify.set("Un archivo con ese mismo nombre ya fue seleccionado","warn");
+              return false;
+            } 
+            if (count2 > 1) {
+              ngNotify.set("Solo se pueden subir 2 imagnes de un mismo rubro","warn");
+                return false;
+            } 
+            
+            else {
+              return true;
+            }
+          }
+        },
+       
+      
+      ]
+      });
+
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;

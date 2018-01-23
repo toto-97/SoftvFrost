@@ -46,7 +46,7 @@ angular
       var fechaHoy = new Date();
       vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
       vm.horallegada = moment().format('HH:mm');
-      vm.instalador = $localStorage.currentUser.usuario;
+      vm.usuariosistema = $localStorage.currentUser.usuario;
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;     
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
@@ -103,18 +103,29 @@ angular
     vm.uploader = new FileUploader({
       filters: [{
         name: "yourName1",fn: function (item) {
-          var count = 0;
-          vm.uploader.queue.forEach(function (f) {
+        var count = 0; 
+        var count2 = 0;         
+          vm.uploader.queue.forEach(function (f) {              
             count += f._file.name === item.name ? 1 : 0;
-          });
+            count2 += f._file.idtipo === vm.tipoimagen.IdTipo ? 1 : 0;
+          });           
           if (count > 0) {
           ngNotify.set("Un archivo con ese mismo nombre ya fue seleccionado","warn");
             return false;
-          } else {
+          } 
+          if (count2 > 1) {
+            ngNotify.set("Solo se pueden subir 2 imagnes de un mismo rubro","warn");
+              return false;
+          } 
+          
+          else {
             return true;
           }
         }
-      }]
+      },
+     
+    
+    ]
     });
 
     function validaAparatodig(serie) {
@@ -254,9 +265,7 @@ angular
       vm.detallenota = '';
     }
 
-    function guardar() {
-
-      
+    function guardar() {      
       
     if(!vm.vcneutrotierra|| !vm.vcfasetierra || !vm.vcfaseneutro  ){
       Notification({message: 'hay información en el apartado de Mediciones Eléctricas que no se han capturado',title: 'Atención'}, 'warning');
@@ -271,16 +280,16 @@ angular
        !vm.SiteSurvey && !vm.InstalacionDemo && !vm.Reubicacion && !vm.Apuntamiento){
         Notification({message:'Se debe seleccionar por lo menos un tipo de trabajo realizado',title: 'Atención'},'warning');
     }
-    var tipos=vm.tiposresp;
+    var tipos_=vm.tiposresp;
     vm.uploader.queue.forEach(function (f) {
-      tipos.forEach(function(item,index){
+      tipos_.forEach(function(item,index){
          if( f._file.idtipo===item.IdTipo){
-          if (index > -1) { tipos.splice(index, 1); }
+          if (index > -1) { tipos_.splice(index, 1); }
          }
       })     
     });
      
-    if(tipos.length>0){
+    if(tipos_.length>0){
       Notification({message:'**No todos los rubros en la carga de imagenes  estan completados',title: 'Atención'},'warning');
       
     }
@@ -289,7 +298,7 @@ angular
         SAN: isvalid(vm.SAN) === true ? vm.SAN : 0,
         Contrato: isvalid(vm.contrato) === true ? vm.contrato : 0,
         Distribuidor: isvalid(vm.distribuidor) === true ? vm.distribuidor : "",
-        Instalador: isvalid(vm.instalador.Nombre ) === true ? vm.instalador.Nombre  : "",
+       
         FechaVisita: isvalid(vm.fechasitio) === true ? $filter("date")(vm.fechasitio, "yyyy/MM/dd") : "",
         HoraLlegada: isvalid(vm.horallegada) === true ? vm.horallegada : "",
         HoraSalida: isvalid(vm.horasalida) === true ? vm.horasalida : "",
@@ -339,6 +348,7 @@ angular
         Folio: isvalid(vm.numerofolio) === true ? vm.numerofolio : 0,
         Clv_Orden: isvalid(vm.numeroorden) === true ? vm.numeroorden : 0,
         IdUsuario: $localStorage.currentUser.idUsuario,
+        Instalador:vm.usuariosistema,
         PersonaValidaServicio: vm.PersonaValidaServicio,
         IdEstatusTecnico:vm.estatustecnico.IdEstatusTecnico,
         IdTipoServicio:vm.tiposervicio.IdTipoServicio,
@@ -348,9 +358,9 @@ angular
 
       var file_options = [];
       var files = [];
-      var tipos = [];
-     
+      var tipos = [];    
       vm.uploader.queue.forEach(function (f) {        
+                    
           var options = {
             IdImagen: 0,
             Accion: 1,
@@ -363,7 +373,7 @@ angular
           files.push(f._file);
         
       });     
-
+/* 
       vm.uploader.queue.forEach(function (f) {
         var options = {
           IdImagen: 0,
@@ -375,7 +385,7 @@ angular
         file_options.push(options);
         tipos.push(f._file.idtipo);
         files.push(f._file);
-      });
+      });  */
 
 
       memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
