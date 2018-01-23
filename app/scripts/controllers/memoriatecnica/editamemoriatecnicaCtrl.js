@@ -253,7 +253,7 @@ angular
 
       function addAparatodig() {
 
-        if (vm.aparatosdigitales.length < 3) {
+        if (vm.aparatosdigitales.length+1 <= vm.NoSTB) {
           if (!validaAparatodig(vm.DTH.Descripcion)) {
             var obj = {};
             obj.SerieAnterior = vm.DTH.Descripcion;
@@ -268,7 +268,7 @@ angular
             ngNotify.set('El aparato ya esta seleccionado', 'warn');
           }
         } else {
-          ngNotify.set('solo puedes ingresar 3 aparatos', 'warn');
+          ngNotify.set('El número de orden '+vm.numeroorden+' solo tiene registrado '+vm.NoSTB+' aparatos', 'warn');
         }
       }
       /*
@@ -530,7 +530,7 @@ angular
       }
 
       function detalle(det) {
-
+        vm.NoSTB=det.NoSTB;
         vm.Apuntamiento = det.Apuntamiento;
         vm.tamanoantena = det.Antena;
         vm.beam = det.Beam;
