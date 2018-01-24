@@ -268,7 +268,7 @@ angular
             ngNotify.set('El aparato ya esta seleccionado', 'warn');
           }
         } else {
-          ngNotify.set('El número de orden '+vm.numeroorden+' solo tiene registrado '+vm.NoSTB+' aparatos', 'warn');
+          ngNotify.set('Solo tiene registrado '+vm.NoSTB+' como cantidad máxima aparatos', 'warn');
         }
       }
       /*
