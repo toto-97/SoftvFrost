@@ -124,6 +124,8 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 									vm.AlertaSubred = false;
 								}
 							});
+
+							
 						}
 					});
 				});

@@ -547,9 +547,13 @@ angular
   											Obj3.objTerminal.ESN = vm.Terminal.ESN;
   											Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
   											terminalFactory.updateTerminal(Obj3).then(function (data) {
-  												ngNotify.set('Cambio de servicio realizado correctamente', 'success');
+                          var parametrosAux = {};
+                          parametrosAux.Clv_Pool = vm.SubRed[0].Clv_Pool;
+                          parametrosAux.SAN = vm.Terminal.SAN;
+                          terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
+                            ngNotify.set('Cambio de servicio realizado correctamente', 'success');
+                          });
   											});
-
   										}
   									});
   								});
