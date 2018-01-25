@@ -9,12 +9,12 @@ angular.module('softvFrostApp').config(function($stateProvider) {
 			name: 'home.configuracionip.pools',
 			data: {
 				pageTitle: 'BOSS | CONFIGURACIÓN DE DIRECCIONES IP',
-				/*permissions: {
-					only: ['poolsSelect'],
+				permissions: {
+					only: ['poolsdireccionesipSelect'],
 					options: {
 						reload: true
 					}
-				}*/
+				}
 			},
 			url: '/configuracionip/pools',
 			templateUrl: 'views/configuracionip/catalogoPools.html',

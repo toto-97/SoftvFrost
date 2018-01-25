@@ -7,7 +7,7 @@
         <div class="tools">
             <div class="btn-group">
                 <button ui-sref="home.configuracionip.nuevopools" type="button" class="btn pull-right btn-raised btn-success btn-sm" permission
-                    permission-only="'terminalesAdd'" ui-sref="home.configuracionip.nuevopools"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+                    permission-only="'poolsdireccionesipAdd'" ui-sref="home.configuracionip.nuevopools"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                                 <td>/{{row.MascaraRed}}</td>
                                 <td>{{row.HostMinimo}} - {{row.HostMaximo}}</td>
                                 <td>
-                                    <a ui-sref="home.configuracionip.editapools({id:row.Clv_Pool})" permission permission-only="'usuariosUpdate'" class="btn  btn-xs btn-warning"
+                                    <a ui-sref="home.configuracionip.editapools({id:row.Clv_Pool})" permission permission-only="'poolsdireccionesipUpdate'" class="btn  btn-xs btn-warning"
                                         data-toggle="tooltip" data-placement="top" title="" data-original-title="Consultar Pool de IPs"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                 </td>
                             </tr>

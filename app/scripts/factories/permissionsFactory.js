@@ -367,9 +367,12 @@ angular.module('softvFrostApp')
 
 			console.log($localStorage.currentUser.menu);
 			$localStorage.currentUser.menu.forEach(function(item) {
+
 				var titulo = removeDiacritics(item.Title);
+			//	console.log(titulo);
 				permisos.push(titulo.replace(/\s/g, '').toLowerCase());
 				if (item.Title === 'Provisión') {
+					console.log(item.Title);
 					item.MenuChild.forEach(function(item) {
 						var itemTitle = removeDiacritics(item.Title);
 						if (item.OptAdd) {
@@ -488,7 +491,27 @@ angular.module('softvFrostApp')
 						}
 					});
 				}
+				if (item.Title === 'Configuración de Direcciones IP') {
+					console.log(item.Title);
+					item.MenuChild.forEach(function(item) {
+						var itemTitle = removeDiacritics(item.Title);
+						console.log(itemTitle);
+						if (item.OptAdd) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Add');
+						}
+						if (item.OptDelete) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Delete');
+						}
+						if (item.OptUpdate) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Update');
+						}
+						if (item.OptSelect) {
+							permisos.push(itemTitle.replace(/\s/g, '').toLowerCase() + 'Select');
+						}
+					});
+				}
 			});
+		   console.log(permisos);
 			return permisos;
 		};
 
