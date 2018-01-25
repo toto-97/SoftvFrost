@@ -153,19 +153,19 @@
                         <div class="row panel-body">
                           <div class="col-md-4">
                           <b>SubRed</b>
-                          <select ng-model="$ctrl.SubRed" class="form-control" name="servicio" ng-options="item as item.IP for item in $ctrl.SubRedes track by item.Clv_Pool"
+                          <select ng-model="$ctrl.SubRed" class="form-control" name="servicio" ng-options="item as item.IP + '/' + item.MascaraRed for item in $ctrl.SubRedes track by item.Clv_Pool"
                             validate-on="dirty" required-message="'Este campo es obligatorio.'" >
                             <option value="">selecciona</option>
                             </select>
                           </div>
                           <div class="col-md-4">
-                            <b>Servicio de SubRed</b><br>
-                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.Servicio" ng-disabled="true"
+                            <b>SubRed IPv6</b><br>
+                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.IPv6 + '/' + $ctrl.SubRed.MascaraIPv6" ng-disabled="true"
                             />
                           </div>
                           <div class="col-md-4">
-                            <b>SubRed IPv6</b><br>
-                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.IPv6" ng-disabled="true"
+                            <b>Servicio de SubRed</b><br>
+                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.Servicio" ng-disabled="true"
                             />
                           </div>
                         </div>
