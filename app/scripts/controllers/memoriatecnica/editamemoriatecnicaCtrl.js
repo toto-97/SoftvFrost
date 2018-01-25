@@ -2,7 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaCtrl',
-    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q) {
+    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q,Notification) {
 
       var ref = firebase
         .database()
@@ -47,7 +47,7 @@ angular
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
           vm.tiposresp = response.GetObtieneTiposImagenesListResult;
           memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
-            console.log(data);
+           
             detalle(data.GetObtieneMemoriaTecnicaResult[0]);
             memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
               vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaResult;
@@ -85,10 +85,10 @@ angular
                   });
 
                   memoriaFactory.GetObtieneObservacionesMemoriaTecnica(vm.id).then(function (result) {
-                    console.log(result.GetObtieneObservacionesMemoriaTecnicaResult);
+                  
                     var notas = result.GetObtieneObservacionesMemoriaTecnicaResult;
                     notas.forEach(function (item) {
-                      console.log(item);
+                     
                       var obj = {};
                       obj.Observacion = item.Observacion;
                       obj.IdUsuario = 0;
@@ -98,7 +98,26 @@ angular
                       vm.notas_ant.push(obj);
 
                     });
-
+                  
+                    memoriaFactory.GetEstatusTecnico().then(function (estatus) {
+                      vm.listEstatus = estatus.GetEstatusTecnicoResult;
+                      vm.listEstatus.forEach(function (item, index) {
+                        if (item.IdEstatusTecnico === vm.IdEstatusTecnico) {
+                          vm.estatustecnico = vm.listEstatus[index];
+                        }
+                      });
+    
+                      memoriaFactory.GetTipoServicio().then(function (tipos) {
+                        vm.listTiposerv = tipos.GetTipoServicioResult;
+                        vm.listTiposerv.forEach(function (item, index) {
+                          if (item.IdTipoServicio === vm.IdTipoServicio) {
+                            vm.tiposervicio = vm.listTiposerv[index];
+                          }
+                        });
+    
+    
+                      });
+                    });
 
                   });
 
@@ -109,7 +128,89 @@ angular
           });
         });
       }
+      
+      
+      function getApartos(modem,radio,router,antena,ups) {
+        memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+          vm.listModem = aparatos.GetAparatosTecnicoResult;
+        
+          if(vm.numerofolio){
+            vm.listModem.push({'Clv_CableModem':0,'Descripcion':modem,'Servicio':''});
+          }
+          vm.listModem.forEach(function(item,index){
+             if(item.Descripcion===modem){
+              vm.modem=vm.listModem[index];
+             }
+          });
 
+          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+            vm.listRadio = aparatos.GetAparatosTecnicoResult;
+            if(vm.numerofolio){
+              vm.listRadio.push({'Clv_CableModem':0,'Descripcion':radio,'Servicio':''});
+            }
+            vm.listRadio.forEach(function(item,index){
+              if(item.Descripcion===radio){
+                vm.serieradio=vm.listRadio[index];
+              }             
+            });
+
+            memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+              vm.listRouter = aparatos.GetAparatosTecnicoResult;
+              if(vm.numerofolio){
+                vm.listRouter.push({'Clv_CableModem':0,'Descripcion':router,'Servicio':''});
+              }
+              vm.listRouter.forEach(function(item,index){
+               if(item.Descripcion===router){
+                vm.serierouter=vm.listRouter[index];
+               }
+              });
+              
+
+              memoriaFactory.GetAparatosTecnico(4, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+                vm.listSTB = aparatos.GetAparatosTecnicoResult;
+               
+
+                memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+                  vm.listAntena = aparatos.GetAparatosTecnicoResult;
+                  if(vm.numerofolio){
+                    vm.listAntena.push({'Clv_CableModem':0,'Descripcion':antena,'Servicio':''});
+                  }
+                  vm.listAntena.forEach(function(item,index){
+                    if(item.Descripcion===antena){
+                      vm.antena=vm.listAntena[index];
+                     }
+                  });
+
+                  memoriaFactory.GetAparatosTecnico(6, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+                    vm.listUPS = aparatos.GetAparatosTecnicoResult;
+                    if(vm.numerofolio){
+                      vm.listUPS.push({'Clv_CableModem':0,'Descripcion':ups,'Servicio':''});
+                    }
+                    vm.listUPS.forEach(function(item,index){
+                      if(item.Descripcion===ups){
+                        vm.upsserie=vm.listUPS[index];
+                       }
+                    })
+                  });
+                });
+              });
+            });
+          });
+        });
+      }
+
+
+      function getTecnicos(id, idtecnico,Modem,Radio,Router,Antena,UPS) {
+        memoriaFactory.GetTecnicosMemoriaTecnica(id).then(function (tecnicos) {
+          vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;
+          vm.listTecnicos.forEach(function (item, index) {
+            if (item.IdEntidad === idtecnico) {
+              vm.instalador = vm.listTecnicos[index];
+            }
+          });
+          getApartos(Modem,Radio,Router,Antena,UPS);
+        });
+      }
 
       function guardaNota() {
         var obj = {};
@@ -121,19 +222,48 @@ angular
         vm.notas.push(obj);
       }
 
-      function addAparatodig() {
-        var obj = {};
-        obj.SerieAnterior = vm.seriedigital;
-        //obj.Equipo = '';
-        //obj.SerieNueva = '';
-        obj.IdEquipoSustituir = 0;
-        obj.IdMemoriaTecnica = vm.id;
-        obj.paquete = vm.paquete;
-        obj.Opcion = 3;
-        obj.IdUsuario = $localStorage.currentUser.idUsuario;
-        obj.Equipo = vm.equipodigital;
-        vm.aparatosdigitales.push(obj);
+      function validaAparatodig(serie) {
+        var count = 0;
+        vm.aparatosdigitales.forEach(function (item) { count += (item.SerieAnterior === serie) ? 1 : 0;      });
+        return (count > 0) ? true : false;
       }
+
+
+      function addAparatodig() {
+        
+              if (vm.aparatosdigitales.length < 3) {
+                if (!validaAparatodig(vm.DTH.Descripcion)) {
+                  var obj = {};
+                  obj.SerieAnterior = vm.DTH.Descripcion;
+                  obj.IdEquipoSustituir = 0;
+                  obj.IdMemoriaTecnica = vm.id;
+                  obj.paquete = vm.DTH.Servicio;
+                  obj.Opcion = 3;
+                  obj.IdUsuario = $localStorage.currentUser.idUsuario;
+                  obj.Equipo = vm.DTH.Clv_CableModem;
+                  vm.aparatosdigitales.push(obj);
+                } else {
+                  ngNotify.set('El aparato ya esta seleccionado', 'warn');
+                }
+              } else {
+                ngNotify.set('solo puedes ingresar 3 aparatos', 'warn');
+              }
+            }
+/*
+      function addAparatodig() {
+        if( vm.aparatosdigitales.length < 2){
+          var obj = {};
+          obj.SerieAnterior = vm.seriedigital;
+          obj.IdEquipoSustituir = 0;
+          obj.IdMemoriaTecnica = vm.id;
+          obj.paquete = vm.paquete;
+          obj.Opcion = 3;
+          obj.IdUsuario = $localStorage.currentUser.idUsuario;
+          obj.Equipo = vm.equipodigital;
+          vm.aparatosdigitales.push(obj);
+        }
+
+      } */
 
 
       function BorraImagen(index) {
@@ -208,13 +338,42 @@ angular
 
 
       function guardar() {
+     
 
+        if(!vm.vcneutrotierra || !vm.vcfasetierra || !vm.vcfaseneutro  ){
+        
+          Notification({message: 'hay información en el apartado de Mediciones Eléctricas que no se han capturado',title: 'Atención'}, 'warning');
+        }
+    
+        if(!vm.modem || !vm.serieradio  || !vm.serierouter || !vm.marcarouter || !vm.tamanoantena || !vm.sqf || !vm.antena
+        ){
+          Notification({message:'hay información en el apartado de Datos de equipo y desempeño que no se han capturado',title: 'Atención'},'warning');
+        }
+    
+        if(!vm.Instalacion && !vm.Mantenimiento &&  !vm.CambioComponentes &&
+           !vm.SiteSurvey && !vm.InstalacionDemo && !vm.Reubicacion && !vm.Apuntamiento){
+            Notification({message:'Se debe seleccionar por lo menos un tipo de trabajo realizado',title: 'Atención'},'warning');
+        }
+        var tipos=vm.tiposresp;
+        vm.uploader.queue.forEach(function (f) {
+          tipos.forEach(function(item,index){
+             if( f._file.idtipo===item.IdTipo){
+              if (index > -1) { tipos.splice(index, 1); }
+             }
+          })     
+        });
+         
+        if(tipos.length>0){
+          Notification({message:'**No todos los rubros en la carga de imagenes  estan completados',title: 'Atención'},'warning');
+          
+        }
+       
         var obj = {
           'IdMemoriaTecnica': vm.IdMemoriaTecnica,
           'SAN': (isvalid(vm.SAN) === true) ? vm.SAN : 0,
           'Contrato': (isvalid(vm.contrato) === true) ? vm.contrato : 0,
           'Distribuidor': (isvalid(vm.distribuidor) === true) ? vm.distribuidor : '',
-          'Instalador': (isvalid(vm.instalador) === true) ? vm.instalador : '',
+          'Instalador': (isvalid(vm.instalador) === true) ? vm.instalador.Nombre: '',
           'FechaVisita': (isvalid(vm.fechasitio) === true) ? vm.fechasitio : '', // $filter('date')(vm.fechasitio, 'yyyy-MM-dd') : '',
           'HoraLlegada': (isvalid(vm.horallegada) === true) ? vm.horallegada : '',
           'HoraSalida': (isvalid(vm.horasalida) === true) ? vm.horasalida : '',
@@ -227,7 +386,7 @@ angular
           'PersonaRecibe': (isvalid(vm.recibe) === true) ? vm.recibe : '',
           'Plataforma': (isvalid(vm.plataforma) === true) ? vm.plataforma : '',
           'Servicio': (isvalid(vm.plan) === true) ? vm.plan : '',
-          'TipoServicio': (isvalid(vm.tiposervicio) === true) ? vm.tiposervicio : '',
+          'TipoServicio': (isvalid(vm.tiposervicio) === true) ? vm.tiposervicio.IdTipoServicio : 0,
           'Velocidad': (isvalid(vm.velocidad) === true) ? vm.velocidad : '',
           'DomicilioNotificacion': (isvalid(vm.domicilionotificacion) === true) ? vm.domicilionotificacion : '',
           'CodigoPostal': (isvalid(vm.codigopostal) === true) ? vm.codigopostal : '',
@@ -236,7 +395,7 @@ angular
           'Latitud': vm.latitud,
           'Longitud': vm.longitud,
           'Beam': (isvalid(vm.beam) === true) ? vm.beam : '',
-          'EstatusTecnico': (isvalid(vm.estatustecnico) === true) ? vm.estatustecnico : '',
+          'EstatusTecnico': (isvalid(vm.estatustecnico) === true) ? vm.estatustecnico.IdEstatusTecnico : '',
           'FechaActivacion': (isvalid(vm.fechaactivacion) === true) ? vm.fechaactivacion : '', // ? $filter('date')(vm.fechaactivacion, 'yyyy-MM-dd') : '',
           'VCNeutroTierra': (isvalid(vm.vcneutrotierra) === true) ? vm.vcneutrotierra : '',
           'VCFaseTierra': (isvalid(vm.vcfasetierra) === true) ? vm.vcfasetierra : '',
@@ -244,14 +403,14 @@ angular
           'VUPSNeutroTierra': (isvalid(vm.upcneutrotierra) === true) ? vm.upcneutrotierra : '',
           'VUPSFaseTierra': (isvalid(vm.upcfasetierra) === true) ? vm.upcfasetierra : '',
           'VUPSFaseNeutro': (isvalid(vm.upcfaseneutro) === true) ? vm.upcfaseneutro : '',
-          'Modem': (isvalid(vm.modem) === true) ? vm.modem : '',
+          'Modem': (isvalid(vm.modem) === true) ? vm.modem.Descripcion : '',
           'Antena': (isvalid(vm.tamanoantena) === true) ? vm.tamanoantena : '',
           'SQF': (isvalid(vm.sqf) === true) ? vm.sqf : '',
-          'Radio': (isvalid(vm.serieradio) === true) ? vm.serieradio : '',
-          'Router': (isvalid(vm.serierouter) === true) ? vm.serierouter : '',
+          'Radio': (isvalid(vm.serieradio) === true) ? vm.serieradio.Descripcion : '',
+          'Router': (isvalid(vm.serierouter) === true) ? vm.serierouter.Descripcion : '',
           'MarcaRouter': (isvalid(vm.marcarouter) === true) ? vm.marcarouter : '',
-          'UPS': (isvalid(vm.upsserie) === true) ? vm.upsserie : '',
-          'WiFi': (isvalid(vm.wifiserie) === true) ? vm.wifiserie : '',
+          'UPS': (isvalid(vm.upsserie) === true) ? vm.upsserie.Descripcion : '',
+          'WiFi':  '',
           'Instalacion': vm.Instalacion,
           'InstalacionDemo': vm.InstalacionDemo,
           'Apuntamiento': vm.Apuntamiento,
@@ -263,7 +422,11 @@ angular
           'Folio': (isvalid(vm.numerofolio) === true) ? vm.numerofolio : 0,
           'Clv_Orden': (isvalid(vm.numeroorden) === true) ? vm.numeroorden : 0,
           'IdUsuario': $localStorage.currentUser.idUsuario,
-          'PersonaValidaServicio': vm.PersonaValidaServicio
+          'PersonaValidaServicio': vm.PersonaValidaServicio,
+          'IdEstatusTecnico':vm.estatustecnico.IdEstatusTecnico,
+          'IdTipoServicio':vm.tiposervicio.IdTipoServicio,
+          'IdTecnico':(isvalid(vm.instalador) === true) ? vm.instalador.IdEntidad  :0  ,
+          'AntenaSerie':isvalid(vm.antena.Descripcion ) === true ? vm.antena.Descripcion : "" 
         };
 
         var file_options = [];
@@ -311,10 +474,10 @@ angular
             memoriaFactory.GuardaEquiposSustituir(equipos_).then(function (result) {
 
               if (vm.notas.length > 0) {
-                var objnota = vm.notas[0];
-                objnota.IdMemoriaTecnica = vm.IdMemoriaTecnica;
-                console.log(objnota);
-                memoriaFactory.GetGuardaObservacionMemoriaTecnicaList(objnota).then(function (resp) {});
+                vm.notas.forEach(function(item){
+                  item.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+                });                    
+                memoriaFactory.GetGuardaObservacionMemoriaTecnicaList(vm.notas).then(function (resp) {});
               }
 
 
@@ -369,10 +532,8 @@ angular
         vm.modem =parseInt(det.Modem);
         vm.municipio = det.Municipio;
         vm.recibe = det.PersonaRecibe;
-        vm.plataforma = det.Plataforma;
-        vm.serieradio = det.Radio;
-        vm.Reubicacion = det.Reubicacion;
-        vm.serierouter = det.Router;
+        vm.plataforma = det.Plataforma;       
+        vm.Reubicacion = det.Reubicacion;       
         vm.SAN = det.SAN;
         vm.sqf = det.SQF;
         vm.plan = det.Servicio;
@@ -392,6 +553,9 @@ angular
         vm.contratocompania = det.contratocompania;
         vm.PersonaValidaServicio = det.PersonaValidaServicio;
         vm.Combo = det.Combo;
+        vm.IdEstatusTecnico = det.IdEstatusTecnico;
+        vm.IdTipoServicio = det.IdTipoServicio;
+        getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico,det.Modem,det.Radio,det.Router,det.AntenaSerie,det.UPS);
         vm.titulo = 'Edición de memoria técnica #' + vm.IdMemoriaTecnica;
       }
 
@@ -405,7 +569,7 @@ angular
               result.forEach(function (item, index) {
                 if (parseInt(item.Id) === parseInt(id)) {
                   deleteFile(index).then(function (result) {
-                    console.log(result);
+                   
                   });
 
                 }
@@ -423,6 +587,16 @@ angular
 
       }
 
+      function detalleTecnico() {
+        vm.listModem = [];
+        vm.listRadio = [];
+        vm.listRouter = [];
+        vm.listSTB = [];
+        vm.listAntena = [];
+        vm.aparatosdigitales = [];
+        getApartos();
+      }
+
 
       var openLightboxModal =
         function (index) {
@@ -430,9 +604,11 @@ angular
         };
 
 
-      function eliminaNota() {
-        vm.notas = [];
-      }
+        function eliminaNota(index) {
+          if (index > -1) {
+            vm.notas.splice(index, 1);
+          }
+        }
 
 
       var vm = this;
@@ -440,6 +616,7 @@ angular
       vm.uploader = new FileUploader();
       vm.id = $stateParams.id;
       initialData();
+      vm.detalleTecnico = detalleTecnico;
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = true;
       vm.seleccionImagen = true;
