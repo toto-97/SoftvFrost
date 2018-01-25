@@ -46,7 +46,7 @@ angular
       var fechaHoy = new Date();
       vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
       vm.horallegada = moment().format('HH:mm');
-      vm.instalador = $localStorage.currentUser.usuario;
+      vm.usuariosistema = $localStorage.currentUser.usuario;
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;     
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = response.GetObtieneTiposImagenesListResult;
@@ -78,7 +78,8 @@ angular
       vm.plan = results.Servicio;
       vm.telefono = results.Telefono;
       vm.Combo = results.Combo;
-      vm.codigopostal = results.CodigoPostal;     
+      vm.codigopostal = results.CodigoPostal;
+      vm.NoSTB=results.NoSTB;    
       getTecnicos(vm.contratocompania.split('-')[1]);
     }
 
@@ -103,18 +104,29 @@ angular
     vm.uploader = new FileUploader({
       filters: [{
         name: "yourName1",fn: function (item) {
-          var count = 0;
-          vm.uploader.queue.forEach(function (f) {
+        var count = 0; 
+        var count2 = 0;         
+          vm.uploader.queue.forEach(function (f) {              
             count += f._file.name === item.name ? 1 : 0;
-          });
+            count2 += f._file.idtipo === vm.tipoimagen.IdTipo ? 1 : 0;
+          });           
           if (count > 0) {
           ngNotify.set("Un archivo con ese mismo nombre ya fue seleccionado","warn");
             return false;
-          } else {
+          } 
+          if (count2 > 1) {
+            ngNotify.set("Solo se pueden subir 2 imagnes de un mismo rubro","warn");
+              return false;
+          } 
+          
+          else {
             return true;
           }
         }
-      }]
+      },
+     
+    
+    ]
     });
 
     function validaAparatodig(serie) {
@@ -125,7 +137,7 @@ angular
 
     function addAparatodig() {
 
-      if (vm.aparatosdigitales.length < 3) {
+      if (vm.aparatosdigitales.length+1 <= vm.NoSTB) {
         if (!validaAparatodig(vm.DTH.Descripcion)) {
           var obj = {};
           obj.SerieAnterior = vm.DTH.Descripcion;
@@ -140,7 +152,7 @@ angular
           ngNotify.set('El aparato ya esta seleccionado', 'warn');
         }
       } else {
-        ngNotify.set('solo puedes ingresar 3 aparatos', 'warn');
+        ngNotify.set('Solo tiene registrado '+vm.NoSTB+' como cantidad máxima aparatos', 'warn');
       }
     }
 
@@ -254,9 +266,7 @@ angular
       vm.detallenota = '';
     }
 
-    function guardar() {
-
-      
+    function guardar() {      
       
     if(!vm.vcneutrotierra|| !vm.vcfasetierra || !vm.vcfaseneutro  ){
       Notification({message: 'hay información en el apartado de Mediciones Eléctricas que no se han capturado',title: 'Atención'}, 'warning');
@@ -271,62 +281,61 @@ angular
        !vm.SiteSurvey && !vm.InstalacionDemo && !vm.Reubicacion && !vm.Apuntamiento){
         Notification({message:'Se debe seleccionar por lo menos un tipo de trabajo realizado',title: 'Atención'},'warning');
     }
-    var tipos=vm.tiposresp;
+    var tipos_=vm.tiposresp;
     vm.uploader.queue.forEach(function (f) {
-      tipos.forEach(function(item,index){
+      tipos_.forEach(function(item,index){
          if( f._file.idtipo===item.IdTipo){
-          if (index > -1) { tipos.splice(index, 1); }
+          if (index > -1) { tipos_.splice(index, 1); }
          }
       })     
     });
      
-    if(tipos.length>0){
+    if(tipos_.length>0){
       Notification({message:'**No todos los rubros en la carga de imagenes  estan completados',title: 'Atención'},'warning');
       
     }
 
       var obj = {
-        SAN: isvalid(vm.SAN) === true ? vm.SAN : 0,
-        Contrato: isvalid(vm.contrato) === true ? vm.contrato : 0,
-        Distribuidor: isvalid(vm.distribuidor) === true ? vm.distribuidor : "",
-        Instalador: isvalid(vm.instalador.Nombre ) === true ? vm.instalador.Nombre  : "",
-        FechaVisita: isvalid(vm.fechasitio) === true ? $filter("date")(vm.fechasitio, "yyyy/MM/dd") : "",
-        HoraLlegada: isvalid(vm.horallegada) === true ? vm.horallegada : "",
-        HoraSalida: isvalid(vm.horasalida) === true ? vm.horasalida : "",
+        SAN: (vm.SAN) ? vm.SAN : 0,
+        Contrato: (vm.contrato)  ? vm.contrato : 0,
+        Distribuidor: (vm.distribuidor) ? vm.distribuidor : "",
+       
+        FechaVisita: (vm.fechasitio) ? $filter("date")(vm.fechasitio, "yyyy/MM/dd") : "",
+        HoraLlegada: (vm.horallegada) ? vm.horallegada : "",
+        HoraSalida: (vm.horasalida) ? vm.horasalida : "",
         SiteId: 0,
-        Cliente: isvalid(vm.cliente) === true ? vm.cliente : "",
-        Estado: isvalid(vm.estado) === true ? vm.estado : "",
-        Municipio: isvalid(vm.municipio) === true ? vm.municipio : "",
-        Localidad: isvalid(vm.localidad) === true ? vm.localidad : "",
-        Direccion: isvalid(vm.direccion) === true ? vm.direccion : "",
-        PersonaRecibe: isvalid(vm.recibe) === true ? vm.recibe : "",
-        Plataforma: isvalid(vm.plataforma) === true ? vm.plataforma : "",
-        Servicio: isvalid(vm.plan) === true ? vm.plan : "",
-        TipoServicio: isvalid(vm.tiposervicio.Descripcion ) === true ? vm.tiposervicio.Descripcion  : "",
-        Velocidad: isvalid(vm.velocidad) === true ? vm.velocidad : "",
-        DomicilioNotificacion: isvalid(vm.domicilionotificacion) === true ?
-          vm.domicilionotificacion : "",
-        CodigoPostal: isvalid(vm.codigopostal) === true ? vm.codigopostal : "",
+        Cliente: (vm.cliente)  ? vm.cliente : "",
+        Estado: (vm.estado)  ? vm.estado : "",
+        Municipio: (vm.municipio) ? vm.municipio : "",
+        Localidad: (vm.localidad)  ? vm.localidad : "",
+        Direccion: (vm.direccion)  ? vm.direccion : "",
+        PersonaRecibe: (vm.recibe)  ? vm.recibe : "",
+        Plataforma: (vm.plataforma) ? vm.plataforma : "",
+        Servicio: (vm.plan) ? vm.plan : "",
+        TipoServicio: (vm.tiposervicio ) ? vm.tiposervicio.Descripcion  : "",
+        Velocidad: (vm.velocidad)  ? vm.velocidad : "",
+        DomicilioNotificacion: (vm.domicilionotificacion) ? vm.domicilionotificacion : "",
+        CodigoPostal: (vm.codigopostal)  ? vm.codigopostal : "",
         Telefono: vm.telefono,
         Celular: vm.celular,
         Latitud: vm.latitud,
         Longitud: vm.longitud,
-        Beam: isvalid(vm.beam) === true ? vm.beam : "",
-        EstatusTecnico: isvalid(vm.estatustecnico.Descripcion ) === true ? vm.estatustecnico.Descripcion  : "",
-        FechaActivacion: isvalid(vm.fechaactivacion) === true ? $filter("date")(vm.fechaactivacion, "yyyy/MM/dd") : "",
-        VCNeutroTierra: isvalid(vm.vcneutrotierra) === true ? vm.vcneutrotierra : "",
-        VCFaseTierra: isvalid(vm.vcfasetierra) === true ? vm.vcfasetierra : "",
-        VCFaseNeutro: isvalid(vm.vcfaseneutro) === true ? vm.vcfaseneutro : "",
-        VUPSNeutroTierra: isvalid(vm.upcneutrotierra) === true ? vm.upcneutrotierra : "",
-        VUPSFaseTierra: isvalid(vm.upcfasetierra) === true ? vm.upcfasetierra : "",
-        VUPSFaseNeutro: isvalid(vm.upcfaseneutro) === true ? vm.upcfaseneutro : "",
-        Modem: isvalid(vm.modem.Descripcion) === true ? vm.modem.Descripcion : "",
-        Antena: isvalid(vm.tamanoantena) === true ? vm.tamanoantena : "",
-        SQF: isvalid(vm.sqf) === true ? vm.sqf : "",
-        Radio: isvalid(vm.serieradio.Descripcion ) === true ? vm.serieradio.Descripcion  : "",
-        Router: isvalid(vm.serierouter.Descripcion ) === true ? vm.serierouter.Descripcion : "",
-        MarcaRouter: isvalid(vm.marcarouter) === true ? vm.marcarouter : "",
-        UPS: isvalid(vm.upsserie.Descripcion ) === true ? vm.upsserie.Descripcion : "",
+        Beam: (vm.beam) ? vm.beam : "",
+        EstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.Descripcion  : "",
+        FechaActivacion: (vm.fechaactivacion)  ? $filter("date")(vm.fechaactivacion, "yyyy/MM/dd") : "",
+        VCNeutroTierra: (vm.vcneutrotierra)  ? vm.vcneutrotierra : "",
+        VCFaseTierra: (vm.vcfasetierra)  ? vm.vcfasetierra : "",
+        VCFaseNeutro: (vm.vcfaseneutro) ? vm.vcfaseneutro : "",
+        VUPSNeutroTierra: (vm.upcneutrotierra)  ? vm.upcneutrotierra : "",
+        VUPSFaseTierra: (vm.upcfasetierra)  ? vm.upcfasetierra : "",
+        VUPSFaseNeutro: (vm.upcfaseneutro)  ? vm.upcfaseneutro : "",
+        Modem: (vm.modem ) ? vm.modem.Descripcion : "",
+        Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
+        SQF: (vm.sqf) ? vm.sqf : "",
+        Radio: (vm.serieradio ) ? vm.serieradio.Descripcion  : "",
+        Router: (vm.serierouter) ? vm.serierouter.Descripcion : "",
+        MarcaRouter: (vm.marcarouter) ? vm.marcarouter : "",
+        UPS: (vm.upsserie ) ? vm.upsserie.Descripcion : "",
         WiFi: "",
         Instalacion: vm.Instalacion,
         InstalacionDemo: vm.InstalacionDemo,
@@ -335,22 +344,23 @@ angular
         CambioComponentes: vm.CambioComponentes,
         Mantenimiento: vm.Mantenimiento,
         SiteSurvey: vm.SiteSurvey,
-        Detalles: isvalid(vm.detalleinstalacion) === true ? vm.detalleinstalacion : "",
-        Folio: isvalid(vm.numerofolio) === true ? vm.numerofolio : 0,
-        Clv_Orden: isvalid(vm.numeroorden) === true ? vm.numeroorden : 0,
+        Detalles: (vm.detalleinstalacion) ? vm.detalleinstalacion : "",
+        Folio: (vm.numerofolio)  ? vm.numerofolio : 0,
+        Clv_Orden: (vm.numeroorden)  ? vm.numeroorden : 0,
         IdUsuario: $localStorage.currentUser.idUsuario,
+        Instalador:vm.usuariosistema,
         PersonaValidaServicio: vm.PersonaValidaServicio,
-        IdEstatusTecnico:vm.estatustecnico.IdEstatusTecnico,
-        IdTipoServicio:vm.tiposervicio.IdTipoServicio,
+        IdEstatusTecnico:(vm.estatustecnico)?vm.estatustecnico.IdEstatusTecnico:0,
+        IdTipoServicio:(vm.tiposervicio)?vm.tiposervicio.IdTipoServicio:0,
         IdTecnico:vm.instalador.IdEntidad,
-        AntenaSerie:isvalid(vm.antena.Descripcion ) === true ? vm.antena.Descripcion : "" 
+        AntenaSerie:(vm.antena ) ? vm.antena.Descripcion : ''
       };
 
       var file_options = [];
       var files = [];
-      var tipos = [];
-     
+      var tipos = [];    
       vm.uploader.queue.forEach(function (f) {        
+                    
           var options = {
             IdImagen: 0,
             Accion: 1,
@@ -363,7 +373,7 @@ angular
           files.push(f._file);
         
       });     
-
+/* 
       vm.uploader.queue.forEach(function (f) {
         var options = {
           IdImagen: 0,
@@ -375,7 +385,7 @@ angular
         file_options.push(options);
         tipos.push(f._file.idtipo);
         files.push(f._file);
-      });
+      });  */
 
 
       memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {

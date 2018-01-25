@@ -10,7 +10,7 @@ angular
 
     function BuscaMemoriaTecnica(op) {
       var params = {
-        'Folio': (op === 1) ? vm.folio : 0,
+        'Folio': (op === 1) ? vm.folio : '',
         'Fecha': (op === 2) ? vm.fecha : '',
         'IdUsuario': '',
         'orden': (op === 3) ? vm.orden : 0,
