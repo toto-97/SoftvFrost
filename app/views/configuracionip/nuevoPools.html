@@ -38,7 +38,7 @@
                     </select>
                 </div>
             </div>
-            <div class="row ">
+            <div class="row " style="margin-top:10px;">
                 <div class="col-md-4">
                     <b>SubRed IPv6</b>
                     <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.IPv6" required-message="'Este campo es obligatorio.'"
@@ -47,6 +47,18 @@
                 <div class="col-md-2">
                     <b>Máscara de Red v6</b>
                     <input type="text" class="form-control" ng-model="$ctrl.MascaraIPv6" name="descripcion" validate-on="dirty"
+                        required-message="'Este campo es obligatorio.'" required placeholder="19">
+                </div>
+            </div>
+            <div class="row " style="margin-top:10px;">
+                <div class="col-md-2">
+                    <b>Máscara de Red v4 de Terminales</b>
+                    <input type="text" class="form-control" ng-model="$ctrl.MascaraRed4Terminal" name="descripcion" validate-on="dirty"
+                        required-message="'Este campo es obligatorio.'" required placeholder="19">
+                </div>
+                <div class="col-md-2">
+                    <b>Máscara de Red v6 de Terminales</b>
+                    <input type="text" class="form-control" ng-model="$ctrl.MascaraRed6Terminal" name="descripcion" validate-on="dirty"
                         required-message="'Este campo es obligatorio.'" required placeholder="19">
                 </div>
             </div>

@@ -114,9 +114,10 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							var parametros2 = {};
 							parametros2.IdServicio = vm.Servicio.IdServicio;
 							parametros2.Beam = vm.BeamID;
-							terminalFactory.obtienePoolsServicioBeam(parametros2).then(function (hughesData) {
-								//console.log(hughesData);
+							terminalFactory.obtienePoolsServicioBeam(parametros2).then(function(hughesData) {
+								console.log(hughesData);
 								vm.SubRedes = hughesData.GetObtienePoolsBeamServicioResult;
+								vm.SubRed = vm.SubRedes[0];
 								if (vm.SubRedes.length === 0){
 									vm.AlertaSubred = true;
 								}
@@ -243,12 +244,12 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 					obj.email = vm.Email;
 					obj.servicio = vm.Servicio.Nombre;
 					//Los nuevos de IP
-					obj.IPv4SubnetMask = vm.SubRed.MascaraRed;
+					obj.IPv4SubnetMask = vm.SubRed.MascaraRed4Terminal;
 		            obj.VlanID = 1;
-		            obj.MappedIPv4Subnet = vm.SubRed.IP;
-		            obj.IPv6PrefixLen = vm.SubRed.MascaraIPv6;
-		            obj.MappedIPv6Prefix = vm.SubRed.IPv6;//vm.SubRed.MascaraIPv6;
-		            obj.MappedIPv4Prefix = vm.SubRed.MascaraRed;
+		            obj.MappedIPv4Subnet = vm.SubRed.IPTerminal;
+		            obj.IPv6PrefixLen = vm.SubRed.MascaraRed6Terminal;
+		            obj.MappedIPv6Prefix = vm.SubRed.IPv6Terminal;//vm.SubRed.MascaraIPv6;
+		            obj.MappedIPv4Prefix = vm.SubRed.MascaraRed4Terminal;
 					//alert(JSON.stringify(obj));
 					terminalFactory.hughesCrearTerminalIP(obj).then(function (hughesData) {
 						console.log(hughesData);
@@ -297,7 +298,8 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							Obj4.objTerminal.BeamID = vm.BeamID;
 							Obj4.objTerminal.Polarization = vm.Polarization;
 							Obj4.objTerminal.SAN = data.AddTerminalResult;
-							Obj4.objTerminal.Clv_Pool = vm.SubRed.Clv_Pool;
+							Obj4.objTerminal.Clv_IP = vm.SubRed.Clv_IP;
+							Obj4.objTerminal.Clv_IP6 = vm.SubRed.Clv_IP6;
 							//Actualizamos información adicional de la terminal
 							console.log(Obj4);
 							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
@@ -381,7 +383,8 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							Obj4.objTerminal.BeamID = vm.BeamID;
 							Obj4.objTerminal.Polarization = vm.Polarization;
 							Obj4.objTerminal.SAN = data.AddTerminalResult;
-							Obj4.objTerminal.Clv_Pool = 0;
+							Obj4.objTerminal.Clv_IP = 0;
+							Obj4.objTerminal.Clv_IP6 = 0;
 							//Actualizamos información adicional de la terminal
 							console.log(Obj4);
 							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {

@@ -18,12 +18,12 @@
                     <table st-table="$ctrl.displayedCollection" st-safe-src="$ctrl.rowCollection" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
                         <thead>
                             <tr>
-                                <th st-sort="SAN">Beam </th>
+                                <th st-sort="Beam">Beam </th>
                                 <th st-sort="Servicio"> Servicio </th>
                                 <th st-sort="IP">Red</th>
-                                <th st-sort="MascaraRed">Máscara de Red</th>
-                                <th st-sort="HostMinimo">Rango</th>
-                                <th st-sort="Accion">Acciones</th>
+                                <th st-sort="IPv6">Red IPv6</th>
+                                <th st-sort="MascaraRed4Terminal">Máscara Red v4 Terminales</th>
+                                <th st-sort="MascaraRed4Terminal">Máscara Red v6 Terminales</th>
                             </tr>
                             <tr>
                                 <th>
@@ -36,10 +36,13 @@
                                     <input st-search="IP" placeholder="Red" class="input-sm form-control" type="search" />
                                 </th>
                                 <th>
-                                    <input st-search="MascaraRed" placeholder="MascaraRed" class="input-sm form-control" type="search" />
+                                    <input st-search="IPv6" placeholder="IPv6" class="input-sm form-control" type="search" />
                                 </th>
                                 <th>
-                                    <input st-search="HostMinimo" placeholder="Rango" class="input-sm form-control" type="search" />
+                                    <input st-search="MascaraRed4Terminal" placeholder="MascaraRed4Terminal" class="input-sm form-control" type="search" />
+                                </th>
+                                <th>
+                                    <input st-search="MascaraRed4Terminal" placeholder="MascaraRed4Terminal" class="input-sm form-control" type="search" />
                                 </th>
                                 <th>
 
@@ -50,9 +53,10 @@
                             <tr dir-paginate="row in $ctrl.displayedCollection|orderBy:sortKey:reverse|itemsPerPage:10">
                                 <td>{{row.Beam}}</td>
                                 <td>{{row.Servicio}}</td>
-                                <td>{{row.IP}}</td>
-                                <td>/{{row.MascaraRed}}</td>
-                                <td>{{row.HostMinimo}} - {{row.HostMaximo}}</td>
+                                <td>{{row.IP + '/' + row.MascaraRed}}</td>
+                                <td>{{row.IPv6 + '/' + row.IPv6PrefixLen}}</td>
+                                <td>{{row.MascaraRed4Terminal}}</td>
+                                <td>{{row.MascaraRed6Terminal}}</td>
                                 <td>
                                     <a ui-sref="home.configuracionip.editapools({id:row.Clv_Pool})" permission permission-only="'poolsdireccionesipUpdate'" class="btn  btn-xs btn-warning"
                                         data-toggle="tooltip" data-placement="top" title="" data-original-title="Consultar Pool de IPs"><i class="fa fa-pencil" aria-hidden="true"></i></a>

@@ -49,12 +49,22 @@ angular.module('softvFrostApp')
  */
 
   
+<<<<<<< HEAD
+       //rutas locales
+    svc.getUrl = function () {
+      //return 'http://localhost:64481/SoftvWCFService.svc';
+      //return 'http://192.168.50.33:3000/SoftvWCFService.svc';
+      //return 'http://172.16.126.44:8089/SoftvWCFService.svc';
+      //return 'http://192.168.50.33:3000/SoftvWCFService.svc';
+      return 'http://172.16.126.44:8089/SoftvWCFService.svc';
+=======
     //rutas locales
     svc.getUrl = function () {
     //return 'http://localhost:64481/SoftvWCFService.svc';
     return 'http://192.168.50.33:3000/SoftvWCFService.svc';
     //return 'http://172.16.126.44:8089/SoftvWCFService.svc';
 
+>>>>>>> develop
     };
 
     svc.getUrlReportes = function () {
@@ -78,9 +88,9 @@ angular.module('softvFrostApp')
     };
 
     svc.getUrlHughesService = function () {//SoftvForstAPI local
-      return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
+      //return 'http://192.168.50.33:3000/BossAPI/SoftvFrostAPI';
       //return 'http://189.254.231.35:9092/SoftvFrostAPI';
-     // return "http://localhost:21590/SoftvFrostAPI";
+      return "http://localhost:21590/SoftvFrostAPI";
     };
 
     svc.getUrlBeams = function () {
@@ -98,7 +108,11 @@ angular.module('softvFrostApp')
 
     return svc;
   });
+<<<<<<< HEAD
+ 
+=======
   
+>>>>>>> develop
 
 
 
@@ -136,7 +150,11 @@ angular.module('softvFrostApp')
 
 
     //rutas server de pruebas
+<<<<<<< HEAD
+    /*svc.getUrl = function () {
+=======
    /*  svc.getUrl = function () {
+>>>>>>> develop
       //  return 'http://172.16.126.44:3000/SoftvWCFService.svc';     
       return 'http://172.16.126.44:3000/SoftvWCFService.svc';
     };
@@ -182,5 +200,9 @@ angular.module('softvFrostApp')
 /* 
 
     return svc;
+<<<<<<< HEAD
+  });*/
+=======
   });
  */
+>>>>>>> develop
