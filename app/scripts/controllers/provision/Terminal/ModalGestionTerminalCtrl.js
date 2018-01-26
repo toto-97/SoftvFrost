@@ -7,9 +7,17 @@ angular
     function initialData() {
       vm.Terminal = terminal;
       console.log(vm.Terminal);
+      var paramAux = {};
+      paramAux.SAN = vm.Terminal.SAN;
+      //Nos traemos los datos de la IP de la terminal
+      terminalFactory.GetDatosIPTerminal(paramAux).then(function (data) {
+        console.log(data);
+        vm.DatosIP = data.GetDatosIPTerminalResult;
+        console.log(vm.DatosIP);
+      });
       terminalFactory.getComandoList().then(function (data) {
         vm.Comandos = data.GetComandoListResult;
-        console.log(data);
+        //console.log(data);
         //Vamos a dejar los comandos dependiendo del estado de la terminal
         if (vm.Terminal.Estatus ==="Incompleta") { //Incompleta
           obtieneIndex("Suspender Terminal");
@@ -129,8 +137,7 @@ angular
 
           if (vm.Comando.IdComando === 1) //Crear
           {
-
-
+            console.log('Sin ip');
             terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
               var suscriptor = data.GetSuscriptorResult;
               var obj = {};
@@ -220,6 +227,7 @@ angular
                 });
               });
             });
+              
           } else if (vm.Comando.IdComando === 2) //Suspender terminal
           {
 
@@ -484,14 +492,14 @@ angular
   									parametros.email = suscriptor.Email;
   									parametros.servicio = vm.Servicio.Nombre;
                     //Los nuevos de IP
-                    parametros.IPv4SubnetMask = vm.SubRed[0].MascaraRed;
+                    parametros.IPv4SubnetMask = vm.SubRed[0].MascaraRed4Terminal;
                     parametros.VlanID = 1;
-                    parametros.MappedIPv4Subnet = vm.SubRed[0].IP;
-                    parametros.IPv6PrefixLen = vm.SubRed[0].MascaraIPv6;
-                    parametros.MappedIPv6Prefix = vm.SubRed[0].IPv6;//vm.SubRed.MascaraIPv6;
-                    parametros.MappedIPv4Prefix = vm.SubRed[0].MascaraRed;
-                    console.log(parametros);
-                    console.log(vm.SubRed);
+                    parametros.MappedIPv4Subnet = vm.SubRed[0].IPTerminal;
+                    parametros.IPv6PrefixLen = vm.SubRed[0].MascaraRed6Terminal;
+                    parametros.MappedIPv6Prefix = vm.SubRed[0].IPv6Terminal;//vm.SubRed.MascaraIPv6;
+                    parametros.MappedIPv4Prefix = vm.SubRed[0].MascaraRed4Terminal;
+                    //console.log(parametros);
+                    //console.log(vm.SubRed);
   									terminalFactory.hughesCambioServicioIP(parametros).then(function (hughesData) {
   										console.log(hughesData);
   										//Vamos a procesar dependiendo del status obtenido de hughes
@@ -548,7 +556,8 @@ angular
   											Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
   											terminalFactory.updateTerminal(Obj3).then(function (data) {
                           var parametrosAux = {};
-                          parametrosAux.Clv_Pool = vm.SubRed[0].Clv_Pool;
+                          parametrosAux.Clv_IP = vm.SubRed[0].Clv_IP;
+                          parametrosAux.Clv_IP6 = vm.SubRed[0].Clv_IP6;
                           parametrosAux.SAN = vm.Terminal.SAN;
                           terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
                             ngNotify.set('Cambio de servicio realizado correctamente', 'success');

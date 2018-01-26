@@ -15,6 +15,8 @@ function editaPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory, $sta
             vm.Beam = data.GetObtieneDatosPoolListResult[0].Beam;
             vm.IPv6 = data.GetObtieneDatosPoolListResult[0].IPv6;
             vm.MascaraIPv6  = data.GetObtieneDatosPoolListResult[0].MascaraIPv6;
+            vm.MascaraRed4Terminal = data.GetObtieneDatosPoolListResult[0].MascaraRed4Terminal;
+            vm.MascaraRed6Terminal = data.GetObtieneDatosPoolListResult[0].MascaraRed6Terminal;
             configuracionIPFactory.obtieneIPsPool(params).then(function (data) {
                 vm.rowCollection = data.GetObtieneIPsPoolListResult;
             });

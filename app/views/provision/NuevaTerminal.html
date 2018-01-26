@@ -110,6 +110,42 @@
                   <textarea class="form-control input-sm" ng-model="$ctrl.Comentarios" placeholder="Captura las observaciones "></textarea>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <br><b><header>Datos de IP : Terminal Empresarial</header></b><br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-6">
+                    <b>SubRed IPv4 Padre </b><br>
+                    <input type="text" class="form-control input-sm" placeholder="IPv4 Padre" name="IPv4Padre" ng-model="$ctrl.SubRed.IP + '/' + $ctrl.SubRed.MascaraRed4" ng-disabled="true"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <b>SubRed IPv6 Padre</b><br>
+                    <input type="text" class="form-control input-sm" placeholder="IPv6 Padre" name="IPv6Padre" ng-model="$ctrl.SubRed.IPv6 + '/' + $ctrl.SubRed.MascaraRed6" ng-disabled="true"
+                    />
+                  </div>
+                </div>
+              </div>                  
+              <div class="row" style="margin-top:10px;" >
+                <div class="col-md-12">
+                  <div class="col-md-6">
+                    <b>SubRed IPv4 de Terminal </b><br>
+                    <input type="text" class="form-control input-sm" placeholder="IPv4 de Terminal" name="IPv4deTerminal" ng-model="$ctrl.SubRed.IPTerminal + '/' + $ctrl.SubRed.MascaraRed4Terminal" ng-disabled="true"/>
+                  </div>
+                  <div class="col-md-6">
+                    <b>SubRed IPv6 de Terminal</b><br>
+                    <input type="text" class="form-control input-sm" placeholder="IPv6 de Terminal" name="IPv6deTerminal" ng-model="$ctrl.SubRed.IPv6Terminal + '/' + $ctrl.SubRed.MascaraRed6Terminal" ng-disabled="true"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row" ng-if="$ctrl.AlertaSubred">
+                <div class="col-md-12" >
+                  <b>Nota: No existe una SubRed para el servicio y beam seleccionado, la terminal se creará sin asignación de SubRed.</b><br>
+                </div>
+              </div>
               <!-- Parte de IP para terminales empresariales -->
               <!--    Primera prueba
               <div class="card-panel" ng-if="$ctrl.Empresarial" >
@@ -139,49 +175,6 @@
                   </div>
                 </div>
               </div>-->
-              <!--    Prueba      -->
-              <div class="panel-heading" ng-if="$ctrl.Empresarial">
-                <div class="tools">
-                  <div class="panel-group" id="suscriptor">
-                    <div class="card panel">
-                      <div class="card-head card-head-xs" data-parent="#suscriptor" data-target="#suscriptor-1"
-                        aria-expanded="false">
-                        <header><b>Datos de IP : Terminal Empresarial</b></header>
-                        
-                      </div>
-                      <div id="suscriptor-1" class=" buscarSuscriptor" aria-expanded="false" style="height: 0px;">
-                        <div class="row panel-body">
-                          <div class="col-md-4">
-                          <b>SubRed</b>
-                          <select ng-model="$ctrl.SubRed" class="form-control" name="servicio" ng-options="item as item.IP + '/' + item.MascaraRed for item in $ctrl.SubRedes track by item.Clv_Pool"
-                            validate-on="dirty" required-message="'Este campo es obligatorio.'" >
-                            <option value="">selecciona</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4">
-                            <b>SubRed IPv6</b><br>
-                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.IPv6 + '/' + $ctrl.SubRed.MascaraIPv6" ng-disabled="true"
-                            />
-                          </div>
-                          <div class="col-md-4">
-                            <b>Servicio de SubRed</b><br>
-                            <input type="text" class="form-control input-sm" placeholder="Satellite" name="satellite" ng-model="$ctrl.SubRed.Servicio" ng-disabled="true"
-                            />
-                          </div>
-                        </div>
-                        <div class="row" ng-if="$ctrl.AlertaSubred">
-                          <div class="col-md-12" >
-                            <b>No existe una SubRed para el servicio y beam seleccionado, la terminal se creará sin asignación de SubRed.</b><br>
-                          </div>
-                        </div>
-                        <!-- panel body -->
-                      </div>
-                    </div>
-                    <!--end .panel -->
-                  </div>
-                </div>
-              </div>
-              <!--                  Fin Prueba                     -->
             </div>
           </div>
         </div>

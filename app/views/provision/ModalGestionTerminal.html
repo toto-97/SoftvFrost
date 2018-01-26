@@ -89,40 +89,57 @@
       <p style="font-size:14px;">{{ctrl.Consumo.DiaRelleno}}</p>
     </div>
   </div>
-  <div class="row">
+  <div class="col-md-12">
     <div class="col-md-4">
       <b style="font-size:14px;">Token disponible:</b><br>
       <p style="font-size:14px;">{{ctrl.Token}}</p>
     </div>
   </div>
+
+  <div class="col-md-12">
+    <div class="text-center">
+      <h5><b>IP de Terminal : Empresarial</b></h5>
+    </div>
+    <div class="col-md-6">
+      <b style="font-size:14px;">SubRed IPv4:</b><br>
+      <p style="font-size:14px;">{{ctrl.DatosIP.IPTerminal + '/' + ctrl.DatosIP.MascaraRed4Terminal}}</p>
+    </div>
+    <div class="col-md-4">
+      <b style="font-size:14px;">SubRed IPv6:</b><br>
+      <p style="font-size:14px;">{{ctrl.DatosIP.IPv6Terminal + '/' + ctrl.DatosIP.MascaraRed6Terminal}}</p>
+    </div>
+  </div>
+
 </div>
 <hr>
 <div class="row form-group text-center">
-  <h5><b>Transacciones</b></h5>
-  <div class="col-md-4" style="padding-left: 25px;">
-    <b>Comando</b>
-    <br>
-    <select ng-model="ctrl.Comando" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Comandos track by item.IdComando"
-      validate-on="dirty" required-message="'Este campo es obligatorio.'" required ng-change="ctrl.CambioComando()">
-        <option value="">Selecciona un comando</option>
-        </select>
-  </div>
-  <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 5">
-    <b>Cantidad (GB)</b>
-    <input type="text" name="cantidadToken" validate-on="dirty" class="form-control" ng-model="ctrl.cantidadToken" required-message="'Error!, Este campo es obligatorio.'"
-      required>
-  </div>
-  <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 6">
-    <b>Servicio</b>
-    <br>
-    <select ng-model="ctrl.Servicio" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Servicios track by item.IdServicio"
-      validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
-        <option value="">Selecciona un servicio</option>
-        </select>
-  </div>
-  <div class="col-md-2">
-    <br>
-    <button class="btn pull-right btn-raised btn-success" type="button" ng-click="ctrl.aplicaComando()">Aplicar</button>
+  <div class="col-md-12">
+    <h5><b>Transacciones</b></h5>
+    <div class="col-md-4" style="padding-left: 25px;">
+      <b>Comando</b>
+      <br>
+      <select ng-model="ctrl.Comando" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Comandos track by item.IdComando"
+        validate-on="dirty" required-message="'Este campo es obligatorio.'" required ng-change="ctrl.CambioComando()">
+          <option value="">Selecciona un comando</option>
+          </select>
+    </div>
+    <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 5">
+      <b>Cantidad (GB)</b>
+      <input type="text" name="cantidadToken" validate-on="dirty" class="form-control" ng-model="ctrl.cantidadToken" required-message="'Error!, Este campo es obligatorio.'"
+        required>
+    </div>
+    <div class="col-md-4" ng-if="ctrl.Comando.IdComando == 6">
+      <b>Servicio</b>
+      <br>
+      <select ng-model="ctrl.Servicio" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Servicios track by item.IdServicio"
+        validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+          <option value="">Selecciona un servicio</option>
+          </select>
+    </div>
+    <div class="col-md-2">
+      <br>
+      <button class="btn pull-right btn-raised btn-success" type="button" ng-click="ctrl.aplicaComando()">Aplicar</button>
+    </div>
   </div>
 </div>
 <!--Div de Cambio de coordenadas-->

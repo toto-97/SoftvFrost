@@ -35,7 +35,8 @@ angular.module('softvFrostApp')
 			obtienePoolsServicioBeam: '/ObtieneDatosPool/GetObtienePoolsBeamServicio',
 			hughesCrearTerminalIP: "/CrearTerminalIP",
 			hughesCambioServicioIP: '/CambioServicioIP',
-			GetActualizaPoolTerminal: '/Terminal/GetActualizaPoolTerminal'
+			GetActualizaPoolTerminal: '/Terminal/GetActualizaPoolTerminal',
+			GetDatosIPTerminal: '/Terminal/GetDatosIPTerminal'
 		};
 
 		factory.sigleMovimiento = function(id) {
@@ -576,6 +577,23 @@ angular.module('softvFrostApp')
 			};
 			var parametros = obj;
 			$http.post(globalService.getUrl() + paths.GetActualizaPoolTerminal, JSON.stringify(parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.GetDatosIPTerminal = function(obj) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			var parametros = obj;
+			$http.post(globalService.getUrl() + paths.GetDatosIPTerminal, JSON.stringify(parametros), config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
