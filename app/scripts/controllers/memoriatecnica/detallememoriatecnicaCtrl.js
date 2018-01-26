@@ -82,25 +82,56 @@ angular
         });
       }
 
-      function getApartos(modem,radio,router,antena,ups) {
-        memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+      function getApartos(modem,radio,router,antena,ups,idtecnico) {
+      
+        memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
           vm.listModem = aparatos.GetAparatosTecnicoResult;
+           console.log( 'listamodem',vm.listModem);
+
+          if (vm.numerofolio) {
+          
+            vm.listModem.push({
+              'Clv_CableModem': 0,
+              'Descripcion': (modem)?modem:'',
+              'Servicio': ''
+            });
+          }
+
+
           vm.listModem.forEach(function(item,index){
              if(item.Descripcion===modem){
               vm.modem=vm.listModem[index];
              }
           });
 
-          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
             vm.listRadio = aparatos.GetAparatosTecnicoResult;
+
+            if (vm.numerofolio) {
+              vm.listRadio.push({
+                'Clv_CableModem': 0,
+                'Descripcion': (radio)?radio:'',
+                'Servicio': ''
+              });
+            }
+
             vm.listRadio.forEach(function(item,index){
               if(item.Descripcion===radio){
                 vm.serieradio=vm.listRadio[index];
               }             
             });
 
-            memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+            memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
               vm.listRouter = aparatos.GetAparatosTecnicoResult;
+
+              if (vm.numerofolio) {
+                vm.listRouter.push({
+                  'Clv_CableModem': 0,
+                  'Descripcion': (router)?router:'',
+                  'Servicio': ''
+                });
+              }
+
               vm.listRouter.forEach(function(item,index){
                if(item.Descripcion===router){
                 vm.serierouter=vm.listRouter[index];
@@ -108,20 +139,38 @@ angular
               });
               
 
-              memoriaFactory.GetAparatosTecnico(4, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+              memoriaFactory.GetAparatosTecnico(4, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
                 vm.listSTB = aparatos.GetAparatosTecnicoResult;
 
 
-                memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+                memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
                   vm.listAntena = aparatos.GetAparatosTecnicoResult;
+
+                  if (vm.numerofolio) {
+                    vm.listAntena.push({
+                      'Clv_CableModem': 0,
+                      'Descripcion': (antena)?antena:'',
+                      'Servicio': ''
+                    });
+                  }
+
                   vm.listAntena.forEach(function(item,index){
                     if(item.Descripcion===antena){
                       vm.antena=vm.listAntena[index];
                      }
                   });
 
-                  memoriaFactory.GetAparatosTecnico(6, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+                  memoriaFactory.GetAparatosTecnico(6, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
                     vm.listUPS = aparatos.GetAparatosTecnicoResult;
+
+                    if (vm.numerofolio) {
+                      vm.listUPS.push({
+                        'Clv_CableModem': 0,
+                        'Descripcion': (ups)?ups:'',
+                        'Servicio': ''
+                      });
+                    }
+
                     vm.listUPS.forEach(function(item,index){
                       if(item.Descripcion===ups){
                         vm.upsserie=vm.listUPS[index];
@@ -137,14 +186,15 @@ angular
 
 
       function getTecnicos(id, idtecnico,Modem,Radio,Router,Antena,UPS) {
-        memoriaFactory.GetTecnicosMemoriaTecnica(id).then(function (tecnicos) {
+        memoriaFactory.GetTecnicosMemoriaTecnica(id).then(function (tecnicos) {       
           vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;
           vm.listTecnicos.forEach(function (item, index) {
             if (item.IdEntidad === idtecnico) {
               vm.instalador = vm.listTecnicos[index];
             }
           });
-          getApartos(Modem,Radio,Router,Antena,UPS);
+     
+          getApartos(Modem,Radio,Router,Antena,UPS,idtecnico);
         });
       }
 

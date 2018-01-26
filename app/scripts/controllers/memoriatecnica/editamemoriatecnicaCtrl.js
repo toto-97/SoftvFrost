@@ -130,14 +130,15 @@ angular
       }
 
 
-      function getApartos(modem, radio, router, antena, ups) {
-        memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+      function getApartos(modem, radio, router, antena, ups,idtecnico) {
+
+        memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
           vm.listModem = aparatos.GetAparatosTecnicoResult;
 
-          if (vm.numerofolio) {
+          if (idtecnico===-1) {
             vm.listModem.push({
               'Clv_CableModem': 0,
-              'Descripcion': modem,
+              'Descripcion': (modem)?modem:'',
               'Servicio': ''
             });
           }
@@ -147,12 +148,12 @@ angular
             }
           });
 
-          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
             vm.listRadio = aparatos.GetAparatosTecnicoResult;
-            if (vm.numerofolio) {
+            if (idtecnico===-1) {
               vm.listRadio.push({
                 'Clv_CableModem': 0,
-                'Descripcion': radio,
+                'Descripcion': (radio)?radio:'',
                 'Servicio': ''
               });
             }
@@ -162,12 +163,12 @@ angular
               }
             });
 
-            memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+            memoriaFactory.GetAparatosTecnico(3, vm.numeroorden,idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
               vm.listRouter = aparatos.GetAparatosTecnicoResult;
-              if (vm.numerofolio) {
+              if (idtecnico===-1) {
                 vm.listRouter.push({
                   'Clv_CableModem': 0,
-                  'Descripcion': router,
+                  'Descripcion': (router)?router:'',
                   'Servicio': ''
                 });
               }
@@ -178,16 +179,16 @@ angular
               });
 
 
-              memoriaFactory.GetAparatosTecnico(4, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+              memoriaFactory.GetAparatosTecnico(4, vm.numeroorden,idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
                 vm.listSTB = aparatos.GetAparatosTecnicoResult;
 
 
-                memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+                memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
                   vm.listAntena = aparatos.GetAparatosTecnicoResult;
-                  if (vm.numerofolio) {
+                  if (idtecnico===-1) {
                     vm.listAntena.push({
                       'Clv_CableModem': 0,
-                      'Descripcion': antena,
+                      'Descripcion': (antena)?antena:'',
                       'Servicio': ''
                     });
                   }
@@ -197,12 +198,12 @@ angular
                     }
                   });
 
-                  memoriaFactory.GetAparatosTecnico(6, vm.numeroorden, vm.instalador.IdEntidad, vm.IdMemoriaTecnica).then(function (aparatos) {
+                  memoriaFactory.GetAparatosTecnico(6, vm.numeroorden,idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
                     vm.listUPS = aparatos.GetAparatosTecnicoResult;
-                    if (vm.numerofolio) {
+                    if (idtecnico===-1) {
                       vm.listUPS.push({
                         'Clv_CableModem': 0,
-                        'Descripcion': ups,
+                        'Descripcion': (ups)?ups:'',
                         'Servicio': ''
                       });
                     }
@@ -228,7 +229,7 @@ angular
               vm.instalador = vm.listTecnicos[index];
             }
           });
-          getApartos(Modem, Radio, Router, Antena, UPS);
+          getApartos(Modem, Radio, Router, Antena, UPS,idtecnico);
         });
       }
 
@@ -630,7 +631,7 @@ angular
         vm.listSTB = [];
         vm.listAntena = [];
         vm.aparatosdigitales = [];
-        getApartos();
+        getApartos('', '', '', '', '',vm.instalador.IdEntidad);
       }
 
 
