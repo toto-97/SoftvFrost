@@ -8,7 +8,109 @@ angular.module('softvFrostApp')
 			AddUsuario: '/Usuario/AddUsuario',
 			UpdateUsuario: '/Usuario/UpdateUsuario',
 			BuscaUsuario: '/Usuario/GetUsuario2List',
-			existeUsuario: '/Usuario/GetExisteUser'
+			existeUsuario: '/Usuario/GetExisteUser',
+			GetDistribuidores: '/Usuario/GetDistribuidores',
+			GetPlazas:'/Usuario/GetPlazas',
+			GetObtieneTecnicosUsuario:'/Usuario/GetObtieneTecnicosUsuario',
+			GetObtieneTecnicosLibres:'/Usuario/GetObtieneTecnicosLibres',
+			GetGuardaRelacionUsuarioTecnico:'/Usuario/GetGuardaRelacionUsuarioTecnico'
+		};
+
+
+
+		factory.GetGuardaRelacionUsuarioTecnico = function (IdUsuario,tecnicos) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'IdUsuario': IdUsuario,
+				'tecnicos':tecnicos				
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetGuardaRelacionUsuarioTecnico, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		};
+
+		factory.GetObtieneTecnicosLibres = function (IdUsuario,IdCompania,Clv_Plaza) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'IdUsuario': IdUsuario,
+				'IdCompania':IdCompania,
+				'Clv_Plaza':Clv_Plaza
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetObtieneTecnicosLibres, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		};
+
+
+
+		factory.GetObtieneTecnicosUsuario = function (clave) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'clave': clave		
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetObtieneTecnicosUsuario, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		};
+
+
+		factory.GetPlazas = function (clave) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'clave': clave		
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetPlazas, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		};
+
+
+		
+		factory.GetDistribuidores = function () {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.get(globalService.getUrl() + paths.GetDistribuidores, config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
 		};
 
 		factory.existeUsuario = function (usuario) {

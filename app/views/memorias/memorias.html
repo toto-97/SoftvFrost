@@ -6,6 +6,14 @@
   }
 
 </style>
+<style>
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+   padding: 5px 5px !important;
+  line-height: 1.846153846  !important;
+  vertical-align: top  !important;
+  border-top: 1px solid rgba(189, 193, 193, 0.2);
+}
+</style>
 
 <div class="card animated fadeIn" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
@@ -152,7 +160,7 @@
           </thead>
           <tbody>
 
-            <tr dir-paginate="x in $ctrl.memorias|itemsPerPage:7">
+            <tr dir-paginate="x in $ctrl.memorias|itemsPerPage:10">
               <td>{{ x.IdMemoriaTecnica }}</td>
               <td>{{ x.Folio }}</td>
               <td>{{ x.Fecha }}</td>

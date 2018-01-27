@@ -1,4 +1,11 @@
-
+<style>
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+   padding: 0px 0px !important;
+  line-height: 1.846153846  !important;
+  vertical-align: top  !important;
+  border-top: 1px solid rgba(189, 193, 193, 0.2);
+}
+</style>
 <div class="card animated fadeIn" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
@@ -15,7 +22,7 @@
      <div class="col-md-12">
       <div class="col-md-12">
            <div class="col-md-2">
-            <label> memoria técnica</label>
+            <label> Memoria técnica</label>
             <input type="number" class="form-control input-sm" ng-model="$ctrl.Idmemoria">   
            </div>
            <div class="col-md-1">
@@ -44,7 +51,7 @@
 
 
            <div class="col-md-2">
-            <label> contrato</label>
+            <label> Contrato</label>
             <input type="text" class="form-control input-sm" ng-model="$ctrl.contrato">   
            </div>
            <div class="col-md-1">
@@ -69,7 +76,7 @@
           </thead>
           <tbody>
 
-            <tr dir-paginate="x in $ctrl.registros|itemsPerPage:7">
+            <tr dir-paginate="x in $ctrl.registros|itemsPerPage:15">
               <td>{{ x.Usuario }}</td>
               <td>{{ x.Fecha }}</td>
               <td>{{ x.Descripcion }}</td>
