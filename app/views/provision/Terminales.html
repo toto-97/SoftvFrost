@@ -1,3 +1,15 @@
+<style>
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+   padding: 5px 5px !important;
+  line-height: 1.846153846  !important;
+  vertical-align: top  !important;
+  border-top: 1px solid rgba(189, 193, 193, 0.2);
+  font-size: 11px;
+}
+</style>
+
+
+
 <div class="card" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
@@ -135,7 +147,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr dir-paginate="x in $ctrl.terminales|itemsPerPage:7">
+          <tr dir-paginate="x in $ctrl.terminales|itemsPerPage:10">
             <td>{{ x.SAN }}</td>
             <td>{{ x.Suscriptor }}</td>
             <td>{{ x.ESN }}</td>

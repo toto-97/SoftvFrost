@@ -1,3 +1,13 @@
+<style>
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+   padding: 0px 0px !important;
+  line-height: 1.846153846  !important;
+  vertical-align: top  !important;
+  border-top: 1px solid rgba(189, 193, 193, 0.2);
+}
+</style>
+
+
 
 <style type="text/css">
 
@@ -97,7 +107,7 @@
                      <div class="form-group col-md-4">
                         <label class="col-sm-4 control-label text-left">Beam</label>
                         <div class="col-sm-8" >
-                          <select class="form-control" ng-model="$ctrl.beam_input"
+                          <select class="form-control input-sm" ng-model="$ctrl.beam_input"
                               ng-options="v.BeamId for v in $ctrl.listaBeam track by v.BeamId">  
                           </select>
                         </div>                     
@@ -110,7 +120,7 @@
                      <div class="form-group col-md-4" >
                         <label class="col-sm-4 control-label text-left">Plan</label>
                         <div class="col-sm-8" >
-                          <select class="form-control" ng-model="$ctrl.plan_input"
+                          <select class="form-control input-sm" ng-model="$ctrl.plan_input"
                               ng-options="v.Nombre for v in $ctrl.listaPlan track by v.IdServicio">          
                           </select>   
                         </div>                     
@@ -120,7 +130,7 @@
                      <div class="form-group col-md-4">
                         <label class="col-sm-4 control-label text-left">Estado</label>
                         <div class="col-sm-8">
-                          <select class="form-control" ng-model="$ctrl.estado_input"
+                          <select class="form-control input-sm" ng-model="$ctrl.estado_input"
                               ng-options="v.Nombre for v in $ctrl.listaEstado track by v.IdEstado">  
                           </select>
                         </div>                     
@@ -133,7 +143,7 @@
                        <div class="form-group col-md-4">
                           <label class="col-sm-4 control-label text-left">ESN</label>
                           <div class="col-sm-8">
-                            <input type="text" class="form-control" ng-model="$ctrl.san_input" placeholder="" style=""> 
+                            <input type="text" class="form-control input-sm" ng-model="$ctrl.san_input" placeholder="" style=""> 
                           </div>                     
                       </div>
 
@@ -141,7 +151,7 @@
                       <div class="form-group col-md-4">
                           <label class="col-sm-4 control-label text-left">Id Suscriptor</label>
                           <div class="col-sm-8">
-                            <input type="number" class="form-control" ng-model="$ctrl.idSuscriptor_input" placeholder="" style=""> 
+                            <input type="number" class="form-control input-sm" ng-model="$ctrl.idSuscriptor_input" placeholder="" style=""> 
                           </div>                     
                       </div>
                   </div>
@@ -151,7 +161,7 @@
                        <div class="form-group col-md-4" >
                           <label class="col-sm-4 control-label text-left">SAN</label>
                           <div class="col-sm-8" >
-                            <input type="number" class="form-control" ng-model="$ctrl.siteId_input" placeholder="" style="">   
+                            <input type="number" class="form-control input-sm" ng-model="$ctrl.siteId_input" placeholder="" style="">   
                           </div>                     
                       </div>
 

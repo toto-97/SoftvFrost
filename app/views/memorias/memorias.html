@@ -6,6 +6,14 @@
   }
 
 </style>
+<style>
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+   padding: 5px 5px !important;
+  line-height: 1.846153846  !important;
+  vertical-align: top  !important;
+  border-top: 1px solid rgba(189, 193, 193, 0.2);
+}
+</style>
 
 <div class="card animated fadeIn" style="margin-top:20px;">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
@@ -39,33 +47,46 @@
                   <br>
 
 
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="col-md-8">
                       <strong>Folio</strong>
                       <input type="text" class="form-control input-sm" name="folio" ng-model="$ctrl.folio" placeholder="">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(1)"><i class="fa fa-search"></i> Buscar</button>
+                      <br>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(1)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
 
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
+                      <div class="col-md-8">
+                        <strong>Contrato </strong>
+                        <input type="text" class="form-control input-sm" ng-model="$ctrl.contrato" name="contrato" placeholder="">
+                      </div>
+                      <div class="col-md-4">
+                        <br>
+                        <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(3)"><i class="fa fa-search"></i> Buscar</button>
+                      </div>
+                    </div>
+                  <div class="col-md-3">
                     <div class="col-md-8">
                       <strong>Orden </strong>
                       <input type="number" class="form-control input-sm" ng-model="$ctrl.orden" name="orden" placeholder="">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(3)"><i class="fa fa-search"></i> Buscar</button>
+                      <br>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(3)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="col-md-8">
                       <strong>Fecha </strong>
                       <input type="text" class="form-control input-sm" ng-model="$ctrl.fecha" model-view-value="true"
                     ui-mask="99/99/9999" name="fecha" placeholder="">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(2)"><i class="fa fa-search"></i> Buscar</button>
+                      <br>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(2)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
@@ -82,7 +103,8 @@
                       <input type="number" class="form-control input-sm" name="san" ng-model="$ctrl.SAN" placeholder="">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(4)"><i class="fa fa-search"></i> Buscar</button>
+                      <br>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(4)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
 
                   </div>
@@ -92,7 +114,8 @@
                       <input type="text" class="form-control input-sm" ng-model="$ctrl.cliente" name="cliente" placeholder="">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(5)"><i class="fa fa-search"></i> Buscar</button>
+                      <br>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(5)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                   <div class="col-md-4">
@@ -101,7 +124,8 @@
                       <input type="text" class="form-control input-sm" ng-model="$ctrl.tecnico" name="tecnico" placeholder="">
                     </div>
                     <div class="col-md-4">
-                      <button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(6)"><i class="fa fa-search"></i> Buscar</button>
+                      <br>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(6)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
                 </div>
@@ -136,7 +160,7 @@
           </thead>
           <tbody>
 
-            <tr dir-paginate="x in $ctrl.memorias|itemsPerPage:7">
+            <tr dir-paginate="x in $ctrl.memorias|itemsPerPage:10">
               <td>{{ x.IdMemoriaTecnica }}</td>
               <td>{{ x.Folio }}</td>
               <td>{{ x.Fecha }}</td>
@@ -144,7 +168,7 @@
               <td>{{ x.Clv_Orden }}</td>
               <td>{{x.Usuario}}</td>
               <td>
-                <a title="Consultar memoria técnica" ui-sref="home.memoria.detallememoria({ id: x.IdMemoriaTecnica})" class="btn ink-reaction  btn-xs btn-info"><i class="md md-content-paste"></i> CONSULTAR</a>
+                <a title="Consultar memoria técnica" ui-sref="home.memoria.detallememoria({ id: x.IdMemoriaTecnica})" class="btn ink-reaction  btn-xs btn-default"><i class="md md-content-paste"></i> CONSULTAR</a>
                 <a ng-disabled="x.Folio.length > 0" title="Editar memoria técnica" ui-sref="home.memoria.editarmemoria({ id: x.IdMemoriaTecnica})" ng-disabled="x.Clv_QUEJA>0"
                   class="btn ink-reaction  btn-xs btn-warning" ng-click="$ctrl.editarEntrada(x.Consecutivo)"><i class="fa fa-edit"></i> Editar</a>
               </td>

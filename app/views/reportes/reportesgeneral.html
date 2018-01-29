@@ -1,3 +1,12 @@
+<style>
+  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+   padding: 0px 0px !important;
+  line-height: 1.846153846  !important;
+  vertical-align: top  !important;
+  border-top: 1px solid rgba(189, 193, 193, 0.2);
+}
+</style>
+
 
 
 <style type="text/css">
@@ -6,8 +15,8 @@
     height: 250px;
   }
 
-  th{font-size: 8.9pt;}
-  td {font-size: 8.66pt;}
+  th{font-size: 11px;}
+  td {font-size: 9px;}
   td.media{font-size: 8.6pt;}
   td.little{font-size: 8.2pt;}
 
@@ -166,7 +175,7 @@
 
               </thead><!-- <td>{{row.SAN | uppercase}}</td> -->
                  <tbody>
-                        <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:5">                  
+                        <tr  dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:10">                  
                         <td width="5%">{{row.SAN}}</td>
                         <td>{{row.ESN}}</td>
                         <td>{{row.PlanDeServicio}}</td>
