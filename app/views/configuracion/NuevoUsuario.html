@@ -9,7 +9,7 @@
       </header>
       <div class="tools">
         <button class="btn btn-default btn-sm" ui-sref="home.provision.usuarios">Cancelar</button>
-        <button class="btn btn-success btn-sm" type="submit">Guardar</button>
+        <button class="btn btn-success btn-sm" ng-if="$ctrl.btnsubmit" type="submit">Guardar</button>
       </div>
     </div>
     <div class="card-body" style="margin-bottom:100px;">
@@ -88,8 +88,8 @@
           </div>
 
         </div>
-       <!--  ng-if="$ctrl.Id>0" -->
-        <div class="col-md-6" >
+  
+        <div class="col-md-6" ng-if="$ctrl.Id>0" >
           <p>Selecciona que técnicos tendrá acceso el usuario para ejecución de procesos en el sistema  </p>
           <div class="col-md-12">
             <label>Distribuidor</label>
@@ -133,7 +133,7 @@
                 <tr ng-repeat="x in $ctrl.tecnicosUsuario"> 
                    <td>{{x.IdEntidad}}</td>
                    <td>{{x.Nombre}}</td>
-                   <td><button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Eliminar</button></td>
+                   <td><button class="btn btn-danger btn-xs" type="button" ng-click="$ctrl.eliminaRelacion(x)"><i class="fa fa-trash"></i> Eliminar</button></td>
                 </tr>
               </tbody>
             </table>

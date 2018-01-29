@@ -5,6 +5,7 @@ angular
     $state,
     ngNotify,
     memoriaFactory,
+    usuarioFactory,
     $localStorage,
     $uibModal,
     $filter,
@@ -80,7 +81,7 @@ angular
       vm.Combo = results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB=results.NoSTB;    
-      getTecnicos(vm.contratocompania.split('-')[1]);
+      getTecnicos();
     }
 
 
@@ -176,9 +177,11 @@ angular
       fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
     };
 
-    function getTecnicos(id) {
-      memoriaFactory.GetTecnicosMemoriaTecnica(id).then(function (tecnicos) {
-        vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;        
+    function getTecnicos() {
+      
+      usuarioFactory.GetObtieneTecnicosUsuario($localStorage.currentUser.idUsuario).then(function (tecnicos) {
+        console.log(tecnicos);
+        vm.listTecnicos = tecnicos.GetObtieneTecnicosUsuarioResult;        
       });
     }
 

@@ -14,38 +14,53 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 	vm.getplazas=getplazas;
 	vm.getTecnicosDisponibles=getTecnicosDisponibles;
 	vm.guardaRelacion=guardaRelacion;
+	vm.eliminaRelacion=eliminaRelacion;
+	vm.btnsubmit=true;
 	vm.Id=0;
 
 	this.$onInit = function () {
 		rolFactory.GetRoleList().then(function (data) {
 			vm.Roles = data.GetRoleListResult;
-			usuarioFactory.GetDistribuidores().then(function (data) {
-				console.log(data);
+			usuarioFactory.GetDistribuidores().then(function (data) {				
 				vm.Distribuidores = data.GetDistribuidoresResult;
 			});
 		});
 	};
 
 	function getTecnicosDisponibles(){
-		usuarioFactory.GetObtieneTecnicosLibres(vm.Id,vm.plaza.Clave,vm.distribuidor.Clave).then(function (data) {
-			console.log(data);
+		usuarioFactory.GetObtieneTecnicosLibres(vm.Id,vm.plaza.Clave,vm.distribuidor.Clave).then(function (data) {		
 			vm.tecnicoslibres = data.GetObtieneTecnicosLibresResult;
 		});
 	}
 
 	function getplazas(){
-		usuarioFactory.GetPlazas(vm.distribuidor.Clave).then(function (data) {
-			console.log(data);
+		usuarioFactory.GetPlazas(vm.distribuidor.Clave).then(function (data) {		
 			vm.Plazas = data.GetPlazasResult;
 		});
 	}
 
 	function getUsuariostecnicos(){
-		usuarioFactory.GetObtieneTecnicosUsuario(vm.Id).then(function (data) {
-			console.log(data);			
+		usuarioFactory.GetObtieneTecnicosUsuario(vm.Id).then(function (data) {		
 			vm.tecnicosUsuario = data.GetObtieneTecnicosUsuarioResult;
 		});
 
+	}
+
+
+	function eliminaRelacion(item){
+		console.log(item);
+		console.log(vm.Id);
+		var tecnicos=[];
+		var tec={
+			'IdEntidad':item.IdEntidad,
+			'Nombre':item.Nombre,
+			'Accion':2
+		}
+		tecnicos.push(tec);
+		usuarioFactory.GetGuardaRelacionUsuarioTecnico(vm.Id,tecnicos).then(function(result){
+			getUsuariostecnicos();
+         console.log(result);
+		}); 
 	}
 
 	function guardaRelacion(){
@@ -58,7 +73,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		tecnicos.push(tec);
 		usuarioFactory.GetGuardaRelacionUsuarioTecnico(vm.Id,tecnicos).then(function(result){
 			getUsuariostecnicos();
-         console.log(result);
+       
 		});
 	}
 
@@ -77,9 +92,8 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 				obj.CheckMemoria=vm.CheckMemoria;
 				usuarioFactory.AddUsuario(obj).then(function (data) {
 				vm.Id=data.AddUsuarioResult;
-				getUsuariostecnicos();
-					console.log(data);
-					//$state.go('home.provision.usuarios');
+				vm.btnsubmit=false;
+				getUsuariostecnicos();				
 					ngNotify.set('Usuario agregado correctamente.\n ahora puedes agregar relación técnico-usuario', 'success');
 				});
 			} else {
