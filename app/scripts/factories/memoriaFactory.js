@@ -62,10 +62,14 @@ angular
           'Authorization': $localStorage.currentUser.token
         }
       };
-
+      console.log(id);
+      console.log($localStorage.currentUser.idUsuario);
       var Parametros = {
-        'IdCompania':id       
+        'IdCompania':id,
+        'IdUsuario':$localStorage.currentUser.idUsuario       
       };      
+
+      console.log(Parametros);
      
       $http.post(globalService.getUrl() + paths.GetTecnicosMemoriaTecnica,JSON.stringify(Parametros),config).then(function (response) {
         deferred.resolve(response.data);

@@ -81,7 +81,8 @@ angular
       vm.Combo = results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB=results.NoSTB;    
-      getTecnicos();
+    
+      getTecnicos(vm.contratocompania.split('-')[1]);
     }
 
 
@@ -177,11 +178,11 @@ angular
       fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
     };
 
-    function getTecnicos() {
-      
-      usuarioFactory.GetObtieneTecnicosUsuario($localStorage.currentUser.idUsuario).then(function (tecnicos) {
+    function getTecnicos(id) {
+    
+      memoriaFactory.GetTecnicosMemoriaTecnica(id).then(function (tecnicos) {
         console.log(tecnicos);
-        vm.listTecnicos = tecnicos.GetObtieneTecnicosUsuarioResult;        
+        vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;        
       });
     }
 
