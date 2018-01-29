@@ -5,7 +5,7 @@ angular
     firebase, globalService, $q, $window) {
 
     function initialData() {
-      BuscaMemoriaTecnica(7);
+      BuscaMemoriaTecnica(0);
     }
 
     function BuscaMemoriaTecnica(op) {
@@ -17,7 +17,7 @@ angular
         'op': op,
         'SAN': (op === 4) ? vm.SAN : 0,
         'Cliente': (op === 5) ? vm.cliente : '',
-        'Contrato': 0,
+        'Contrato': (op === 7) ? vm.contrato : '',
         'Tecnico': (op === 6) ? vm.tecnico : ''
       };
       memoriaFactory.BuscaMemoriaTecnica(params)
