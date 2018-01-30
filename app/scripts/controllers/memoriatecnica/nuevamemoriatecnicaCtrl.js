@@ -69,9 +69,9 @@ angular
       vm.direccion = results.Direccion + '\nCol.' + results.Colonia;
       vm.distribuidor = results.Distribuidor;
       vm.estado = results.Estado;
-      vm.latitud = results.Latitud;
+      vm.latitud = '';
       vm.localidad = results.Localidad;
-      vm.longitud = results.Longitud;
+      vm.longitud ='';
       vm.municipio = results.Municipio;
       vm.plataforma = results.Plataforma;
       vm.contratocompania = results.contratocompania;
