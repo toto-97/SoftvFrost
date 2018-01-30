@@ -595,7 +595,7 @@ angular
             terminalFactory.obtienePoolsServicioBeam(parametrosAux).then(function (hughesData) {
               vm.SubRed = hughesData.GetObtienePoolsBeamServicioResult;
               cont = hughesData.GetObtienePoolsBeamServicioResult.length;
-            });
+           
 						if (vm.Servicio.Nombre.substr(0,3) == vm.Terminal.Servicio.substr(0,3))
 						{
               //Validamos que haya  un pool para ese servicio, sino lo mandamos normal
@@ -764,7 +764,8 @@ angular
 						}
 						else{
 							ngNotify.set('No es posible hacer el cambio a un servicio de otro satélite', 'warn');
-						}
+            }
+          });
 					}
 					else if (vm.Comando.IdComando === 9)//Activar
 					{
