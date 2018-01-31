@@ -11,7 +11,7 @@ angular.module('softvFrostApp')
 
 
     //rutas servidor producción
-      svc.getUrl = function () {
+  /*     svc.getUrl = function () {
        return 'http://189.254.231.35:9091/SoftvWCFService.svc';
      };
 
@@ -45,7 +45,7 @@ angular.module('softvFrostApp')
      svc.getType = function () {
        return 'TEV';
      };
- 
+  */
 
   
 /*     //rutas locales
@@ -141,12 +141,6 @@ angular.module('softvFrostApp')
 
 
 
-    return svc;
-  }); */
-  
-
-
-
 
 
 //rutas server demo
@@ -184,7 +178,7 @@ angular.module('softvFrostApp')
 
 
 
-    svc.getUrlmemoriatecnica = function () {
+   /*  svc.getUrlmemoriatecnica = function () {
       return 'http://172.16.126.44:3500/SoftvWCFService.svc';
 
     };
@@ -213,8 +207,8 @@ angular.module('softvFrostApp')
 
     svc.getType = function () {
       return 'TLV';
-    }; */
- 
+    }; 
+  */
 
 
 
