@@ -59,7 +59,7 @@
             <div class="col-md-12">
               <b>Contraseña</b>
               <input ng-if="$ctrl.editar == true" type="Password" class="form-control" ng-model="$ctrl.Contrasena" name="contra" validate-on="dirty"
-                required-message="'Este campo es obligatorio.'" required>
+                required-message="'Este campo es obligatorio.'" placeholder="Ingresa una contraseña segura" required>
             </div>
             <div class="col-md-12">
               <b>Repite la contraseña</b>
@@ -85,11 +85,57 @@
                 <span>Puede dar check a memorias técnicas </span>
               </label>
             </div>
+            <div class="col-md-12">
+              <br>
+              <label class="checkbox-inline checkbox-styled checkbox-warning">
+                <input type="checkbox" ng-model="$ctrl.Cliente">
+                <span>Cliente Corporativo </span>
+              </label>
+            </div>
           </div>
 
         </div>
-  
-        <div class="col-md-6" ng-if="$ctrl.Id>0" >
+        <div class="col-md-6" ng-if="$ctrl.Id>0 && $ctrl.Cliente==true">
+          <p>Selecciona que plazas tendrá acceso el usuario para ejecución de procesos en el sistema</p>
+          <div class="col-md-12">
+            <label>Distribuidor</label>
+            
+              <select name="distribuidor"
+              ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clave"
+              class="form-control input-sm" ng-model="$ctrl.distribuidorcliente" ng-change="$ctrl.getplazasClienteDisp()">
+                  <option value=""> Selecciona distribuidor</option>
+                 </select>
+          </div>
+          <div class="col-md-12">
+            <label>Plazas</label>            
+              <select name="plazacliente" 
+              ng-options="item as item.Plaza for item in $ctrl.PlazasClienteDis track by item.IdCompania"              
+              class="form-control input-sm" ng-model="$ctrl.plazaCliente">
+                  <option value=""> Selecciona plazas</option>
+                 </select>
+          </div>
+          <div class="col-md-12">
+            <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.guardaRelacionCliente()"> Agregar relación</button>
+          </div>
+          <div class="col-md-12" style="max-height:300px; overflow-y:scroll">
+            <table class="table">
+              <thead>
+                <th>Distribuidor</th>
+                <th>Plaza</th>
+                <th>Opciones</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in $ctrl.relacionCliente"> 
+                   <td>{{x.Distribuidor}}</td>
+                   <td>{{x.Plaza}}</td>
+                   <td><button class="btn btn-danger btn-xs" type="button" ng-click="$ctrl.eliminaRelacion(x)"><i class="fa fa-trash"></i> Eliminar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="col-md-6" ng-if="$ctrl.Id>0 && $ctrl.Cliente==false" >
           <p>Selecciona que técnicos tendrá acceso el usuario para ejecución de procesos en el sistema  </p>
           <div class="col-md-12">
             <label>Distribuidor</label>

@@ -13,7 +13,68 @@ angular.module('softvFrostApp')
 			GetPlazas:'/Usuario/GetPlazas',
 			GetObtieneTecnicosUsuario:'/Usuario/GetObtieneTecnicosUsuario',
 			GetObtieneTecnicosLibres:'/Usuario/GetObtieneTecnicosLibres',
-			GetGuardaRelacionUsuarioTecnico:'/Usuario/GetGuardaRelacionUsuarioTecnico'
+			GetGuardaRelacionUsuarioTecnico:'/Usuario/GetGuardaRelacionUsuarioTecnico',
+			GetObtieneCompaniasUsuario:'/Usuario/GetObtieneCompaniasUsuario',
+			GetObtieneCompaniasLibres:'/Usuario/GetObtieneCompaniasLibres',
+			GetGuardaRelacionUsuarioCompania:'/Usuario/GetGuardaRelacionUsuarioCompania'
+		};
+		
+		factory.GetGuardaRelacionUsuarioCompania = function (IdUsuario,companias) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'IdUsuario':IdUsuario, 
+				 'companias':companias							
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetGuardaRelacionUsuarioCompania, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		};
+
+
+		factory.GetObtieneCompaniasLibres = function (IdUsuario,Clv_Plaza) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'IdUsuario':IdUsuario, 
+				 'Clv_Plaza':Clv_Plaza							
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetObtieneCompaniasLibres, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		};
+
+
+		factory.GetObtieneCompaniasUsuario = function (clave) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'clave': clave								
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetObtieneCompaniasUsuario, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
 		};
 
 
@@ -177,8 +238,8 @@ angular.module('softvFrostApp')
 					'Usuario': object.Usuario,
 					'Password': object.Password,
 					'RecibeMensaje':object.RecibeMensaje,
-					'CheckMemoria':object.CheckMemoria
-					
+					'CheckMemoria':object.CheckMemoria,
+					'Cliente':object.Cliente
 				}
 			};
 			var config = {
@@ -206,7 +267,8 @@ angular.module('softvFrostApp')
 					'Usuario': object.Usuario,
 					'Password': object.Password,
 					'RecibeMensaje':object.RecibeMensaje,
-					'CheckMemoria':object.CheckMemoria
+					'CheckMemoria':object.CheckMemoria,
+					'Cliente':object.Cliente
 					
 				}
 			};

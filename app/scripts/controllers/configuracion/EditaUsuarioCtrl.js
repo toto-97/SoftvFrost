@@ -16,6 +16,8 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
   vm.getTecnicosDisponibles = getTecnicosDisponibles;
   vm.guardaRelacion = guardaRelacion;
   vm.eliminaRelacion = eliminaRelacion;
+  vm.getplazasClienteDisp=getplazasClienteDisp;
+	vm.guardaRelacionCliente=guardaRelacionCliente;
   vm.btnsubmit = true;
 
 
@@ -40,11 +42,42 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
           vm.Contrasena = user.Password;
           vm.RecibeMensaje = (user.RecibeMensaje === null) ? false : user.RecibeMensaje;
           vm.CheckMemoria = (user.CheckMemoria === null) ? false : user.CheckMemoria;
-          getUsuariostecnicos();
+          vm.Cliente=user.Cliente;
+          if(user.Cliente){
+            GetObtieneCompaniasUsuario();
+          }else{
+            getUsuariostecnicos();
+          }
+          
         });
       });
     });
   }
+
+  function getplazasClienteDisp(){
+		usuarioFactory.GetObtieneCompaniasLibres(vm.Id,vm.distribuidorcliente.Clave).then(function (data) {
+			vm.PlazasClienteDis = data.GetObtieneCompaniasLibresResult;
+		});		
+	}
+
+	function GetObtieneCompaniasUsuario(){
+		usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function(result){
+          vm.relacionCliente=result.GetObtieneCompaniasUsuarioResult;
+		});
+	}
+
+	function guardaRelacionCliente(){
+		var arr=[];
+		arr.push({
+			'IdCompania':vm.plazaCliente.IdCompania,
+			'Accion':1
+		})
+		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
+			  ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente');
+			  getplazasClienteDisp();
+			  GetObtieneCompaniasUsuario();
+		});
+	}
 
 
   function eliminaRelacion(item) {
@@ -105,6 +138,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
         obj.Password = vm.Contrasena;
         obj.RecibeMensaje = vm.RecibeMensaje;
         obj.CheckMemoria = vm.CheckMemoria;
+        obj.Cliente=vm.Cliente;
         usuarioFactory.UpdateUsuario(obj).then(function (data) {
           $state.go('home.provision.usuarios');
           ngNotify.set('Usuario editado correctamente.', 'success');
