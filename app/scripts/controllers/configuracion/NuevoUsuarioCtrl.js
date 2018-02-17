@@ -17,6 +17,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 	vm.eliminaRelacion = eliminaRelacion;
 	vm.getplazasClienteDisp=getplazasClienteDisp;
 	vm.guardaRelacionCliente=guardaRelacionCliente;
+	vm.eliminaRelacionCliente=eliminaRelacionCliente;
 	vm.btnsubmit = true;
 	vm.Id = 0;
 
@@ -72,6 +73,19 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	}
 
+	function eliminaRelacionCliente(x){
+		var arr=[];
+		arr.push({
+			'IdCompania':x.IdCompania,
+			'Accion':2
+		})
+		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
+			  ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente');
+			  getplazasClienteDisp();
+			  GetObtieneCompaniasUsuario();
+		});
+	}
+
 
 	function eliminaRelacion(item) {
 		console.log(item);
@@ -88,6 +102,8 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 			console.log(result);
 		});
 	}
+
+	
 
 	function guardaRelacion() {
 		var tecnicos = [];

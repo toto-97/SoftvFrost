@@ -17,7 +17,8 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
   vm.guardaRelacion = guardaRelacion;
   vm.eliminaRelacion = eliminaRelacion;
   vm.getplazasClienteDisp=getplazasClienteDisp;
-	vm.guardaRelacionCliente=guardaRelacionCliente;
+  vm.guardaRelacionCliente=guardaRelacionCliente;
+  vm.eliminaRelacionCliente=eliminaRelacionCliente;
   vm.btnsubmit = true;
 
 
@@ -60,11 +61,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 		});		
 	}
 
-	function GetObtieneCompaniasUsuario(){
-		usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function(result){
-          vm.relacionCliente=result.GetObtieneCompaniasUsuarioResult;
-		});
-	}
+
 
 	function guardaRelacionCliente(){
 		var arr=[];
@@ -73,7 +70,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 			'Accion':1
 		})
 		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
-			  ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente');
+			  ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente','success');
 			  getplazasClienteDisp();
 			  GetObtieneCompaniasUsuario();
 		});
@@ -156,6 +153,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
       obj.Password = vm.Contrasena;
       obj.RecibeMensaje = vm.RecibeMensaje;
       obj.CheckMemoria = vm.CheckMemoria;
+      obj.Cliente=vm.Cliente;
       usuarioFactory.UpdateUsuario(obj).then(function (data) {
         $state.go('home.provision.usuarios');
         ngNotify.set('Usuario editado correctamente.', 'success');
@@ -164,6 +162,26 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 
 
   }
+
+	function eliminaRelacionCliente(x){
+		var arr=[];
+		arr.push({
+			'IdCompania':x.IdCompania,
+			'Accion':2
+		})
+		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
+			  ngNotify.set('La relación Usuario-Plaza se ha eliminado correctamente','warn');
+			  getplazasClienteDisp();
+			  GetObtieneCompaniasUsuario();
+		});
+  }
+  
+  function GetObtieneCompaniasUsuario(){
+		usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function(result){
+          vm.relacionCliente=result.GetObtieneCompaniasUsuarioResult;
+		});
+	}
+
 
   function ValidaPass() {
     if (vm.PassValidate === vm.Password) {
