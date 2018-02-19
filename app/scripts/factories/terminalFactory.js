@@ -36,8 +36,31 @@ angular.module('softvFrostApp')
 			hughesCrearTerminalIP: "/CrearTerminalIP",
 			hughesCambioServicioIP: '/CambioServicioIP',
 			GetActualizaPoolTerminal: '/Terminal/GetActualizaPoolTerminal',
-			GetDatosIPTerminal: '/Terminal/GetDatosIPTerminal'
+			GetDatosIPTerminal: '/Terminal/GetDatosIPTerminal',
+			GetValidaSANUsuario:'/Terminal/GetValidaSANUsuario'
 		};
+
+		factory.GetValidaSANUsuario = function(SAN) {
+			var deferred = $q.defer();
+			var Parametros = {
+				'SAN': SAN,
+				'IdUsuario':$localStorage.currentUser.idUsuario	
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetValidaSANUsuario, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+
 
 		factory.sigleMovimiento = function(id) {
 			var deferred = $q.defer();
@@ -154,7 +177,8 @@ angular.module('softvFrostApp')
 				'IdBeam':obj.IdBeam,
 				'ESN':obj.ESN,
 				'satelite':obj.satelite,
-				'Op': obj.op
+				'Op': obj.op,
+				'IdUsuario':$localStorage.currentUser.idUsuario	
 			};
 			$http.post(globalService.getUrl() + paths.buscarTerminal, JSON.stringify(parametros), config).then(function(response) {
 				deferred.resolve(response.data);
@@ -205,7 +229,10 @@ angular.module('softvFrostApp')
 					'Authorization': $localStorage.currentUser.token
 				}
 			};
-			$http.get(globalService.getUrl() + paths.getTerminalList, config).then(function(response) {
+			var data={
+			'IdUsuario':$localStorage.currentUser.idUsuario	
+			};
+			$http.post(globalService.getUrl() + paths.getTerminalList,data, config).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);

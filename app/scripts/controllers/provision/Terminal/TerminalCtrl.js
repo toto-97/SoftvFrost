@@ -11,6 +11,14 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         mapaBeamFactory.GetBeamList().then(function (result) {
           console.log(result);
           vm.Beams = result.GetBeamListResult;
+          terminalFactory.getServicioList().then(function (data) {
+            data.GetServicioListResult.unshift({
+              'Nombre': 'Todos los Servicios',
+              'IdServicio': 0
+            });
+            vm.servicios = data.GetServicioListResult;
+            vm.bservicio = vm.servicios[0];
+          });
         });
       });
     } else {
@@ -20,17 +28,18 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         mapaBeamFactory.GetBeamList().then(function (result) {
           console.log(result);
           vm.Beams = result.GetBeamListResult;
+          terminalFactory.getServicioList().then(function (data) {
+            data.GetServicioListResult.unshift({
+              'Nombre': 'Todos los Servicios',
+              'IdServicio': 0
+            });
+            vm.servicios = data.GetServicioListResult;
+            vm.bservicio = vm.servicios[0];
+          });
         });
       });
     }
-    terminalFactory.getServicioList().then(function (data) {
-      data.GetServicioListResult.unshift({
-        'Nombre': 'Todos los Servicios',
-        'IdServicio': 0
-      });
-      vm.servicios = data.GetServicioListResult;
-      vm.bservicio = vm.servicios[0];
-    });
+  
   }
 
   function GestionTerminal(object) {

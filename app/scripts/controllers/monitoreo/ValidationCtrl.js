@@ -2,70 +2,73 @@
 
 angular.module('softvFrostApp')
   .controller('ValidationCtrl', function (NgMap, OVTFactory, $uibModal, ngNotify, terminalFactory,globalService) {
+
     function validate() {
-      var credentials = {};
-      credentials.userId = 'televera';
-      credentials.password = 'televera';
-      credentials.san = hughesGetSanCompuesto(vm.SAN);
-      terminalFactory.getTerminalById(vm.SAN).then(function (data) {
-        console.log(data.GetByTerminalResult.SatellitedID);
-        if (data.GetByTerminalResult.SatellitedID ==""||data.GetByTerminalResult.SatellitedID==null) {
-          console.log("no tiene asignado");
-          ngNotify.set('This SAN has not a satellite ID assigned', 'error');
-          return;
-        } else {
-          console.log("si tiene asignado");
-          if (data.GetByTerminalResult.SatellitedID == "EchoStar 19") {
-            credentials.satellite = "JUPITER2";
-          } else {
-            credentials.satellite = "E65W";
-          }
-
-          OVTFactory.OVTToken(credentials).then(function (data) {
-        vm.datasend = data[0].DataSend;
-        var token = JSON.parse(data[0].token);
-        var Jdata = JSON.parse(data[0].DataSend);
-        vm.OVTToken = token.token;
-        var obj = {};
-        obj.token = vm.OVTToken;
-        obj.url = 'confirmation.json';
-        obj.Jdata = JSON.stringify(Jdata);
-        obj.method = 'OVTGET';
-        OVTFactory.DataOVT(obj).then(function (data) {
-          var detallecb = JSON.parse(data);
-          vm.Details = detallecb;
-          var obj = {};
-          obj.token = vm.OVTToken;
-          obj.url = 'antennas/list.json';
-          obj.Jdata = '';
-          obj.method = 'OVTGET';
-          OVTFactory.DataOVT(obj).then(function (data) {
-            var antennas = JSON.parse(data);
-            vm.antennas = antennas;
-
-            var objmount = {};
-            objmount.token = vm.OVTToken;
-            objmount.url = 'mounts/list.json';
-            objmount.Jdata = '';
-            objmount.method = 'OVTGET';
-            OVTFactory.DataOVT(objmount).then(function (datamount) {
-
-              var mounts = JSON.parse(datamount);
-              vm.mounts = mounts;
-
-            });
-          });
-
-        });
-
-      });
-
-
-
+      terminalFactory.GetValidaSANUsuario(vm.SAN).then(function(data){
+        if(data.GetValidaSANUsuarioResult===true){
+          var credentials = {};
+          credentials.userId = 'televera';
+          credentials.password = 'televera';
+          credentials.san = hughesGetSanCompuesto(vm.SAN);
+          terminalFactory.getTerminalById(vm.SAN).then(function (data) {
+          
+            if (data.GetByTerminalResult.SatellitedID ===""||data.GetByTerminalResult.SatellitedID===null) {
+             
+              ngNotify.set('This SAN has not a satellite ID assigned', 'error');
+              return;
+            } else {
+            
+              if (data.GetByTerminalResult.SatellitedID === "EchoStar 19") {
+                credentials.satellite = "JUPITER2";
+              } else {
+                credentials.satellite = "E65W";
+              }
+    
+              OVTFactory.OVTToken(credentials).then(function (data) {
+            vm.datasend = data[0].DataSend;
+            var token = JSON.parse(data[0].token);
+            var Jdata = JSON.parse(data[0].DataSend);
+            vm.OVTToken = token.token;
+            var obj = {};
+            obj.token = vm.OVTToken;
+            obj.url = 'confirmation.json';
+            obj.Jdata = JSON.stringify(Jdata);
+            obj.method = 'OVTGET';
+            OVTFactory.DataOVT(obj).then(function (data) {
+              var detallecb = JSON.parse(data);
+              vm.Details = detallecb;
+              var obj = {};
+              obj.token = vm.OVTToken;
+              obj.url = 'antennas/list.json';
+              obj.Jdata = '';
+              obj.method = 'OVTGET';
+              OVTFactory.DataOVT(obj).then(function (data) {
+                var antennas = JSON.parse(data);
+                vm.antennas = antennas;
+    
+                var objmount = {};
+                objmount.token = vm.OVTToken;
+                objmount.url = 'mounts/list.json';
+                objmount.Jdata = '';
+                objmount.method = 'OVTGET';
+                OVTFactory.DataOVT(objmount).then(function (datamount) {
+    
+                  var mounts = JSON.parse(datamount);
+                  vm.mounts = mounts;    
+                });
+              });    
+            });    
+          });   
         }
-
-
+    
+    
+          });
+        }else{
+          ngNotify.set("Lo sentimos, no cuentas con acceso a esta información", "warn");
+        }
       });
+
+     
      
       
     }

@@ -5,7 +5,6 @@ angular
 		function($uibModalInstance, $uibModal, token, OVTFactory, ngNotify) {
 
 			this.$onInit = function() {
-
 				var objv = {};
 				objv.token = token;
 				objv.url = 'sign_off.json';
@@ -24,7 +23,7 @@ angular
 					objmodel.Jdata = '';
 					objmodel.method = 'OVTGET';
 					OVTFactory.DataOVT(objmodel).then(function(datamodel) {
-						console.log(datamodel);
+						
 						vm.visittype = false;
 						vm.sight = false;
 						vm.modemsoftware = false;

@@ -152,7 +152,7 @@ angular
 
 
        //TESTING
-  /* 
+  
     var config = {
         apiKey: "AIzaSyBFtB3eFrr1Br5ohphAGtQ5c8ONQQw5C-Y",
         authDomain: "boss-5fbab.firebaseapp.com",
@@ -160,20 +160,20 @@ angular
         projectId: "boss-5fbab",
         storageBucket: "boss-5fbab.appspot.com",
         messagingSenderId: "1031430485862"
-      }; */
+      }; 
   
  
 
     //PRODUCTION
 
-       var config = {
+   /*     var config = {
           apiKey: 'AIzaSyAYdB8E1qTsBG9BN3bcbsPgnatIALFHalg',
            authDomain: 'boss-10e7a.firebaseapp.com',
           databaseURL: 'https://boss-10e7a.firebaseio.com',
           projectId: 'boss-10e7a',
           storageBucket: 'boss-10e7a.appspot.com',
           messagingSenderId: '458631148306'
-      }; 
+      }; */ 
  
 
         fire.initializeApp(config);

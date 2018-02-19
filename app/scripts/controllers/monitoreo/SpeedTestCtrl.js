@@ -10,5 +10,5 @@ angular
 		var vm = this;
 		vm.cancel = cancel;
 		vm.test = items.TDD_STR;
-		console.log(items);
+	
 	});

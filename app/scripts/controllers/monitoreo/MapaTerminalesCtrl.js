@@ -59,8 +59,7 @@ function MapaTerminalesCtrl($uibModal, SuscriptorFactory, terminalFactory, $root
         vm.BeamId='0'+obj.BeamId
       }
 
-console.log(vm.BeamId);
-console.log(obj.FilePath);
+
     vm.UrlBeam = globalService.getUrlBeams() + obj.FilePath;
     mapaBeamFactory.GetBeamUsage('outroute', vm.BeamId).then(function (data) {
       vm.datosoutroute = JSON.parse(data);
