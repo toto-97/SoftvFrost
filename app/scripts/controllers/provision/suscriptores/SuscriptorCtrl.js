@@ -1,6 +1,6 @@
 'use strict';
 
-function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFactory, $location) {
+function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, $localStorage) {
 
   this.$onInit = function () {
     SuscriptorFactory.getSuscriptorList().then(function (data) {
@@ -95,7 +95,8 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
         'Colonia': '',
         'Ciudad': '',
         'Referencia': '',
-        'Op': 1
+        'Op': 1,
+        'IdUsuario':$localStorage.currentUser.idUsuario
       };
     } else if (vm.tipoBusqueda == 2) {
       vm.busObj = {
@@ -109,7 +110,8 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
         'Colonia': '',
         'Ciudad': '',
         'Referencia': '',
-        'Op': 2
+        'Op': 2,
+        'IdUsuario':$localStorage.currentUser.idUsuario
       };
 
     } else if (vm.tipoBusqueda == 3) {
@@ -124,7 +126,8 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
         'Colonia': (vm.Colonia == undefined) ? '' : vm.Colonia,
         'Ciudad': (vm.Ciudad == undefined) ? '' : vm.Ciudad,
         'Referencia': '',
-        'Op': 3
+        'Op': 3,
+        'IdUsuario':$localStorage.currentUser.idUsuario
       };
     } else if (vm.tipoBusqueda == 4) {
 
@@ -139,7 +142,8 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
         'Colonia': '',
         'Ciudad': '',
         'Referencia': vm.brefe,
-        'Op': 4
+        'Op': 4,
+        'IdUsuario':$localStorage.currentUser.idUsuario
       };
     } else {
       vm.busObj = {
@@ -153,7 +157,8 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, nuevoSuscriptorFac
         'Colonia': '',
         'Ciudad': '',
         'Referencia': '',
-        'Op': 0
+        'Op': 0,
+        'IdUsuario':$localStorage.currentUser.idUsuario
       };
     }
 

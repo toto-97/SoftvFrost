@@ -20,6 +20,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
   vm.guardaRelacionCliente=guardaRelacionCliente;
   vm.eliminaRelacionCliente=eliminaRelacionCliente;
   vm.btnsubmit = true;
+  vm.obtendetalle=obtendetalle;
 
 
   this.$onInit = function () {
@@ -121,6 +122,16 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
       vm.tecnicosUsuario = data.GetObtieneTecnicosUsuarioResult;
     });
   }
+
+
+  function obtendetalle(){
+    if(vm.Cliente){
+      GetObtieneCompaniasUsuario();
+    }else{
+      getUsuariostecnicos();
+    }
+ }
+
 
 
   function GuardarUsuario() {
