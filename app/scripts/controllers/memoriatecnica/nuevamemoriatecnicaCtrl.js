@@ -180,7 +180,7 @@ angular
 
     function getTecnicos(id) {
     
-      memoriaFactory.GetTecnicosMemoriaTecnica(id).then(function (tecnicos) {
+      memoriaFactory.GetTecnicosMemoriaTecnica(id,'M').then(function (tecnicos) {
         console.log(tecnicos);
         vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;        
       });

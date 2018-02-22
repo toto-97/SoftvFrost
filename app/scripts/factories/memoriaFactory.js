@@ -55,7 +55,7 @@ angular
     };
 
 
-    factory.GetTecnicosMemoriaTecnica = function (id) {
+    factory.GetTecnicosMemoriaTecnica = function (id,Opcion) {
       var deferred = $q.defer();
       var config = {
         headers: {
@@ -66,7 +66,8 @@ angular
       console.log($localStorage.currentUser.idUsuario);
       var Parametros = {
         'IdCompania':id,
-        'IdUsuario':$localStorage.currentUser.idUsuario       
+        'IdUsuario':$localStorage.currentUser.idUsuario,
+        'Opcion':Opcion       
       };      
 
       console.log(Parametros);
