@@ -186,7 +186,7 @@ angular
 
 
       function getTecnicos(id, idtecnico,Modem,Radio,Router,Antena,UPS) {
-        memoriaFactory.GetTecnicosMemoriaTecnica(id,'C').then(function (tecnicos) {       
+        memoriaFactory.GetTecnicosMemoriaTecnica(id,'C',vm.IdMemoriaTecnica).then(function (tecnicos) {       
           vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;
           vm.listTecnicos.forEach(function (item, index) {
             if (item.IdEntidad === idtecnico) {
