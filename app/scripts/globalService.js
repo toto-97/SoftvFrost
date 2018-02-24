@@ -10,7 +10,7 @@ angular.module('softvFrostApp')
 
 
 
-  /*  //rutas servidor producción
+   //rutas servidor producción
      svc.getUrl = function () {
        return 'http://189.254.231.35:9091/SoftvWCFService.svc';
      };
@@ -44,10 +44,10 @@ angular.module('softvFrostApp')
 
      svc.getType = function () {
        return 'TEV';
-     }; */
+     }; 
     
 
-  
+  /* 
     //rutas locales
     svc.getUrl = function () {  
     //  return  'http://localhost:64481/SoftvWCFService.svc'
@@ -93,7 +93,7 @@ angular.module('softvFrostApp')
     svc.getType = function () {
       return 'TEV';
     };   
-
+ */
   
 
    /*    //rutas server de pruebas
