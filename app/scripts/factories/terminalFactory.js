@@ -229,6 +229,9 @@ angular.module('softvFrostApp')
 					'Authorization': $localStorage.currentUser.token
 				}
 			};
+
+//ffffff
+
 			var data={
 			'IdUsuario':$localStorage.currentUser.idUsuario	
 			};
