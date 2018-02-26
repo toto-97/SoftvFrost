@@ -156,7 +156,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 	function hughesGetSanCompuesto(obj) {
 		var a = obj.toString();
 		var i;
-		for (i = a.length; i < 9; i++) {
+		for (i = a.length; i < 8; i++) {
 			a = '0' + a;
 		}
 

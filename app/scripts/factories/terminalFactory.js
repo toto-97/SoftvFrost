@@ -35,9 +35,27 @@ angular.module('softvFrostApp')
 			obtienePoolsServicioBeam: '/ObtieneDatosPool/GetObtienePoolsBeamServicio',
 			hughesCrearTerminalIP: "/CrearTerminalIP",
 			hughesCambioServicioIP: '/CambioServicioIP',
+			hughesCambioIP: '/CambioIP',
 			GetActualizaPoolTerminal: '/Terminal/GetActualizaPoolTerminal',
 			GetDatosIPTerminal: '/Terminal/GetDatosIPTerminal',
-			GetValidaSANUsuario:'/Terminal/GetValidaSANUsuario'
+			GetValidaSANUsuario:'/Terminal/GetValidaSANUsuario',
+			GetValidaCambioIP:'/Terminal/GetValidaCambioIP'
+		};
+
+		factory.GetValidaCambioIP = function(Parametros) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetValidaCambioIP, JSON.stringify(Parametros), config).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
 		};
 
 		factory.GetValidaSANUsuario = function(SAN) {
@@ -590,6 +608,19 @@ angular.module('softvFrostApp')
 			var parametros = JSON.stringify(obj);
 			//jQuery.support.cors = true;
 			$http.post(globalService.getUrlHughesService() + paths.hughesCambioServicioIP, parametros).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.hughesCambioIP = function(obj) {
+			var deferred = $q.defer();
+			var parametros = JSON.stringify(obj);
+			//jQuery.support.cors = true;
+			$http.post(globalService.getUrlHughesService() + paths.hughesCambioIP, parametros).then(function(response) {
 				deferred.resolve(response.data);
 			}).catch(function(data) {
 				deferred.reject(data);
