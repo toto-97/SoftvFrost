@@ -206,7 +206,21 @@
         </div>
       </div>
       <div class="col-md-12" style="margin-top:10px">
-        <button class="btn pull-right btn-raised btn-info" type="button" ng-click="ctrl.ValidarIPs()">Validar IPs</button>
+        <div class="col-md-3">
+          <label class="checkbox-inline checkbox-styled checkbox-warning">
+            <input type="checkbox" ng-model="ctrl.CambioIPServicio" ng-if="ctrl.Terminal.Estatus == 'Activa'">
+            <span>Cambio de Servicio</span>
+          </label>
+        </div>
+        <div class="col-md-6">
+          <select ng-model="ctrl.Servicio" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Servicios track by item.IdServicio"
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required ng-if="ctrl.CambioIPServicio">
+              <option value="">Servicio</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn pull-right btn-raised btn-info" type="button" ng-click="ctrl.ValidarIPs()">Validar IPs</button>
+        </div>
       </div>
     </div>
     <div class="col-md-3">
