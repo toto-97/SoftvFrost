@@ -1139,7 +1139,7 @@ angular
     function hughesGetSanCompuesto(obj) {
       var a = obj.toString();
       var i;
-      for (i = a.length; i < 8; i++) {
+      for (i = a.length; i < 9; i++) {
         a = '0' + a;
       }
       console.log(globalService.getType())

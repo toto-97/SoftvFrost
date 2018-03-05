@@ -91,7 +91,7 @@ angular.module('softvFrostApp')
     };
 
     svc.getType = function () {
-      return 'TEVT';
+      return 'TEV';
     };   
  
   

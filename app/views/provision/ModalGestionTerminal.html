@@ -207,9 +207,9 @@
       </div>
       <div class="col-md-12" style="margin-top:10px">
         <div class="col-md-3">
-          <label class="checkbox-inline checkbox-styled checkbox-warning">
+          <label class="checkbox-inline checkbox-styled checkbox-warning" ng-if="ctrl.Terminal.Estatus == 'Activa'">
             <input type="checkbox" ng-model="ctrl.CambioIPServicio" ng-if="ctrl.Terminal.Estatus == 'Activa'">
-            <span>Cambio de Servicio</span>
+            <span ng-if="ctrl.Terminal.Estatus == 'Activa'">Cambio de Servicio</span>
           </label>
         </div>
         <div class="col-md-6">
