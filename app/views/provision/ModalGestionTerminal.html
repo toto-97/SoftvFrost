@@ -177,24 +177,59 @@
 </div>
 
 <!--Div de Cambio de IP-->
-<div class="form-group text-center row" ng-if="ctrl.Comando.IdComando == 12" style="margin-left:20px;margin-right:20px;">
-  <h5><b>Nueva IP</b></h5>
-  <div class="col-md-4">
-    <b>Pool de IP Actual</b>
-    <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="ctrl.PoolActual" ng-disabled="true" style="margin-top:5px;"
-    />
-  </div>
-  <div class="col-md-4">
-    <b>IP Actual</b>
-    <input type="text" class="form-control input-sm" placeholder="Beam" name="beam" ng-model="ctrl.IPActual" ng-disabled="true" style="margin-top:5px;"
-    />
-  </div>
-  <div class="col-md-4">
-    <b>Pool de IP a mover</b><br>
-    <select ng-model="ctrl.Pool" class="form-control" name="comando" ng-options="item.IP for item in ctrl.Pools track by item.Clv_Pool"
-      validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
-    <option value="">Selecciona un Pool</option>
-    </select>
+<div class="form-group text-center row" ng-if="ctrl.Comando.IdComando == 12">
+  <div class="row">
+    <div class="col-md-8">
+      <h5><b>Nueva IP</b></h5>
+      <div class="col-md-12" >
+        <div class="col-md-8">
+          <b>SubRed IPv4</b>
+          <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="ctrl.IPv4Nueva" required-message="'Este campo es obligatorio.'"
+              placeholder="192.168.10.0" required>
+        </div>
+        <div class="col-md-4">
+            <b>Máscara IPv4</b>
+            <input type="text" class="form-control" ng-change="$ctrl.existe()" ng-model="ctrl.MascaraRed4Nueva" name="descripcion" validate-on="dirty"
+                required-message="'Este campo es obligatorio.'" required placeholder="19">
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-8">
+          <b>SubRed IPv6</b>
+          <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="ctrl.IPv6Nueva" required-message="'Este campo es obligatorio.'"
+              placeholder="2001:0db8:85a3::1319:8a2e:0370:7344" required>
+        </div>
+        <div class="col-md-4">
+            <b>Máscara IPv6</b>
+            <input type="text" class="form-control" ng-model="ctrl.MascaraRed6Nueva" name="descripcion" validate-on="dirty"
+                required-message="'Este campo es obligatorio.'" required placeholder="19">
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top:10px">
+        <div class="col-md-3">
+          <label class="checkbox-inline checkbox-styled checkbox-warning" ng-if="ctrl.Terminal.Estatus == 'Activa'">
+            <input type="checkbox" ng-model="ctrl.CambioIPServicio" ng-if="ctrl.Terminal.Estatus == 'Activa'">
+            <span ng-if="ctrl.Terminal.Estatus == 'Activa'">Cambio de Servicio</span>
+          </label>
+        </div>
+        <div class="col-md-6">
+          <select ng-model="ctrl.Servicio" class="form-control" name="comando" ng-options="item.Nombre for item in ctrl.Servicios track by item.IdServicio"
+            validate-on="dirty" required-message="'Este campo es obligatorio.'" required ng-if="ctrl.CambioIPServicio">
+              <option value="">Servicio</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn pull-right btn-raised btn-info" type="button" ng-click="ctrl.ValidarIPs()">Validar IPs</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h5><b>SubRedes Padre</b></h5>
+      <b>SubRed Padre IPv4</b>
+      <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="ctrl.SubRedesNuevas.IP + '/' + ctrl.SubRedesNuevas.MascaraRed4" ng-disabled="true"/>
+      <b>SubRed Padre IPv6</b>
+      <input type="text" class="form-control" ng-model="ctrl.SubRedesNuevas.IPv6 + '/' + ctrl.SubRedesNuevas.MascaraRed6" name="descripcion" validate-on="dirty" ng-disabled="true"/>
+    </div>
   </div>
 </div>
 
