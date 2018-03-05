@@ -1070,48 +1070,59 @@ angular
                         terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
                           //console.log('Guarda movimiento 1');
                           //Metemos el movimiento con cambio de servicio
-                          var Obj25 = {};
-                          Obj25.objMovimiento = {};
-                          Obj25.objMovimiento.SAN = vm.Terminal.SAN;
-                          Obj25.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
-                          Obj25.objMovimiento.IdUsuario = 0;
-                          Obj25.objMovimiento.IdTicket = 0;
-                          Obj25.objMovimiento.OrderId = 0;
-                          vm.fechaAuxiliar = new Date();
-                          Obj25.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
-                          Obj25.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
-                          Obj25.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
-                          Obj25.objMovimiento.Detalle1 = vm.Terminal.Servicio;
-                          Obj25.objMovimiento.Detalle2 = vm.Servicio.Nombre;
-                          Obj25.objMovimiento.Exitoso = 1;
-                          terminalFactory.addMovimiento(Obj25).then(function (dataMovimiento) {
-                            //console.log('Guarda movimiento 2');
-                            //Actualiza el servicio en la base en caso de que haya realizado con exito
-                            var Obj3 = {};
-                            Obj3.objTerminal = {};
-                            Obj3.objTerminal.SAN = vm.Terminal.SAN;
-                            Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
-                            Obj3.objTerminal.IdServicio = vm.Servicio.IdServicio;
-                            Obj3.objTerminal.Latitud = vm.Terminal.Latitud;
-                            Obj3.objTerminal.Longitud = vm.Terminal.Longitud;
-                            Obj3.objTerminal.Estatus = 'Activa';
-                            Obj3.objTerminal.FechaAlta = vm.Terminal.FechaAlta;
-                            Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
-                            Obj3.objTerminal.ESN = vm.Terminal.ESN;
-                            Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
-                            terminalFactory.updateTerminal(Obj3).then(function (data) {
-                              //console.log('Actualiza terminal');
-                              var parametrosAux = {};
-                              parametrosAux.Clv_IP = vm.SubRedesNuevas.Clv_IP;
-                              parametrosAux.Clv_IP6 = vm.SubRedesNuevas.Clv_IP6;
-                              parametrosAux.SAN = vm.Terminal.SAN;
-                              terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
-                                //console.log('Actualiza pool');
-                                ngNotify.set('Cambio de IP realizado correctamente', 'success');
+                          if(vm.CambioIPServicio === true){
+                            var Obj25 = {};
+                            Obj25.objMovimiento = {};
+                            Obj25.objMovimiento.SAN = vm.Terminal.SAN;
+                            Obj25.objMovimiento.IdComando = 6;//Hardcodeado a la tabla de Comando
+                            Obj25.objMovimiento.IdUsuario = 0;
+                            Obj25.objMovimiento.IdTicket = 0;
+                            Obj25.objMovimiento.OrderId = 0;
+                            vm.fechaAuxiliar = new Date();
+                            Obj25.objMovimiento.Fecha = $filter('date')(vm.fechaAuxiliar, 'dd/MM/yyyy HH:mm:ss');
+                            Obj25.objMovimiento.Mensaje = hughesData.StandardResponse.Message;
+                            Obj25.objMovimiento.IdOrigen = 2;//Hardcodeado a la tabla de OrigenMovimiento
+                            Obj25.objMovimiento.Detalle1 = vm.Terminal.Servicio;
+                            Obj25.objMovimiento.Detalle2 = vm.Servicio.Nombre;
+                            Obj25.objMovimiento.Exitoso = 1;
+                            terminalFactory.addMovimiento(Obj25).then(function (dataMovimiento) {
+                              //console.log('Guarda movimiento 2');
+                              //Actualiza el servicio en la base en caso de que haya realizado con exito
+                              var Obj3 = {};
+                              Obj3.objTerminal = {};
+                              Obj3.objTerminal.SAN = vm.Terminal.SAN;
+                              Obj3.objTerminal.IdSuscriptor = vm.Terminal.IdSuscriptor;
+                              Obj3.objTerminal.IdServicio = vm.Servicio.IdServicio;
+                              Obj3.objTerminal.Latitud = vm.Terminal.Latitud;
+                              Obj3.objTerminal.Longitud = vm.Terminal.Longitud;
+                              Obj3.objTerminal.Estatus = 'Activa';
+                              Obj3.objTerminal.FechaAlta = vm.Terminal.FechaAlta;
+                              Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
+                              Obj3.objTerminal.ESN = vm.Terminal.ESN;
+                              Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
+                              terminalFactory.updateTerminal(Obj3).then(function (data) {
+                                //console.log('Actualiza terminal');
+                                var parametrosAux = {};
+                                parametrosAux.Clv_IP = vm.SubRedesNuevas.Clv_IP;
+                                parametrosAux.Clv_IP6 = vm.SubRedesNuevas.Clv_IP6;
+                                parametrosAux.SAN = vm.Terminal.SAN;
+                                terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
+                                  //console.log('Actualiza pool');
+                                  ngNotify.set('Cambio de IP realizado correctamente', 'success');
+                                });
                               });
                             });
-                          });
-                          
+                          }
+                          else{
+                            var parametrosAux = {};
+                            parametrosAux.Clv_IP = vm.SubRedesNuevas.Clv_IP;
+                            parametrosAux.Clv_IP6 = vm.SubRedesNuevas.Clv_IP6;
+                            parametrosAux.SAN = vm.Terminal.SAN;
+                            terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
+                              //console.log('Actualiza pool');
+                              ngNotify.set('Cambio de IP realizado correctamente', 'success');
+                            });
+                          }
                         });
                       }
                     });
