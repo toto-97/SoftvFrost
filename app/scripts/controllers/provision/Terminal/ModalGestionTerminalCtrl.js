@@ -595,6 +595,7 @@ angular
 					else if (vm.Comando.IdComando === 6)//Cambiar servicio
 					{
             var parametrosAux = {};
+            var parametros = {};
             var cont = 0;
             parametrosAux.IdServicio = vm.Servicio.IdServicio;
             parametrosAux.Beam = vm.Terminal.BeamID;

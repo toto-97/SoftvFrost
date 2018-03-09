@@ -1,7 +1,7 @@
 'use strict';
 angular
 	.module('softvFrostApp')
-	.controller('ModalBusquedaSuscriptorCtrl', function($uibModalInstance, $uibModal, SuscriptorFactory, $rootScope, ngNotify) {
+	.controller('ModalBusquedaSuscriptorCtrl', function($uibModalInstance, $uibModal, SuscriptorFactory, $rootScope,$localStorage) {
 
 		function initialData() {
 			SuscriptorFactory.getSuscriptorList().then(function(data) {
@@ -51,7 +51,8 @@ angular
 					'Numero': '',
 					'Colonia': '',
 					'Ciudad': '',
-					'Op': 1
+					'Op': 1,
+					'IdUsuario':$localStorage.currentUser.idUsuario
 				};
 			} else if (vm.tipoBusqueda == 2) {
 				vm.busObj = {
@@ -64,7 +65,8 @@ angular
 					'Numero': '',
 					'Colonia': '',
 					'Ciudad': '',
-					'Op': 2
+					'Op': 2,
+					'IdUsuario':$localStorage.currentUser.idUsuario
 				};
 			}
 			if (vm.tipoBusqueda == undefined || vm.tipoBusqueda == 0) {

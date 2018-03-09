@@ -111,6 +111,7 @@ angular.module('softvFrostApp')
 
 
     function abrirSignOff() {
+      console.log(vm.OVTToken);
       var modalInstance = $uibModal.open({
         animation: true,
         ariaLabelledBy: 'modal-title',

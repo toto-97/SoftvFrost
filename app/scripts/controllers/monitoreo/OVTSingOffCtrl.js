@@ -5,6 +5,7 @@ angular
 		function($uibModalInstance, $uibModal, token, OVTFactory, ngNotify) {
 
 			this.$onInit = function() {
+				
 				var objv = {};
 				objv.token = token;
 				objv.url = 'sign_off.json';
