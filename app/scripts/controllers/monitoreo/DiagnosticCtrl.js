@@ -52,7 +52,7 @@ angular
                   .then(function(response) {
                     console.log(JSON.parse(response));
                     vm.datosterminal = JSON.parse(response);
-                  });
+              });
               } else {
                 vm.diagnosticData = datos[0];
                 vm.showSan = true;

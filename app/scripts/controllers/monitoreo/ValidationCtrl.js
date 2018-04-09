@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('softvFrostApp')
-  .controller('ValidationCtrl', function (NgMap, OVTFactory, $uibModal, ngNotify, terminalFactory,globalService) {
+  .controller('ValidationCtrl', function (NgMap, OVTFactory, $uibModal,mapaBeamFactory, ngNotify, diagnosticFactory,terminalFactory,globalService) {
 
     function validate() {
       terminalFactory.GetValidaSANUsuario(vm.SAN).then(function(data){
@@ -111,7 +111,7 @@ angular.module('softvFrostApp')
 
 
     function abrirSignOff() {
-      console.log(vm.OVTToken);
+   
       var modalInstance = $uibModal.open({
         animation: true,
         ariaLabelledBy: 'modal-title',
@@ -138,9 +138,6 @@ angular.module('softvFrostApp')
       } else {
         vm.OVT1 = false;
         vm.OVT2 = true;
-
-
-
         var auxMount = vm.mount.substring(0, vm.mount.length - 1);
         var d = "{" +
           '"antennaSize"' +
@@ -166,6 +163,11 @@ angular.module('softvFrostApp')
             objv.Jdata = '';
             objv.method = 'OVTGET';
             OVTFactory.DataOVT(objv).then(function (data) {
+
+
+             
+
+
               var DetailsOVT = JSON.parse(data);
               vm.DetailsOVT2 = DetailsOVT;
               vm.points = {
@@ -187,6 +189,25 @@ angular.module('softvFrostApp')
               });
               vm.RecomendedDiag = vm.DetailsOVT2.diagnosis.recommendedAction.name;
               vm.IdDiagnosis = vm.DetailsOVT2.diagnosis.recommendedAction.recommActionId;
+              
+            
+              
+              diagnosticFactory.getLoginUid().then(function(data) {
+               var token = data[0].loginuuid;
+                var sanData = {
+                  token: token,
+                  san: hughesGetSanCompuesto(vm.SAN)
+                };
+                diagnosticFactory.getCommand(sanData).then(function(dataCommand) {
+                  var datos = JSON.parse(dataCommand);
+                  vm.diagnosticData = datos[0];
+                  console.log('datos',datos);
+                });
+
+              });
+            
+
+
             });
           } else {
             ngNotify.set('The antenna size and Mount is not valid', 'error');
