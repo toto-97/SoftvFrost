@@ -90,15 +90,14 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 			{
 				var parametros = new Object();
 				//Obtiene el código del estado para hughes
-				terminalFactory.getEstadoById(vm.IdEstado).then(function (data) {
-					console.log(data);
+				terminalFactory.getEstadoById(vm.IdEstado).then(function (data) {				
 					vm.estado = data.GetEstadoResult;
 					parametros.servicio = vm.Servicio.Nombre;
 					parametros.latitud = vm.Latitud;
 					parametros.longitud = vm.Longuitud;
 					//Obtiene el nombre del frupo de servicios disponibles en esa área
 					terminalFactory.hughesValidaServicio(parametros).then(function (hughesData) {
-						console.log(hughesData);
+					
 						if (hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.AvailabilityFlag != 'true') {
 							ngNotify.set('Sin área de cobertura', 'error');
 						} else {
@@ -115,7 +114,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							parametros2.IdServicio = vm.Servicio.IdServicio;
 							parametros2.Beam = vm.BeamID;
 							terminalFactory.obtienePoolsServicioBeam(parametros2).then(function(hughesData) {
-								console.log(hughesData);
+								
 								vm.SubRedes = hughesData.GetObtienePoolsBeamServicioResult;
 								vm.SubRed = vm.SubRedes[0];
 								if (vm.SubRedes.length === 0){
@@ -146,8 +145,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 			var parametros = {};
 			parametros.IdServicio = vm.Servicio.IdServicio;
 			parametros.Beam = vm.BeamID;
-			terminalFactory.obtienePoolsServicioBeam(parametros).then(function (hughesData) {
-				console.log(hughesData);
+			terminalFactory.obtienePoolsServicioBeam(parametros).then(function (hughesData) {				
 				vm.SubRedes = hughesData.GetObtienePoolsBeamServicioResult;
 			});
 		}
@@ -252,7 +250,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		            obj.MappedIPv4Prefix = vm.SubRed.MascaraRed4Terminal;
 					//alert(JSON.stringify(obj));
 					terminalFactory.hughesCrearTerminalIP(obj).then(function (hughesData) {
-						console.log(hughesData);
+					
 						var Obj2 = new Object();
 						Obj2.objMovimiento = new Object();
 						Obj2.objMovimiento.SAN = data.AddTerminalResult;
@@ -301,7 +299,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							Obj4.objTerminal.Clv_IP = vm.SubRed.Clv_IP;
 							Obj4.objTerminal.Clv_IP6 = vm.SubRed.Clv_IP6;
 							//Actualizamos información adicional de la terminal
-							console.log(Obj4);
+						
 							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
 							});
 							ngNotify.set('La terminal se ha guardado correctamente', 'success');
@@ -337,7 +335,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 					obj.servicio = vm.Servicio.Nombre;
 					//alert(JSON.stringify(obj));
 					terminalFactory.hughesCrearTerminal(obj).then(function (hughesData) {
-						console.log(hughesData);
+					
 						var Obj2 = new Object();
 						Obj2.objMovimiento = new Object();
 						Obj2.objMovimiento.SAN = data.AddTerminalResult;
@@ -386,7 +384,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							Obj4.objTerminal.Clv_IP = 0;
 							Obj4.objTerminal.Clv_IP6 = 0;
 							//Actualizamos información adicional de la terminal
-							console.log(Obj4);
+						
 							terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
 							});
 							ngNotify.set('La terminal se ha guardado correctamente', 'success');

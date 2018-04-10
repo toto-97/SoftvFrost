@@ -4,7 +4,7 @@ angular
   .controller('ModalDetalleLlamadaCtrl', function ($uibModalInstance, $uibModal, options, atencionFactory, $rootScope, ngNotify, $localStorage) {
     function initialData() {
       atencionFactory.ConsultaLLamada(options.llamada).then(function (data) {
-        console.log(data);
+        
         var conceptos = data.GetLLamadasdeInternetListResult[0];
         vm.Servicio = conceptos.Concepto;
         vm.Problema = conceptos.Descripcion;
@@ -41,7 +41,6 @@ angular
     }
     var vm = this;
     vm.cancel = cancel;
-    vm.NumeroLlamada = options.llamada;
-    console.log(options);
+    vm.NumeroLlamada = options.llamada;    
     initialData();
   });

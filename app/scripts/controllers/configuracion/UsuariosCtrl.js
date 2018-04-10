@@ -39,16 +39,14 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});
 
-			} else {
-				console.log(vm.Busuario);
+			} else {			
 				var Parametros = {
 					'Nombre': vm.Busuario,
 					'Email': '',
 					'Usuario2': vm.Busuario,
 					'Op': 1,
 					'IdRol': 0
-				};
-				console.log(Parametros);
+				};				
 				usuarioFactory.BuscaUsuario(Parametros).then(function (data) {
 					vm.Usuarios = data.GetUsuario2ListResult;
 				});

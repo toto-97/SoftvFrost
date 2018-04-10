@@ -87,9 +87,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 	}
 
 
-	function eliminaRelacion(item) {
-		console.log(item);
-		console.log(vm.Id);
+	function eliminaRelacion(item) {		
 		var tecnicos = [];
 		var tec = {
 			'IdEntidad': item.IdEntidad,
@@ -98,8 +96,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		}
 		tecnicos.push(tec);
 		usuarioFactory.GetGuardaRelacionUsuarioTecnico(vm.Id, tecnicos).then(function (result) {
-			getUsuariostecnicos();
-			console.log(result);
+			getUsuariostecnicos();			
 		});
 	}
 

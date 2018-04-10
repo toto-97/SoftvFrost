@@ -49,8 +49,7 @@ angular
       
                 mapaBeamFactory
                   .GetTerminalStatus(hughesGetSanCompuesto(vm.san))
-                  .then(function(response) {
-                    console.log(JSON.parse(response));
+                  .then(function(response) {                    
                     vm.datosterminal = JSON.parse(response);
               });
               } else {

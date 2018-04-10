@@ -9,18 +9,15 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
     }
   }
 
-  function activarTerminal() {
-    //console.log('Prueba');
+  function activarTerminal() {   
     terminalFactory.getTerminalById(vm.SAN).then(function (data) {
-      if (data.GetByTerminalResult.Estatus == 'Activa' || data.GetByTerminalResult.Estatus == 'Pendiente') {
-        //Formamos el objeto para mandarlo al servicio
+      if (data.GetByTerminalResult.Estatus === 'Activa' || data.GetByTerminalResult.Estatus == 'Pendiente') {
+        
         var parametros = new Object();
         parametros.telefono = vm.suscriptor.Telefono;
-        parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-        //console.log(parametros.SAN);
+        parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);       
         parametros.ESN = vm.ESN;
-        terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {
-          console.log(hughesData);
+        terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {         
           //Guarda el movimiento
           var Obj2 = new Object();
           Obj2.objMovimiento = new Object();
@@ -56,7 +53,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
             Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
             Obj3.objTerminal.ESN = vm.ESN;
             Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
-            console.log(Obj3);
+           
             terminalFactory.updateTerminal(Obj3).then(function (data) {
               ngNotify.set('La terminal se ha activado correctamente', 'success');
             });

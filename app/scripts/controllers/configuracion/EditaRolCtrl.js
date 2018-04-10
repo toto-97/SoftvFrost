@@ -6,14 +6,14 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
   function init() {
     var id = $stateParams.id;
     rolFactory.GetRoleById(id).then(function (data) {
-      console.log(data);
+     
       vm.Rol = data.GetRoleByIdResult
       vm.Estatus = vm.Rol.Estado;
       vm.Nombre = vm.Rol.Nombre;
       vm.Descripcion = vm.Rol.Descripcion;
       vm.IdRol = vm.Rol.IdRol;
       
-      console.log(vm.Recibemensaje);
+     
     });
 
     terminalFactory.getComandoList().then(function (data) {     
@@ -38,7 +38,7 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
     obj.Descripcion = vm.Descripcion;
     obj.Estado = vm.Estatus;
     
-    console.log(obj);
+ 
     rolFactory.UpdateRole(obj).then(function (data) {
 
       var Lista_comandos = [];
@@ -48,11 +48,8 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
             'Comando': vm.comandos[a].IdComando
           })
         }
-      }
-      console.log(Lista_comandos);
-      rolFactory.GetComandos(vm.IdRol, Lista_comandos).then(function (response) {
-        console.log(response);
-      });
+      }    
+      rolFactory.GetComandos(vm.IdRol, Lista_comandos).then(function (response) { });
 
       $state.go('home.provision.roles');
       ngNotify.set('Rol editado correctamente.', 'success');

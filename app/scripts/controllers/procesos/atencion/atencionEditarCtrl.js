@@ -7,7 +7,7 @@ angular
         vm.servicios = data.GetMuestraTipSerPrincipal2ListResult;
 
         atencionFactory.ConsultaLLamada(vm.NumeroLlamada).then(function (data) {
-          console.log(data);
+          
           var datos = data.GetLLamadasdeInternetListResult[0];
           vm.CLV_TIPSER = datos.CLV_TIPSER;
           vm.CLV_TRABAJO = datos.Clv_trabajo;
@@ -236,8 +236,7 @@ angular
       options.clv_llamada = vm.NumeroLlamada;
       options.clvProblema = (vm.Problema==undefined||vm.Problema==null)?0: vm.Problema.clvProblema;
       options.clv_queja = vm.clv_queja;
-      console.log(options);
-      //options.=atencion
+      
       var modalInstance = $uibModal.open({
         animation: true,
         ariaLabelledBy: 'modal-title',

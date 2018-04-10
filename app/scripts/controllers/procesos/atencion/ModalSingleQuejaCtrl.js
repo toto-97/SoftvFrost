@@ -6,7 +6,7 @@ angular
 		function initialData() {
 			cajasFactory.dameSingleQueja(clave).then(function(data) {
 				vm.url = globalService.getUrlReportes() + '/Reportes/' + data.GetConsultarQuejasTableListResult[0].Colonia;
-				console.log();
+				
 				$('#reporteURL').attr('src', vm.url);
 			});
 		}

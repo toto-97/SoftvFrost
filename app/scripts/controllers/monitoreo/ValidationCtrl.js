@@ -200,14 +200,9 @@ angular.module('softvFrostApp')
                 };
                 diagnosticFactory.getCommand(sanData).then(function(dataCommand) {
                   var datos = JSON.parse(dataCommand);
-                  vm.diagnosticData = datos[0];
-                  console.log('datos',datos);
+                  vm.diagnosticData = datos[0];                 
                 });
-
               });
-            
-
-
             });
           } else {
             ngNotify.set('The antenna size and Mount is not valid', 'error');

@@ -7,11 +7,11 @@ function DetalleMovimientoCtrl($uibModalInstance,movimiento, terminalFactory) {
 
     this.$onInit = function () {
         terminalFactory.detalleMovimiento(movimiento.IdMovimiento).then(function(data) {
-            console.log(data);
+           
             vm.movimiento = data.GetDeepMovimientoResult;
         });
         terminalFactory.sigleMovimiento(movimiento.IdMovimiento).then(function (data) {
-            console.log(data);
+           
             vm.detalles = data.GetDetalleMovimientoIdListResult;
         });
     }

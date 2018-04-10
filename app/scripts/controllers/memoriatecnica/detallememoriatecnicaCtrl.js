@@ -86,10 +86,7 @@ angular
       
         memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
           vm.listModem = aparatos.GetAparatosTecnicoResult;
-           console.log( 'listamodem',vm.listModem);
-
-          if (vm.numerofolio) {
-          
+          if (vm.numerofolio) {          
             vm.listModem.push({
               'Clv_CableModem': 0,
               'Descripcion': (modem)?modem:'',

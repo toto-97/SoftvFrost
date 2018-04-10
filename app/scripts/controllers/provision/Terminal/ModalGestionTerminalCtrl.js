@@ -6,18 +6,17 @@ angular
 
     function initialData() {
       vm.Terminal = terminal;
-      console.log(vm.Terminal);
+    
       var paramAux = {};
       paramAux.SAN = vm.Terminal.SAN;
       //Nos traemos los datos de la IP de la terminal
       terminalFactory.GetDatosIPTerminal(paramAux).then(function (data) {
-        console.log(data);
+       
         vm.DatosIP = data.GetDatosIPTerminalResult;
-        console.log(vm.DatosIP);
+     
       });
       terminalFactory.getComandoList().then(function (data) {
-        vm.Comandos = data.GetComandoListResult;
-        //console.log(data);
+        vm.Comandos = data.GetComandoListResult;        
         //Vamos a dejar los comandos dependiendo del estado de la terminal
         if (vm.Terminal.Estatus ==="Incompleta") { //Incompleta
           obtieneIndex("Suspender Terminal");
@@ -55,8 +54,7 @@ angular
           //Nos vamos a traer el fap status y el consumo
           var obj = {};
           obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-          terminalFactory.hughesConsumoDeTerminal(obj).then(function (hughesData) {
-            console.log(hughesData);
+          terminalFactory.hughesConsumoDeTerminal(obj).then(function (hughesData) {           
             vm.Consumo = {};
             vm.Consumo.Disponible = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.AnyTimeBandwidthAvailable;
             vm.Consumo.Consumido = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.AnyTimeBandwidthUsed;
@@ -64,7 +62,7 @@ angular
             vm.Token = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.TokenBandwidthAvailable;
           });
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
-            console.log(hughesData);
+            
             if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===-1) {
               vm.FapStatus = "Not Activated";
             } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===0) {
@@ -73,7 +71,7 @@ angular
               vm.FapStatus = "Throttled";
             }
           });
-          console.log(vm.Comandos);
+         
         } else if (vm.Terminal.Estatus ==="Suspendida") { //Suspendida
           obtieneIndex("Crear Terminal");
           obtieneIndex("Suspender Terminal");
@@ -89,7 +87,7 @@ angular
           var obj = {};
           obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
-            console.log(hughesData);
+           
             if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===-1) {
               vm.FapStatus = "Not Activated";
             } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===0) {
@@ -126,7 +124,7 @@ angular
     }
 
     function aplicaComando() {
-      console.log(vm.Terminal);
+     
       var parametros = {};
 
       terminalFactory.GetValidaEjecucionComando(vm.Comando.IdComando).then(function (data) {
@@ -154,8 +152,7 @@ angular
             });
             //Si hay subredes para el beam y el servicio lo hacemos con eso
             if (vm.SubRed.length > 0)
-            {
-              console.log('Con ip');
+            {             
               terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
                 var suscriptor = data.GetSuscriptorResult;
                 var obj = {};
@@ -182,7 +179,7 @@ angular
                     parametros.latitud = vm.Terminal.Latitud;
                     parametros.longitud = vm.Terminal.Longitud;
                     terminalFactory.hughesValidaServicio(parametros).then(function (hughesDataSPQ) {
-                      //console.log(hughesData);
+                     
                       vm.BeamID = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.BeamID;
                       vm.SatelliteID = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.SatellitedID;
                       vm.Polarization = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
@@ -195,7 +192,7 @@ angular
                       obj.MappedIPv4Prefix = vm.SubRed[0].MascaraRed4Terminal;
 
                       terminalFactory.hughesCrearTerminalIP(obj).then(function (hughesData) {
-                        console.log(hughesData);
+                        
                         var Obj2 = {};
                         Obj2.objMovimiento = {};
                         Obj2.objMovimiento.SAN = vm.Terminal.SAN;
@@ -257,7 +254,7 @@ angular
               });
             }
             else{
-              console.log('Sin ip');
+             
               terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
                 var suscriptor = data.GetSuscriptorResult;
                 var obj = {};
@@ -284,12 +281,12 @@ angular
                     parametros.latitud = vm.Terminal.Latitud;
                     parametros.longitud = vm.Terminal.Longitud;
                     terminalFactory.hughesValidaServicio(parametros).then(function (hughesDataSPQ) {
-                      //console.log(hughesData);
+                      
                       vm.BeamID = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.BeamID;
                       vm.SatelliteID = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.SatellitedID;
                       vm.Polarization = hughesDataSPQ.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.Polarization;
                       terminalFactory.hughesCrearTerminal(obj).then(function (hughesData) {
-                        console.log(hughesData);
+                      
                         var Obj2 = {};
                         Obj2.objMovimiento = {};
                         Obj2.objMovimiento.SAN = vm.Terminal.SAN;
@@ -357,8 +354,8 @@ angular
               parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
               parametros.status = 2; //Status hardcodeado de hughes
               terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {
-                console.log(hughesData);
-                if (hughesData.StandardResponse.Code != 5) {
+               
+                if (hughesData.StandardResponse.Code !== 5) {
                   //Guarda el movimiento sin OrderID
                   var Obj2 = {};
                   Obj2.objMovimiento = {};
@@ -424,7 +421,7 @@ angular
               parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
               parametros.status = 3; //Status hardcodeado de hughes
               terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {
-                console.log(hughesData);
+               
                 if (hughesData.StandardResponse.Code != 5) {
                   //Guarda el movimiento sin OrderID
                   var Obj2 = {};
@@ -488,17 +485,11 @@ angular
           {
             var parametros = {};
 						terminalFactory.getSequenceId().then(function (Sequence) {
-							parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-              alert('1');
-							parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-              alert('2');
-							parametros.status = 1;
-              alert('3');
-              console.log(parametros);
-							terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {
-                alert('4');
-								console.log(hughesData);
-								if (hughesData.StandardResponse.Code != 5) {
+							parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;          
+							parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);             
+							parametros.status = 1;          
+							terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {              
+								if (hughesData.StandardResponse.Code !== 5) {
 									//Guarda el movimiento sin OrderID
 									var Obj2 = {};
 									Obj2.objMovimiento = {};
@@ -561,8 +552,7 @@ angular
             var parametros = {};
 						parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
 						parametros.cantidad = vm.cantidadToken;
-						terminalFactory.hughesToken(parametros).then(function (hughesData) {
-							console.log(hughesData);
+						terminalFactory.hughesToken(parametros).then(function (hughesData) {						
 							//Guarda el movimiento
 							var Obj2 = {};
 							Obj2.objMovimiento = {};
@@ -608,14 +598,14 @@ angular
                 //Validamos que haya  un pool para ese servicio, sino lo mandamos normal
                 if (vm.SubRed.length > 0)
                 {
-                  console.log('Con ip');
+                
                   //vm.SubRed = vm.SubRed[0];
     							terminalFactory.getSequenceId().then(function (Sequence) {
     								parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
     								terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
     									var suscriptor = data.GetSuscriptorResult;
     									parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-    									//console.log(suscriptor);
+    								
     									parametros.email = suscriptor.Email;
     									parametros.servicio = vm.Servicio.Nombre;
                       //Los nuevos de IP
@@ -625,10 +615,9 @@ angular
                       parametros.IPv6PrefixLen = vm.SubRed[0].MascaraRed6Terminal;
                       parametros.MappedIPv6Prefix = vm.SubRed[0].IPv6Terminal;//vm.SubRed.MascaraIPv6;
                       parametros.MappedIPv4Prefix = vm.SubRed[0].MascaraRed4Terminal;
-                      //console.log(parametros);
-                      //console.log(vm.SubRed);
+                      
     									terminalFactory.hughesCambioServicioIP(parametros).then(function (hughesData) {
-    										console.log(hughesData);
+    									
     										//Vamos a procesar dependiendo del status obtenido de hughes
     										if (hughesData.StandardResponse.OrderId == 0) {
     											//Guarda el movimiento con OrderId
@@ -696,17 +685,16 @@ angular
     							});
                 }
                 else{
-                  console.log('Sin ip');
+                
                   terminalFactory.getSequenceId().then(function (Sequence) {
                     parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
                     terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
                       var suscriptor = data.GetSuscriptorResult;
-                      parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-                      //console.log(suscriptor);
+                      parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);                     
                       parametros.email = suscriptor.Email;
                       parametros.servicio = vm.Servicio.Nombre;
                       terminalFactory.hughesCambioServicio(parametros).then(function (hughesData) {
-                        console.log(hughesData);
+                       
                         //Vamos a procesar dependiendo del status obtenido de hughes
                         if (hughesData.StandardResponse.OrderId == 0) {
                           //Guarda el movimiento con OrderId
@@ -782,7 +770,7 @@ angular
 							parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
 							parametros.ESN = vm.Terminal.ESN;
 							terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {
-								console.log(hughesData);
+						
 								//Guarda el movimiento
 								var Obj2 = {};
 								Obj2.objMovimiento = {};
@@ -829,8 +817,7 @@ angular
           {
             var parametros = {};
             parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-            terminalFactory.hughesSwap(parametros).then(function (hughesData) {
-              console.log(hughesData);
+            terminalFactory.hughesSwap(parametros).then(function (hughesData) {           
               //Guarda el movimiento
               var Obj2 = {};
               Obj2.objMovimiento = {};
@@ -863,10 +850,8 @@ angular
             var parametros = {};
             if (vm.BeamIDNuevo != '' && vm.BeamIDNuevo != null) {
               parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-              console.log("Aqui");
-              terminalFactory.hughesCambioCoordenadas(parametros).then(function (hughesData) {
-                console.log(hughesData);
-                //Guarda el movimiento
+             
+              terminalFactory.hughesCambioCoordenadas(parametros).then(function (hughesData) {               
                 var Obj2 = {};
                 Obj2.objMovimiento = {};
                 Obj2.objMovimiento.SAN = vm.Terminal.SAN;
@@ -895,7 +880,7 @@ angular
                   Obj4.objTerminal.Polarization = vm.PolarizationNuevo;
                   Obj4.objTerminal.SAN = vm.Terminal.SAN;
                   //Actualizamos información adicional de la terminal
-                  console.log(Obj4);
+                
                   terminalFactory.agregaInfoTerminal(Obj4).then(function (obj) {
                     //Actualiza el estatus en la base en caso de que haya sido exitoso
                     var Obj3 = {};
@@ -944,11 +929,9 @@ angular
                     parametros.IPv6PrefixLen = vm.SubRedesNuevas.MascaraRed6Terminal;
                     parametros.MappedIPv6Prefix = vm.SubRedesNuevas.IPv6Terminal;//vm.SubRed.MascaraIPv6;
                     parametros.MappedIPv4Prefix = vm.SubRedesNuevas.MascaraRed4Terminal;
-                    //console.log(parametros);
-                    //console.log(vm.SubRed);
+                    
                     terminalFactory.hughesCambioIP(parametros).then(function (hughesData) {
-                      console.log(hughesData);
-                      //Vamos a procesar dependiendo del status obtenido de hughes
+                    
                       if (hughesData.StandardResponse.OrderId === 0) {
                         //Guarda el movimiento con OrderId
                         var Obj2 = {};
@@ -992,9 +975,8 @@ angular
                         parametrosAux.Clv_IP = vm.SubRedesNuevas.Clv_IP;
                         parametrosAux.Clv_IP6 = vm.SubRedesNuevas.Clv_IP6;
                         parametrosAux.SAN = vm.Terminal.SAN;
-                        //console.log(parametrosAux);
-                        terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
-                          //console.log(data);
+                        
+                        terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {                        
                           ngNotify.set('Cambio de IP realizado correctamente', 'success');
                         });
                       }
@@ -1009,7 +991,7 @@ angular
                   terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
                     var suscriptor = data.GetSuscriptorResult;
                     parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
-                    //console.log(suscriptor);
+                    
                     parametros.email = suscriptor.Email;
 
                     //Metemos el servicio, si seleccionó la casilla de cambio de servicio
@@ -1027,11 +1009,8 @@ angular
                     parametros.IPv6PrefixLen = vm.SubRedesNuevas.MascaraRed6Terminal;
                     parametros.MappedIPv6Prefix = vm.SubRedesNuevas.IPv6Terminal;//vm.SubRed.MascaraIPv6;
                     parametros.MappedIPv4Prefix = vm.SubRedesNuevas.MascaraRed4Terminal;
-                    //console.log(parametros);
-                    //console.log(vm.SubRed);
-                    terminalFactory.hughesCambioServicioIP(parametros).then(function (hughesData) {
-                      //console.log(hughesData);
-                      //Vamos a procesar dependiendo del status obtenido de hughes
+                   
+                    terminalFactory.hughesCambioServicioIP(parametros).then(function (hughesData) {                     
                       if (hughesData.StandardResponse.OrderId === 0) {
                         //Guarda el movimiento con OrderId
                         var Obj2 = {};
@@ -1068,9 +1047,7 @@ angular
                         Obj2.objMovimiento.Detalle1 = vm.DatosIP.IPTerminal + '/' + vm.DatosIP.MascaraRed4Terminal + ',' + vm.DatosIP.IPv6Terminal + '/' + vm.DatosIP.MascaraRed6Terminal;//IPs Anteriores
                         Obj2.objMovimiento.Detalle2 = vm.SubRedesNuevas.IPTerminal + '/' + vm.SubRedesNuevas.MascaraRed4Terminal + ',' + vm.SubRedesNuevas.IPv6Terminal + '/' + vm.SubRedesNuevas.MascaraRed6Terminal;
                         Obj2.objMovimiento.Exitoso = 1;
-                        terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
-                          //console.log('Guarda movimiento 1');
-                          //Metemos el movimiento con cambio de servicio
+                        terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {                         
                           if(vm.CambioIPServicio === true){
                             var Obj25 = {};
                             Obj25.objMovimiento = {};
@@ -1086,9 +1063,7 @@ angular
                             Obj25.objMovimiento.Detalle1 = vm.Terminal.Servicio;
                             Obj25.objMovimiento.Detalle2 = vm.Servicio.Nombre;
                             Obj25.objMovimiento.Exitoso = 1;
-                            terminalFactory.addMovimiento(Obj25).then(function (dataMovimiento) {
-                              //console.log('Guarda movimiento 2');
-                              //Actualiza el servicio en la base en caso de que haya realizado con exito
+                            terminalFactory.addMovimiento(Obj25).then(function (dataMovimiento) {                            
                               var Obj3 = {};
                               Obj3.objTerminal = {};
                               Obj3.objTerminal.SAN = vm.Terminal.SAN;
@@ -1102,13 +1077,13 @@ angular
                               Obj3.objTerminal.ESN = vm.Terminal.ESN;
                               Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
                               terminalFactory.updateTerminal(Obj3).then(function (data) {
-                                //console.log('Actualiza terminal');
+                               
                                 var parametrosAux = {};
                                 parametrosAux.Clv_IP = vm.SubRedesNuevas.Clv_IP;
                                 parametrosAux.Clv_IP6 = vm.SubRedesNuevas.Clv_IP6;
                                 parametrosAux.SAN = vm.Terminal.SAN;
                                 terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
-                                  //console.log('Actualiza pool');
+                                 
                                   ngNotify.set('Cambio de IP realizado correctamente', 'success');
                                 });
                               });
@@ -1119,8 +1094,7 @@ angular
                             parametrosAux.Clv_IP = vm.SubRedesNuevas.Clv_IP;
                             parametrosAux.Clv_IP6 = vm.SubRedesNuevas.Clv_IP6;
                             parametrosAux.SAN = vm.Terminal.SAN;
-                            terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {
-                              //console.log('Actualiza pool');
+                            terminalFactory.GetActualizaPoolTerminal(parametrosAux).then(function (data) {                                                           
                               ngNotify.set('Cambio de IP realizado correctamente', 'success');
                             });
                           }
@@ -1153,8 +1127,7 @@ angular
       var i;
       for (i = a.length; i < 9; i++) {
         a = '0' + a;
-      }
-      console.log(globalService.getType())
+      }      
       return globalService.getType() + a;
     };
 
@@ -1194,7 +1167,7 @@ angular
         parametros.longitud = vm.LongitudNueva;
         //Obtiene el nombre del frupo de servicios disponibles en esa área
         terminalFactory.hughesValidaServicio(parametros).then(function (hughesData) {
-          console.log(hughesData);
+        
           if (hughesData.soapEnvelope.soapBody.ServicePrequalificationResponseMsg.AvailabilityFlag != 'true') {
             ngNotify.set('Sin área de cobertura', 'error');
           } else {
@@ -1235,11 +1208,10 @@ angular
             parametros.IdServicio = vm.Terminal.IdServicio;
           }
 
-          console.log(parametros);
-          terminalFactory.GetValidaCambioIP(parametros).then(function (data) {
-            console.log(data.GetValidaCambioIPResult);
+       
+          terminalFactory.GetValidaCambioIP(parametros).then(function (data) {          
             vm.SubRedesNuevas = data.GetValidaCambioIPResult;
-            if(vm.SubRedesNuevas.Error != 'Ok'){
+            if(vm.SubRedesNuevas.Error !== 'Ok'){
               ngNotify.set(vm.SubRedesNuevas.Error, 'error');
             }
           });

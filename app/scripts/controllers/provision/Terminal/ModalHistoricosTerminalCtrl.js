@@ -9,8 +9,7 @@ angular
 			var Obj2 = new Object();
 			Obj2.SAN = vm.Terminal.SAN;
 			terminalFactory.hughesConsumoGrafica(Obj2).then(function (hughesData) {
-				var colorGrafica = Chart.helpers.color;
-				console.log(JSON.stringify(hughesData));
+				var colorGrafica = Chart.helpers.color;				
 				new Chart(document.getElementById("canvas").getContext("2d"), hughesData);	
 			});
 		}
@@ -24,8 +23,7 @@ angular
 			Obj2.FechaInicio = $filter('date')(vm.FechaInicio, 'dd/MM/yyyy HH:mm:ss');
 			Obj2.FechaFin = $filter('date')(vm.FechaFin, 'dd/MM/yyyy HH:mm:ss');
 			Obj2.SAN = vm.Terminal.SAN;
-			terminalFactory.hughesHistoricoConsumo(Obj2).then(function (hughesData) {
-				console.log(hughesData);
+			terminalFactory.hughesHistoricoConsumo(Obj2).then(function (hughesData) {				
 				new Chart(document.getElementById("chartjs-0"), hughesData);
 			});
 		}

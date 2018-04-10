@@ -44,8 +44,7 @@ function nuevoPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory) {
                 parametros.MascaraIPv6 = vm.MascaraIPv6;
                 parametros.MascaraRed4Terminal = vm.MascaraRed4Terminal;
                 parametros.MascaraRed6Terminal = vm.MascaraRed6Terminal;
-                configuracionIPFactory.guardaPool(parametros).then(function (data) {
-                    console.log(data);
+                configuracionIPFactory.guardaPool(parametros).then(function (data) {                   
                     if (data.GetGuardaPoolListResult[0].Error === 1) {
                         ngNotify.set(data.GetGuardaPoolListResult[0].Mensaje, 'error');
                     }

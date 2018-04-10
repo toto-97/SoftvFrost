@@ -5,11 +5,11 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
   this.$onInit = function () {
     if ($stateParams.idSuscriptor != undefined) {
       vm.idSuscriptor = $stateParams.idSuscriptor;
-      console.log(vm.idSuscriptor);
+      
       SuscriptorFactory.getTerminals($stateParams.idSuscriptor).then(function (data) {
         vm.terminales = data.GetDeepIdSuscriptorResult;
         mapaBeamFactory.GetBeamList().then(function (result) {
-          console.log(result);
+          
           vm.Beams = result.GetBeamListResult;
           terminalFactory.getServicioList().then(function (data) {
             data.GetServicioListResult.unshift({
@@ -26,7 +26,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
       terminalFactory.getTerminalList().then(function (data) {
         vm.terminales = data.GetTerminalListResult;
         mapaBeamFactory.GetBeamList().then(function (result) {
-          console.log(result);
+       
           vm.Beams = result.GetBeamListResult;
           terminalFactory.getServicioList().then(function (data) {
             data.GetServicioListResult.unshift({
@@ -121,8 +121,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
     }
   }
 
-  function buscar() {
-    console.log(vm.tipoBusqueda);
+  function buscar() {    
     if (vm.tipoBusqueda == 1) {
       vm.obj = {
         san: vm.bsan,

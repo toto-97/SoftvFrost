@@ -22,7 +22,7 @@ angular
 
 		function BusquedaporContrato() {
 			if (!(/^\d{1,9}-\d{1,9}$/.test(vm.BUcontrato))) {
-				console.log(false);
+			
 				ngNotify.set('El número de contrato está formado por 2 grupos de números con un guion intermedio p.e. (1234-1)', 'primary');
 			} else {
 				var obje = {};

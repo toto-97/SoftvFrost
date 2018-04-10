@@ -23,7 +23,7 @@ angular
       memoriaFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {
           vm.memorias = data.GetBuscaMemoriaTecnicaListResult;
-          console.log(data);
+         
         });
     }
 
@@ -32,7 +32,7 @@ angular
 
       vm.url = '';
       memoriaFactory.GetReportepdf(id).then(function (data) {
-        console.log(data);
+       
 
         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportepdfResult;
         //  $window.open( vm.url, '_self');
@@ -73,7 +73,7 @@ angular
     function getreportexls(id) {
       vm.url = '';
       memoriaFactory.GetReportexls(id).then(function (data) {
-        console.log(data);
+      
         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportexlsResult;
         $window.open(vm.url, '_self');
 
@@ -109,7 +109,7 @@ angular
         result.forEach(function (item, index) {
           if (parseInt(item.Id) === parseInt(id)) {
             deleteFile(index).then(function (result) {
-              console.log(result);
+            
             });
 
           }

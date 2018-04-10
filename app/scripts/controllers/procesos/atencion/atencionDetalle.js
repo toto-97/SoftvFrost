@@ -6,8 +6,7 @@ angular
       atencionFactory.serviciosNuevo().then(function (data) {
         vm.servicios = data.GetMuestraTipSerPrincipal2ListResult;
 
-        atencionFactory.ConsultaLLamada(vm.NumeroLlamada).then(function (data) {
-          console.log(data);
+        atencionFactory.ConsultaLLamada(vm.NumeroLlamada).then(function (data) {          
           var datos = data.GetLLamadasdeInternetListResult[0];
           vm.CLV_TIPSER = datos.CLV_TIPSER;
           vm.CLV_TRABAJO = datos.Clv_trabajo;

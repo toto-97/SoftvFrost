@@ -4,7 +4,7 @@ function SuscriptorCtrl(SuscriptorFactory, $uibModal, $state, $localStorage) {
 
   this.$onInit = function () {
     SuscriptorFactory.getSuscriptorList().then(function (data) {
-      console.log(data);
+     
       vm.suscriptores = data.GetSuscriptorListResult;
     });
   }

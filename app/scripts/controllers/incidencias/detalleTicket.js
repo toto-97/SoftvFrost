@@ -28,10 +28,10 @@ function DetalleTicketCtrl($uibModalInstance, $localStorage, ticket, incidencias
 	}
 
 	function ValidaArchivo() {
-		console.log('file');
-		files = $('#inputFile2').get(0).files;
+		
+	var	files = $('#inputFile2').get(0).files;
 		ContratoMaestroFactory.UpdateFile(files, vm.Distribuidor.Clv_Plaza).then(function(data) {
-			console.log(data);
+			
 		});
 	}
 

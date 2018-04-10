@@ -11,8 +11,7 @@ function PermisosCtrl(permisoFactory, rolFactory, ngNotify) {
 	}
 
 	function GetModuleList() {
-		permisoFactory.GetModulopermiso(vm.Rol.IdRol).then(function(data) {			
-			console.log(data);
+		permisoFactory.GetModulopermiso(vm.Rol.IdRol).then(function(data) {						
 			vm.Modules=	data.GetModulos_PermisosResult;
 		});
 	}

@@ -99,7 +99,7 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 				'Comentarios': vm.Comentarios
 			}
 		};
-		console.log(obj);
+		
 		terminalFactory.updateTerminal(obj).then(function(data) {
 			ngNotify.set('La terminal se ha actualizado correctamente', 'success');
 			$state.go('home.provision.terminales');

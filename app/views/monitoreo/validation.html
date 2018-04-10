@@ -251,7 +251,7 @@
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Modem Temp</small></b></td>
                 <td style="padding: 0px !important;"><small class="font-reduced">{{$ctrl.DetailsOVT2.terminal.modemTemp }}</small></td>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Normalized UL Es/No</small></b></td>
-                <td style="padding: 0px !important;"><small class="font-reduced">xxxxxx</small></td>
+                <td style="padding: 0px !important;"><small class="font-reduced">{{ $ctrl.diagnosticData.Norm_UL_EsNo }}  </small></td>
               </tr>
 
               <tr>
@@ -260,7 +260,7 @@
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Reboot count</small></b></td>
                 <td style="padding: 0px !important;"><small class="font-reduced">{{$ctrl.DetailsOVT2.terminal.rebootCount }}</small></td>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Normalized DL Es/No</small></b></td>
-                <td style="padding: 0px !important;"><small class="font-reduced">xxxxxx</small></td>
+                <td style="padding: 0px !important;"><small class="font-reduced">{{ $ctrl.diagnosticData.Norm_DL_EsNo }} </small></td>
               </tr>
 
               <tr>
@@ -269,7 +269,7 @@
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Last Reboot Time</small></b></td>
                 <td style="padding: 0px !important;"><small class="font-reduced">{{$ctrl.DetailsOVT2.terminal.rebootTime}}</small></td>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Real-Time UL Es/No</small></b></td>
-                <td style="padding: 0px !important;"><small class="font-reduced">xxxxxx</small></td>
+                <td style="padding: 0px !important;"><small class="font-reduced">{{ $ctrl.diagnosticData.RT_UL_EsNo_Offset }} </small></td>
               </tr>
               <tr>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Antenna size</small></b></td>
@@ -277,7 +277,7 @@
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Last Reboot Reason</small></b></td>
                 <td style="padding: 0px !important;"><small class="font-reduced">{{$ctrl.DetailsOVT2.terminal.rebootReason.description}}</small></td>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Real-Time DL Es/No</small></b></td>
-                <td style="padding: 0px !important;"><small class="font-reduced">xxxxxx</small></td>
+                <td style="padding: 0px !important;"><small class="font-reduced">{{ $ctrl.diagnosticData.RT_DL_EsNo_Offset }} </small></td>
               </tr>
               <tr>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">ODU Power</small></b></td>
@@ -285,14 +285,14 @@
                 <td style="padding: 0px !important;"><b><small class="font-reduced">SW Version</small></b></td>
                 <td style="padding: 0px !important;"><small class="font-reduced">{{$ctrl.DetailsOVT2.terminal.softwareVersion}}</small></td>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Real-Time Stats Updated Date</small></b></td>
-                <td style="padding: 0px !important;"><small class="font-reduced">xxxxxx</small></td>
+                <td style="padding: 0px !important;"><small class="font-reduced">//</small></td>
               </tr>
 
               <tr>
                 <td style="padding: 2px !important;"><b><small class="font-reduced">Polarization</small></b></td>
                 <td style="padding: 0px !important;"><small class="font-reduced">{{$ctrl.DetailsOVT2.terminal.polarization}}</small></td>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">IDU SN</small></b></td>
-                <td style="padding: 0px !important;"><small class="font-reduced">xxxxxxx</small></td>
+                <td style="padding: 0px !important;"><small class="font-reduced">{{ $ctrl.diagnosticData.ESN }}</small></td>
                 <td style="padding: 0px !important;"><b><small class="font-reduced">Real-Time Outrote Offset</small></b></td>
                 <td style="padding: 0px !important;"><small class="font-reduced">{{$ctrl.DetailsOVT2.realtimeOffsets.outrouteOffset}}</small></td>
               </tr>

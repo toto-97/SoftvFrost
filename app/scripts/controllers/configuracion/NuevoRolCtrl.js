@@ -4,8 +4,7 @@ angular.module('softvFrostApp').controller('NuevoRolCtrl', NuevoRolCtrl);
 function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify,terminalFactory) {
 
   function init() {
-  terminalFactory.getComandoList().then(function(data){
-    console.log(data);
+  terminalFactory.getComandoList().then(function(data){  
       vm.comandos=data.GetComandoListResult;
     });
   };
@@ -14,13 +13,9 @@ function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify,terminalFacto
     var obj = {};
     obj.Nombre = vm.Nombre;
     obj.Descripcion = vm.Descripcion;
-    obj.Estado = vm.Estatus;   
-    console.log(obj);
+    obj.Estado = vm.Estatus;     
     rolFactory.AddRole(obj).then(function(data) {
       vm.IdRol=data.AddRoleResult;
-       
-
-
        var Lista_comandos = [];
       for (var a = 0; a < vm.comandos.length; a++) {
         if (vm.comandos[a].selected == true) {
@@ -28,11 +23,8 @@ function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify,terminalFacto
             'Comando': vm.comandos[a].IdComando
           })
         }
-      }
-      console.log(vm.IdRol);
-      console.log(Lista_comandos);
-      rolFactory.GetComandos(vm.IdRol, Lista_comandos).then(function (response) {
-        console.log(response);
+      }     
+      rolFactory.GetComandos(vm.IdRol, Lista_comandos).then(function (response) {       
         $state.go('home.provision.roles');
       ngNotify.set('Rol agregado correctamente.', 'success');
       });
