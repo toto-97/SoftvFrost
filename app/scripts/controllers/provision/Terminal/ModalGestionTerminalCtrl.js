@@ -489,7 +489,7 @@ angular
 							parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);             
 							parametros.status = 1;          
 							terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {              
-								if (hughesData.StandardResponse.Code !== 5) {
+								if (hughesData.StandardResponse.Code != 5) {
 									//Guarda el movimiento sin OrderID
 									var Obj2 = {};
 									Obj2.objMovimiento = {};
