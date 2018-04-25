@@ -239,7 +239,8 @@ angular.module('softvFrostApp')
 					'Password': object.Password,
 					'RecibeMensaje':object.RecibeMensaje,
 					'CheckMemoria':object.CheckMemoria,
-					'Cliente':object.Cliente
+					'Cliente':object.Cliente,
+					'Estado':object.Estado
 				}
 			};
 			var config = {
@@ -268,11 +269,11 @@ angular.module('softvFrostApp')
 					'Password': object.Password,
 					'RecibeMensaje':object.RecibeMensaje,
 					'CheckMemoria':object.CheckMemoria,
-					'Cliente':object.Cliente
-					
+					'Cliente':object.Cliente,
+					'Estado':object.Estado
 				}
 			};
-			console.log('objeto enviado',Parametros);
+			//console.log('objeto enviado',Parametros);
 			var config = {
 				headers: {
 					'Authorization': $localStorage.currentUser.token
@@ -296,7 +297,7 @@ angular.module('softvFrostApp')
 				'Op': obj.Op,
 				'IdRol': obj.IdRol
 			};
-			console.log(Parametros);
+			//console.log(Parametros);
 			var config = {
 				headers: {
 					'Authorization': $localStorage.currentUser.token
