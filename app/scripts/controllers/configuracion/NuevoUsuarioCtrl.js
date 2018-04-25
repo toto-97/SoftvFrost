@@ -20,6 +20,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 	vm.eliminaRelacionCliente=eliminaRelacionCliente;
 	vm.btnsubmit = true;
 	vm.Id = 0;
+	vm.Activo = true;
 
 	this.$onInit = function () {
 		rolFactory.GetRoleList().then(function (data) {
@@ -130,6 +131,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 				obj.RecibeMensaje = vm.RecibeMensaje;
 				obj.CheckMemoria = vm.CheckMemoria;
 				obj.Cliente=vm.Cliente;
+				obj.Estado = vm.Activo;
 				usuarioFactory.AddUsuario(obj).then(function (data) {
 					vm.Id = data.AddUsuarioResult;
 					vm.btnsubmit = false;

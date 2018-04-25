@@ -51,6 +51,7 @@ angular
                   .GetTerminalStatus(hughesGetSanCompuesto(vm.san))
                   .then(function(response) {                    
                     vm.datosterminal = JSON.parse(response);
+                    console.log(vm.datosterminal);
               });
               } else {
                 vm.diagnosticData = datos[0];
