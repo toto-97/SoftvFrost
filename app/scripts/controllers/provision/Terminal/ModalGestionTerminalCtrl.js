@@ -6,7 +6,7 @@ angular
 
     function initialData() {
       vm.Terminal = terminal;
-    
+      //console.log(vm.Terminal);
       var paramAux = {};
       paramAux.SAN = vm.Terminal.SAN;
       //Nos traemos los datos de la IP de la terminal
@@ -53,7 +53,7 @@ angular
           });
           //Nos vamos a traer el fap status y el consumo
           var obj = {};
-          obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+          obj.SAN = vm.Terminal.SANCompleto;
           terminalFactory.hughesConsumoDeTerminal(obj).then(function (hughesData) {           
             vm.Consumo = {};
             vm.Consumo.Disponible = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.AnyTimeBandwidthAvailable;
@@ -85,7 +85,7 @@ angular
           obtieneIndex("Cambio de IP");
           //Nos vamos a traer el fap status y el consumo
           var obj = {};
-          obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+          obj.SAN = vm.Terminal.SANCompleto;
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
            
             if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===-1) {
@@ -159,7 +159,7 @@ angular
                 //Crea la terminal en la plataforma de Hughes
                 terminalFactory.getSequenceId().then(function (Sequence) {
                   obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-                  obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+                  obj.SAN = vm.Terminal.SANCompleto;
                   obj.nombre = suscriptor.Nombre;
                   obj.apellido = suscriptor.Apellido;
                   obj.direccion = suscriptor.Calle + ' ' + suscriptor.Numero;
@@ -261,7 +261,7 @@ angular
                 //Crea la terminal en la plataforma de Hughes
                 terminalFactory.getSequenceId().then(function (Sequence) {
                   obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-                  obj.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+                  obj.SAN = vm.Terminal.SANCompleto;
                   obj.nombre = suscriptor.Nombre;
                   obj.apellido = suscriptor.Apellido;
                   obj.direccion = suscriptor.Calle + ' ' + suscriptor.Numero;
@@ -351,7 +351,7 @@ angular
             var parametros = {};
             terminalFactory.getSequenceId().then(function (Sequence) {
               parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-              parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+              parametros.SAN = vm.Terminal.SANCompleto;
               parametros.status = 2; //Status hardcodeado de hughes
               terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {
                
@@ -418,7 +418,7 @@ angular
             var parametros = {};
             terminalFactory.getSequenceId().then(function (Sequence) {
               parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-              parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+              parametros.SAN = vm.Terminal.SANCompleto;
               parametros.status = 3; //Status hardcodeado de hughes
               terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {
                
@@ -486,7 +486,7 @@ angular
             var parametros = {};
 						terminalFactory.getSequenceId().then(function (Sequence) {
 							parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;          
-							parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);             
+							parametros.SAN = vm.Terminal.SANCompleto;             
 							parametros.status = 1;          
 							terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {              
 								if (hughesData.StandardResponse.Code !== 5) {
@@ -550,7 +550,7 @@ angular
 					else if (vm.Comando.IdComando === 5)//token
 					{
             var parametros = {};
-						parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+						parametros.SAN = vm.Terminal.SANCompleto;
 						parametros.cantidad = vm.cantidadToken;
 						terminalFactory.hughesToken(parametros).then(function (hughesData) {						
 							//Guarda el movimiento
@@ -604,7 +604,7 @@ angular
     								parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
     								terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
     									var suscriptor = data.GetSuscriptorResult;
-    									parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+    									parametros.SAN = vm.Terminal.SANCompleto;
     								
     									parametros.email = suscriptor.Email;
     									parametros.servicio = vm.Servicio.Nombre;
@@ -690,7 +690,7 @@ angular
                     parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
                     terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
                       var suscriptor = data.GetSuscriptorResult;
-                      parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);                     
+                      parametros.SAN = vm.Terminal.SANCompleto;                     
                       parametros.email = suscriptor.Email;
                       parametros.servicio = vm.Servicio.Nombre;
                       terminalFactory.hughesCambioServicio(parametros).then(function (hughesData) {
@@ -767,7 +767,7 @@ angular
 						terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
 							var suscriptor = data.GetSuscriptorResult;
 							parametros.telefono = suscriptor.Telefono.substring(6, 4);
-							parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+							parametros.SAN = vm.Terminal.SANCompleto;
 							parametros.ESN = vm.Terminal.ESN;
 							terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {
 						
@@ -816,7 +816,7 @@ angular
           } else if (vm.Comando.IdComando === 10) //Swap
           {
             var parametros = {};
-            parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+            parametros.SAN = vm.Terminal.SANCompleto;
             terminalFactory.hughesSwap(parametros).then(function (hughesData) {           
               //Guarda el movimiento
               var Obj2 = {};
@@ -849,7 +849,7 @@ angular
           {
             var parametros = {};
             if (vm.BeamIDNuevo != '' && vm.BeamIDNuevo != null) {
-              parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+              parametros.SAN = vm.Terminal.SANCompleto;
              
               terminalFactory.hughesCambioCoordenadas(parametros).then(function (hughesData) {               
                 var Obj2 = {};
@@ -915,7 +915,7 @@ angular
                   parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
                   terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
                     var suscriptor = data.GetSuscriptorResult;
-                    parametros.san = hughesGetSanCompuesto(vm.Terminal.SAN);
+                    parametros.san = vm.Terminal.SANCompleto;
                     parametros.sanSolo = vm.Terminal.SAN;                  
                     parametros.email = suscriptor.Email;
                     parametros.telefono = data.GetSuscriptorResult.Telefono;
@@ -990,7 +990,7 @@ angular
                   parametros.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
                   terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
                     var suscriptor = data.GetSuscriptorResult;
-                    parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);
+                    parametros.SAN = vm.Terminal.SANCompleto;
                     
                     parametros.email = suscriptor.Email;
 
