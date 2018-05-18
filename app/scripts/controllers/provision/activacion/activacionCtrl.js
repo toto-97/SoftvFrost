@@ -15,7 +15,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
         
         var parametros = new Object();
         parametros.telefono = vm.suscriptor.Telefono;
-        parametros.SAN = hughesGetSanCompuesto(vm.Terminal.SAN);       
+        parametros.SAN = vm.Terminal.SANCompleto;       
         parametros.ESN = vm.ESN;
         terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {         
           //Guarda el movimiento
