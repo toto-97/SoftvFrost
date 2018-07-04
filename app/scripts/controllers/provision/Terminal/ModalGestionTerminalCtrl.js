@@ -63,11 +63,11 @@ angular
           });
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
             
-            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===-1) {
+            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ==-1) {
               vm.FapStatus = "Not Activated";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===0) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ==0) {
               vm.FapStatus = "Unthrottled";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===1) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ==1) {
               vm.FapStatus = "Throttled";
             }
           });
@@ -88,11 +88,11 @@ angular
           obj.SAN = vm.Terminal.SANCompleto;
           terminalFactory.hughesFapStatus(obj).then(function (hughesData) {
            
-            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===-1) {
+            if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ==-1) {
               vm.FapStatus = "Not Activated";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===0) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ==0) {
               vm.FapStatus = "Unthrottled";
-            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ===1) {
+            } else if (hughesData.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus ==1) {
               vm.FapStatus = "Throttled";
             }
           });
@@ -355,7 +355,7 @@ angular
               parametros.status = 2; //Status hardcodeado de hughes
               terminalFactory.hughesCambiarStatusServicio(parametros).then(function (hughesData) {
                
-                if (hughesData.StandardResponse.Code !== 5) {
+                if (hughesData.StandardResponse.Code != 5) {
                   //Guarda el movimiento sin OrderID
                   var Obj2 = {};
                   Obj2.objMovimiento = {};
@@ -932,7 +932,7 @@ angular
                     
                     terminalFactory.hughesCambioIP(parametros).then(function (hughesData) {
                     
-                      if (hughesData.StandardResponse.OrderId === 0) {
+                      if (hughesData.StandardResponse.OrderId == 0) {
                         //Guarda el movimiento con OrderId
                         var Obj2 = {};
                         Obj2.objMovimiento = {};
@@ -1011,7 +1011,7 @@ angular
                     parametros.MappedIPv4Prefix = vm.SubRedesNuevas.MascaraRed4Terminal;
                    
                     terminalFactory.hughesCambioServicioIP(parametros).then(function (hughesData) {                     
-                      if (hughesData.StandardResponse.OrderId === 0) {
+                      if (hughesData.StandardResponse.OrderId == 0) {
                         //Guarda el movimiento con OrderId
                         var Obj2 = {};
                         Obj2.objMovimiento = {};
