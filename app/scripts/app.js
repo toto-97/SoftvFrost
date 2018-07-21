@@ -178,7 +178,7 @@ angular
             notify.set(
               '<i class="fa fa-exclamation-triangle"></i> ¡Atención! tienes  Memorias Tecnicas pendientes,consultalas aqui <a  href="#!/home/memoriastecnicas"><i>ir a menu</i></a>',
               {
-                theme: "pitchy",
+                theme: 'pitchy',
                 html: true,
                 sticky: true
               }

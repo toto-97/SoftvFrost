@@ -9,7 +9,7 @@ angular
 		function validate() {
 			diagnosticFactory.getLoginUid().then(function (data) {
 				vm.token = data[0].loginuuid;
-				var san = hughesGetSanCompuesto(vm.SAN);
+				var san = vm.SAN;
 				displayFactory.displaySpeed(vm.token, san).then(function (data) {
 					vm.datos = JSON.parse(data);
 					vm.ip = vm.datos.IPConnectivityStatus;
@@ -46,7 +46,7 @@ angular
 		};
 
 		function displayTest() {
-			var san = hughesGetSanCompuesto(vm.SAN);
+			var san = vm.SAN;
 			displayFactory.speed(vm.token, san).then(function (data) {
 				vm.datos = JSON.parse(data);
 				var modalInstance = $uibModal.open({

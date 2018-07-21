@@ -1,0 +1,207 @@
+<style>
+    .table>thead>tr>th,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>tbody>tr>td,
+    .table>tfoot>tr>td {
+        padding: 5px 5px !important;
+        line-height: 1.846153846 !important;
+        vertical-align: top !important;
+        border-top: 1px solid rgba(189, 193, 193, 0.2);
+        font-size: 11px;
+    }
+</style>
+
+
+
+<div class="card" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Reportes</strong>
+            <br />
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#">
+                    <i class="fa fa-home" aria-hidden="true"></i> Reportes</a>>
+                <a href="#" class="paginaActiva">Reporte PAJ</a>
+            </small>
+
+        </header>
+    </div>
+    <div class="card-body">
+
+        <div class="panel-heading">
+            <div class="tools">
+                <div class="panel-group" id="suscriptor">
+                    <div class="card panel">
+                        <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#suscriptor" data-target="#suscriptor-1"
+                            aria-expanded="false">
+                            <header>Filtros</header>
+                            <div class="tools">
+                                <a class="btn btn-icon-toggle">
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="suscriptor-1" class="collapse buscarSuscriptor" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4" style="padding: 10px;">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.SANActivo">
+                                                    <span></span>SAN</label>
+                                            </div>
+                                            <input ng-disabled="!$ctrl.SANActivo" style="margin: 20px" type="text" class="form-control input-sm" ng-model="$ctrl.SAN"
+                                                placeholder="SAN">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="padding: 10px;">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.ESNActivo">
+                                                    <span></span>ESN</label>
+                                            </div>
+                                            <input ng-disabled="!$ctrl.ESNActivo" style="margin: 20px" type="text" class="form-control input-sm" ng-model="$ctrl.ESN"
+                                                placeholder="ESN">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4" style="padding: 10px;">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.FapActivo">
+                                                    <span></span>PAJ</label>
+                                            </div>
+                                            <div style="margin: 20px">
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.Fap" ng-disabled="!$ctrl.FapActivo">
+                                                    <span></span>Está en PAJ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5" style="padding: 10px;">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.FechasActivo">
+                                                    <span></span>Fechas</label>
+                                            </div>
+                                            <div class="row" style="margin: 20px">
+                                                <div class="col-md-6">
+                                                    Fecha Inicial:
+                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaInicio" type="date" ng-disabled="!$ctrl.FechasActivo" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Fecha Final:
+                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaFin" type="date" ng-disabled="!$ctrl.FechasActivo" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-bottom: 10px;">
+                                        <div class="col-md-12 text-center">
+                                            <button class="btn btn-success btn-md" ng-click="$ctrl.GeneraReporte()" type="button">Generar Reporte</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- panel body -->
+                        </div>
+                    </div>
+                    <!--end .panel -->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel form-element-padding">
+            <div style="max-height:1500px; overflow-y:scroll">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Contrato</th>
+                            <th>Periodo</th>
+                            <th>Umbral</th>
+                            <th>Plaza</th>
+                            <th>Compania</th>
+                            <th>Estado</th>
+                            <th>PAJ</th>
+                            <th>SAN</th>
+                            <th>ESN</th>
+                            <th>servicePlan</th>
+                            <th>terminalStatus</th>
+                            <th>gatewayID</th>
+                            <th>beamID</th>
+                            <th>beamLocation</th>
+                            <th>fapStatus</th>
+                            <th>availTokens</th>
+                            <th>overallCapacity</th>
+                            <th>Consumo</th>
+                            <th>offPeakOverallCapacity</th>
+                            <th>offPeakOverallUsage</th>
+                            <th>fapEarlyWarningTrigger</th>
+                            <th>staticIpv4Subnet</th>
+                            <th>staticIpv6Subnet</th>
+                            <th>configuredIpv4Subnet</th>
+                            <th>configuredIpv6Subnet</th>
+                            <th>stateCode</th>
+                            <th>stateCodeDescription</th>
+                            <th>FechaPeticion </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="x in $ctrl.resultados|itemsPerPage:15">
+                            <th>{{ x.Contrato }}</th>
+                            <th>{{ x.Periodo }}</th>
+                            <th>{{ x.Umbral }}</th>
+                            <th>{{ x.Plaza }}</th>
+                            <th>{{ x.Compania }}</th>
+                            <th>{{ x.Estado }}</th>
+                            <th>{{ x.PAJ }}</th>
+                            <th>{{ x.SAN }}</th>
+                            <th>{{ x.esn }}</th>
+                            <th>{{ x.servicePlan }}</th>
+                            <th>{{ x.terminalStatus }}</th>
+                            <th>{{ x.gatewayID }}</th>
+                            <th>{{ x.beamID }}</th>
+                            <th>{{ x.beamLocation }}</th>
+                            <th>{{ x.fapStatus }}</th>
+                            <th>{{ x.availTokens }}</th>
+                            <th>{{ x.overallCapacity }}</th>
+                            <th>{{ x.overallUsage }}</th>
+                            <th>{{ x.offPeakOverallCapacity }}</th>
+                            <th>{{ x.offPeakOverallUsage }}</th>
+                            <th>{{ x.fapEarlyWarningTrigger }}</th>
+                            <th>{{ x.staticIpv4Subnet }}</th>
+                            <th>{{ x.staticIpv6Subnet }}</th>
+                            <th>{{ x.configuredIpv4Subnet }}</th>
+                            <th>{{ x.configuredIpv6Subnet }}</th>
+                            <th>{{ x.stateCode }}</th>
+                            <th>{{ x.stateCodeDescription }}</th>
+                            <th>{{ x.FechaPeticion }}</th>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-5">
+                    <div style="padding-left: 20px;" ng-show="true">
+                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-block ink-reaction btn-success" csv-column-order="$ctrl.csvorder" csv-header="$ctrl.csvheader"
+                        ng-csv="$ctrl.resultados" filename="ReportePAJ.csv" field-separator="," decimal-separator="." add-bom="true">
+                        <i class="fa fa-file-excel-o"></i> Exportar CSV</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

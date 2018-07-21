@@ -119,7 +119,7 @@
           <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;"
             ng-if="x.MenuChild.length > 0">
             <li ng-repeat="y in x.MenuChild | orderBy:'SortOrder'" ng-class="{'gui-folder': y.MenuChild.length > 0}">
-              <a ui-sref="{{ y.Class }}" ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length == 0"><span class="title">{{ y.Title }}</span></a>
+              <a ui-sref="{{ y.Class }}" ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length == 0 && y.OptSelect == true"><span class="title">{{ y.Title }}</span></a>
               <a ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length > 0"><span class="title">{{ y.Title }}</span></a>
 
               <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;"

@@ -9,7 +9,7 @@ angular.module('softvFrostApp')
           var credentials = {};
           credentials.userId = 'televera';
           credentials.password = 'televera';
-          credentials.san = hughesGetSanCompuesto(vm.SAN);
+          credentials.san = vm.SAN;
           terminalFactory.getTerminalById(vm.SAN).then(function (data) {
           
             if (data.GetByTerminalResult.SatellitedID ===""||data.GetByTerminalResult.SatellitedID===null) {
@@ -196,7 +196,7 @@ angular.module('softvFrostApp')
                var token = data[0].loginuuid;
                 var sanData = {
                   token: token,
-                  san: hughesGetSanCompuesto(vm.SAN)
+                  san: vm.SAN
                 };
                 diagnosticFactory.getCommand(sanData).then(function(dataCommand) {
                   var datos = JSON.parse(dataCommand);

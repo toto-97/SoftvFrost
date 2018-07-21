@@ -619,7 +619,7 @@ angular
     									terminalFactory.hughesCambioServicioIP(parametros).then(function (hughesData) {
     									
     										//Vamos a procesar dependiendo del status obtenido de hughes
-    										if (hughesData.StandardResponse.OrderId != 0) {
+    										if (hughesData.StandardResponse.OrderId == 0) {
     											//Guarda el movimiento con OrderId
     											var Obj2 = {};
     											Obj2.objMovimiento = {};

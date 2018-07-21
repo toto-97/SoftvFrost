@@ -96,6 +96,16 @@ function reportesConf($stateProvider) {
 			templateUrl: 'views/reportes/reportesContrato.html',
 			controller: 'Reportes_ContratoCtrl',
 			controllerAs: '$ctrl'
+		},
+		{
+			name: 'home.reportes.paj',
+			data: {
+				pageTitle: 'STAR.GO | REPORTE PAJ'				
+			},
+			url: '/reportes/paj',
+			templateUrl: 'views/reportes/reportesPAJ.html',
+			controller: 'Reportes_PAJ',
+			controllerAs: '$ctrl'
 		}
 	];
 
