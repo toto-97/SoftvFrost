@@ -229,7 +229,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 				//Crea la terminal en la plataforma de Hughes
 				terminalFactory.getSequenceId().then(function (Sequence) {
 					obj.transactionSequenceId = Sequence.GetSequenceIdResult.TransactionSequenceId;
-					obj.SAN = hughesGetSanCompuesto(data.AddTerminalResult);
+					obj.SAN = data.AddTerminalResult.SANCompleto;
 					obj.nombre = vm.FirstNameSuscriptor;
 					obj.apellido = vm.LastNameSuscriptor;
 					obj.direccion = vm.Calle + ' ' + vm.Numero;
@@ -253,7 +253,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 					
 						var Obj2 = new Object();
 						Obj2.objMovimiento = new Object();
-						Obj2.objMovimiento.SAN = data.AddTerminalResult;
+						Obj2.objMovimiento.SAN = data.AddTerminalResult.SAN;
 						Obj2.objMovimiento.IdComando = 1;//Hardcodeado a la tabla de Comando
 						Obj2.objMovimiento.IdUsuario = 0;
 						Obj2.objMovimiento.IdTicket = 0;
@@ -269,7 +269,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 								//----------------------------------
 							var Obj3=new Object();
 							Obj3.objTerminal=new Object();
-							Obj3.objTerminal.SAN=data.AddTerminalResult;
+							Obj3.objTerminal.SAN=data.AddTerminalResult.SAN;
 							Obj3.objTerminal.IdSuscriptor=vm.IdSuscriptor;
 							Obj3.objTerminal.IdServicio=vm.Servicio.IdServicio;
 
@@ -295,7 +295,7 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 							Obj4.objTerminal.SatellitedID = vm.SatelliteID;
 							Obj4.objTerminal.BeamID = vm.BeamID;
 							Obj4.objTerminal.Polarization = vm.Polarization;
-							Obj4.objTerminal.SAN = data.AddTerminalResult;
+							Obj4.objTerminal.SAN = data.AddTerminalResult.SAN;
 							Obj4.objTerminal.Clv_IP = vm.SubRed.Clv_IP;
 							Obj4.objTerminal.Clv_IP6 = vm.SubRed.Clv_IP6;
 							//Actualizamos información adicional de la terminal

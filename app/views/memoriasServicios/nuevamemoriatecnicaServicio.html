@@ -83,14 +83,14 @@
         <small class="text-muted" style="font-size:14px; margin-left:10px;">
           <a href="#">
             <i class="fa fa-home" aria-hidden="true"></i> Inicio</a>>
-          <a href="#" class="paginaActiva">Memoria técnica</a>
+          <a href="#" class="paginaActiva">Memoria Técnica Servicios</a>
         </small>
       </header>
       <div class="tools">
         <div class="btn-group">
           <button class="btn btn-primary btn-sm" ng-show="$ctrl.showguardar" title="Crear una nueva memoria técnica" type="submit">
             Guardar</button>
-          <button title="Regresar a atenciones telefónicas" type="button" ui-sref="home.memoria.memoriastecnicas" class="btn btn-default-bright btn-sm"
+          <button title="Regresar a atenciones telefónicas" type="button" ui-sref="home.memoria.memoriastecnicasServicio" class="btn btn-default-bright btn-sm"
             name="button">Salir</button>
         </div>
       </div>
@@ -104,10 +104,10 @@
               <b class="text-center text-primary"> Información principal</b>
             </p>
             <div class="form-group row ">
-              <label class="col-sm-3 control-label"># Orden</label>
+              <label class="col-sm-3 control-label"># Reporte</label>
               <div class="col-sm-4">
-                <input type="number" class="form-control input-sm" name="numeroOrden" ng-disabled="$ctrl.blockorden" ng-model="$ctrl.numeroorden"
-                  validate-on="dirty" invalid-message="'El número de la orden es obligatorio'" placeholder="Ingresa #orden"
+                <input type="number" class="form-control input-sm" name="numeroqueja" ng-disabled="$ctrl.blockorden" ng-model="$ctrl.numeroqueja"
+                  validate-on="dirty" invalid-message="'El número de la orden es obligatorio'" placeholder="Ingresa #Reporte"
                   required />
               </div>
               <div class="col-sm-3">
@@ -123,7 +123,7 @@
               </div>
               <div class="col-sm-3" ng-if="$ctrl.permitecheck">
                 <label class="checkbox-inline checkbox-styled checkbox-info">
-                  <input type="checkbox" ng-model="$ctrl.generafolio" ng-disabled="$ctrl.blockgenerafolio" ng-change="$ctrl.obtenfolio()">
+                  <input type="checkbox" ng-model="$ctrl.generafolio" name="generafolio" ng-disabled="$ctrl.blockgenerafolio" ng-change="$ctrl.obtenfolio()">
                   <span>{{$ctrl.mensajefolio}}</span>
                 </label>
               </div>
@@ -139,7 +139,7 @@
               </div>
               <div class="col-sm-3">
                 <label class="checkbox-inline checkbox-styled checkbox-info">
-                  <input type="checkbox" ng-model="$ctrl.Combo" ng-disabled="true">
+                  <input type="checkbox" ng-model="$ctrl.Combo" name="escombo" ng-disabled="true">
                   <span>Es combo</span>
                 </label>
               </div>
@@ -206,7 +206,7 @@
               <div class="form-group row ">
                 <label class="col-sm-5 control-label">Usuario</label>
                 <div class="col-sm-7">
-                  <input type="text" ng-disabled="true" class="form-control input-sm" ng-model="$ctrl.usuariosistema">
+                  <input type="text" ng-disabled="true" name="usuario" class="form-control input-sm" ng-model="$ctrl.usuariosistema">
                 </div>
               </div>
             </div>
@@ -216,7 +216,7 @@
                 <label class="col-sm-5 control-label">Nombre de Instalador</label>
                 <div class="col-sm-7">
                   <select ng-options="item as item.Nombre for item in $ctrl.listTecnicos track by item.IdEntidad" class="form-control input-sm"
-                    ng-model="$ctrl.instalador" ng-change="$ctrl.detalleTecnico()" name="nombreinstalador" validate-on="dirty"
+                    ng-model="$ctrl.instalador"  name="nombreinstalador" validate-on="dirty"
                     invalid-message="'El nombre es obligatorio'" required>
                     <option value="">Selecciona</option>
                   </select>
@@ -397,8 +397,7 @@
                     <label class="col-sm-5 control-label">Fecha Activación:</label>
                     <div class="col-sm-7">
                       <!--<input type="text"  class="form-control input-sm" name="fechaactivacion" ng-model="$ctrl.fechaactivacion" ng-disabled="true">-->
-                      <input class="form-control input-sm" ng-model="$ctrl.fechaactivacion" type="date" ng-disabled="!$ctrl.ActivaFechaActivacion"
-                      />
+                      <input class="form-control input-sm" name="fechaactivacion" ng-model="$ctrl.fechaactivacion" type="date" ng-disabled="true" />
                     </div>
                   </div>
 
@@ -455,7 +454,7 @@
                   <div class="col-md-6">
                     <div class="row">
                       <label class="checkbox-inline checkbox-styled checkbox-info">
-                        <input type="checkbox" ng-disabled="$ctrl.detalle" ng-model="$ctrl.Instalacion">
+                        <input type="checkbox" ng-disabled="$ctrl.detalle" name="checkints" ng-model="$ctrl.Instalacion">
                         <span>Instalación</span>
                       </label>
                     </div>
@@ -464,7 +463,7 @@
                   <div class="col-md-6">
                     <div class="row">
                       <label class="checkbox-inline checkbox-styled checkbox-info">
-                        <input type="checkbox" ng-disabled="$ctrl.detalle" ng-model="$ctrl.Mantenimiento">
+                        <input type="checkbox" ng-disabled="$ctrl.detalle" name="checkmant" ng-model="$ctrl.Mantenimiento">
                         <span>Mantenimiento</span>
                       </label>
                     </div>
@@ -473,7 +472,7 @@
                   <div class="col-md-6">
                     <div class="row">
                       <label class="checkbox-inline checkbox-styled checkbox-info">
-                        <input type="checkbox" ng-disabled="$ctrl.detalle" ng-model="$ctrl.CambioComponentes">
+                        <input type="checkbox" ng-disabled="$ctrl.detalle" name="checkcambio" ng-model="$ctrl.CambioComponentes">
                         <span>Cambio de componentes</span>
                       </label>
                     </div>
@@ -482,7 +481,7 @@
                   <div class="col-md-6">
                     <div class="row">
                       <label class="checkbox-inline checkbox-styled checkbox-info">
-                        <input type="checkbox" ng-disabled="$ctrl.detalle" ng-model="$ctrl.SiteSurvey">
+                        <input type="checkbox" ng-disabled="$ctrl.detalle" name="checksurvey" ng-model="$ctrl.SiteSurvey">
                         <span>Site Survey</span>
                       </label>
                     </div>
@@ -491,7 +490,7 @@
                   <div class="col-md-6">
                     <div class="row">
                       <label class="checkbox-inline checkbox-styled checkbox-info">
-                        <input type="checkbox" ng-disabled="$ctrl.detalle" ng-model="$ctrl.InstalacionDemo">
+                        <input type="checkbox" ng-disabled="$ctrl.detalle" name="checkdemo" ng-model="$ctrl.InstalacionDemo">
                         <span>Instalación Demo/Piloto</span>
                       </label>
                     </div>
@@ -500,7 +499,7 @@
                   <div class="col-md-6">
                     <div class="row">
                       <label class="checkbox-inline checkbox-styled checkbox-info">
-                        <input type="checkbox" ng-disabled="$ctrl.detalle" ng-model="$ctrl.Reubicacion">
+                        <input type="checkbox" ng-disabled="$ctrl.detalle" name="checkreubi" ng-model="$ctrl.Reubicacion">
                         <span>Reubicación</span>
                       </label>
                     </div>
@@ -509,7 +508,7 @@
                   <div class="col-md-6">
                     <div class="row">
                       <label class="checkbox-inline checkbox-styled checkbox-info">
-                        <input type="checkbox" ng-disabled="$ctrl.detalle" ng-model="$ctrl.Apuntamiento">
+                        <input type="checkbox" ng-disabled="$ctrl.detalle" name="checkapunta" ng-model="$ctrl.Apuntamiento">
                         <span>Apuntamiento</span>
                       </label>
                     </div>
@@ -577,7 +576,7 @@
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Fase-Neutro :</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="$ctrl.upcfaseneutro" ng-model="$ctrl.upcfaseneutro">
+                      <input type="text" class="form-control input-sm" name="upcfaseneutro" ng-model="$ctrl.upcfaseneutro">
                     </div>
                   </div>
 
@@ -589,7 +588,7 @@
 
 
             </uib-tab>
-            <uib-tab index="3" heading="Datos de Equipo y Desempeño">
+            <uib-tab index="3" heading="Desempeño">
 
               <div class="row" style="padding:30px;">
                 <br>
@@ -599,31 +598,39 @@
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Módem (serie) :</label>
                     <div class="col-sm-9">
-                      <select ng-options="item as item.Descripcion for item in $ctrl.listModem track by item.Clv_CableModem" class="form-control input-sm"
+                      <!--<select ng-options="item as item.Descripcion for item in $ctrl.listModem track by item.Clv_CableModem" class="form-control input-sm"
                         validate-on="dirty" name="modem" ng-model="$ctrl.modem">
                         <option value="">- selecciona aparato -</option>
-                      </select>
+                      </select>-->
+                      <input type="text" class="form-control input-sm" name="modemserie" ng-model="$ctrl.modem" ng-disabled="true">
                     </div>
                   </div>
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Antena (serie) :</label>
                     <div class="col-sm-9">
-                      <select ng-options="item as item.Descripcion for item in $ctrl.listAntena track by item.Clv_CableModem" class="form-control input-sm"
+                      <!--<select ng-options="item as item.Descripcion for item in $ctrl.listAntena track by item.Clv_CableModem" class="form-control input-sm"
                         validate-on="dirty" name="antena" ng-model="$ctrl.antena">
                         <option value="">- selecciona aparato -</option>
-                      </select>
+                      </select>-->
+                      <input type="text" class="form-control input-sm" name="antenaserie" ng-model="$ctrl.antena" ng-disabled="true">
                     </div>
                   </div>
 
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Tamaño de antena :</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="tamanoantena" ng-model="$ctrl.tamanoantena">
+                      <input type="text" class="form-control input-sm" name="tamanoantena" ng-model="$ctrl.tamanoantena" ng-disabled="true">
                     </div>
                   </div>
 
                   <div class="form-group row ">
-                    <label class="col-sm-3 control-label">Valor de SQF :</label>
+                    <label class="col-sm-3 control-label">Valor de SQF Instalación :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="sqfinstalacion" ng-model="$ctrl.SQFInstalacion" ng-disabled="true">
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Valor de SQF Visita :</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control input-sm" name="sqf" ng-model="$ctrl.sqf">
                     </div>
@@ -638,11 +645,12 @@
                     <label class="col-sm-3 control-label">UPS(serie) :</label>
                     <div class="col-sm-9">
 
-                      <select ng-options="item as item.Descripcion for item in $ctrl.listUPS track by item.Clv_CableModem" class="form-control input-sm"
+                      <!--<select ng-options="item as item.Descripcion for item in $ctrl.listUPS track by item.Clv_CableModem" class="form-control input-sm"
                         validate-on="dirty" name="upsserie" ng-model="$ctrl.upsserie">
                         <option value="">- Selecciona aparato -</option>
                       </select>
-                      <p class="text-muted">En caso de no instalar UPS selecciona opción: Equipo no requerido</p>
+                      <p class="text-muted">En caso de no instalar UPS selecciona opción: Equipo no requerido</p>-->
+                      <input type="text" class="form-control input-sm" name="upsserie" ng-model="$ctrl.upsserie" ng-disabled="true">
                     </div>
                   </div>
 
@@ -650,11 +658,12 @@
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Serie de Radio :</label>
                     <div class="col-sm-9">
-                      <select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.listRadio track by item.Clv_CableModem"
+                      <!--<select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.listRadio track by item.Clv_CableModem"
                         validate-on="dirty" ng-model="$ctrl.serieradio" name="serieradio">
                         <option value="">- Selecciona aparato -</option>
                       </select>
-                      <p class="text-muted"> Agregar los últimos 10 dígitos del número de serie (validar que no existan Letras)</p>
+                      <p class="text-muted"> Agregar los últimos 10 dígitos del número de serie (validar que no existan Letras)</p>-->
+                      <input type="text" class="form-control input-sm" name="serieradio" ng-model="$ctrl.serieradio" ng-disabled="true">
 
                     </div>
                   </div>
@@ -662,11 +671,12 @@
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Serie de router :</label>
                     <div class="col-sm-9">
-                      <select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.listRouter track by item.Clv_CableModem"
+                      <!--<select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.listRouter track by item.Clv_CableModem"
                         ng-model="$ctrl.serierouter" name="serierouter">
                         <option value="">- Selecciona aparato -</option>
                       </select>
-                      <p class="text-muted"> Si no se instaló Router de nuestro almacén , escoger Equipo No requerido</p>
+                      <p class="text-muted"> Si no se instaló Router de nuestro almacén , escoger Equipo No requerido</p>-->
+                      <input type="text" class="form-control input-sm" name="routerserie" ng-model="$ctrl.serierouter" ng-disabled="true">
 
                     </div>
                   </div>
@@ -674,7 +684,7 @@
                   <div class="form-group row ">
                     <label class="col-sm-3 control-label">Marca Router :</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control input-sm" name="marcarouter" ng-model="$ctrl.marcarouter">
+                      <input type="text" class="form-control input-sm" name="marcarouter" ng-model="$ctrl.marcarouter" ng-disabled="true">
 
                     </div>
                   </div>
@@ -701,15 +711,27 @@
                   <div class="col-md-4">
                     <div class="col-md-12">
                       Equipo a surtir
-                      <input type="text" class="form-control" name="equiposurtir" ng-model="$ctrl.equiposurtir">
+                      <select class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.EquiposSustituir track by item.IdEquipo"
+                        ng-model="$ctrl.EquipoSustituir" name="EquipoSustituir" ng-change="$ctrl.detalleTecnico()">
+                        <option value="">- Selecciona equipo -</option>
+                      </select>
+                      <!--<input type="text" class="form-control" name="equiposurtir" ng-model="$ctrl.equiposurtir">-->
                     </div>
                     <div class="col-md-12">
                       Serie Anterior
-                      <input type="text" class="form-control" name="serieanterior" ng-model="$ctrl.serieanterior">
+                      <!--<input type="text" class="form-control" name="serieanterior" ng-model="$ctrl.serieanterior">-->
+                      <select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.AparatosAnterior track by item.Clv_CableModem"
+                        ng-model="$ctrl.AparatoAnterior" name="EquipoSustituirAnterior" >
+                        <option value="">- Selecciona aparato -</option>
+                      </select>
                     </div>
                     <div class="col-md-12">
                       Serie Nueva
-                      <input type="text" class="form-control " ng-model="$ctrl.serienueva" name="serienueva">
+                      <!--<input type="text" class="form-control " ng-model="$ctrl.serienueva" name="serienueva">-->
+                      <select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.AparatosNuevo track by item.Clv_CableModem"
+                        ng-model="$ctrl.AparatoNuevo" name="EquipoSustituirNuevo" >
+                        <option value="">- Selecciona aparato -</option>
+                      </select>
                     </div>
                     <div class="col-md-12">
                       <br>
@@ -758,7 +780,7 @@
                 <div class="col-md-6">
                   <h5 class="text-primary text-center">Selecciona el aparato</h5>
                   <div class="col-md-12">
-                    <select class="form-control" ng-model="$ctrl.DTH" ng-options="item as item.Descripcion for item in $ctrl.listSTB track by item.Clv_CableModem">
+                    <select class="form-control" ng-model="$ctrl.DTH" name="dth" ng-options="item as item.Descripcion for item in $ctrl.listSTB track by item.Clv_CableModem">
                       <option value="selecciona"></option>
                     </select>
                     <p class="text-muted">puedes agregar como max.3 aparatos</p>
@@ -804,7 +826,7 @@
                     <i class="fa fa-picture-o"></i> Subir Imagenes</h4>
                   <div class="col-md-6">
                     <p class="text-primary">Selecciona el tipo de imagen</p>
-                    <select ng-model="$ctrl.tipoimagen" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tiposresp track by item.IdTipo"
+                    <select ng-model="$ctrl.tipoimagen" name="tipoimagen" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tiposresp track by item.IdTipo"
                       ng-model="selected">
                       <option value="">Selecciona el tipo </option>
                     </select>
@@ -814,7 +836,7 @@
                     <br>
                     <div class="fileUpload btn btn-sm btn-primary" ng-show="$ctrl.tipoimagen">
                       <span>Elegir archivos</span>
-                      <input type="file" multiple="multiple" id="file" nv-file-select uploader="$ctrl.uploader" class="upload" />
+                      <input type="file" multiple="multiple" name="elegirarchivo" id="file" nv-file-select uploader="$ctrl.uploader" class="upload" />
                     </div>
 
 
@@ -901,7 +923,7 @@
               <div class="col-md-12" style="padding:30px;">
                 <div class="col-md-5">
                   <p class="text-primary">Agrega Nota: </p>
-                  <textarea placeholder="Agrega aqui el contenido de la nota....." class="form-control" ng-model="$ctrl.detallenota" rows="3">
+                  <textarea placeholder="Agrega aqui el contenido de la nota....." name="notas" class="form-control" ng-model="$ctrl.detallenota" rows="3">
 
                   </textarea>
 

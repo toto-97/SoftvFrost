@@ -36,7 +36,7 @@
           <div class="col-md-12">
             <br>
             <b>Selecciona Rol</b>
-            <select class="form-control" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" ng-model="$ctrl.Rol"
+            <select class="form-control" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" name="rol" ng-model="$ctrl.Rol"
               name="rol" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
               <option value="">selecciona</option>
             </select>
@@ -48,7 +48,7 @@
             <div class="col-md-8">
               <b>
                 <i class="fa fa-key"></i> ¿Necesitas modificar la contraseña?</b>
-              <input type="password" class="form-control" ng-model="$ctrl.PassValidate" placeholder="contraseña anterior">
+              <input type="password" class="form-control" ng-model="$ctrl.PassValidate" name="contrasenaanterior" placeholder="contraseña anterior">
             </div>
             <div class="col-md-4">
               <br>
@@ -63,7 +63,7 @@
             </div>
             <div class="col-md-12">
               <b>Repite la contraseña</b>
-              <input ng-if="$ctrl.editar == true" type="Password" class="form-control" ng-model="$ctrl.Contrasena2" name="contra" validate-on="dirty"
+              <input ng-if="$ctrl.editar == true" type="Password" class="form-control" ng-model="$ctrl.Contrasena2" name="contrarepite" validate-on="dirty"
                 required-message="'Este campo es obligatorio.'" required>
             </div>
 
@@ -72,7 +72,7 @@
             <div class="col-md-12" style="margin:15px;">
               <div>
                 <label class="checkbox-inline checkbox-styled checkbox-success text-lg">
-                  <input type="checkbox" ng-model="$ctrl.Activo">
+                  <input type="checkbox" ng-model="$ctrl.Activo" name="activo">
                   <span></span>Activo</label>
               </div>
             </div>
@@ -82,7 +82,7 @@
 
               <div>
                 <label class="checkbox-inline checkbox-styled checkbox-info">
-                  <input type="checkbox" ng-model="$ctrl.RecibeMensaje">
+                  <input type="checkbox" ng-model="$ctrl.RecibeMensaje" name="recibemensaje">
                   <span></span> Recibe notificaciones en el sistema y en correo electrónico</label>
               </div>
 
@@ -90,14 +90,14 @@
             <div class="col-md-12">
               <br>
               <label class="checkbox-inline checkbox-styled checkbox-warning">
-                <input type="checkbox" ng-model="$ctrl.CheckMemoria">
+                <input type="checkbox" ng-model="$ctrl.CheckMemoria" name="checkmemoria">
                 <span>Puede dar check a memorias técnicas </span>
               </label>
             </div>
             <div class="col-md-12">
               <br>
               <label class="checkbox-inline checkbox-styled checkbox-warning">
-                <input type="checkbox" ng-model="$ctrl.Cliente" ng-change="$ctrl.obtendetalle()">
+                <input type="checkbox" ng-model="$ctrl.Cliente" ng-change="$ctrl.obtendetalle()" name="cliente">
                 <span>Cliente Corporativo </span>
               </label>
             </div>
@@ -149,7 +149,7 @@
           <div class="col-md-12">
             <label>Distribuidor</label>
             
-              <select name="distribuidor"
+              <select name="distribuidor2"
               ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clave"
               class="form-control input-sm" ng-model="$ctrl.distribuidor" ng-change="$ctrl.getplazas()">
                   <option value=""> Selecciona distribuidor</option>
@@ -158,7 +158,7 @@
           <div class="col-md-12">
             <label>Plazas</label>
             
-              <select name="distribuidor" 
+              <select name="plazas" 
               ng-options="item as item.Nombre for item in $ctrl.Plazas track by item.Clave"
               ng-change="$ctrl.getTecnicosDisponibles()"
               class="form-control input-sm" ng-model="$ctrl.plaza">

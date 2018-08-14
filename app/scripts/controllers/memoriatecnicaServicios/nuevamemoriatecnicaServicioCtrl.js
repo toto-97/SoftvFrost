@@ -1,10 +1,11 @@
 'use strict';
 angular
   .module("softvFrostApp")
-  .controller("nuevamemoriatecnicaCtrl", function (
+  .controller("nuevamemoriatecnicaServicioCtrl", function (
     $state,
     ngNotify,
     memoriaFactory,
+    memoriaServicioFactory,
     usuarioFactory,
     $localStorage,
     $uibModal,
@@ -32,7 +33,7 @@ angular
     vm.generafolio = false;
     vm.mensajefolio = "Generar Folio";
     vm.blockgenerafolio = true;
-    vm.titulo = "Registro de memoria técnica";
+    vm.titulo = "Registro de memoria técnica de servicio";
     vm.addAparatodig = addAparatodig;
     vm.eliminaaparatodig = eliminaaparatodig;
     vm.blockorden = false;
@@ -43,7 +44,41 @@ angular
     vm.detalleTecnico = detalleTecnico;
     initialData();
     vm.ActivaFechaActivacion = false;
-    vm.CambioDeEquipos = false;
+    vm.CambioDeEquipos = true;
+    vm.EquiposSustituir = [
+      {
+        'IdEquipo': 4,
+        'Nombre': 'STB'
+      },
+      {
+        'IdEquipo': 6,
+        'Nombre': 'UPS'
+      },
+      {
+        'IdEquipo': 1,
+        'Nombre': 'Modem'
+      },
+      {
+        'IdEquipo': 3,
+        'Nombre': 'Router'
+      },
+      {
+        'IdEquipo': 2,
+        'Nombre': 'Radio'
+      },
+      {
+        'IdEquipo': 5,
+        'Nombre': 'Antena Internet'
+      },
+      {
+        'IdEquipo': 7,
+        'Nombre': 'LNB'
+      },
+      {
+        'IdEquipo': 8,
+        'Nombre': 'Antena Digital'
+      },
+    ];
 
     function initialData() {
       var fechaHoy = new Date();
@@ -83,31 +118,38 @@ angular
       vm.Combo = results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB = results.NoSTB;
-      console.log('results',results);
+      vm.modem = results.Modem;
+      vm.antena = results.AntenaSerie;
+      vm.serierouter = results.Router;
+      vm.tamanoantena = results.Antena;
+      vm.upsserie = results.UPS;
+      vm.serieradio = results.Radio;
+      vm.SQFInstalacion = results.SQFInstalacion;
+      //console.log('results',results);
       getTecnicos(vm.contratocompania.split('-')[1]);
     }
 
 
 
     function validar() {
-      memoriaFactory.GetObtieneDatosPorOrden(vm.numeroorden).then(function (result) {
-        if (result.GetObtieneDatosPorOrdenResult.length > 0) {
-          if (result.GetObtieneDatosPorOrdenResult[0].Error > 0) {
-            ngNotify.set(result.GetObtieneDatosPorOrdenResult[0].Msg, "error");
-            getValidationdata(result.GetObtieneDatosPorOrdenResult[0]);
+      memoriaServicioFactory.GetObtieneDatosPorOrden(vm.numeroqueja).then(function (result) {
+        if (result.GetObtieneDatosPorQuejaResult.length > 0) {
+          if (result.GetObtieneDatosPorQuejaResult[0].Error > 0) {
+            ngNotify.set(result.GetObtieneDatosPorQuejaResult[0].Msg, "error");
+            getValidationdata(result.GetObtieneDatosPorQuejaResult[0]);
           } else {
-            getValidationdata(result.GetObtieneDatosPorOrdenResult[0]);
+            getValidationdata(result.GetObtieneDatosPorQuejaResult[0]);
             vm.showguardar = true;
-            if(result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ3' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'Norte' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ5'){
+            if (result.GetObtieneDatosPorQuejaResult[0].Proveedor == 'AZ3' || result.GetObtieneDatosPorQuejaResult[0].Proveedor == 'Norte' || result.GetObtieneDatosPorQuejanResult[0].Proveedor == 'AZ5') {
               vm.ActivaFechaActivacion = true;
             }
-            else{
+            else {
               vm.ActivaFechaActivacion = false;
             }
 
           }
         } else {
-          ngNotify.set("El Numero de orden ingresado no es válido ,intente con otro", "warn");
+          ngNotify.set("El número de reporte ingresado no es válido", "warn");
         }
       });
     }
@@ -189,9 +231,8 @@ angular
 
     function getTecnicos(id) {
 
-      memoriaFactory.GetTecnicosMemoriaTecnica(id, 'N', 0).then(function (tecnicos) {
-        console.log(tecnicos);
-        vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;
+      memoriaServicioFactory.GetTecnicosMemoriaTecnica(id, 'N', 0).then(function (tecnicos) {
+        vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaServicioResult;
       });
     }
 
@@ -202,29 +243,23 @@ angular
       vm.listSTB = [];
       vm.listAntena = [];
       vm.aparatosdigitales = [];
+      vm.AparatosAnterior = [];
+      vm.AparatosNuevo = [];
       getApartos();
     }
 
     function getApartos() {
-      memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-
-        vm.listModem = aparatos.GetAparatosTecnicoResult;
-        memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-          vm.listRadio = aparatos.GetAparatosTecnicoResult;
-          memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-            vm.listRouter = aparatos.GetAparatosTecnicoResult;
-            memoriaFactory.GetAparatosTecnico(4, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-              vm.listSTB = aparatos.GetAparatosTecnicoResult;
-              memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-                vm.listAntena = aparatos.GetAparatosTecnicoResult;
-                memoriaFactory.GetAparatosTecnico(6, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-                  vm.listUPS = aparatos.GetAparatosTecnicoResult;
-                });
-              });
-            });
+      if (vm.instalador == undefined) {
+        ngNotify.set("Es necesario elegir un técnico", "error");
+      }
+      else {
+        memoriaServicioFactory.GetAparatosActuales(vm.EquipoSustituir.IdEquipo, vm.numeroqueja, vm.instalador.IdEntidad, 0).then(function (aparatosActuales) {
+          vm.AparatosAnterior = aparatosActuales.GetAparatosActualesServicioResult;
+          memoriaServicioFactory.GetAparatosTecnico(vm.EquipoSustituir.IdEquipo, vm.numeroqueja, vm.instalador.IdEntidad, 0).then(function (aparatos) {
+            vm.AparatosNuevo = aparatos.GetAparatosTecnicoServicioResult;
           });
         });
-      });
+      }
     }
 
 
@@ -241,21 +276,32 @@ angular
     }
 
     function cambioAparato() {
-      if (vm.serieanterior && vm.equiposurtir && vm.serienueva) {
-        if (vm.serienueva !== vm.serieanterior) {
-          var obj = {};
-          obj.SerieAnterior = vm.serieanterior;
-          obj.Equipo = vm.equiposurtir;
-          obj.SerieNueva = vm.serienueva;
-          obj.Opcion = 1;
-          obj.IdEquipoSustituir = 0;
-          obj.IdMemoriaTecnica = 0;
-          obj.Opcion = 1;
-          obj.IdUsuario = $localStorage.currentUser.idUsuario;
-          vm.cambios.push(obj);
-          vm.serieanterior = "";
-          vm.equiposurtir = "";
-          vm.serienueva = "";
+      if (vm.AparatoAnterior && vm.EquipoSustituir && vm.AparatoNuevo) {
+        if (vm.AparatoAnterior.Descripcion !== vm.AparatoNuevo.Descripcion) {
+          var Cambia = true;
+          vm.cambios.forEach(function (item) {
+            if (item.SerieAnterior == vm.AparatoAnterior.Descripcion) {
+              ngNotify.set("La serie del aparato que se trata de cambiar ya está en la lista", "error");
+              Cambia = false;
+            }
+            else if (item.SerieNueva == vm.AparatoNuevo.Descripcion) {
+              ngNotify.set("La serie del aparato que se trata de cambiar ya está en la lista", "error");
+              Cambia = false;
+            }
+          });
+          if (Cambia) {
+            var obj = {};
+            obj.SerieAnterior = vm.AparatoAnterior.Descripcion;
+            obj.Equipo = vm.EquipoSustituir.Nombre;
+            obj.SerieNueva = vm.AparatoNuevo.Descripcion;
+            obj.Opcion = 1;
+            obj.IdEquipoSustituir = 0;
+            obj.IdMemoriaTecnica = 0;
+            obj.Opcion = 1;
+            obj.IdUsuario = $localStorage.currentUser.idUsuario;
+            vm.cambios.push(obj);
+            detalleTecnico();
+          }
         } else {
           ngNotify.set("Las series no pueden ser iguales", "error");
         }
@@ -342,13 +388,14 @@ angular
         VUPSNeutroTierra: (vm.upcneutrotierra) ? vm.upcneutrotierra : "",
         VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
         VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
-        Modem: (vm.modem) ? vm.modem.Descripcion : "",
+        Modem: (vm.modem) ? vm.modem : "",
         Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
         SQF: (vm.sqf) ? vm.sqf : "",
-        Radio: (vm.serieradio) ? vm.serieradio.Descripcion : "",
-        Router: (vm.serierouter) ? vm.serierouter.Descripcion : "",
+        SQFInstalacion: (vm.SQFInstalacion) ? vm.SQFInstalacion : "",
+        Radio: (vm.serieradio) ? vm.serieradio : "",
+        Router: (vm.serierouter) ? vm.serierouter : "",
         MarcaRouter: (vm.marcarouter) ? vm.marcarouter : "",
-        UPS: (vm.upsserie) ? vm.upsserie.Descripcion : "",
+        UPS: (vm.upsserie) ? vm.upsserie : "",
         WiFi: "",
         Instalacion: vm.Instalacion,
         InstalacionDemo: vm.InstalacionDemo,
@@ -359,14 +406,14 @@ angular
         SiteSurvey: vm.SiteSurvey,
         Detalles: (vm.detalleinstalacion) ? vm.detalleinstalacion : "",
         Folio: (vm.numerofolio) ? vm.numerofolio : 0,
-        Clv_Orden: (vm.numeroorden) ? vm.numeroorden : 0,
+        Clv_Queja: (vm.numeroqueja) ? vm.numeroqueja : 0,
         IdUsuario: $localStorage.currentUser.idUsuario,
         Instalador: vm.usuariosistema,
         PersonaValidaServicio: vm.PersonaValidaServicio,
         IdEstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
         IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
         IdTecnico: vm.instalador.IdEntidad,
-        AntenaSerie: (vm.antena) ? vm.antena.Descripcion : ''
+        AntenaSerie: (vm.antena) ? vm.antena : ''
       };
 
       var file_options = [];
@@ -401,10 +448,10 @@ angular
             });  */
 
 
-      memoriaFactory.GuardaMemoriaTecnica(obj).then(function (response) {
-        vm.IdMemoriaTecnica = response.GetGuardaMemoriaTecnicaListResult[0].IdMemoriaTecnica;
+      memoriaServicioFactory.GuardaMemoriaTecnica(obj).then(function (response) {
+        vm.IdMemoriaTecnica = response.GetGuardaMemoriaTecnicaListServicioResult[0].IdMemoriaTecnica;
 
-        memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, []).then(function (data) {
+        memoriaServicioFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, []).then(function (data) {
           ngNotify.set("las imagenes se han guardado correctamente", "success");
           vm.uploader.clearQueue();
 
@@ -415,12 +462,12 @@ angular
             item.IdMemoriaTecnica = vm.IdMemoriaTecnica;
           });
 
-          memoriaFactory.GuardaEquiposSustituir(vm.cambios).then(function (result) {
-            memoriaFactory.GetGuardaEquiposDigital(vm.aparatosdigitales).then(function (data) {
+          memoriaServicioFactory.GuardaEquiposSustituir(vm.cambios).then(function (result) {
+            memoriaServicioFactory.GetGuardaEquiposDigital(vm.aparatosdigitales).then(function (data) {
 
               if (vm.notas.length > 0) {
                 vm.notas.forEach(function (item) { item.IdMemoriaTecnica = vm.IdMemoriaTecnica; });
-                memoriaFactory.GetGuardaObservacionMemoriaTecnicaList(vm.notas).then(function (resp) { });
+                memoriaServicioFactory.GetGuardaObservacionMemoriaTecnicaList(vm.notas).then(function (resp) { });
               }
 
               var ref = firebase.database().ref().child("messages");
@@ -435,7 +482,7 @@ angular
 
               });
               ngNotify.set("La memoria técnica se ha guardado correctamente", "success");
-              $state.go("home.memoria.memoriastecnicas");
+              $state.go("home.memoria.memoriastecnicasServicio");
             });
           });
         });

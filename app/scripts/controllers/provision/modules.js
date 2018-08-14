@@ -215,6 +215,22 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 		templateUrl: 'views/provision/activacion.html',
 		controller: 'activacionCtrl',
 		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.provision.tipoImagen',
+		data: {
+			pageTitle: 'BOSS | TIPO IMAGEN',
+			permissions: {
+				only: ['tipoimagenSelect'],
+				options: {
+					reload: true
+				}
+			}
+		},
+		url: '/configuracion/catalogosMemoria/tipoImagen',
+		templateUrl: 'views/configuracion/TipoImagen.html',
+		controller: 'TipoImagenCtrl',
+		controllerAs: '$ctrl'
 	}
 	];
 

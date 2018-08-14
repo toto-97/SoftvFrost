@@ -55,7 +55,7 @@
 <div class="card" style="margin-top:20px;padding-bottom: 30px">
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
-      <strong style="font-weight:bold; border:none; margin-left:10px;">Reporte Memoria técnica</strong>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Reporte Memoria Técnica de Servicios</strong>
       <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Reportes</small>
     </header>
     <div class="tools">
@@ -72,7 +72,7 @@
           <table st-table="$ctrl.displayedCollection4" st-safe-src="$ctrl.rowCollection4" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
             <thead>
               <tr>
-                <th st-sort="Clv_orden"># Orden </th>
+                <th st-sort="Clv_Queja"># Reporte </th>
                 <th st-sort="Folio">Folio</th>
                 <th st-sort="Distribuidor">Distribuidor</th>
                 <th st-sort="Plaza">Plaza</th>
@@ -80,7 +80,6 @@
                 <th st-sort="Estatus">Estatus</th>
                 <th st-sort="Tipo">Tipo</th>
                 <th st-sort="Usuario">Usuario</th>
-                <th st-sort="fechaactivacion">Fecha Activacion</th>
                 <th st-sort="fechacheck">Fecha Check</th>
                 <th st-sort="fechaejecucion">Fecha Ejecucion</th>
               </tr>
@@ -89,7 +88,7 @@
                 </tr> -->
               <tr>
                 <th>
-                  <input st-search="Clv_orden" placeholder="# orden" class="input-sm form-control" type="search" />
+                  <input st-search="Clv_Queja" placeholder="# Reporte" class="input-sm form-control" type="search" />
                 </th>
                 <th>
                   <input st-search="Folio" placeholder="Folio" class="input-sm form-control" type="search" />
@@ -113,9 +112,6 @@
                   <input st-search="Usuario" placeholder="Usuario" class="input-sm form-control" type="search" />
                 </th>
                 <th>
-                  <input st-search="fechaactivacion" placeholder="Fecha Activacion" class="input-sm form-control" type="search" />
-                </th>
-                <th>
                   <input st-search="fechacheck" placeholder="Fecha Check" class="input-sm form-control" type="search" />
                 </th>
                 <th>
@@ -129,7 +125,7 @@
             <tbody>
               <tr dir-paginate="row in $ctrl.displayedCollection4|orderBy:sortKey:reverse|itemsPerPage:15">
 
-                <td width="5%">{{row.Clv_orden}}</td>
+                <td width="5%">{{row.Clv_Queja}}</td>
                 <td>{{row.Folio}}</td>
                 <td>{{row.Plaza}}</td>
                 <td>{{row.Compania}}</td>
@@ -137,7 +133,6 @@
                 <td>{{row.Estatus}}</td>
                 <td>{{row.Tipo}}</td>
                 <td>{{row.Usuario}}</td>
-                <td>{{row.fechaactivacion}}</td>
                 <td>{{row.fechacheck}}</td>
                 <td>{{row.fechaejecucion}}</td>
 

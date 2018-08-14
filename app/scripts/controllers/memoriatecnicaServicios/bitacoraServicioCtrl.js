@@ -1,7 +1,7 @@
 'use strict';
 angular
   .module('softvFrostApp')
-  .controller('bitacoraCtrl', function ($state, ngNotify, memoriaFactory, $localStorage) {
+  .controller('bitacoraServicioCtrl', function ($state, ngNotify, memoriaServicioFactory, $localStorage) {
 
     function Init() {
 
@@ -18,8 +18,8 @@ angular
         'IdUsuario':$localStorage.currentUser.idUsuario
       };
 
-      memoriaFactory.GetObtieneBitacoraPorIdMemoria(obj).then(function (result) {
-        vm.registros = result.GetObtieneBitacoraPorIdMemoriaResult;
+      memoriaServicioFactory.GetObtieneBitacoraPorIdMemoria(obj).then(function (result) {
+        vm.registros = result.GetObtieneBitacoraPorIdMemoriaServicioResult;
       });
     }
 

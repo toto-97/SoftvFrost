@@ -82,9 +82,74 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
       controller: 'reporteMemoriaCtrl',
       controllerAs: '$ctrl'
     }
+    ,
+    {
+      name: 'home.memoria.memoriastecnicasServicio',
+      data: {
+        pageTitle: 'SOFTV | MEMORIA TECNICA SERVICIO',
+        permissions: {
+          //only: ['memoriaSelect'],
+          options: {
+            reload: false
+          }
+        }
+      },
+      url: '/memoriastecnicasServicio',
+      templateUrl: 'views/memoriasServicios/memoriasServicio.html',
+      controller: 'memoriatecnicaServicioCtrl',
+      controllerAs: '$ctrl'
+    },
 
-
-    
+    {
+      name: 'home.memoria.nuevamemoriaServicio',
+      data: {
+        pageTitle: 'SOFTV | NUEVA MEMORIA SERVICIO',
+      },
+      url: '/memoriastecnicasServicio/nuevamemoria',
+      templateUrl: 'views/memoriasServicios/nuevamemoriatecnicaServicio.html',
+      controller: 'nuevamemoriatecnicaServicioCtrl',
+      controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.detallememoriaServicio',
+      data: {
+        pageTitle: 'SOFTV | DETALLE MEMORIA TECNICA SERVICIO',
+      },
+      url: '/memoriastecnicasServicio/detalle/:id',
+      templateUrl: 'views/memoriasServicios/nuevamemoriatecnicaServicio.html',
+      controller: 'detallememoriatecnicaServicioCtrl',
+      controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.editarmemoriaServicio',
+      data: {
+        pageTitle: 'SOFTV | EDITAR MEMORIA TECNICA SERVICIO',
+      },
+      url: '/memoriastecnicasServicio/edit/:id',
+      templateUrl: 'views/memoriasServicios/nuevamemoriatecnicaServicio.html',
+      controller: 'editamemoriatecnicaServicioCtrl',
+      controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.bitacoraServicio',
+      data: {
+        pageTitle: 'SOFTV | BITACORA SERVICIO',
+      },
+      url: '/bitacoraServicios',
+      templateUrl: 'views/memoriasServicios/bitacoraServicio.html',
+      controller: 'bitacoraServicioCtrl',
+      controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.reporteServicio',
+      data: {
+        pageTitle: 'SOFTV | REPORTE',
+      },
+      url: '/reportememoriaServicio',
+      templateUrl: 'views/memoriasServicios/reporteMemoriaServicio.html',
+      controller: 'reporteMemoriaServicioCtrl',
+      controllerAs: '$ctrl'
+    }
   ];
 
   states.forEach(function (state) {

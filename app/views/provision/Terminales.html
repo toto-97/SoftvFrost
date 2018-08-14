@@ -1,11 +1,16 @@
 <style>
-  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-   padding: 5px 5px !important;
-  line-height: 1.846153846  !important;
-  vertical-align: top  !important;
-  border-top: 1px solid rgba(189, 193, 193, 0.2);
-  font-size: 11px;
-}
+  .table>thead>tr>th,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>tbody>tr>td,
+  .table>tfoot>tr>td {
+    padding: 5px 5px !important;
+    line-height: 1.846153846 !important;
+    vertical-align: top !important;
+    border-top: 1px solid rgba(189, 193, 193, 0.2);
+    font-size: 11px;
+  }
 </style>
 
 
@@ -14,15 +19,22 @@
   <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
     <header>
       <strong style="font-weight:bold; border:none; margin-left:10px;">Terminales</strong>
-      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Provisión</a></small>
+      <br />
+      <small class="text-muted" style="font-size:14px; margin-left:10px;">
+        <a href="#">
+          <i class="fa fa-home" aria-hidden="true"></i> Inicio</a>>
+        <a href="#" class="paginaActiva">Provisión</a>
+      </small>
 
     </header>
     <div class="tools">
       <div class="btn-group">
         <button type="button" class="btn pull-right btn-sm btn-raised btn-success" ng-if="$ctrl.idSuscriptor == 0" permission permission-only="'terminalesAdd'"
-          ui-sref="home.provision.terminalesNueva"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+          ui-sref="home.provision.terminalesNueva">
+          <i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
         <button type="button" class="btn pull-right btn-sm btn-raised btn-success" ng-if="$ctrl.idSuscriptor != 0" permission permission-only="'terminalesAdd'"
-          ui-sref="home.provision.terminalesNueva({idSuscriptor:$ctrl.idSuscriptor})"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+          ui-sref="home.provision.terminalesNueva({idSuscriptor:$ctrl.idSuscriptor})">
+          <i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
       </div>
     </div>
   </div>
@@ -36,7 +48,9 @@
               aria-expanded="false">
               <header>Buscar</header>
               <div class="tools">
-                <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+                <a class="btn btn-icon-toggle">
+                  <i class="fa fa-angle-down"></i>
+                </a>
               </div>
             </div>
             <div id="suscriptor-1" class="collapse buscarSuscriptor" aria-expanded="false" style="height: 0px;">
@@ -66,7 +80,7 @@
 
                         <select type="text" ng-change="$ctrl.busquedaCambio(4)" ng-options="item as item.Nombre for item in $ctrl.ListaStatus track by item.clave"
                           class="form-control input-sm" ng-model="$ctrl.Status" ng-init="$ctrl.Status.clave='Pendiente'">
-                    </select>
+                        </select>
                       </div>
                       <div class="col-md-2">
                         <input type="text" class="form-control input-sm" ng-model="$ctrl.BReferencia" placeholder="Referencia" ng-change="$ctrl.busquedaCambio(8)">
@@ -76,7 +90,8 @@
 
                       <div class="col-md-2">
 
-                        <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                        <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()">
+                          <i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
 
 
                       </div>
@@ -92,14 +107,14 @@
                       <div class="col-md-4">
                         <label class="text-muted">Beam</label>
                         <select class="form-control input-sm" ng-model="$ctrl.beam" ng-change="$ctrl.busquedaCambio(5)" ng-options="v.Name for v in $ctrl.Beams track by v.BeamId ">
-                         <option value="">Selecciona</option>
-                         </select>
+                          <option value="">Selecciona</option>
+                        </select>
                       </div>
                       <div class="col-md-3">
 
                         <label class="text-muted">Servicios</label>
                         <select class="form-control input-sm" ng-model="$ctrl.bservicio" ng-change="$ctrl.busquedaCambio(3)" ng-options="v.Nombre for v in $ctrl.servicios track by v.IdServicio">
-                        
+
                         </select>
 
                       </div>
@@ -108,14 +123,15 @@
 
                         <select class="form-control input-sm" ng-model="$ctrl.bsatelite" ng-change="$ctrl.busquedaCambio(7)">
                           <option value="" disabled>Selecciona</option>
-                         <option value="65w">65w</option>
-                         <option value="EchoStar 19">EchoStar 19</option>
+                          <option value="65w">65w</option>
+                          <option value="EchoStar 19">EchoStar 19</option>
                         </select>
 
                       </div>
                       <div class="col-md-2">
                         <br>
-                        <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                        <button type="button" class="btn btn-raised btn-sm btn-primary" ng-click="$ctrl.buscar()">
+                          <i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
 
 
                       </div>
@@ -156,9 +172,13 @@
             <td>{{x.Estatus}}</td>
             <td>
               <a ng-click="$ctrl.GestionTerminal(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title=""
-                data-original-title="Gestionar Terminal"><i class="fa fa-laptop" aria-hidden="true"></i></a>
+                data-original-title="Gestionar Terminal">
+                <i class="fa fa-laptop" aria-hidden="true"></i>
+              </a>
               <a ng-click="$ctrl.verMovimientos(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title=""
-                data-original-title="Movimientos"><i class="fa fa-exchange" aria-hidden="true"></i></a>
+                data-original-title="Movimientos">
+                <i class="fa fa-exchange" aria-hidden="true"></i>
+              </a>
               <!-- <a ng-click="$ctrl.EditarTerminal(x)" permission permission-only="'terminalesUpdate'" class="btn  btn-xs btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Editar Terminal"><i class="fa fa-pencil" aria-hidden="true"></i></a> -->
               <!--<a ng-click="$ctrl.verHistoricos(x)" class="btn  btn-xs btn-default" data-toggle="tooltip" data-placement="top" title=""
                 data-original-title="Históricos"><i class="fa fa-tachometer" aria-hidden="true"></i></a>-->
@@ -171,6 +191,5 @@
         </dir-pagination-controls>
       </div>
     </div>
-
   </div>
 </div>

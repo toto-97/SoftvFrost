@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-  .controller('reporteMemoriaCtrl', function ($http, reportesFactory, $timeout, ngNotify, $state, memoriaFactory) {
+  .controller('reporteMemoriaServicioCtrl', function ($http, reportesFactory, $timeout, ngNotify, $state, memoriaFactory, memoriaServicioFactory) {
     var vm = this;
     vm.filename = "Reporte";
     var reportHeaderPdf = "Reporte Memoria técnica ";
@@ -12,8 +12,8 @@ angular.module('softvFrostApp')
     getImageDataURL();
 
     function Getdata() {
-      memoriaFactory.GetReporteMemoria().then(function (data) {
-        vm.rowCollection4 = data.GetReporteMemoriaResult;
+      memoriaServicioFactory.GetReporteMemoria().then(function (data) {
+        vm.rowCollection4 = data.GetReporteMemoriaServicioResult;
       });
     }
 
@@ -48,17 +48,16 @@ angular.module('softvFrostApp')
           delete info[i].$$hashKey;
         }
         vm.arrayReporte = [];
-        vm.order = ['Clv_orden','Folio','Plaza','Compania','Plataforma','Estatus','Usuario','fechaactivacion','fechacheck','fechaejecucion'];
+        vm.order = ['Clv_Queja','Folio','Plaza','Compania','Plataforma','Estatus','Usuario','fechacheck','fechaejecucion'];
         // ENCABEZADOS
         vm.arrayReporte = [{
-          "Clv_orden": "Clv_orden",
+          "Clv_Queja": "Reporte",
           "Folio": "Folio",
           "Plaza": "Distribuidor",
           "Compania": "Plaza",
           "Plataforma": "Plaforma",
           "Estatus": "Estatus",
           "Usuario": "Usuario",
-          "fechaactivacion": "fechaactivacion",
           "fechacheck": "fechacheck",
           "fechaejecucion": "fechaejecucion",
 
@@ -80,17 +79,16 @@ angular.module('softvFrostApp')
 
     function createPdfTodo(pdfAcrear) {
       var rows = [];
-      var columns = ['Clv_orden', 'Folio', 'Usuario', 'Fecha Activacion', 'Fecha Check', 'Fecha Ejecucion', 'Distribuidor', 'Plaza', 'Plataforma', 'Estatus'];
+      var columns = ['Reporte', 'Folio', 'Usuario', 'Fecha Check', 'Fecha Ejecucion', 'Distribuidor', 'Plaza', 'Plataforma', 'Estatus'];
 
       var info = (pdfAcrear === 'todo') ? vm.rowCollection4 : vm.displayedCollection4;
 
 
       for (var i = 0; i < info.length; i++) {
         var row = [];
-        row.push(info[i].Clv_orden);
+        row.push(info[i].Clv_Queja);
         row.push(info[i].Folio);
         row.push(info[i].Usuario);
-        row.push(info[i].fechaactivacion);
         row.push(info[i].fechacheck);
         row.push(info[i].fechaejecucion);
         row.push(info[i].Plaza);
