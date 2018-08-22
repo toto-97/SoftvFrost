@@ -589,7 +589,7 @@
 
 
             </uib-tab>
-            <uib-tab index="3" heading="Datos de Equipo y Desempeño">
+            <uib-tab index="3" heading="Datos de Equipo y Desempeño" ng-if="$ctrl.OrdenInstalacion">
 
               <div class="row" style="padding:30px;">
                 <br>
@@ -692,8 +692,121 @@
               </div>
 
             </uib-tab>
+            <uib-tab index="4" heading="Desempeño" ng-if="!$ctrl.OrdenInstalacion">
 
-            <uib-tab index="4" heading="Cambio de Equipos" ng-if="$ctrl.CambioDeEquipos">
+              <div class="row" style="padding:30px;">
+                <br>
+
+
+                <div class="col-md-5 col-md-offset-1 ">
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Módem (serie) :</label>
+                    <div class="col-sm-9">
+                      <!--<select ng-options="item as item.Descripcion for item in $ctrl.listModem track by item.Clv_CableModem" class="form-control input-sm"
+                        validate-on="dirty" name="modem" ng-model="$ctrl.modem">
+                        <option value="">- selecciona aparato -</option>
+                      </select>-->
+                      <input type="text" class="form-control input-sm" name="modemserie" ng-model="$ctrl.modem" ng-disabled="true">
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Antena (serie) :</label>
+                    <div class="col-sm-9">
+                      <!--<select ng-options="item as item.Descripcion for item in $ctrl.listAntena track by item.Clv_CableModem" class="form-control input-sm"
+                        validate-on="dirty" name="antena" ng-model="$ctrl.antena">
+                        <option value="">- selecciona aparato -</option>
+                      </select>-->
+                      <input type="text" class="form-control input-sm" name="antenaserie" ng-model="$ctrl.antena" ng-disabled="true">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Tamaño de antena :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="tamanoantena" ng-model="$ctrl.tamanoantena" ng-disabled="true">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Valor de SQF Instalación :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="sqfinstalacion" ng-model="$ctrl.SQFInstalacion" ng-disabled="true">
+                    </div>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Valor de SQF Visita :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="sqf" ng-model="$ctrl.sqf">
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+                <div class="col-md-5">
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">UPS(serie) :</label>
+                    <div class="col-sm-9">
+
+                      <!--<select ng-options="item as item.Descripcion for item in $ctrl.listUPS track by item.Clv_CableModem" class="form-control input-sm"
+                        validate-on="dirty" name="upsserie" ng-model="$ctrl.upsserie">
+                        <option value="">- Selecciona aparato -</option>
+                      </select>
+                      <p class="text-muted">En caso de no instalar UPS selecciona opción: Equipo no requerido</p>-->
+                      <input type="text" class="form-control input-sm" name="upsserie" ng-model="$ctrl.upsserie" ng-disabled="true">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Serie de Radio :</label>
+                    <div class="col-sm-9">
+                      <!--<select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.listRadio track by item.Clv_CableModem"
+                        validate-on="dirty" ng-model="$ctrl.serieradio" name="serieradio">
+                        <option value="">- Selecciona aparato -</option>
+                      </select>
+                      <p class="text-muted"> Agregar los últimos 10 dígitos del número de serie (validar que no existan Letras)</p>-->
+                      <input type="text" class="form-control input-sm" name="serieradio" ng-model="$ctrl.serieradio" ng-disabled="true">
+
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Serie de router :</label>
+                    <div class="col-sm-9">
+                      <!--<select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.listRouter track by item.Clv_CableModem"
+                        ng-model="$ctrl.serierouter" name="serierouter">
+                        <option value="">- Selecciona aparato -</option>
+                      </select>
+                      <p class="text-muted"> Si no se instaló Router de nuestro almacén , escoger Equipo No requerido</p>-->
+                      <input type="text" class="form-control input-sm" name="routerserie" ng-model="$ctrl.serierouter" ng-disabled="true">
+
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-3 control-label">Marca Router :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="marcarouter" ng-model="$ctrl.marcarouter" ng-disabled="true">
+
+                    </div>
+                  </div>
+
+                  <!--   <div class="form-group row ">
+                    <label class="col-sm-3 control-label">WiFi (serie) :</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control input-sm" name="wifiserie" ng-model="$ctrl.wifiserie">
+                    </div>
+                  </div> -->
+
+                </div>
+
+
+              </div>
+
+            </uib-tab>
+            <uib-tab index="5" heading="Cambio de Equipos" ng-if="$ctrl.CambioDeEquipos">
               <br>
               <div class="col-md-12">
 
@@ -701,15 +814,27 @@
                   <div class="col-md-4">
                     <div class="col-md-12">
                       Equipo a surtir
-                      <input type="text" class="form-control" name="equiposurtir" ng-model="$ctrl.equiposurtir">
+                      <select class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.EquiposSustituir track by item.IdEquipo"
+                        ng-model="$ctrl.EquipoSustituir" name="EquipoSustituir" ng-change="$ctrl.detalleTecnico()">
+                        <option value="">- Selecciona equipo -</option>
+                      </select>
+                      <!--<input type="text" class="form-control" name="equiposurtir" ng-model="$ctrl.equiposurtir">-->
                     </div>
                     <div class="col-md-12">
                       Serie Anterior
-                      <input type="text" class="form-control" name="serieanterior" ng-model="$ctrl.serieanterior">
+                      <!--<input type="text" class="form-control" name="serieanterior" ng-model="$ctrl.serieanterior">-->
+                      <select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.AparatosAnterior track by item.Clv_CableModem"
+                        ng-model="$ctrl.AparatoAnterior" name="EquipoSustituirAnterior" >
+                        <option value="">- Selecciona aparato -</option>
+                      </select>
                     </div>
                     <div class="col-md-12">
                       Serie Nueva
-                      <input type="text" class="form-control " ng-model="$ctrl.serienueva" name="serienueva">
+                      <!--<input type="text" class="form-control " ng-model="$ctrl.serienueva" name="serienueva">-->
+                      <select class="form-control input-sm" ng-options="item as item.Descripcion for item in $ctrl.AparatosNuevo track by item.Clv_CableModem"
+                        ng-model="$ctrl.AparatoNuevo" name="EquipoSustituirNuevo" >
+                        <option value="">- Selecciona aparato -</option>
+                      </select>
                     </div>
                     <div class="col-md-12">
                       <br>
@@ -751,7 +876,7 @@
 
             </uib-tab>
 
-            <uib-tab ng-if="$ctrl.Combo==true" index="5" heading="Equipos Digitales">
+            <uib-tab ng-if="$ctrl.Combo==true" index="6" heading="Equipos Digitales">
               <br>
               <div class="col-md-8 col-md-offset-2" style="padding: 10px;">
 
@@ -796,7 +921,7 @@
             </uib-tab>
 
 
-            <uib-tab index="6" heading="Carga de Imagenes">
+            <uib-tab index="7" heading="Carga de Imagenes">
               <br>
               <div class="col-md-12">
                 <div class="col-md-6" ng-show="$ctrl.seleccionImagen">
@@ -894,7 +1019,7 @@
               </div>
 
             </uib-tab>
-            <uib-tab index="7" heading="">
+            <uib-tab index="8" heading="">
               <uib-tab-heading> Notas
                 <span class="badge pull-right">{{$ctrl.notas.length+$ctrl.notas_ant.length}}</span>
               </uib-tab-heading>

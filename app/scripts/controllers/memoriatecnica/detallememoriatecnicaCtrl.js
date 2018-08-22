@@ -6,7 +6,7 @@ angular
       function initialData() {
         memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
 
-
+          vm.OrdenInstalacion = data.GetObtieneMemoriaTecnicaResult[0].OrdenInstalacion;
 
           detalle(data.GetObtieneMemoriaTecnicaResult[0]);
           memoriaFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
@@ -255,6 +255,25 @@ angular
         vm.contratocompania = det.contratocompania;
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
+        if (vm.OrdenInstalacion) {
+          vm.CambioDeEquipos = false;
+          if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
+            vm.ActivaFechaActivacion = true;
+          }
+          else {
+            vm.ActivaFechaActivacion = false;
+          }
+        }
+        else {
+          vm.CambioDeEquipos = true;
+          vm.ActivaFechaActivacion = false;
+          vm.modem = det.Modem;
+          vm.antena = det.AntenaSerie;
+          vm.serierouter = det.Router;
+          vm.tamanoantena = det.Antena;
+          vm.upsserie = det.UPS;
+          vm.serieradio = det.Radio;
+        }
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico,det.Modem,det.Radio,det.Router,det.AntenaSerie,det.UPS);
         
       }
@@ -278,5 +297,38 @@ angular
       vm.titulo = 'Detalle de memoria técnica de servicio #' + vm.id;
       vm.detalle = true;
       vm.CambioDeEquipos = false;
-
+      vm.EquiposSustituir = [
+        {
+          'IdEquipo': 4,
+          'Nombre': 'STB'
+        },
+        {
+          'IdEquipo': 6,
+          'Nombre': 'UPS'
+        },
+        {
+          'IdEquipo': 1,
+          'Nombre': 'Modem'
+        },
+        {
+          'IdEquipo': 3,
+          'Nombre': 'Router'
+        },
+        {
+          'IdEquipo': 2,
+          'Nombre': 'Radio'
+        },
+        {
+          'IdEquipo': 5,
+          'Nombre': 'Antena Internet'
+        },
+        {
+          'IdEquipo': 7,
+          'Nombre': 'LNB'
+        },
+        {
+          'IdEquipo': 8,
+          'Nombre': 'Antena Digital'
+        },
+      ];
     });
