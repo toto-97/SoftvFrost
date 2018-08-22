@@ -107,7 +107,7 @@ angular
 
           }
         } else {
-          ngNotify.set("El Numero de orden ingresado no es válido ,intente con otro", "warn");
+          ngNotify.set("El número de orden ingresado no es válido, intente con otro", "warn");
         }
       });
     }
@@ -160,7 +160,7 @@ angular
           obj.Equipo = vm.DTH.Clv_CableModem;
           vm.aparatosdigitales.push(obj);
         } else {
-          ngNotify.set('El aparato ya esta seleccionado', 'warn');
+          ngNotify.set('El aparato ya está seleccionado', 'warn');
         }
       } else {
         ngNotify.set('Solo tiene registrado ' + vm.NoSTB + ' como cantidad máxima aparatos', 'warn');
@@ -282,12 +282,12 @@ angular
     function guardar() {
 
       if (!vm.vcneutrotierra || !vm.vcfasetierra || !vm.vcfaseneutro) {
-        Notification({ message: 'hay información en el apartado de Mediciones Eléctricas que no se han capturado', title: 'Atención' }, 'warning');
+        Notification({ message: 'Hay información en el apartado de Mediciones Eléctricas que no se han capturado', title: 'Atención' }, 'warning');
       }
 
       if (!vm.modem || !vm.serieradio || !vm.serierouter || !vm.marcarouter || !vm.tamanoantena || !vm.sqf || !vm.antena
       ) {
-        Notification({ message: 'hay información en el apartado de Datos de equipo y desempeño que no se han capturado', title: 'Atención' }, 'warning');
+        Notification({ message: 'Hay información en el apartado de Datos de equipo y desempeño que no se han capturado', title: 'Atención' }, 'warning');
       }
 
       if (!vm.Instalacion && !vm.Mantenimiento && !vm.CambioComponentes &&
@@ -304,7 +304,7 @@ angular
       });
 
       if (tipos_.length > 0) {
-        Notification({ message: '**No todos los rubros en la carga de imagenes  estan completados', title: 'Atención' }, 'warning');
+        Notification({ message: '**No todos los rubros en la carga de imagenes  estan completos', title: 'Atención' }, 'warning');
 
       }
 

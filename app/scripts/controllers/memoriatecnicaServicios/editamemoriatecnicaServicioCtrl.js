@@ -382,14 +382,14 @@ angular
         if (!vm.vcneutrotierra || !vm.vcfasetierra || !vm.vcfaseneutro) {
 
           Notification({
-            message: 'hay información en el apartado de Mediciones Eléctricas que no se han capturado',
+            message: 'Hay información en el apartado de Mediciones Eléctricas que no se han capturado',
             title: 'Atención'
           }, 'warning');
         }
 
         if (!vm.modem || !vm.serieradio || !vm.serierouter || !vm.marcarouter || !vm.tamanoantena || !vm.sqf || !vm.antena) {
           Notification({
-            message: 'hay información en el apartado de Datos de equipo y desempeño que no se han capturado',
+            message: 'Hay información en el apartado de Datos de equipo y desempeño que no se han capturado',
             title: 'Atención'
           }, 'warning');
         }
@@ -414,7 +414,7 @@ angular
 
         if (tipos.length > 0) {
           Notification({
-            message: '**No todos los rubros en la carga de imagenes  estan completados',
+            message: '**No todos los rubros en la carga de imágenes están completos',
             title: 'Atención'
           }, 'warning');
 
@@ -537,7 +537,7 @@ angular
 
               memoriaServicioFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
                 vm.uploader.clearQueue();
-                ngNotify.set('La memoria técnica  se ha guardado correctamente', 'success');
+                ngNotify.set('La memoria técnica de reporte se ha guardado correctamente', 'success');
                 $state.go('home.memoria.memoriastecnicasServicio');
               });
 
@@ -625,7 +625,7 @@ angular
         vm.upsserie = det.UPS;
         vm.serieradio = det.Radio;
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
-        vm.titulo = 'Edición de memoria técnica de servicio #' + vm.IdMemoriaTecnica;
+        vm.titulo = 'Edición de memoria técnica de reporte #' + vm.IdMemoriaTecnica;
       }
 
       function obtenfolio() {
@@ -761,7 +761,7 @@ angular
               return false;
             }
             if (count2 > 1) {
-              ngNotify.set("Solo se pueden subir 2 imagnes de un mismo rubro", "warn");
+              ngNotify.set("Solo se pueden subir 2 imágenes de un mismo rubro", "warn");
               return false;
             } else {
               return true;

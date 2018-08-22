@@ -275,7 +275,7 @@ angular
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = false;
       vm.seleccionImagen = false;
-      vm.titulo = 'Detalle de memoria técnica #' + vm.id;
+      vm.titulo = 'Detalle de memoria técnica de servicio #' + vm.id;
       vm.detalle = true;
       vm.CambioDeEquipos = false;
 

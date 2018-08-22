@@ -13,7 +13,7 @@ angular
         'Folio': (op === 1) ? vm.folio : '',
         'Fecha': (op === 2) ? vm.fecha : '',
         'IdUsuario': '',
-        'Clv_Queja': (op === 3) ? vm.queja : 0,
+        'ClvQueja': (op === 3) ? vm.queja : 0,
         'op': op,
         'SAN': (op === 4) ? vm.SAN : 0,
         'Cliente': (op === 5) ? vm.cliente : '',
@@ -98,7 +98,7 @@ angular
         Id: vm.addtest,
         Fecha: moment().format("L"),
         Hora: moment().format("LT"),
-        Mensaje: 'Se ha generado una nueva memoria técnica',
+        Mensaje: 'Se ha generado una nueva memoria técnica de reporte',
         Tipo: 1
       });
     }

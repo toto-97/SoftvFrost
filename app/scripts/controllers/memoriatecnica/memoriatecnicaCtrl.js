@@ -98,7 +98,7 @@ angular
         Id: vm.addtest,
         Fecha: moment().format("L"),
         Hora: moment().format("LT"),
-        Mensaje: 'Se ha generado una nueva memoria técnica',
+        Mensaje: 'Se ha generado una nueva memoria técnica de servicios',
         Tipo: 1
       });
     }

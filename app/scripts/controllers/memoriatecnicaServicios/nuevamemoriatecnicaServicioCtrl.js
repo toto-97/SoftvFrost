@@ -33,7 +33,7 @@ angular
     vm.generafolio = false;
     vm.mensajefolio = "Generar Folio";
     vm.blockgenerafolio = true;
-    vm.titulo = "Registro de memoria técnica de servicio";
+    vm.titulo = "Registro de memoria técnica de reporte";
     vm.addAparatodig = addAparatodig;
     vm.eliminaaparatodig = eliminaaparatodig;
     vm.blockorden = false;
@@ -168,7 +168,7 @@ angular
             return false;
           }
           if (count2 > 1) {
-            ngNotify.set("Solo se pueden subir 2 imagnes de un mismo rubro", "warn");
+            ngNotify.set("Solo se pueden subir 2 imágenes de un mismo rubro", "warn");
             return false;
           }
 
@@ -205,7 +205,7 @@ angular
           ngNotify.set('El aparato ya esta seleccionado', 'warn');
         }
       } else {
-        ngNotify.set('Solo tiene registrado ' + vm.NoSTB + ' como cantidad máxima aparatos', 'warn');
+        ngNotify.set('Solo tiene registrado ' + vm.NoSTB + ' como cantidad máxima de aparatos', 'warn');
       }
     }
 
@@ -328,12 +328,12 @@ angular
     function guardar() {
 
       if (!vm.vcneutrotierra || !vm.vcfasetierra || !vm.vcfaseneutro) {
-        Notification({ message: 'hay información en el apartado de Mediciones Eléctricas que no se han capturado', title: 'Atención' }, 'warning');
+        Notification({ message: 'Hay información en el apartado de Mediciones Eléctricas que no se han capturado', title: 'Atención' }, 'warning');
       }
 
       if (!vm.modem || !vm.serieradio || !vm.serierouter || !vm.marcarouter || !vm.tamanoantena || !vm.sqf || !vm.antena
       ) {
-        Notification({ message: 'hay información en el apartado de Datos de equipo y desempeño que no se han capturado', title: 'Atención' }, 'warning');
+        Notification({ message: 'Hay información en el apartado de Datos de equipo y desempeño que no se han capturado', title: 'Atención' }, 'warning');
       }
 
       if (!vm.Instalacion && !vm.Mantenimiento && !vm.CambioComponentes &&
@@ -350,7 +350,7 @@ angular
       });
 
       if (tipos_.length > 0) {
-        Notification({ message: '**No todos los rubros en la carga de imagenes  estan completados', title: 'Atención' }, 'warning');
+        Notification({ message: '**No todos los rubros en la carga de imágenes  estan completos', title: 'Atención' }, 'warning');
 
       }
 
@@ -452,7 +452,7 @@ angular
         vm.IdMemoriaTecnica = response.GetGuardaMemoriaTecnicaListServicioResult[0].IdMemoriaTecnica;
 
         memoriaServicioFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, []).then(function (data) {
-          ngNotify.set("las imagenes se han guardado correctamente", "success");
+          ngNotify.set("Las imágenes se han guardado correctamente", "success");
           vm.uploader.clearQueue();
 
           vm.cambios.forEach(function (item) {
@@ -476,12 +476,12 @@ angular
                 Id: vm.IdMemoriaTecnica,
                 Fecha: moment().format("L"),
                 Hora: moment().format("LT"),
-                Mensaje: 'Se ha generado una nueva memoria técnica',
+                Mensaje: 'Se ha generado una nueva memoria técnica de reporte',
                 Tipo: 1,
                 SAN: vm.SAN
 
               });
-              ngNotify.set("La memoria técnica se ha guardado correctamente", "success");
+              ngNotify.set("La memoria técnica de reporte se ha guardado correctamente", "success");
               $state.go("home.memoria.memoriastecnicasServicio");
             });
           });

@@ -30,7 +30,7 @@ angular
     };
 
 
-    factory.GetAparatosTecnico = function (Tipo,Clv_Orden,IdTecnico,IdMemoriaTecnica) {
+    factory.GetAparatosTecnico = function (Tipo,ClvOrden,IdTecnico,IdMemoriaTecnica) {
       var deferred = $q.defer();
       var config = {
         headers: {
@@ -41,7 +41,7 @@ angular
       var Parametros = {
         'Tipo':Tipo ,
         'IdTecnico':IdTecnico,
-        'Clv_Orden':Clv_Orden,
+        'Clv_Orden':ClvOrden,
         'IdMemoriaTecnica':IdMemoriaTecnica    
       };      
      

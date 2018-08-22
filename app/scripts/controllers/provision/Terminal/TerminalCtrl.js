@@ -5,11 +5,11 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
   this.$onInit = function () {
     if ($stateParams.idSuscriptor != undefined) {
       vm.idSuscriptor = $stateParams.idSuscriptor;
-      
+
       SuscriptorFactory.getTerminals($stateParams.idSuscriptor).then(function (data) {
         vm.terminales = data.GetDeepIdSuscriptorResult;
         mapaBeamFactory.GetBeamList().then(function (result) {
-          
+
           vm.Beams = result.GetBeamListResult;
           terminalFactory.getServicioList().then(function (data) {
             data.GetServicioListResult.unshift({
@@ -26,7 +26,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
       terminalFactory.getTerminalList().then(function (data) {
         vm.terminales = data.GetTerminalListResult;
         mapaBeamFactory.GetBeamList().then(function (result) {
-       
+
           vm.Beams = result.GetBeamListResult;
           terminalFactory.getServicioList().then(function (data) {
             data.GetServicioListResult.unshift({
@@ -39,7 +39,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
         });
       });
     }
-  
+
   }
 
   function GestionTerminal(object) {
@@ -121,7 +121,7 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
     }
   }
 
-  function buscar() {    
+  function buscar() {
     if (vm.tipoBusqueda == 1) {
       vm.obj = {
         san: vm.bsan,
@@ -272,28 +272,28 @@ function TerminalCtrl(terminalFactory, $uibModal, $state, SuscriptorFactory, map
   vm.verHistoricos = verHistoricos;
   vm.idSuscriptor = 0;
   vm.ListaStatus = [{
-      'clave': '',
-      'Nombre': 'Todos los estatus'
-    },
-    {
-      'clave': 'Pendiente',
-      'Nombre': 'Pendiente'
-    },
-    {
-      'clave': 'Activa',
-      'Nombre': 'Activa'
-    },
-    {
-      'clave': 'Suspendida',
-      'Nombre': 'Suspendida'
-    },
-    {
-      'clave': 'Cancelada',
-      'Nombre': 'Cancelada'
-    },
-    {
-      'clave': 'Incompleta',
-      'Nombre': 'Incompleta'
-    }
+    'clave': '',
+    'Nombre': 'Todos los estatus'
+  },
+  {
+    'clave': 'Pendiente',
+    'Nombre': 'Pendiente'
+  },
+  {
+    'clave': 'Activa',
+    'Nombre': 'Activa'
+  },
+  {
+    'clave': 'Suspendida',
+    'Nombre': 'Suspendida'
+  },
+  {
+    'clave': 'Cancelada',
+    'Nombre': 'Cancelada'
+  },
+  {
+    'clave': 'Incompleta',
+    'Nombre': 'Incompleta'
+  }
   ];
 }

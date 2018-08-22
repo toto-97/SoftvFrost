@@ -30,7 +30,7 @@ angular
       GetAparatosTecnico: '/ObtieneTiposImagenes/GetAparatosTecnicoServicio'
     };
 
-    factory.GetAparatosActuales = function (Tipo, Clv_Queja, IdTecnico, IdMemoriaTecnica) {
+    factory.GetAparatosActuales = function (Tipo, ClvQueja, IdTecnico, IdMemoriaTecnica) {
       var deferred = $q.defer();
       var config = {
         headers: {
@@ -41,10 +41,9 @@ angular
       var Parametros = {
         'Tipo': Tipo,
         'IdTecnico': IdTecnico,
-        'Clv_Queja': Clv_Queja,
+        'Clv_Queja': ClvQueja,
         'IdMemoriaTecnica': IdMemoriaTecnica
       };
-      //console.log(globalService.getUrl() + paths.GetAparatosActuales);
       $http.post(globalService.getUrl() + paths.GetAparatosActuales, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
       }).catch(function (data) {
@@ -54,7 +53,7 @@ angular
       return deferred.promise;
     };
 
-    factory.GetAparatosTecnico = function (Tipo, Clv_Queja, IdTecnico, IdMemoriaTecnica) {
+    factory.GetAparatosTecnico = function (Tipo, ClvQueja, IdTecnico, IdMemoriaTecnica) {
       var deferred = $q.defer();
       var config = {
         headers: {
@@ -65,7 +64,7 @@ angular
       var Parametros = {
         'Tipo': Tipo,
         'IdTecnico': IdTecnico,
-        'Clv_Queja': Clv_Queja,
+        'Clv_Queja': ClvQueja,
         'IdMemoriaTecnica': IdMemoriaTecnica
       };
 
@@ -542,7 +541,7 @@ angular
         'Folio': object.Folio,
         'Fecha': object.Fecha,
         'IdUsuario': $localStorage.currentUser.idUsuario,
-        'Clv_Queja': object.Clv_Queja,
+        'Clv_Queja': object.ClvQueja,
         'Op': object.op,
         'SAN': object.SAN,
         'Cliente': object.Cliente,

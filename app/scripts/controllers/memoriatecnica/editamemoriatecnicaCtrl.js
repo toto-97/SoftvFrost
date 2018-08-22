@@ -601,7 +601,7 @@ angular
           vm.ActivaFechaActivacion = false;
         }
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
-        vm.titulo = 'Edición de memoria técnica #' + vm.IdMemoriaTecnica;
+        vm.titulo = 'Edición de memoria técnica de servicio #' + vm.IdMemoriaTecnica;
       }
 
       function obtenfolio() {
