@@ -32,7 +32,7 @@ angular
     vm.generafolio = false;
     vm.mensajefolio = "Generar Folio";
     vm.blockgenerafolio = true;
-    vm.titulo = "Registro de memoria técnica";
+    vm.titulo = "Registro de memoria técnica de servicio";
     vm.addAparatodig = addAparatodig;
     vm.eliminaaparatodig = eliminaaparatodig;
     vm.blockorden = false;
@@ -44,6 +44,41 @@ angular
     initialData();
     vm.ActivaFechaActivacion = false;
     vm.CambioDeEquipos = false;
+    vm.EquiposSustituir = [
+      {
+        'IdEquipo': 4,
+        'Nombre': 'STB'
+      },
+      {
+        'IdEquipo': 6,
+        'Nombre': 'UPS'
+      },
+      {
+        'IdEquipo': 1,
+        'Nombre': 'Modem'
+      },
+      {
+        'IdEquipo': 3,
+        'Nombre': 'Router'
+      },
+      {
+        'IdEquipo': 2,
+        'Nombre': 'Radio'
+      },
+      {
+        'IdEquipo': 5,
+        'Nombre': 'Antena Internet'
+      },
+      {
+        'IdEquipo': 7,
+        'Nombre': 'LNB'
+      },
+      {
+        'IdEquipo': 8,
+        'Nombre': 'Antena Digital'
+      },
+    ];
+
     vm.FiltrarLista = FiltrarLista;
     
     function initialData() {
@@ -84,7 +119,17 @@ angular
       vm.Combo = results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB = results.NoSTB;
-      console.log('results', results);
+      if (!vm.OrdenInstalacion) {
+        vm.modem = results.Modem;
+        vm.antena = results.AntenaSerie;
+        vm.serierouter = results.Router;
+        vm.tamanoantena = results.Antena;
+        vm.upsserie = results.UPS;
+        vm.serieradio = results.Radio;
+        vm.SQFInstalacion = results.SQFInstalacion;
+      }
+      //console.log('vm.OrdenInstalacion', vm.OrdenInstalacion);
+      //console.log('results', results);
       getTecnicos(vm.contratocompania.split('-')[1]);
     }
 
@@ -92,20 +137,28 @@ angular
 
     function validar() {
       memoriaFactory.GetObtieneDatosPorOrden(vm.numeroorden).then(function (result) {
+        //console.log('GetObtieneDatosPorOrden', result);
         if (result.GetObtieneDatosPorOrdenResult.length > 0) {
           if (result.GetObtieneDatosPorOrdenResult[0].Error > 0) {
             ngNotify.set(result.GetObtieneDatosPorOrdenResult[0].Msg, "error");
             getValidationdata(result.GetObtieneDatosPorOrdenResult[0]);
           } else {
+            vm.OrdenInstalacion = result.GetObtieneDatosPorOrdenResult[0].OrdenInstalacion;
             getValidationdata(result.GetObtieneDatosPorOrdenResult[0]);
             vm.showguardar = true;
-            if (result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ3' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'Norte' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ5') {
-              vm.ActivaFechaActivacion = true;
+            if (result.GetObtieneDatosPorOrdenResult[0].OrdenInstalacion) {
+              vm.CambioDeEquipos = false;
+              if (result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ3' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'Norte' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ5') {
+                vm.ActivaFechaActivacion = true;
+              }
+              else {
+                vm.ActivaFechaActivacion = false;
+              }
             }
             else {
               vm.ActivaFechaActivacion = false;
+              vm.CambioDeEquipos = true;
             }
-
           }
         } else {
           ngNotify.set("El número de orden ingresado no es válido, intente con otro", "warn");
@@ -191,7 +244,7 @@ angular
     function getTecnicos(id) {
 
       memoriaFactory.GetTecnicosMemoriaTecnica(id, 'N', 0).then(function (tecnicos) {
-        console.log(tecnicos);
+        //console.log(tecnicos);
         vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;
       });
     }
@@ -203,29 +256,48 @@ angular
       vm.listSTB = [];
       vm.listAntena = [];
       vm.aparatosdigitales = [];
+      vm.AparatosAnterior = [];
+      vm.AparatosNuevo = [];
       getApartos();
     }
 
     function getApartos() {
-      memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
+      if (vm.OrdenInstalacion) {
+        memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
 
-        vm.listModem = aparatos.GetAparatosTecnicoResult;
-        memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-          vm.listRadio = aparatos.GetAparatosTecnicoResult;
-          memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-            vm.listRouter = aparatos.GetAparatosTecnicoResult;
-            memoriaFactory.GetAparatosTecnico(4, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-              vm.listSTB = aparatos.GetAparatosTecnicoResult;
-              memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-                vm.listAntena = aparatos.GetAparatosTecnicoResult;
-                memoriaFactory.GetAparatosTecnico(6, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-                  vm.listUPS = aparatos.GetAparatosTecnicoResult;
+          vm.listModem = aparatos.GetAparatosTecnicoResult;
+          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden,  vm.instalador.IdEntidad, 0).then(function (aparatos) {
+            vm.listRadio = aparatos.GetAparatosTecnicoResult;
+            memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
+              vm.listRouter = aparatos.GetAparatosTecnicoResult;
+              memoriaFactory.GetAparatosTecnico(4, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
+                vm.listSTB = aparatos.GetAparatosTecnicoResult;
+                memoriaFactory.GetAparatosTecnico(5, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
+                  vm.listAntena = aparatos.GetAparatosTecnicoResult;
+                  memoriaFactory.GetAparatosTecnico(6, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
+                    vm.listUPS = aparatos.GetAparatosTecnicoResult;
+                  });
                 });
               });
             });
           });
         });
-      });
+      }
+      else { // Como no es orden de instalación, solo llenamos los aparatos para cambio
+        if (vm.instalador == undefined) {
+          ngNotify.set("Es necesario elegir un técnico", "error");
+        }
+        else {
+          memoriaFactory.GetAparatosActuales(vm.EquipoSustituir.IdEquipo, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatosActuales) {
+            //console.log('aparatosActuales',aparatosActuales);
+            vm.AparatosAnterior = aparatosActuales.GetAparatosActualesResult;
+            memoriaFactory.GetAparatosTecnicoCambio(vm.EquipoSustituir.IdEquipo, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
+              //console.log('aparatos',aparatos);
+              vm.AparatosNuevo = aparatos.GetAparatosTecnicoCambioResult;
+            });
+          });
+        }
+      }
     }
 
 
@@ -242,21 +314,32 @@ angular
     }
 
     function cambioAparato() {
-      if (vm.serieanterior && vm.equiposurtir && vm.serienueva) {
-        if (vm.serienueva !== vm.serieanterior) {
-          var obj = {};
-          obj.SerieAnterior = vm.serieanterior;
-          obj.Equipo = vm.equiposurtir;
-          obj.SerieNueva = vm.serienueva;
-          obj.Opcion = 1;
-          obj.IdEquipoSustituir = 0;
-          obj.IdMemoriaTecnica = 0;
-          obj.Opcion = 1;
-          obj.IdUsuario = $localStorage.currentUser.idUsuario;
-          vm.cambios.push(obj);
-          vm.serieanterior = "";
-          vm.equiposurtir = "";
-          vm.serienueva = "";
+      if (vm.AparatoAnterior && vm.EquipoSustituir && vm.AparatoNuevo) {
+        if (vm.AparatoAnterior.Descripcion !== vm.AparatoNuevo.Descripcion) {
+          var Cambia = true;
+          vm.cambios.forEach(function (item) {
+            if (item.SerieAnterior == vm.AparatoAnterior.Descripcion) {
+              ngNotify.set("La serie del aparato que se trata de cambiar ya está en la lista", "error");
+              Cambia = false;
+            }
+            else if (item.SerieNueva == vm.AparatoNuevo.Descripcion) {
+              ngNotify.set("La serie del aparato que se trata de cambiar ya está en la lista", "error");
+              Cambia = false;
+            }
+          });
+          if (Cambia) {
+            var obj = {};
+            obj.SerieAnterior = vm.AparatoAnterior.Descripcion;
+            obj.Equipo = vm.EquipoSustituir.Nombre;
+            obj.SerieNueva = vm.AparatoNuevo.Descripcion;
+            obj.Opcion = 1;
+            obj.IdEquipoSustituir = 0;
+            obj.IdMemoriaTecnica = 0;
+            obj.Opcion = 1;
+            obj.IdUsuario = $localStorage.currentUser.idUsuario;
+            vm.cambios.push(obj);
+            detalleTecnico();
+          }
         } else {
           ngNotify.set("Las series no pueden ser iguales", "error");
         }
@@ -309,66 +392,131 @@ angular
 
       }
 
-      var obj = {
-        SAN: (vm.SAN) ? vm.SAN : 0,
-        Contrato: (vm.contrato) ? vm.contrato : 0,
-        Distribuidor: (vm.distribuidor) ? vm.distribuidor : "",
+      if (vm.OrdenInstalacion) {
+        var obj = {
+          SAN: (vm.SAN) ? vm.SAN : 0,
+          Contrato: (vm.contrato) ? vm.contrato : 0,
+          Distribuidor: (vm.distribuidor) ? vm.distribuidor : "",
 
-        FechaVisita: (vm.fechasitio) ? $filter("date")(vm.fechasitio, "yyyyMMdd") : "19000101",
-        HoraLlegada: (vm.horallegada) ? vm.horallegada : "",
-        HoraSalida: (vm.horasalida) ? vm.horasalida : "",
-        SiteId: 0,
-        Cliente: (vm.cliente) ? vm.cliente : "",
-        Estado: (vm.estado) ? vm.estado : "",
-        Municipio: (vm.municipio) ? vm.municipio : "",
-        Localidad: (vm.localidad) ? vm.localidad : "",
-        Direccion: (vm.direccion) ? vm.direccion : "",
-        PersonaRecibe: (vm.recibe) ? vm.recibe : "",
-        Plataforma: (vm.plataforma) ? vm.plataforma : "",
-        Servicio: (vm.plan) ? vm.plan : "",
-        TipoServicio: (vm.tiposervicio) ? vm.tiposervicio.Descripcion : "",
-        Velocidad: (vm.velocidad) ? vm.velocidad : "",
-        DomicilioNotificacion: (vm.domicilionotificacion) ? vm.domicilionotificacion : "",
-        CodigoPostal: (vm.codigopostal) ? vm.codigopostal : "",
-        Telefono: vm.telefono,
-        Celular: vm.celular,
-        Latitud: vm.latitud,
-        Longitud: vm.longitud,
-        Beam: (vm.beam) ? vm.beam : "",
-        EstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.Descripcion : "",
-        FechaActivacion: (vm.fechaactivacion) ? $filter("date")(vm.fechaactivacion, "yyyyMMdd") : "19000101",
-        VCNeutroTierra: (vm.vcneutrotierra) ? vm.vcneutrotierra : "",
-        VCFaseTierra: (vm.vcfasetierra) ? vm.vcfasetierra : "",
-        VCFaseNeutro: (vm.vcfaseneutro) ? vm.vcfaseneutro : "",
-        VUPSNeutroTierra: (vm.upcneutrotierra) ? vm.upcneutrotierra : "",
-        VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
-        VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
-        Modem: (vm.modem) ? vm.modem.Descripcion : "",
-        Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
-        SQF: (vm.sqf) ? vm.sqf : "",
-        Radio: (vm.serieradio) ? vm.serieradio.Descripcion : "",
-        Router: (vm.serierouter) ? vm.serierouter.Descripcion : "",
-        MarcaRouter: (vm.marcarouter) ? vm.marcarouter : "",
-        UPS: (vm.upsserie) ? vm.upsserie.Descripcion : "",
-        WiFi: "",
-        Instalacion: vm.Instalacion,
-        InstalacionDemo: vm.InstalacionDemo,
-        Apuntamiento: vm.Apuntamiento,
-        Reubicacion: vm.Reubicacion,
-        CambioComponentes: vm.CambioComponentes,
-        Mantenimiento: vm.Mantenimiento,
-        SiteSurvey: vm.SiteSurvey,
-        Detalles: (vm.detalleinstalacion) ? vm.detalleinstalacion : "",
-        Folio: (vm.numerofolio) ? vm.numerofolio : 0,
-        Clv_Orden: (vm.numeroorden) ? vm.numeroorden : 0,
-        IdUsuario: $localStorage.currentUser.idUsuario,
-        Instalador: vm.usuariosistema,
-        PersonaValidaServicio: vm.PersonaValidaServicio,
-        IdEstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
-        IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
-        IdTecnico: vm.instalador.IdEntidad,
-        AntenaSerie: (vm.antena) ? vm.antena.Descripcion : ''
-      };
+          FechaVisita: (vm.fechasitio) ? $filter("date")(vm.fechasitio, "yyyyMMdd") : "19000101",
+          HoraLlegada: (vm.horallegada) ? vm.horallegada : "",
+          HoraSalida: (vm.horasalida) ? vm.horasalida : "",
+          SiteId: 0,
+          Cliente: (vm.cliente) ? vm.cliente : "",
+          Estado: (vm.estado) ? vm.estado : "",
+          Municipio: (vm.municipio) ? vm.municipio : "",
+          Localidad: (vm.localidad) ? vm.localidad : "",
+          Direccion: (vm.direccion) ? vm.direccion : "",
+          PersonaRecibe: (vm.recibe) ? vm.recibe : "",
+          Plataforma: (vm.plataforma) ? vm.plataforma : "",
+          Servicio: (vm.plan) ? vm.plan : "",
+          TipoServicio: (vm.tiposervicio) ? vm.tiposervicio.Descripcion : "",
+          Velocidad: (vm.velocidad) ? vm.velocidad : "",
+          DomicilioNotificacion: (vm.domicilionotificacion) ? vm.domicilionotificacion : "",
+          CodigoPostal: (vm.codigopostal) ? vm.codigopostal : "",
+          Telefono: vm.telefono,
+          Celular: vm.celular,
+          Latitud: vm.latitud,
+          Longitud: vm.longitud,
+          Beam: (vm.beam) ? vm.beam : "",
+          EstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.Descripcion : "",
+          FechaActivacion: (vm.fechaactivacion) ? $filter("date")(vm.fechaactivacion, "yyyyMMdd") : "19000101",
+          VCNeutroTierra: (vm.vcneutrotierra) ? vm.vcneutrotierra : "",
+          VCFaseTierra: (vm.vcfasetierra) ? vm.vcfasetierra : "",
+          VCFaseNeutro: (vm.vcfaseneutro) ? vm.vcfaseneutro : "",
+          VUPSNeutroTierra: (vm.upcneutrotierra) ? vm.upcneutrotierra : "",
+          VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
+          VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
+          Modem: (vm.modem) ? vm.modem.Descripcion : "",
+          Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
+          SQF: (vm.sqf) ? vm.sqf : "",
+          Radio: (vm.serieradio) ? vm.serieradio.Descripcion : "",
+          Router: (vm.serierouter) ? vm.serierouter.Descripcion : "",
+          MarcaRouter: (vm.marcarouter) ? vm.marcarouter : "",
+          UPS: (vm.upsserie) ? vm.upsserie.Descripcion : "",
+          WiFi: "",
+          Instalacion: vm.Instalacion,
+          InstalacionDemo: vm.InstalacionDemo,
+          Apuntamiento: vm.Apuntamiento,
+          Reubicacion: vm.Reubicacion,
+          CambioComponentes: vm.CambioComponentes,
+          Mantenimiento: vm.Mantenimiento,
+          SiteSurvey: vm.SiteSurvey,
+          Detalles: (vm.detalleinstalacion) ? vm.detalleinstalacion : "",
+          Folio: (vm.numerofolio) ? vm.numerofolio : 0,
+          Clv_Orden: (vm.numeroorden) ? vm.numeroorden : 0,
+          IdUsuario: $localStorage.currentUser.idUsuario,
+          Instalador: vm.usuariosistema,
+          PersonaValidaServicio: vm.PersonaValidaServicio,
+          IdEstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
+          IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
+          IdTecnico: vm.instalador.IdEntidad,
+          AntenaSerie: (vm.antena) ? vm.antena.Descripcion : ''
+        };
+      }
+      else {
+        var obj = {
+          SAN: (vm.SAN) ? vm.SAN : 0,
+          Contrato: (vm.contrato) ? vm.contrato : 0,
+          Distribuidor: (vm.distribuidor) ? vm.distribuidor : "",
+
+          FechaVisita: (vm.fechasitio) ? $filter("date")(vm.fechasitio, "yyyyMMdd") : "19000101",
+          HoraLlegada: (vm.horallegada) ? vm.horallegada : "",
+          HoraSalida: (vm.horasalida) ? vm.horasalida : "",
+          SiteId: 0,
+          Cliente: (vm.cliente) ? vm.cliente : "",
+          Estado: (vm.estado) ? vm.estado : "",
+          Municipio: (vm.municipio) ? vm.municipio : "",
+          Localidad: (vm.localidad) ? vm.localidad : "",
+          Direccion: (vm.direccion) ? vm.direccion : "",
+          PersonaRecibe: (vm.recibe) ? vm.recibe : "",
+          Plataforma: (vm.plataforma) ? vm.plataforma : "",
+          Servicio: (vm.plan) ? vm.plan : "",
+          TipoServicio: (vm.tiposervicio) ? vm.tiposervicio.Descripcion : "",
+          Velocidad: (vm.velocidad) ? vm.velocidad : "",
+          DomicilioNotificacion: (vm.domicilionotificacion) ? vm.domicilionotificacion : "",
+          CodigoPostal: (vm.codigopostal) ? vm.codigopostal : "",
+          Telefono: vm.telefono,
+          Celular: vm.celular,
+          Latitud: vm.latitud,
+          Longitud: vm.longitud,
+          Beam: (vm.beam) ? vm.beam : "",
+          EstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.Descripcion : "",
+          FechaActivacion: (vm.fechaactivacion) ? $filter("date")(vm.fechaactivacion, "yyyyMMdd") : "19000101",
+          VCNeutroTierra: (vm.vcneutrotierra) ? vm.vcneutrotierra : "",
+          VCFaseTierra: (vm.vcfasetierra) ? vm.vcfasetierra : "",
+          VCFaseNeutro: (vm.vcfaseneutro) ? vm.vcfaseneutro : "",
+          VUPSNeutroTierra: (vm.upcneutrotierra) ? vm.upcneutrotierra : "",
+          VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
+          VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
+          Modem: (vm.modem) ? vm.modem : "",
+          Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
+          SQF: (vm.sqf) ? vm.sqf : "",
+          SQFInstalacion: (vm.SQFInstalacion) ? vm.SQFInstalacion : "",
+          Radio: (vm.serieradio) ? vm.serieradio : "",
+          Router: (vm.serierouter) ? vm.serierouter : "",
+          MarcaRouter: (vm.marcarouter) ? vm.marcarouter : "",
+          UPS: (vm.upsserie) ? vm.upsserie : "",
+          WiFi: "",
+          Instalacion: vm.Instalacion,
+          InstalacionDemo: vm.InstalacionDemo,
+          Apuntamiento: vm.Apuntamiento,
+          Reubicacion: vm.Reubicacion,
+          CambioComponentes: vm.CambioComponentes,
+          Mantenimiento: vm.Mantenimiento,
+          SiteSurvey: vm.SiteSurvey,
+          Detalles: (vm.detalleinstalacion) ? vm.detalleinstalacion : "",
+          Folio: (vm.numerofolio) ? vm.numerofolio : 0,
+          Clv_Orden: (vm.numeroorden) ? vm.numeroorden : 0,
+          IdUsuario: $localStorage.currentUser.idUsuario,
+          Instalador: vm.usuariosistema,
+          PersonaValidaServicio: vm.PersonaValidaServicio,
+          IdEstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
+          IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
+          IdTecnico: vm.instalador.IdEntidad,
+          AntenaSerie: (vm.antena) ? vm.antena.Descripcion : ''
+        };
+      }
 
       var file_options = [];
       var files = [];
