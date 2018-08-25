@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="modal-title">
+      <i class="fa fa-thumb-tack"></i> {{ $ctrl.Titulo }}</h4>
+  </div>
+  <div class="modal-body" >
+    <div class="row">
+        <div class="col-md-12">
+              <input type="text" class="form-control input-lg" ng-model="$ctrl.buscar" ng-keyup="$ctrl.searchCode($ctrl.buscar);" placeholder="12346">
+        </div>
+      
+    </div>
+    <div class="row"  style="overflow-y:scroll; max-height:400px;">
+      <table class="table">
+        <tr ng-repeat="x in $ctrl.ListaFiltro">
+          <td class="text-center" style="font-size:16px;">{{x.Descripcion}}</td>
+          <td class="text-left">
+            <button class="btn btn-warning btn-xs" ng-click="$ctrl.seleccionar(x)"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  
+  
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">cerrar</button>
+  </div>
+  

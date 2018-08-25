@@ -44,7 +44,8 @@ angular
     initialData();
     vm.ActivaFechaActivacion = false;
     vm.CambioDeEquipos = false;
-
+    vm.FiltrarLista = FiltrarLista;
+    
     function initialData() {
       var fechaHoy = new Date();
       vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
@@ -83,7 +84,7 @@ angular
       vm.Combo = results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB = results.NoSTB;
-      console.log('results',results);
+      console.log('results', results);
       getTecnicos(vm.contratocompania.split('-')[1]);
     }
 
@@ -98,10 +99,10 @@ angular
           } else {
             getValidationdata(result.GetObtieneDatosPorOrdenResult[0]);
             vm.showguardar = true;
-            if(result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ3' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'Norte' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ5'){
+            if (result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ3' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'Norte' || result.GetObtieneDatosPorOrdenResult[0].Proveedor == 'AZ5') {
               vm.ActivaFechaActivacion = true;
             }
-            else{
+            else {
               vm.ActivaFechaActivacion = false;
             }
 
@@ -440,6 +441,46 @@ angular
           });
         });
 
+      });
+    }
+
+    function FiltrarLista(Lista, Titulo) {
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/memorias/ModalFiltrarLista.html',
+        controller: 'ModalFiltrarListaCtrl',
+        controllerAs: '$ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: "sm",
+        resolve: {
+          Lista: function () {
+            return Lista;
+          },
+          Titulo: function () {
+            return Titulo;
+          }
+        }
+      });
+      modalInstance.result.then(function (item) {
+        if (Titulo == 'Series Módem') {
+          vm.modem = item;
+        }
+        else if (Titulo == 'Series Antena') {
+          vm.antena = item;
+        }
+        else if (Titulo == 'Series UPS') {
+          vm.upsserie = item;
+        }
+        else if (Titulo == 'Series Radio') {
+          vm.serieradio = item;
+        }
+        else if (Titulo == 'Series Router') {
+          vm.serierouter = item;
+        }
+      }, function () {
       });
     }
   });
