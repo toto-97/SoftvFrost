@@ -2,7 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaCtrl',
-    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
+    function ($state, ngNotify, memoriaFactory, moment, firebase, $uibModal, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
 
       var ref = firebase
         .database()
@@ -787,6 +787,7 @@ angular
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = false;
+      vm.FiltrarLista = FiltrarLista;
       vm.EquiposSustituir = [
         {
           'IdEquipo': 4,
@@ -855,4 +856,44 @@ angular
         fileItem._file.tipo = vm.tipoimagen.Nombre;
         fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
       };
+
+      function FiltrarLista(Lista, Titulo) {
+        var modalInstance = $uibModal.open({
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'views/memorias/ModalFiltrarLista.html',
+          controller: 'ModalFiltrarListaCtrl',
+          controllerAs: '$ctrl',
+          backdrop: 'static',
+          keyboard: false,
+          size: "sm",
+          resolve: {
+            Lista: function () {
+              return Lista;
+            },
+            Titulo: function () {
+              return Titulo;
+            }
+          }
+        });
+        modalInstance.result.then(function (item) {
+          if (Titulo == 'Series Módem') {
+            vm.modem = item;
+          }
+          else if (Titulo == 'Series Antena') {
+            vm.antena = item;
+          }
+          else if (Titulo == 'Series UPS') {
+            vm.upsserie = item;
+          }
+          else if (Titulo == 'Series Radio') {
+            vm.serieradio = item;
+          }
+          else if (Titulo == 'Series Router') {
+            vm.serierouter = item;
+          }
+        }, function () {
+        });
+      }
     });
