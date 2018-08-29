@@ -2,7 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaCtrl',
-    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
+    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, catalogosMemoriaFactory, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
 
       var ref = firebase
         .database()
@@ -114,14 +114,26 @@ angular
                             vm.tiposervicio = vm.listTiposerv[index];
                           }
                         });
-
-
+                        if (vm.IdAntena > 0) {
+                          catalogosMemoriaFactory.GetObtieneAntenasCatalogo().then(function (data) {
+                            var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
+                            vm.antenasTamanos = [];
+                            antenasTamanos.forEach(function (item) {
+                              if(item.IdAntena == vm.IdAntena){
+                                vm.antenaTamano = item;
+                              }
+                              if (item.Activo) {
+                                vm.antenasTamanos.push(item);
+                              }
+                              else if(item.Activo == false && item.IdAntena == vm.IdAntena){
+                                vm.antenasTamanos.push(item);
+                              }
+                            });
+                          });
+                        }
                       });
                     });
-
                   });
-
-
                 });
               });
             });
@@ -424,6 +436,17 @@ angular
           }, 'warning');
 
         }
+
+        var IdAntenaAux = 0;
+        var tamanoantenaAux = 0;
+        if(vm.IdAntena > 0){
+          IdAntenaAux = vm.antenaTamano.IdAntena;
+          tamanoantenaAux = vm.antenaTamano.Nombre;
+        }
+        else{
+          IdAntenaAux = 0;
+          tamanoantenaAux = vm.tamanoantenaAux;
+        }
         if (vm.OrdenInstalacion) {
           var obj = {
             'IdMemoriaTecnica': vm.IdMemoriaTecnica,
@@ -461,7 +484,7 @@ angular
             'VUPSFaseTierra': (vm.upcfasetierra) ? vm.upcfasetierra : '',
             'VUPSFaseNeutro': (vm.upcfaseneutro) ? vm.upcfaseneutro : '',
             'Modem': (vm.modem) ? vm.modem.Descripcion : '',
-            'Antena': (vm.tamanoantena) ? vm.tamanoantena : '',
+            'Antena': tamanoantenaAux,
             'SQF': (vm.sqf) ? vm.sqf : '',
             'Radio': (vm.serieradio) ? vm.serieradio.Descripcion : '',
             'Router': (vm.serierouter) ? vm.serierouter.Descripcion : '',
@@ -483,7 +506,8 @@ angular
             'IdEstatusTecnico': (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
             'IdTipoServicio': (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
             'IdTecnico': (vm.instalador) ? vm.instalador.IdEntidad : 0,
-            'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : ""
+            'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : "",
+            'IdAntena': IdAntenaAux
           };
         } else {
           var obj = {
@@ -545,7 +569,8 @@ angular
             'IdEstatusTecnico': (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
             'IdTipoServicio': (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
             'IdTecnico': (vm.instalador) ? vm.instalador.IdEntidad : 0,
-            'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : ""
+            'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : "",
+            'IdAntena': 0
           };
         }
 
@@ -615,7 +640,6 @@ angular
       }
 
       function detalle(det) {
-        console.log('det', det);
         vm.NoSTB = det.NoSTB;
         vm.Apuntamiento = det.Apuntamiento;
         vm.tamanoantena = det.Antena;
@@ -637,10 +661,10 @@ angular
         //console.log('Prueba',fecAux);
         vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
-        vm.numerofolio = det.Folio;
-        vm.mensajefolio = (vm.numerofolio > 0) ? 'Folio generado' : 'Generar Folio';
-        vm.generafolio = (vm.numerofolio > 0) ? true : false;
-        vm.blockgenerafolio = (vm.numerofolio > 0) ? true : false;
+        vm.numerofolio = det.Folio ? det.Folio : '';
+        vm.mensajefolio = (vm.numerofolio.length > 0) ? 'Folio generado' : 'Generar Folio';
+        vm.generafolio = (vm.numerofolio.length > 0) ? true : false;
+        vm.blockgenerafolio = (vm.numerofolio.length > 0) ? true : false;
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
@@ -679,6 +703,7 @@ angular
         vm.Combo = det.Combo;
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
+        vm.IdAntena = det.IdAntena;
         if (vm.OrdenInstalacion) {
           vm.CambioDeEquipos = false;
           if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
@@ -698,7 +723,9 @@ angular
           vm.upsserie = det.UPS;
           vm.serieradio = det.Radio;
         }
-
+        if (vm.IdAntena == 0) {
+          vm.MuestraComboAntena = false;
+        }
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
         vm.titulo = 'Edición de memoria técnica de servicio #' + vm.IdMemoriaTecnica;
       }
@@ -787,6 +814,7 @@ angular
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = false;
+      vm.MuestraComboAntena = true;
       vm.EquiposSustituir = [
         {
           'IdEquipo': 4,

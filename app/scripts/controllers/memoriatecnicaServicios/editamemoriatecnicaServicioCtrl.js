@@ -2,7 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaServicioCtrl',
-    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
+    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, catalogosMemoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
 
       var ref = firebase
         .database()
@@ -114,7 +114,20 @@ angular
                             vm.tiposervicio = vm.listTiposerv[index];
                           }
                         });
-
+                        if (vm.IdAntena > 0) {
+                          catalogosMemoriaFactory.GetObtieneAntenasCatalogo().then(function (data) {
+                            var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
+                            vm.antenasTamanos = [];
+                            antenasTamanos.forEach(function (item) {
+                              if (item.Activo) {
+                                vm.antenasTamanos.push(item);
+                              }
+                              else if (item.Activo == false && item.IdAntena == vm.IdAntena) {
+                                vm.antenasTamanos.push(item);
+                              }
+                            });
+                          });
+                        }
 
                       });
                     });
@@ -501,7 +514,7 @@ angular
         });
 
 
-        
+
         memoriaServicioFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
           var equiposdig_ = [];
           vm.aparatosdigitales.forEach(function (item) {
@@ -570,9 +583,9 @@ angular
         vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
         vm.numerofolio = det.Folio;
-        vm.mensajefolio = (vm.numerofolio > 0) ? 'Folio generado' : 'Generar Folio';
-        vm.generafolio = (vm.numerofolio > 0) ? true : false;
-        vm.blockgenerafolio = (vm.numerofolio > 0) ? true : false;
+        vm.mensajefolio = (vm.numerofolio.length > 0) ? 'Folio generado' : 'Generar Folio';
+        vm.generafolio = (vm.numerofolio.length > 0) ? true : false;
+        vm.blockgenerafolio = (vm.numerofolio.length > 0) ? true : false;
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
@@ -612,11 +625,15 @@ angular
         vm.Combo = det.Combo;
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
+        vm.IdAntena = det.IdAntena;
         if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
           vm.ActivaFechaActivacion = true;
         }
         else {
           vm.ActivaFechaActivacion = false;
+        }
+        if (vm.IdAntena == 0) {
+          vm.MuestraComboAntena = false;
         }
         vm.modem = det.Modem;
         vm.antena = det.AntenaSerie;
@@ -712,6 +729,7 @@ angular
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = true;
+      vm.MuestraComboAntena = false;
       vm.EquiposSustituir = [
         {
           'IdEquipo': 4,

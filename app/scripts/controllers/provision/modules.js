@@ -231,6 +231,22 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 		templateUrl: 'views/configuracion/TipoImagen.html',
 		controller: 'TipoImagenCtrl',
 		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.provision.Antena',
+		data: {
+			pageTitle: 'BOSS | ANTENA',
+			permissions: {
+				only: ['antenaSelect'],
+				options: {
+					reload: true
+				}
+			}
+		},
+		url: '/configuracion/catalogosMemoria/antena',
+		templateUrl: 'views/configuracion/Antena.html',
+		controller: 'AntenaCtrl',
+		controllerAs: '$ctrl'
 	}
 	];
 

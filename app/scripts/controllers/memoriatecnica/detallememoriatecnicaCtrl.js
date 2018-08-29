@@ -72,8 +72,6 @@ angular
                         vm.tiposervicio = vm.listTiposerv[index];
                       }
                     });
-
-
                   });
                 });
               });

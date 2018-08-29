@@ -13,7 +13,8 @@ angular
     $firebaseArray,
     firebase,
     moment,
-    Notification
+    Notification,
+    catalogosMemoriaFactory
   ) {
     var vm = this;
     vm.cambios = [];
@@ -44,6 +45,55 @@ angular
     initialData();
     vm.ActivaFechaActivacion = false;
     vm.CambioDeEquipos = false;
+    vm.MuestraComboAntena = true;
+    vm.OrdenInstalacion = true;
+    vm.ActualizarDatosHughes = ActualizarDatosHughes;
+    vm.PowerAttenuations = [
+      {
+        'IdPower': 4,
+        'Descripcion': '1 db'
+      },
+      {
+        'IdPower': 6,
+        'Descripcion': '2 db'
+      },
+      {
+        'IdPower': 1,
+        'Descripcion': '3 db'
+      },
+      {
+        'IdPower': 3,
+        'Descripcion': '4 db'
+      },
+      {
+        'IdPower': 2,
+        'Descripcion': '5 db'
+      },
+      {
+        'IdPower': 5,
+        'Descripcion': '6 db'
+      },
+      {
+        'IdPower': 7,
+        'Descripcion': '7 db'
+      },
+      {
+        'IdPower': 8,
+        'Descripcion': '8 db'
+      },
+      {
+        'IdPower': 9,
+        'Descripcion': '9 db'
+      },
+      {
+        'IdPower': 10,
+        'Descripcion': '10 db'
+      },
+      {
+        'IdPower': 11,
+        'Descripcion': 'Mayor > 10 db'
+      }
+    ];
     vm.EquiposSustituir = [
       {
         'IdEquipo': 4,
@@ -93,6 +143,15 @@ angular
           vm.listEstatus = estatus.GetEstatusTecnicoResult;
           memoriaFactory.GetTipoServicio().then(function (tipos) {
             vm.listTiposerv = tipos.GetTipoServicioResult;
+            catalogosMemoriaFactory.GetObtieneAntenasCatalogo().then(function (data) {
+              var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
+              vm.antenasTamanos = [];
+              antenasTamanos.forEach(function (item) {
+                if(item.Activo){
+                  vm.antenasTamanos.push(item);
+                }
+              });
+            });
           });
         });
       });
@@ -428,7 +487,7 @@ angular
           VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
           VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
           Modem: (vm.modem) ? vm.modem.Descripcion : "",
-          Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
+          Antena: (vm.antenaTamano.Nombre) ? vm.antenaTamano.Nombre : "",
           SQF: (vm.sqf) ? vm.sqf : "",
           Radio: (vm.serieradio) ? vm.serieradio.Descripcion : "",
           Router: (vm.serierouter) ? vm.serierouter.Descripcion : "",
@@ -451,7 +510,8 @@ angular
           IdEstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
           IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
           IdTecnico: vm.instalador.IdEntidad,
-          AntenaSerie: (vm.antena) ? vm.antena.Descripcion : ''
+          AntenaSerie: (vm.antena) ? vm.antena.Descripcion : '',
+          IdAntena: vm.antenaTamano.IdAntena ? vm.antenaTamano.IdAntena : 0
         };
       }
       else {
@@ -490,7 +550,7 @@ angular
           VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
           VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
           Modem: (vm.modem) ? vm.modem : "",
-          Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
+          Antena: (vm.antenaTamano.Nombre) ? vm.antenaTamano.Nombre : "",
           SQF: (vm.sqf) ? vm.sqf : "",
           SQFInstalacion: (vm.SQFInstalacion) ? vm.SQFInstalacion : "",
           Radio: (vm.serieradio) ? vm.serieradio : "",
@@ -514,7 +574,8 @@ angular
           IdEstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
           IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
           IdTecnico: vm.instalador.IdEntidad,
-          AntenaSerie: (vm.antena) ? vm.antena.Descripcion : ''
+          AntenaSerie: (vm.antena) ? vm.antena.Descripcion : '',
+          IdAntena: vm.antenaTamano.IdAntena ? vm.antenaTamano.IdAntena : 0
         };
       }
 
@@ -630,5 +691,9 @@ angular
         }
       }, function () {
       });
+    }
+
+    function ActualizarDatosHughes(){
+      vm.numeroorden
     }
   });
