@@ -44,7 +44,7 @@ angular
     vm.detalleTecnico = detalleTecnico;
     initialData();
     vm.ActivaFechaActivacion = false;
-    vm.CambioDeEquipos = true;
+    vm.CambioDeEquipos = false;
     vm.EquiposSustituir = [
       {
         'IdEquipo': 4,

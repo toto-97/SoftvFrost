@@ -711,7 +711,7 @@ angular
       vm.notas_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.ActivaFechaActivacion = false;
-      vm.CambioDeEquipos = true;
+      vm.CambioDeEquipos = false;
       vm.EquiposSustituir = [
         {
           'IdEquipo': 4,
