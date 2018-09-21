@@ -24,6 +24,7 @@ function TipoImagenCtrl(catalogosMemoriaFactory, $state, ngNotify) {
       tipoAux.Activo = true;
       tipoAux.IdTipo = 0;
       tipoAux.ExisteImagen = false;
+      tipoAux.ValidacionEnSitio = false;
       vm.Tipos.push(tipoAux);
       vm.NombreNuevo = '';
     }

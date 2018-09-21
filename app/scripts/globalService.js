@@ -51,14 +51,16 @@ angular.module('softvFrostApp')
     //rutas locales
      svc.getUrl = function () {
       return  'http://localhost:64481/SoftvWCFService.svc';
-      //return 'http://192.168.50.200:3000/SoftvWCFService.svc';
+      //return 'http://192.168.50.200:3000/SoftvWCFService.svc';//Normal Eric
+      //return 'http://192.168.50.102:8020/SoftvWCFService.svc';//Dev Jano
       //return 'http://172.16.126.44:8089/SoftvWCFService.svc';
 
     };
 
     svc.getUrlReportes = function () {
-      //return 'http://192.168.50.200:3000';
-      return  'http://localhost:64481/SoftvWCFService.svc';
+      //return 'http://192.168.50.200:3000';//Normal Eric
+      //return  'http://localhost:64481';
+      return 'http://192.168.50.102:8020';//Dev Jano
     };
 
     svc.getUrlmemoriatecnica = function () {

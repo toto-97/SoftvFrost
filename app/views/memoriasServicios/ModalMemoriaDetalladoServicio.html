@@ -1,0 +1,91 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="modal-title">
+      <i class="fa fa-thumb-tack"></i>Detalle Memoria Técnia # {{ $ctrl.IdMemoriaTecnica}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row" style="overflow-y:scroll; max-height:400px;">
+      <div class="col-md-12">
+        <div class="panel form-element-padding">
+          <uib-tabset active="activeJustified" justified="false">
+            <uib-tab index="0" heading="Notas Generales">
+              <table st-table="$ctrl.displayedCollection" st-safe-src="$ctrl.rowCollection" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
+                <thead>
+                  <tr>
+                    <th st-sort="Usuario">Usuario</th>
+                    <th st-sort="Fecha">Fecha</th>
+                    <th st-sort="Observacion">Observación</th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <input st-search="Usuario" placeholder="Usuario" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                      <input st-search="Fecha" placeholder="Fecha" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                      <input st-search="Observacion" placeholder="Observacion" class="input-sm form-control" type="search" />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr dir-paginate="row in $ctrl.displayedCollection|orderBy:sortKey:reverse|itemsPerPage:15" id="Generales">
+                    <td width="15%">{{row.Nombre}}</td>
+                    <td width="15%">{{row.Fecha}}</td>
+                    <td width="70%">{{row.Observacion}}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  </tr>
+                </tfoot>
+              </table>
+              <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" id="Generales">
+              </dir-pagination-controls>
+            </uib-tab>
+            <uib-tab index="1" heading="Notas por Pestaña">
+              <table st-table="$ctrl.displayedCollection2" st-safe-src="$ctrl.rowCollection2" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection2">
+                <thead>
+                  <tr>
+                    <th st-sort="Pestana">Pestaña</th>
+                    <th st-sort="Usuario">Usuario</th>
+                    <th st-sort="Fecha">Fecha</th>
+                    <th st-sort="Observacion">Observación</th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <input st-search="Pestana" placeholder="Pestaña" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                      <input st-search="Usuario" placeholder="Usuario" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                      <input st-search="Fecha" placeholder="Fecha" class="input-sm form-control" type="search" />
+                    </th>
+                    <th>
+                      <input st-search="Observacion" placeholder="ObservaciÓn" class="input-sm form-control" type="search" />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr dir-paginate="row in $ctrl.displayedCollection2|orderBy:sortKey:reverse|itemsPerPage:15" id="Pestanas">
+                    <td width="15%">{{row.Pestana}}</td>
+                    <td width="15%">{{row.Nombre}}</td>
+                    <td width="15%">{{row.Fecha}}</td>
+                    <td width="55%">{{row.Observacion}}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  </tr>
+                </tfoot>
+              </table>
+              <dir-pagination-controls max-size="5" id="Pestanas" direction-links="true" boundary-links="true">
+              </dir-pagination-controls>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cerrar</button>
+  </div>

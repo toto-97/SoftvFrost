@@ -114,7 +114,7 @@ angular
                             vm.tiposervicio = vm.listTiposerv[index];
                           }
                         });
-                        if (vm.IdAntena > 0) {
+                        /*if (vm.IdAntena > 0) {
                           catalogosMemoriaFactory.GetObtieneAntenasCatalogo().then(function (data) {
                             var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
                             vm.antenasTamanos = [];
@@ -127,7 +127,7 @@ angular
                               }
                             });
                           });
-                        }
+                        }*/
 
                       });
                     });
@@ -582,7 +582,7 @@ angular
         //console.log('Prueba',fecAux);
         vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
-        vm.numerofolio = det.Folio;
+        vm.numerofolio = det.Folio == null ? '' : det.Folio;
         vm.mensajefolio = (vm.numerofolio.length > 0) ? 'Folio generado' : 'Generar Folio';
         vm.generafolio = (vm.numerofolio.length > 0) ? true : false;
         vm.blockgenerafolio = (vm.numerofolio.length > 0) ? true : false;
@@ -625,7 +625,7 @@ angular
         vm.Combo = det.Combo;
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
-        vm.IdAntena = det.IdAntena;
+        //vm.IdAntena = det.IdAntena;
         if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
           vm.ActivaFechaActivacion = true;
         }

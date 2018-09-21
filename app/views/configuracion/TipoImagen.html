@@ -36,6 +36,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Activo</th>
+                            <th>Validación en Sitio</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
@@ -47,6 +48,12 @@
                             <td class="text-center">
                                 <label class="checkbox-inline checkbox-styled checkbox-primary">
                                     <input type="checkbox" ng-model="x.Activo" value="{{ x.IdTipo }}" ng-checked="x.Activo">
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td class="text-center">
+                                <label class="checkbox-inline checkbox-styled checkbox-primary">
+                                    <input type="checkbox" ng-model="x.ValidacionEnSitio" value="{{ x.IdTipo }}" ng-checked="x.ValidacionEnSitio">
                                     <span></span>
                                 </label>
                             </td>
