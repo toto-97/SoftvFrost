@@ -23,7 +23,7 @@
     </header>
     <div class="tools">
       <div class="btn-group">
-        <a class="btn btn-primary btn-sm" ui-sref="home.memoria.nuevamemoriaServicio" title="Crear una nueva memoria técnica"> Nueva memoria</a>
+        <a class="btn btn-primary btn-sm" ui-sref="home.memoria.nuevamemoriaServicio" permission permission-only="'memoriastecnicasreportesAdd'" title="Crear una nueva memoria técnica"> Nueva memoria</a>
       </div>
     </div>
   </div>
@@ -169,7 +169,7 @@
               <td>{{x.Usuario}}</td>
               <td>
                 <a title="Consultar memoria técnica" ui-sref="home.memoria.detallememoriaServicio({ id: x.IdMemoriaTecnica})" class="btn ink-reaction  btn-xs btn-default"><i class="md md-content-paste"></i> CONSULTAR</a>
-                <a ng-disabled="x.Folio.length > 0" title="Editar memoria técnica" ui-sref="home.memoria.editarmemoriaServicio({ id: x.IdMemoriaTecnica})" ng-disabled="x.Clv_QUEJA>0"
+                <a ng-disabled="x.Folio.length > 0" permission permission-only="'memoriastecnicasreportesUpdate'" title="Editar memoria técnica" ui-sref="home.memoria.editarmemoriaServicio({ id: x.IdMemoriaTecnica})" ng-disabled="x.Clv_QUEJA>0"
                   class="btn ink-reaction  btn-xs btn-warning" ng-click="$ctrl.editarEntrada(x.Consecutivo)"><i class="fa fa-edit"></i> Editar</a>
               </td>
               <td>
