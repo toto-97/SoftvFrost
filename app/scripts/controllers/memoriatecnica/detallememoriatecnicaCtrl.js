@@ -81,6 +81,23 @@ angular
                         vm.tiposervicio = vm.listTiposerv[index];
                       }
                     });
+                    if (vm.IdAntena > 0) {
+                      catalogosMemoriaFactory.GetObtieneAntenasCatalogo().then(function (data) {
+                        var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
+                        vm.antenasTamanos = [];
+                        antenasTamanos.forEach(function (item) {
+                          if (item.IdAntena == vm.IdAntena) {
+                            vm.antenaTamano = item;
+                          }
+                          if (item.Activo) {
+                            vm.antenasTamanos.push(item);
+                          }
+                          else if (item.Activo == false && item.IdAntena == vm.IdAntena) {
+                            vm.antenasTamanos.push(item);
+                          }
+                        });
+                      });
+                    }
                   });
                 });
               });
@@ -262,6 +279,7 @@ angular
         vm.contratocompania = det.contratocompania;
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
+        vm.IdAntena = det.IdAntena;
         if (vm.OrdenInstalacion) {
           vm.CambioDeEquipos = false;
           if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
@@ -281,10 +299,36 @@ angular
           vm.upsserie = det.UPS;
           vm.serieradio = det.Radio;
         }
+        if (vm.IdAntena == 0) {
+          vm.MuestraComboAntena = false;
+        }
+        vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
+        vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
+        vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
+        vm.PowerAttenuation = det.PowerAttenuation == undefined ? '' : det.PowerAttenuation;
+        if (vm.PowerAttenuation.length > 0) {
+          vm.PowerAttenuations.forEach(function (item, index) {
+            if (item.Descripcion === det.PowerAttenuation) {
+              vm.PowerAttenuation = item;
+            }
+          });
+        }
+        vm.PruebaACP = det.PruebaACP == undefined ? '' : det.PruebaACP;
+        vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
+        vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
+        vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
 
       }
 
+      function ActualizarDatosHughes() {
+        var parametros = {};
+        parametros.Clv_Orden = vm.numeroorden;
+        memoriaFactory.GetObtieneDatosHughes(parametros).then(function (result) {
+          vm.SQFVS = result.GetObtieneDatosHughesResult.SQF;
+          vm.CodigodeEstado = result.GetObtieneDatosHughesResult.CodigoEstado;
+        });
+      }
 
       var openLightboxModal =
         function (index) {
@@ -292,6 +336,7 @@ angular
         };
       var vm = this;
       vm.uploader = new FileUploader();
+      vm.uploaderVS = new FileUploader();
       vm.id = $stateParams.id;
       initialData();
       vm.cambios = [];
@@ -304,6 +349,54 @@ angular
       vm.titulo = 'Detalle de memoria técnica de servicio #' + vm.id;
       vm.detalle = true;
       vm.CambioDeEquipos = false;
+      vm.MuestraComboAntena = true;
+      vm.ActualizarDatosHughes = ActualizarDatosHughes;
+      vm.PowerAttenuations = [
+        {
+          'IdPower': 4,
+          'Descripcion': '1 db'
+        },
+        {
+          'IdPower': 6,
+          'Descripcion': '2 db'
+        },
+        {
+          'IdPower': 1,
+          'Descripcion': '3 db'
+        },
+        {
+          'IdPower': 3,
+          'Descripcion': '4 db'
+        },
+        {
+          'IdPower': 2,
+          'Descripcion': '5 db'
+        },
+        {
+          'IdPower': 5,
+          'Descripcion': '6 db'
+        },
+        {
+          'IdPower': 7,
+          'Descripcion': '7 db'
+        },
+        {
+          'IdPower': 8,
+          'Descripcion': '8 db'
+        },
+        {
+          'IdPower': 9,
+          'Descripcion': '9 db'
+        },
+        {
+          'IdPower': 10,
+          'Descripcion': '10 db'
+        },
+        {
+          'IdPower': 11,
+          'Descripcion': 'Mayor > 10 db'
+        }
+      ];
       vm.EquiposSustituir = [
         {
           'IdEquipo': 4,

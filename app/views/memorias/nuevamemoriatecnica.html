@@ -90,6 +90,8 @@
         <div class="btn-group">
           <button class="btn btn-primary btn-sm" ng-show="$ctrl.showguardar" title="Crear una nueva memoria técnica" type="submit">
             Guardar</button>
+          <button title="Eliminar Memoria Técnica" type="button" class="btn btn-danger btn-sm" ng-show="$ctrl.showeliminar"
+            name="button" ng-click="$ctrl.EliminaMemoria()">Eliminar</button>
           <button title="Regresar a atenciones telefónicas" type="button" ui-sref="home.memoria.memoriastecnicas" class="btn btn-default-bright btn-sm"
             name="button">Salir</button>
         </div>

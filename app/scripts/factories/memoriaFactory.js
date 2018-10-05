@@ -31,7 +31,24 @@ angular
       GetAparatosActuales:'/ObtieneTiposImagenes/GetAparatosActuales',
       GetObtieneObservacionesMemoriaTecnicaPestana:'/GuardaObservacionMemoriaTecnica/GetObtieneObservacionesMemoriaTecnicaPestana',
       GetReporteMemoriaDetallado: '/BuscaMemoriaTecnica/GetReporteMemoriaDetallado',
-      GetObtieneDatosHughes: '/BuscaMemoriaTecnica/GetObtieneDatosHughes'
+      GetObtieneDatosHughes: '/BuscaMemoriaTecnica/GetObtieneDatosHughes',
+      GetEliminaMemoriaTecnica: '/GuardaMemoriaTecnica/GetEliminaMemoriaTecnica'
+    };
+
+    factory.GetEliminaMemoriaTecnica = function (Parametros) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetEliminaMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     };
 
     factory.GetObtieneDatosHughes = function (Parametros) {

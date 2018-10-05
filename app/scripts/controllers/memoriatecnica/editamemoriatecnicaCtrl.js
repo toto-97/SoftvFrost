@@ -70,10 +70,10 @@ angular
                 item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.Opcion = 2;
-                if(item.ValidacionEnSitio){
+                if (item.ValidacionEnSitio) {
                   vm.Lista_evidenciasVS.push(item);
                 }
-                else{
+                else {
                   vm.Lista_evidencias.push(item);
                 }
               });
@@ -535,7 +535,15 @@ angular
             'IdTipoServicio': (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
             'IdTecnico': (vm.instalador) ? vm.instalador.IdEntidad : 0,
             'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : "",
-            'IdAntena': IdAntenaAux
+            'IdAntena': IdAntenaAux,
+            'CodigoEstado': vm.CodigodeEstado,
+            'SQFVS': vm.SQFVS,
+            'TransmitRate': vm.TransmitRate,
+            'PowerAttenuation': vm.PowerAttenuation.Descripcion,
+            'PruebaACP': vm.PruebaACP,
+            'VoltajeComercialNT': vm.VoltajeComercialNT,
+            'VoltajeComercialFT': vm.VoltajeComercialFT,
+            'VoltajeComercialFN': vm.VoltajeComercialFN
           };
         } else {
           var obj = {
@@ -598,7 +606,15 @@ angular
             'IdTipoServicio': (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
             'IdTecnico': (vm.instalador) ? vm.instalador.IdEntidad : 0,
             'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : "",
-            'IdAntena': 0
+            'IdAntena': 0,
+            'CodigoEstado': vm.CodigodeEstado,
+            'SQFVS': vm.SQFVS,
+            'TransmitRate': vm.TransmitRate,
+            'PowerAttenuation': vm.PowerAttenuation.Descripcion,
+            'PruebaACP': vm.PruebaACP,
+            'VoltajeComercialNT': vm.VoltajeComercialNT,
+            'VoltajeComercialFT': vm.VoltajeComercialFT,
+            'VoltajeComercialFN': vm.VoltajeComercialFN
           };
         }
 
@@ -673,7 +689,7 @@ angular
               memoriaFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
                 vm.uploader.clearQueue();
                 vm.uploaderVS.clearQueue();
-                ngNotify.set('La memoria técnica  se ha guardado correctamente', 'success');
+                ngNotify.set('La memoria técnica se ha guardado correctamente', 'success');
                 $state.go('home.memoria.memoriastecnicas');
               });
 
@@ -760,16 +776,31 @@ angular
         else {
           vm.CambioDeEquipos = true;
           vm.ActivaFechaActivacion = false;
-          vm.modem = det.Modem;
-          vm.antena = det.AntenaSerie;
-          vm.serierouter = det.Router;
-          vm.tamanoantena = det.Antena;
-          vm.upsserie = det.UPS;
-          vm.serieradio = det.Radio;
+          vm.modem = det.Modem == undefined ? '' : det.Modem;
+          vm.antena = det.AntenaSerie == undefined ? '' : det.Modem;
+          vm.serierouter = det.Router == undefined ? '' : det.Modem;
+          vm.tamanoantena = det.Antena == undefined ? '' : det.Modem;
+          vm.upsserie = det.UPS == undefined ? '' : det.Modem;
+          vm.serieradio = det.Radio == undefined ? '' : det.Modem;
         }
         if (vm.IdAntena == 0) {
           vm.MuestraComboAntena = false;
         }
+        vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
+        vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
+        vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
+        vm.PowerAttenuation = det.PowerAttenuation == undefined ? '' : det.PowerAttenuation;
+        if (vm.PowerAttenuation.length > 0) {
+          vm.PowerAttenuations.forEach(function (item, index) {
+            if (item.Descripcion === det.PowerAttenuation) {
+              vm.PowerAttenuation = item;
+            }
+          });
+        }
+        vm.PruebaACP = det.PruebaACP == undefined ? '' : det.PruebaACP;
+        vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
+        vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
+        vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
         vm.titulo = 'Edición de memoria técnica de servicio #' + vm.IdMemoriaTecnica;
       }
@@ -827,6 +858,21 @@ angular
         }
       }
 
+      function EliminaMemoria() {
+        var parametros = {};
+        parametros.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+        parametros.IdUsuario = $localStorage.currentUser.idUsuario;
+        memoriaFactory.GetEliminaMemoriaTecnica(parametros).then(function (response) {
+          if (response.GetEliminaMemoriaTecnicaResult > 0) {
+            ngNotify.set('Solo es posible eliminar las memorias técnicas que no estén foliadas y la orden pendiente', 'error');
+          }
+          else {
+            ngNotify.set('La memoria técnica se ha eliminado correctamente', 'success');
+            $state.go('home.memoria.memoriastecnicas');
+          }
+        });
+      }
+
 
       var vm = this;
       vm.eliminaNota = eliminaNota;
@@ -837,6 +883,7 @@ angular
       vm.detalleTecnico = detalleTecnico;
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = true;
+      vm.showeliminar = true;
       vm.seleccionImagen = true;
       vm.detalle = false;
       vm.guardar = guardar;
@@ -862,6 +909,53 @@ angular
       vm.CambioDeEquipos = false;
       vm.MuestraComboAntena = true;
       vm.ActualizarDatosHughes = ActualizarDatosHughes;
+      vm.EliminaMemoria = EliminaMemoria;
+      vm.PowerAttenuations = [
+        {
+          'IdPower': 4,
+          'Descripcion': '1 db'
+        },
+        {
+          'IdPower': 6,
+          'Descripcion': '2 db'
+        },
+        {
+          'IdPower': 1,
+          'Descripcion': '3 db'
+        },
+        {
+          'IdPower': 3,
+          'Descripcion': '4 db'
+        },
+        {
+          'IdPower': 2,
+          'Descripcion': '5 db'
+        },
+        {
+          'IdPower': 5,
+          'Descripcion': '6 db'
+        },
+        {
+          'IdPower': 7,
+          'Descripcion': '7 db'
+        },
+        {
+          'IdPower': 8,
+          'Descripcion': '8 db'
+        },
+        {
+          'IdPower': 9,
+          'Descripcion': '9 db'
+        },
+        {
+          'IdPower': 10,
+          'Descripcion': '10 db'
+        },
+        {
+          'IdPower': 11,
+          'Descripcion': 'Mayor > 10 db'
+        }
+      ];
       vm.EquiposSustituir = [
         {
           'IdEquipo': 4,
@@ -966,7 +1060,7 @@ angular
         fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
       };
 
-      function ActualizarDatosHughes(){
+      function ActualizarDatosHughes() {
         var parametros = {};
         parametros.Clv_Orden = vm.numeroorden;
         memoriaFactory.GetObtieneDatosHughes(parametros).then(function (result) {

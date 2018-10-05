@@ -48,6 +48,7 @@ angular
     vm.MuestraComboAntena = true;
     vm.OrdenInstalacion = true;
     vm.ActualizarDatosHughes = ActualizarDatosHughes;
+    vm.showeliminar = false;
     vm.PowerAttenuations = [
       {
         'IdPower': 4,
@@ -557,7 +558,15 @@ angular
           IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
           IdTecnico: vm.instalador.IdEntidad,
           AntenaSerie: (vm.antena) ? vm.antena.Descripcion : '',
-          IdAntena: vm.antenaTamano.IdAntena ? vm.antenaTamano.IdAntena : 0
+          IdAntena: vm.antenaTamano.IdAntena ? vm.antenaTamano.IdAntena : 0,
+          CodigoEstado: vm.CodigodeEstado,
+          SQFVS: vm.SQFVS,
+          TransmitRate: vm.TransmitRate,
+          PowerAttenuation: vm.PowerAttenuation.Descripcion,
+          PruebaACP: vm.PruebaACP,
+          VoltajeComercialNT: vm.VoltajeComercialNT,
+          VoltajeComercialFT: vm.VoltajeComercialFT,
+          VoltajeComercialFN: vm.VoltajeComercialFN
         };
       }
       else {
@@ -596,7 +605,7 @@ angular
           VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
           VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
           Modem: (vm.modem) ? vm.modem : "",
-          Antena: (vm.antenaTamano.Nombre) ? vm.antenaTamano.Nombre : "",
+          Antena: (vm.tamanoantena) ? vm.tamanoantena : "",
           SQF: (vm.sqf) ? vm.sqf : "",
           SQFInstalacion: (vm.SQFInstalacion) ? vm.SQFInstalacion : "",
           Radio: (vm.serieradio) ? vm.serieradio : "",
@@ -621,7 +630,15 @@ angular
           IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
           IdTecnico: vm.instalador.IdEntidad,
           AntenaSerie: (vm.antena) ? vm.antena.Descripcion : '',
-          IdAntena: vm.antenaTamano.IdAntena ? vm.antenaTamano.IdAntena : 0
+          IdAntena:  0,
+          CodigoEstado: vm.CodigodeEstado,
+          SQFVS: vm.SQFVS,
+          TransmitRate: vm.TransmitRate,
+          PowerAttenuation: vm.PowerAttenuation.Descripcion,
+          PruebaACP: vm.PruebaACP,
+          VoltajeComercialNT: vm.VoltajeComercialNT,
+          VoltajeComercialFT: vm.VoltajeComercialFT,
+          VoltajeComercialFN: vm.VoltajeComercialFN
         };
       }
 
