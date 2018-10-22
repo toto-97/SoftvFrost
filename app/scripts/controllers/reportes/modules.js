@@ -107,6 +107,17 @@ function reportesConf($stateProvider) {
 			controller: 'Reportes_PAJ',
 			controllerAs: '$ctrl'
 		}
+		,
+		{
+			name: 'home.reportes.tokenautomatico',
+			data: {
+				pageTitle: 'STAR.GO | REPORTE TOKEN AUTOMATICO'				
+			},
+			url: '/reportes/tokenautomatico',
+			templateUrl: 'views/reportes/reporteTokenAutomatico.html',
+			controller: 'ReporteTokenAutomaticoCtrl',
+			controllerAs: '$ctrl'
+		}
 	];
 
 	states.forEach(function(state) {

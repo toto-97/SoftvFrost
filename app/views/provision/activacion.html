@@ -18,8 +18,8 @@
 							<b>SAN</b><br>
 							<input type="text" class="form-control input-sm" placeholder="SAN" name="san" required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.SAN">
 						</div>
-						<div class="col-md-2" style="margin-top:20px;">
-							<a class="btn btn-primary btn-sm" ng-click="$ctrl.validarSAN()"><i class="fa fa-search"></i> Validar SAN</a>
+						<div class="col-md-2" style="margin-top:20px;" >
+							<button class="btn btn-primary btn-sm" ng-click="$ctrl.validarSAN()" ><i class="fa fa-search"></i> Validar SAN</button>
 						</div>
 					</div>
 					<div class="row">
@@ -37,7 +37,8 @@
 					<div class="row">
 						<div class="col-md-6 text-left">
 							<br>
-							<button class="btn btn-raised btn-success btn-sm" type="submit">Activar</button>
+							<button class="btn btn-raised btn-success btn-sm" type="submit" ng-disabled="!$ctrl.ActivarBoton">Activar</button>
+							<a class="text-danger" ng-if="!$ctrl.ActivarBoton"><i class="fa fa-info"></i> Botón de activación desactivado. Se habilitará nuevamente en {{ 30 - $ctrl.count}}. </a>
 						</div>
 					</div>
 				</div>

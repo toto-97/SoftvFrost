@@ -1,0 +1,228 @@
+<style>
+    .table>thead>tr>th,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>tbody>tr>td,
+    .table>tfoot>tr>td {
+        padding: 5px 5px !important;
+        line-height: 1.846153846 !important;
+        vertical-align: top !important;
+        border-top: 1px solid rgba(189, 193, 193, 0.2);
+        font-size: 11px;
+    }
+</style>
+
+
+
+<div class="card" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+        <header>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Reportes</strong>
+            <br />
+            <small class="text-muted" style="font-size:14px; margin-left:10px;">
+                <a href="#">
+                    <i class="fa fa-home" aria-hidden="true"></i> Reportes</a>>
+                <a href="#" class="paginaActiva">Reporte Token Automático</a>
+            </small>
+
+        </header>
+    </div>
+    <div class="card-body">
+
+        <div class="panel-heading">
+            <div class="tools">
+                <div class="panel-group" id="suscriptor">
+                    <div class="card panel">
+                        <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#suscriptor"
+                            data-target="#suscriptor-1" aria-expanded="false">
+                            <header>Filtros</header>
+                            <div class="tools">
+                                <a class="btn btn-icon-toggle">
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="suscriptor-1" class="collapse buscarSuscriptor" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-7" style="padding: 10px;">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.DistribuidorActivo">
+                                                    <span></span>Distribuidor - Plazas</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-6" style="margin-top: 5px">
+                                                <label>Distribuidor</label>
+
+                                                <select name="distribuidor2" ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clave"
+                                                    class="form-control input-sm" ng-model="$ctrl.distribuidor"
+                                                    ng-change="$ctrl.ObtienePlazas()" ng-disabled="!$ctrl.DistribuidorActivo">
+                                                    <option value=""> Selecciona distribuidor</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12" style="margin-top: 5px" ng-if="$ctrl.DistribuidorActivo">
+                                                <div class="col-md-12">
+                                                    <td><button ng-disabled="!$ctrl.DistribuidorActivo" class="btn btn-info btn-xs"
+                                                            type="button" ng-click="$ctrl.TodasPlazas()"><i class="fa fa-server"></i>
+                                                            Seleccionar todas</button></td>
+                                                </div>
+                                                <div class="col-md-6" style="max-height:200px; overflow-y:scroll">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <th>Plaza</th>
+                                                            <th>Opciones</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="x in $ctrl.Plazas">
+                                                                <td>{{x.Nombre}}</td>
+                                                                <td><button ng-disabled="!$ctrl.DistribuidorActivo"
+                                                                        class="btn btn-success btn-xs" type="button"
+                                                                        ng-click="$ctrl.AgregaPlaza(x.Clave)"><i class="fa fa-edit"></i>
+                                                                        Agregar</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-6" style="max-height:210px; overflow-y:scroll">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <th>Plaza</th>
+                                                            <th>Opciones</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="x in $ctrl.PlazasSeleccionadas">
+                                                                <td>{{x.Nombre}}</td>
+                                                                <td><button ng-disabled="!$ctrl.DistribuidorActivo"
+                                                                        class="btn btn-danger btn-xs" type="button"
+                                                                        ng-click="$ctrl.QuitarPlaza(x.Clave)"><i class="fa fa-trash"></i>
+                                                                        Quitar</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="padding: 10px;">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.CobroActivo">
+                                                    <span></span>Cobro</label>
+                                            </div>
+                                            <div style="margin: 20px">
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.ConCobro" ng-disabled="!$ctrl.CobroActivo">
+                                                    <span></span>Con Cobro</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7" style="padding: 10px;">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.AsignadoActivo">
+                                                    <span></span>Token Automático Asignado</label>
+                                            </div>
+                                            <div style="margin: 20px">
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.Asignado" ng-disabled="!$ctrl.AsignadoActivo">
+                                                    <span></span>Exitoso</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" style="padding: 10px;margin-left: 15px">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                    <input type="checkbox" ng-model="$ctrl.FechasActivo">
+                                                    <span></span>Fechas</label>
+                                            </div>
+                                            <div class="row" style="margin: 20px">
+                                                <div class="col-md-6">
+                                                    Fecha Inicial:
+                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaInicio"
+                                                        type="date" ng-disabled="!$ctrl.FechasActivo" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    Fecha Final:
+                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaFin" type="date"
+                                                        ng-disabled="!$ctrl.FechasActivo" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-offset-5 col-md-2" style="margin-bottom: 10px;">
+                                        <div class="col-md-12 text-center">
+                                            <button class="btn btn-success btn-md" ng-click="$ctrl.GeneraReporte()"
+                                                type="button">Generar Reporte</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- panel body -->
+                        </div>
+                    </div>
+                    <!--end .panel -->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel form-element-padding">
+            <div style="max-height:1500px; overflow-y:scroll">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Distribuidor</th>
+                            <th>Plaza</th>
+                            <th>Contrato</th>
+                            <th>Cliente</th>
+                            <th>Fecha Asignación</th>
+                            <th>Precio</th>
+                            <th>Token</th>
+                            <th>ConCobro</th>
+                            <th>Ticket</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="x in $ctrl.resultados|itemsPerPage:15" >
+                            <th>{{ x.Plaza }}</th>
+                            <th>{{ x.Compania }}</th>
+                            <th>{{ x.Contrato }}</th>
+                            <th>{{ x.Cliente }}</th>
+                            <th>{{ x.FechaToken }}</th>
+                            <th>{{ x.Precio }}</th>
+                            <th>{{ x.Servicio }}</th>
+                            <th><label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                <input type="checkbox" name="" ng-model="x.selected" ng-checked="{{ x.ConCobro }}" ng-disabled="true" >
+                                <span></span></label>
+                            <th>{{ x.Ticket }}</th>
+                            <th>{{ x.Observaciones }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-5">
+                    <div style="padding-left: 20px;" ng-show="true">
+                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-block ink-reaction btn-success" csv-column-order="$ctrl.csvorder"
+                        csv-header="$ctrl.csvheader" ng-csv="$ctrl.resultados" filename="ReportePAJ.csv"
+                        field-separator="," decimal-separator="." add-bom="true">
+                        <i class="fa fa-file-excel-o"></i> Exportar CSV</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
