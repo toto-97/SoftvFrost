@@ -39,6 +39,7 @@ function Reportes_PAJ($uibModal, $state, $stateParams, reportesFactory) {
       parametros.FechaInicio = '01/01/1900';
       parametros.FechaFin = '01/01/1900';
     }
+    parametros.SinApagadas = vm.SinApagadas;
     reportesFactory.GetReportePAJ(parametros).then(function (data) {
       console.log('data',data);
       vm.resultados = data.GetReportePAJResult;
@@ -52,6 +53,7 @@ function Reportes_PAJ($uibModal, $state, $stateParams, reportesFactory) {
   vm.FapActivo = false;
   vm.FechasActivo = false;
   vm.Fap = false;
-  vm.csvheader=['Contrato','Periodo','Umbral','Plaza','Compania','Estado','PAJ','SAN','esn','servicePlan','terminalStatus','gatewayID','beamID','beamLocation','fapStatus','availTokens','overallCapacity','Consumo','offPeakOverallCapacity','offPeakOverallUsage,','fapEarlyWarningTrigger','staticIpv4Subnet','staticIpv6Subnet','configuredIpv4Subnet','configuredIpv6Subnet','stateCode','stateCodeDescription','FechaPeticion'];
-  vm.csvorder=['Contrato','Periodo','Umbral','Plaza','Compania','Estado','PAJ','SAN','esn','servicePlan','terminalStatus','gatewayID','beamID','beamLocation','fapStatus','availTokens','overallCapacity','overallUsage','offPeakOverallCapacity','offPeakOverallUsage,','fapEarlyWarningTrigger','staticIpv4Subnet','staticIpv6Subnet','configuredIpv4Subnet','configuredIpv6Subnet','stateCode','stateCodeDescription','FechaPeticion'];
+  vm.csvheader=['Contrato','Periodo','Umbral','Plaza','Compania','Estado','PAJ','SAN','esn','servicePlan','terminalStatus','gatewayID','beamID','beamLocation','fapStatus','availTokens','overallCapacity','Consumo','offPeakOverallCapacity','offPeakOverallUsage,','fapEarlyWarningTrigger','staticIpv4Subnet','staticIpv6Subnet','configuredIpv4Subnet','configuredIpv6Subnet','stateCode','stateCodeDescription','FechaPeticion','HoraPeticion'];
+  vm.csvorder=['Contrato','Periodo','Umbral','Plaza','Compania','Estado','PAJ','SAN','esn','servicePlan','terminalStatus','gatewayID','beamID','beamLocation','fapStatus','availTokens','overallCapacity','overallUsage','offPeakOverallCapacity','offPeakOverallUsage,','fapEarlyWarningTrigger','staticIpv4Subnet','staticIpv6Subnet','configuredIpv4Subnet','configuredIpv6Subnet','stateCode','stateCodeDescription','FechaPeticion','HoraPeticion'];
+  vm.SinApagadas = false;
 }

@@ -1,10 +1,13 @@
 'use strict';
 angular.module('softvFrostApp').controller('activacionCtrl', activacionCtrl);
 
-function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $stateParams, globalService, $interval) {
+function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $stateParams, globalService, $interval, $window) {
   this.$onInit = function () {
-    if ($stateParams.esn != undefined) {
-      vm.ESN = $stateParams.esn;
+    if($stateParams.ESN != undefined && $stateParams.ESN != '' && $stateParams.antenna_size != undefined && $stateParams.antenna_size != ''){
+			$window.open('http://189.254.231.35/ovttool/#!/home/monitoreo/validation?esn=' + $stateParams.ESN, '_self');
+		}
+    if ($stateParams.ESN != undefined) {
+      vm.ESN = $stateParams.ESN;
       vm.bockEsn = true;
     }
   }
@@ -108,7 +111,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
 
 
             //Prueba
-            /*var SECOND = 1000; // PRIVATE
+            var SECOND = 1000; // PRIVATE
             var MINUTE = SECOND * 60;
             var HOUR = MINUTE * 60;
             var DAY = HOUR * 24;
@@ -121,7 +124,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
               } else {
                 vm.count++;
               }
-            }, 1 * SECOND);*/
+            }, 1 * SECOND);
           });
         }
         else {
