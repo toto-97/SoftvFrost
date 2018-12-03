@@ -111,7 +111,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
 
 
             //Prueba
-            var SECOND = 1000; // PRIVATE
+            /*var SECOND = 1000; // PRIVATE
             var MINUTE = SECOND * 60;
             var HOUR = MINUTE * 60;
             var DAY = HOUR * 24;
@@ -124,7 +124,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
               } else {
                 vm.count++;
               }
-            }, 1 * SECOND);
+            }, 1 * SECOND);*/
           });
         }
         else {
