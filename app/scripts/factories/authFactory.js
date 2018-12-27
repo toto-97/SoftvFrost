@@ -16,9 +16,7 @@ angular.module('softvFrostApp')
 				}
 			};
 			$http.post(globalService.getUrl() + paths.login, JSON.stringify(Parametros), config)
-				.then(function(response) {
-					console.log(response);
-					console.log(response.data.LogOnResult.Role.RecibeMensaje);
+				.then(function(response) {					
 					if (response.data.LogOnResult.Token) {
 						$localStorage.currentUser = {
 							token: response.data.LogOnResult.Token,

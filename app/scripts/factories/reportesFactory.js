@@ -16,6 +16,24 @@ angular.module('softvFrostApp')
 			mostrarReporteDatosDelSuscriptor: '/Reporte_Consumo/GetReporte_DatosDelSuscriptor',
 			mostrarReporteContrato: '/Reporte_Consumo/GetReporte_Contrato',
 			GetReportePAJ: '/ReportePAJ/GetReportePAJ',
+			GetReporteTokenAutomatico : '/TokenAutomatico/GetReporteTokenAutomatico'
+		};
+
+		factory.GetReporteTokenAutomatico = function (Parametros) {
+
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetReporteTokenAutomatico, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (response) {
+				deferred.reject(response.data);
+			});
+
+			return deferred.promise;
 		};
 
 		factory.GetReportePAJ = function (Parametros) {

@@ -80,7 +80,7 @@ angular
     ];
 
     vm.FiltrarLista = FiltrarLista;
-    
+
     function initialData() {
       var fechaHoy = new Date();
       vm.fechasitio = $filter('date')(fechaHoy, 'dd/MM/yyyy');
@@ -119,6 +119,11 @@ angular
       vm.Combo = results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB = results.NoSTB;
+      console.log('results.FechaActivacion',results.FechaActivacion);
+      var fecAux = moment(results.FechaActivacion, 'MM-DD-YYYY').toDate();
+      console.log('fecAux',fecAux);
+      vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
+      console.log('vm.fechaactivacion',vm.fechaactivacion);
       if (!vm.OrdenInstalacion) {
         vm.modem = results.Modem;
         vm.antena = results.AntenaSerie;
@@ -266,7 +271,7 @@ angular
         memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
 
           vm.listModem = aparatos.GetAparatosTecnicoResult;
-          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden,  vm.instalador.IdEntidad, 0).then(function (aparatos) {
+          memoriaFactory.GetAparatosTecnico(2, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
             vm.listRadio = aparatos.GetAparatosTecnicoResult;
             memoriaFactory.GetAparatosTecnico(3, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
               vm.listRouter = aparatos.GetAparatosTecnicoResult;

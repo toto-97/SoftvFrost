@@ -18,7 +18,8 @@ angular
         'SAN': (op === 4) ? vm.SAN : 0,
         'Cliente': (op === 5) ? vm.cliente : '',
         'Contrato': (op === 7) ? vm.contrato : '',
-        'Tecnico': (op === 6) ? vm.tecnico : ''
+        'Tecnico': (op === 6) ? vm.tecnico : '',
+        'SerieAparato': (op === 8) ? vm.serie : ''
       };
       memoriaFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {

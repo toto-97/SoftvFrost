@@ -704,31 +704,49 @@ angular
       }
 
       function obtenfolio() {
-
-        memoriaFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
-          .then(function (response) {
-
-            var id = vm.IdMemoriaTecnica;
-            GetdataFire().then(function (result) {
-              result.forEach(function (item, index) {
-                if (parseInt(item.Id) === parseInt(id)) {
-                  deleteFile(index).then(function (result) {
-
-                  });
-
-                }
-              });
-
-            });
-
-
-            vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
-            vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
-            vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-            vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-
+        if (vm.generafolio) {
+          //Preguntamos si están seguros de generar folio
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'views/memorias/ModalPreguntaFolio.html',
+            controller: 'ModalPreguntaFolioCtrl',
+            controllerAs: '$ctrl',
+            backdrop: 'static',
+            keyboard: false,
+            size: "md",
+            resolve: {
+              /*Lista: function () {
+                return vm.CambioDeEquipos;
+              }*/
+            }
           });
-
+          modalInstance.result.then(function (item) {
+            if (item) {
+              memoriaFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
+                .then(function (response) {
+                  var id = vm.IdMemoriaTecnica;
+                  GetdataFire().then(function (result) {
+                    result.forEach(function (item, index) {
+                      if (parseInt(item.Id) === parseInt(id)) {
+                        deleteFile(index).then(function (result) {
+                        });
+                      }
+                    });
+                  });
+                  vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
+                  vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
+                  vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+                  vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+                });
+            }
+            else {
+              vm.generafolio = false;
+            }
+          }, function () {
+          });
+        }
       }
 
       function detalleTecnico() {
