@@ -183,10 +183,12 @@
                             <th>Plaza</th>
                             <th>Contrato</th>
                             <th>Cliente</th>
+                            <th>Overall Capacity</th>
                             <th>Fecha Asignación</th>
                             <th>Precio</th>
                             <th>Token</th>
                             <th>ConCobro</th>
+                            <th>Umbral</th>
                             <th>Ticket</th>
                             <th>Observaciones</th>
                         </tr>
@@ -197,12 +199,14 @@
                             <th>{{ x.Compania }}</th>
                             <th>{{ x.Contrato }}</th>
                             <th>{{ x.Cliente }}</th>
+                            <th>{{ x.OverallCapacity }}</th>
                             <th>{{ x.FechaToken }}</th>
                             <th>{{ x.Precio }}</th>
                             <th>{{ x.Servicio }}</th>
                             <th><label class="checkbox-inline checkbox-styled checkbox-success text-md">
                                 <input type="checkbox" name="" ng-model="x.selected" ng-checked="{{ x.ConCobro }}" ng-disabled="true" >
-                                <span></span></label>
+                                <span></span></label></th>
+                            <th>{{ x.Umbral }}</th>
                             <th>{{ x.Ticket }}</th>
                             <th>{{ x.Observaciones }}</th>
                         </tr>

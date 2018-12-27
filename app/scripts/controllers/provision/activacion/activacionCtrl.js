@@ -62,6 +62,8 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
             });
             vm.PIN = "";
             vm.SAN = "";
+            vm.Suscriptor = '';
+            vm.Referencia = '';
             //Ponemos el movimiento como  exitoso
             Obj2.objMovimiento.Exitoso = 1;
           }
@@ -94,11 +96,13 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
   function validarSAN() {
     //Nos traemos los datos de la terminal
     terminalFactory.getTerminalById(vm.SAN).then(function (data) {
+      //console.log('data',data);
       if (data.GetByTerminalResult == null) {
         vm.PIN = "";
         ngNotify.set('No existe una terminal con el SAN ingresado', 'error');
       } else {
         vm.Terminal = data.GetByTerminalResult;
+        vm.Referencia = vm.Terminal.Comentarios;
         if (vm.Terminal.Estatus == 'Activa' || vm.Terminal.Estatus == 'Pendiente') {
           if (vm.Terminal.Estatus == 'Activa') {
             ngNotify.set('La terminal está Activa, solo debe activar si la terminal tiene activado Swap', 'info');
@@ -106,6 +110,8 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
           //Nos traemos los datos del cliente para obtener el PIN
           terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
             vm.suscriptor = data.GetSuscriptorResult;
+            vm.Suscriptor = vm.suscriptor.Nombre + ' ' + vm.suscriptor.Apellido;
+            //console.log('vm.suscriptor',vm.suscriptor);
             //El PIN son los últimos cuatro dígitos del teléfono del cliente
             vm.PIN = vm.suscriptor.Telefono.substring(6, 10);
 
@@ -129,6 +135,8 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
         }
         else {
           vm.PIN = "";
+          vm.Suscriptor = '';
+          vm.Referencia = '';
           ngNotify.set('La terminal no se encuentra en Estatus Pendiente', 'error');
         }
       }
@@ -149,4 +157,6 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
   vm.validarSAN = validarSAN;
   vm.bockEsn = false;
   vm.ActivarBoton = true;
+  vm.Referencia = '';
+  vm.Suscriptor = '';
 }
