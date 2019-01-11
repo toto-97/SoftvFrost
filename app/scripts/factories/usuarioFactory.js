@@ -240,7 +240,8 @@ angular.module('softvFrostApp')
 					'RecibeMensaje':object.RecibeMensaje,
 					'CheckMemoria':object.CheckMemoria,
 					'Cliente':object.Cliente,
-					'Estado':object.Estado
+					'Estado':object.Estado,
+					'LUITerminal':object.LUITerminal
 				}
 			};
 			var config = {
@@ -270,7 +271,8 @@ angular.module('softvFrostApp')
 					'RecibeMensaje':object.RecibeMensaje,
 					'CheckMemoria':object.CheckMemoria,
 					'Cliente':object.Cliente,
-					'Estado':object.Estado
+					'Estado':object.Estado,
+					'LUITerminal':object.LUITerminal
 				}
 			};
 			//console.log('objeto enviado',Parametros);
