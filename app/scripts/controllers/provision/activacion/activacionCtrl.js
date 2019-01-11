@@ -96,7 +96,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
   function validarSAN() {
     //Nos traemos los datos de la terminal
     terminalFactory.getTerminalById(vm.SAN).then(function (data) {
-      //console.log('data',data);
+      console.log('terminal',data);
       if (data.GetByTerminalResult == null) {
         vm.PIN = "";
         ngNotify.set('No existe una terminal con el SAN ingresado', 'error');
@@ -109,6 +109,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
           }
           //Nos traemos los datos del cliente para obtener el PIN
           terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
+            console.log('suscriptor',data);
             vm.suscriptor = data.GetSuscriptorResult;
             vm.Suscriptor = vm.suscriptor.Nombre + ' ' + vm.suscriptor.Apellido;
             //console.log('vm.suscriptor',vm.suscriptor);

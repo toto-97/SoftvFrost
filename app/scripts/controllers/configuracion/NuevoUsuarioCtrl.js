@@ -9,6 +9,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 	vm.ValidatePanel = false;
 	vm.editar = true;
 	vm.userText = false;
+	vm.LUITerminal = false;
 	vm.existe = existe;
 	vm.isDuplicate = false;
 	vm.getplazas = getplazas;
@@ -132,6 +133,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 				obj.CheckMemoria = vm.CheckMemoria;
 				obj.Cliente=vm.Cliente;
 				obj.Estado = vm.Activo;
+				obj.LUITerminal = vm.LUITerminal;
 				usuarioFactory.AddUsuario(obj).then(function (data) {
 					vm.Id = data.AddUsuarioResult;
 					vm.btnsubmit = false;
