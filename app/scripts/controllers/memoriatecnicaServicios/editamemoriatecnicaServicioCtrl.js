@@ -3,6 +3,7 @@ angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaServicioCtrl',
     function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification, $uibModal) {
+    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, catalogosMemoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
 
       var ref = firebase
         .database()
@@ -45,18 +46,36 @@ angular
 
 
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
-          vm.tiposresp = response.GetObtieneTiposImagenesListResult;
+          vm.tiposresp = [];
+          vm.tiposrespValidacion = [];
+          var tipos = response.GetObtieneTiposImagenesListResult;
+          tipos.forEach(function (item) {
+            if (item.ValidacionEnSitio) {
+              vm.tiposrespValidacion.push(item);
+            }
+            else {
+              vm.tiposresp.push(item);
+            }
+          });
           memoriaServicioFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
 
             detalle(data.GetObtieneMemoriaTecnicaServicioResult[0]);
             memoriaServicioFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
-              vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaServicioResult;
-              vm.Lista_evidencias.forEach(function (item) {
+              vm.Lista_evidenciasVS = [];
+              vm.Lista_evidencias = [];
+              var Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaServicioResult;
+              Lista_evidencias.forEach(function (item) {
                 item.Ruta = item.Ruta;
                 item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
                 item.Opcion = 2;
+                if (item.ValidacionEnSitio) {
+                  vm.Lista_evidenciasVS.push(item);
+                }
+                else {
+                  vm.Lista_evidencias.push(item);
+                }
               });
 
               memoriaServicioFactory.GetObtieneEquiposSustituir(vm.IdMemoriaTecnica).then(function (result) {
@@ -114,7 +133,20 @@ angular
                             vm.tiposervicio = vm.listTiposerv[index];
                           }
                         });
-
+                        /*if (vm.IdAntena > 0) {
+                          catalogosMemoriaFactory.GetObtieneAntenasCatalogo().then(function (data) {
+                            var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
+                            vm.antenasTamanos = [];
+                            antenasTamanos.forEach(function (item) {
+                              if (item.Activo) {
+                                vm.antenasTamanos.push(item);
+                              }
+                              else if (item.Activo == false && item.IdAntena == vm.IdAntena) {
+                                vm.antenasTamanos.push(item);
+                              }
+                            });
+                          });
+                        }*/
 
                       });
                     });
@@ -310,6 +342,16 @@ angular
         }
       }
 
+      function BorraImagenVS(index) {
+        if (index > -1) {
+          var obj = vm.Lista_evidenciasVS[index];
+          obj.Opcion = 2;
+          obj.IdUsuario = $localStorage.currentUser.idUsuario;
+          vm.Imagenes_eliminadas.push(obj);
+          vm.Lista_evidenciasVS.splice(index, 1);
+        }
+      }
+
 
       function eliminaaparato(index) {
         if (index > -1) {
@@ -479,7 +521,15 @@ angular
           'IdEstatusTecnico': (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
           'IdTipoServicio': (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
           'IdTecnico': (vm.instalador) ? vm.instalador.IdEntidad : 0,
-          'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : ""
+          'AntenaSerie': (vm.antena) ? vm.antena.Descripcion : "",
+          'CodigoEstado': vm.CodigodeEstado,
+          'SQFVS': vm.SQFVS,
+          'TransmitRate': vm.TransmitRate,
+          'PowerAttenuation': vm.PowerAttenuation.Descripcion,
+          'PruebaACP': vm.PruebaACP,
+          'VoltajeComercialNT': vm.VoltajeComercialNT,
+          'VoltajeComercialFT': vm.VoltajeComercialFT,
+          'VoltajeComercialFN': vm.VoltajeComercialFN
         };
 
         var file_options = [];
@@ -500,7 +550,21 @@ angular
 
         });
 
+        //Imagenes de pestaña de Valdiacion en Sitio
+        vm.uploaderVS.queue.forEach(function (f) {
 
+          var options = {
+            IdImagen: 0,
+            Accion: 1,
+            Tipo: f._file.idtipo,
+            Nombre: f._file.name,
+            IdUsuario: $localStorage.currentUser.idUsuario
+          };
+          file_options.push(options);
+          tipos.push(f._file.idtipo);
+          files.push(f._file);
+
+        });
 
         memoriaServicioFactory.UpdateGuardaMemoriaTecnica(obj).then(function (response) {
           var equiposdig_ = [];
@@ -569,10 +633,10 @@ angular
         //console.log('Prueba',fecAux);
         vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
-        vm.numerofolio = det.Folio;
-        vm.mensajefolio = (vm.numerofolio > 0) ? 'Folio generado' : 'Generar Folio';
-        vm.generafolio = (vm.numerofolio > 0) ? true : false;
-        vm.blockgenerafolio = (vm.numerofolio > 0) ? true : false;
+        vm.numerofolio = det.Folio == null ? '' : det.Folio;
+        vm.mensajefolio = (vm.numerofolio.length > 0) ? 'Folio generado' : 'Generar Folio';
+        vm.generafolio = (vm.numerofolio.length > 0) ? true : false;
+        vm.blockgenerafolio = (vm.numerofolio.length > 0) ? true : false;
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
@@ -609,14 +673,18 @@ angular
         vm.wifiserie = det.WiFi;
         vm.contratocompania = det.contratocompania;
         vm.PersonaValidaServicio = det.PersonaValidaServicio;
-        vm.Combo = det.Combo;
+        vm.Combo = false;//det.Combo;
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
+        //vm.IdAntena = det.IdAntena;
         if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
           vm.ActivaFechaActivacion = true;
         }
         else {
           vm.ActivaFechaActivacion = false;
+        }
+        if (vm.IdAntena == 0) {
+          vm.MuestraComboAntena = false;
         }
         vm.modem = det.Modem;
         vm.antena = det.AntenaSerie;
@@ -624,6 +692,21 @@ angular
         vm.tamanoantena = det.Antena;
         vm.upsserie = det.UPS;
         vm.serieradio = det.Radio;
+        vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
+        vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
+        vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
+        vm.PowerAttenuation = det.PowerAttenuation == undefined ? '' : det.PowerAttenuation;
+        if (vm.PowerAttenuation.length > 0) {
+          vm.PowerAttenuations.forEach(function (item, index) {
+            if (item.Descripcion === det.PowerAttenuation) {
+              vm.PowerAttenuation = item;
+            }
+          });
+        }
+        vm.PruebaACP = det.PruebaACP == undefined ? '' : det.PruebaACP;
+        vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
+        vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
+        vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
         vm.titulo = 'Edición de memoria técnica de reporte #' + vm.IdMemoriaTecnica;
       }
@@ -699,15 +782,31 @@ angular
         }
       }
 
+      function EliminaMemoria() {
+        var parametros = {};
+        parametros.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+        parametros.IdUsuario = $localStorage.currentUser.idUsuario;
+        memoriaServicioFactory.GetEliminaMemoriaTecnica(parametros).then(function (response) {
+          if (response.GetEliminaMemoriaTecnicaServicioResult > 0) {
+            ngNotify.set('Solo es posible eliminar las memorias técnicas que no estén foliadas y el reporte pendiente', 'error');
+          }
+          else {
+            ngNotify.set('La memoria técnica se ha eliminado correctamente', 'success');
+            $state.go('home.memoria.memoriastecnicasServicio');
+          }
+        });
+      }
 
       var vm = this;
       vm.eliminaNota = eliminaNota;
       vm.uploader = new FileUploader();
+      vm.uploaderVS = new FileUploader();
       vm.id = $stateParams.id;
       initialData();
       vm.detalleTecnico = detalleTecnico;
       vm.openLightboxModal = openLightboxModal;
       vm.showguardar = true;
+      vm.showeliminar = true;
       vm.seleccionImagen = true;
       vm.detalle = false;
       vm.guardar = guardar;
@@ -729,7 +828,57 @@ angular
       vm.notas_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.ActivaFechaActivacion = false;
-      vm.CambioDeEquipos = false;
+      vm.CambioDeEquipos = true;
+      vm.MuestraComboAntena = false;
+      vm.ActualizarDatosHughes = ActualizarDatosHughes;
+      vm.EliminaMemoria = EliminaMemoria;
+      vm.BorraImagenVS = BorraImagenVS;
+      vm.PowerAttenuations = [
+        {
+          'IdPower': 4,
+          'Descripcion': '1 db'
+        },
+        {
+          'IdPower': 6,
+          'Descripcion': '2 db'
+        },
+        {
+          'IdPower': 1,
+          'Descripcion': '3 db'
+        },
+        {
+          'IdPower': 3,
+          'Descripcion': '4 db'
+        },
+        {
+          'IdPower': 2,
+          'Descripcion': '5 db'
+        },
+        {
+          'IdPower': 5,
+          'Descripcion': '6 db'
+        },
+        {
+          'IdPower': 7,
+          'Descripcion': '7 db'
+        },
+        {
+          'IdPower': 8,
+          'Descripcion': '8 db'
+        },
+        {
+          'IdPower': 9,
+          'Descripcion': '9 db'
+        },
+        {
+          'IdPower': 10,
+          'Descripcion': '10 db'
+        },
+        {
+          'IdPower': 11,
+          'Descripcion': 'Mayor > 10 db'
+        }
+      ];
       vm.EquiposSustituir = [
         {
           'IdEquipo': 4,
@@ -791,6 +940,34 @@ angular
         ]
       });
 
+
+      vm.uploaderVS = new FileUploader({
+        filters: [{
+          name: "yourName1",
+          fn: function (item) {
+            var count = 0;
+            var count2 = 0;
+            vm.uploader.queue.forEach(function (f) {
+              count += f._file.name === item.name ? 1 : 0;
+              count2 += f._file.idtipo === vm.tipoimagenValidacion.IdTipo ? 1 : 0;
+            });
+            if (count > 0) {
+              ngNotify.set("Un archivo con ese mismo nombre ya fue seleccionado", "warn");
+              return false;
+            }
+            if (count2 > 1) {
+              ngNotify.set("Solo se pueden subir 2 imágenes de un mismo rubro", "warn");
+              return false;
+            } else {
+              return true;
+            }
+          }
+        },
+
+
+        ]
+      });
+
       vm.uploader.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagen.IdTipo;
         fileItem.file.tipo = vm.tipoimagen.Nombre;
@@ -798,4 +975,21 @@ angular
         fileItem._file.tipo = vm.tipoimagen.Nombre;
         fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
       };
+
+      vm.uploaderVS.onAfterAddingFile = function (fileItem) {
+        fileItem.file.idtipo = vm.tipoimagenValidacion.IdTipo;
+        fileItem.file.tipo = vm.tipoimagenValidacion.Nombre;
+        fileItem._file.idtipo = vm.tipoimagenValidacion.IdTipo;
+        fileItem._file.tipo = vm.tipoimagenValidacion.Nombre;
+        fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
+      };
+
+      function ActualizarDatosHughes() {
+        var parametros = {};
+        parametros.Clv_Queja = vm.numeroqueja;
+        memoriaServicioFactory.GetObtieneDatosHughes(parametros).then(function (result) {
+          vm.SQFVS = result.GetObtieneDatosHughesServicioResult.SQF;
+          vm.CodigodeEstado = result.GetObtieneDatosHughesServicioResult.CodigoEstado;
+        });
+      }
     });

@@ -2,9 +2,10 @@
 angular
   .module('softvFrostApp')
   .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment, $firebaseArray,
-    firebase, globalService, $q, $window) {
+    firebase, globalService, $q, $window, $localStorage) {
 
     function initialData() {
+      vm.RolUsuario = $localStorage.currentUser.idRol;
       BuscaMemoriaTecnica(0);
     }
 
@@ -24,7 +25,9 @@ angular
       memoriaFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {
           vm.memorias = data.GetBuscaMemoriaTecnicaListResult;
-         
+          vm.memorias.forEach(function (item, index) {
+            item.RolUsuario = vm.RolUsuario;
+          });
         });
     }
 

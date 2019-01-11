@@ -83,6 +83,7 @@
                 <th st-sort="fechaactivacion">Fecha Activacion</th>
                 <th st-sort="fechacheck">Fecha Check</th>
                 <th st-sort="fechaejecucion">Fecha Ejecucion</th>
+                <th>Opciones</th>
               </tr>
               <!--<tr>
                   <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
@@ -121,7 +122,9 @@
                 <th>
                   <input st-search="fechaejecucion" placeholder="Fecha Ejecucion" class="input-sm form-control" type="search" />
                 </th>
-
+                <th>
+                    
+                  </th>
               </tr>
 
             </thead>
@@ -140,31 +143,33 @@
                 <td>{{row.fechaactivacion}}</td>
                 <td>{{row.fechacheck}}</td>
                 <td>{{row.fechaejecucion}}</td>
-
+                <td>
+                  <button class="btn ink-reaction  btn-xs btn-default" title="Notas Memoria Técnica" ng-click="$ctrl.Notas(row.IdMemoriaTecnica)"><i class="md md-content-paste"></i></button>
+                </td>
               </tr>
             </tbody>
             <tfoot>
-
-
-
               </tr>
             </tfoot>
           </table>
           <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
           </dir-pagination-controls>
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv('todo')" style="white-space: normal"> Exportar CSV </button>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <button class="btn btn-csv btn-sm " ng-hide="$ctrl.todoAsCsv" ng-click="$ctrl.crearTodoAsCsv('visible')" style="white-space: normal"> Exportar visible CSV </button>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('todo')" style="white-space: normal">Exportar PDF</button>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <button class="btn btn-pdf btn-sm " ng-click="$ctrl.createPdfTodo('visible')" style="white-space: normal">Exportar visible PDF</button>
             </div>
+            <div class="col-sm-3">
+                <button class="btn btn-success btn-sm " ng-click="$ctrl.ReporteDetallado()" style="white-space: normal"> Exportar Reporte Detallado </button>
+              </div>
           </div>
 
           <button class="btn btn-default" id="csvDos" ng-hide="true" csv-column-order="$ctrl.order" ng-csv="$ctrl.arrayReporte" filename="{{ $ctrl.filename }}.csv"

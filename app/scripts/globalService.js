@@ -47,7 +47,7 @@ angular.module('softvFrostApp')
       svc.getType = function () {
         return 'TEV';
       };  
-     */
+    */ 
   
     //rutas locales
      svc.getUrl = function () {

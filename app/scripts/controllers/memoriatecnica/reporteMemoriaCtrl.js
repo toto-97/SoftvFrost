@@ -1,6 +1,6 @@
 'use strict';
 angular.module('softvFrostApp')
-  .controller('reporteMemoriaCtrl', function ($http, reportesFactory, $timeout, ngNotify, $state, memoriaFactory) {
+  .controller('reporteMemoriaCtrl', function ($http, reportesFactory, $timeout, ngNotify, $state, memoriaFactory, $uibModal, globalService) {
     var vm = this;
     vm.filename = "Reporte";
     var reportHeaderPdf = "Reporte Memoria técnica ";
@@ -10,6 +10,58 @@ angular.module('softvFrostApp')
     var img = new Image();
     img.crossOrigin = "";
     getImageDataURL();
+    vm.Notas = Notas;
+    vm.ReporteDetallado = ReporteDetallado;
+
+    function ReporteDetallado() {
+      memoriaFactory.GetReporteMemoriaDetallado().then(function (data) {
+        console.log(data);
+        var urlReporte = data.GetReporteMemoriaDetalladoResult;
+
+        vm.url = globalService.getUrlReportes() + '/Reportes/' + urlReporte;
+        //$window.open(vm.url, '_self');
+
+        var isChrome = !!window.chrome && !!window.chrome.webstore;
+        var isIE = /*@cc_on!@*/ false || !!document.documentMode;
+        var isEdge = !isIE && !!window.StyleMedia;
+
+
+        if (isChrome) {
+          var url = window.URL || window.webkitURL;
+
+          var downloadLink = angular.element('<a></a>');
+          downloadLink.attr('href', vm.url);
+          downloadLink.attr('target', '_self');
+          downloadLink.attr('download', 'ReporteDetalladoMemoriaTecnicaServicio.xlsx');
+          downloadLink[0].click();
+        } else if (isEdge || isIE) {
+          window.navigator.msSaveOrOpenBlob(vm.url, 'ReporteDetalladoMemoriaTecnicaServicio.xlsx');
+
+        } else {
+          var fileURL = vm.url;
+          window.open(fileURL);
+        }
+      });
+    }
+
+    function Notas(IdMemoriaTecnica) {
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/memorias/ModalMemoriaDetallado.html',
+        controller: 'ModalMemoriaDetalladoCtrl',
+        controllerAs: '$ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: "lg",
+        resolve: {
+          IdMemoriaTecnica: function () {
+            return IdMemoriaTecnica;
+          }
+        }
+      });
+    }
 
     function Getdata() {
       memoriaFactory.GetReporteMemoria().then(function (data) {
@@ -48,7 +100,7 @@ angular.module('softvFrostApp')
           delete info[i].$$hashKey;
         }
         vm.arrayReporte = [];
-        vm.order = ['Clv_orden','Folio','Plaza','Compania','Plataforma','Estatus','Usuario','fechaactivacion','fechacheck','fechaejecucion'];
+        vm.order = ['Clv_orden', 'Folio', 'Plaza', 'Compania', 'Plataforma', 'Estatus', 'Usuario', 'fechaactivacion', 'fechacheck', 'fechaejecucion'];
         // ENCABEZADOS
         vm.arrayReporte = [{
           "Clv_orden": "Clv_orden",

@@ -168,14 +168,13 @@
               <td>{{ x.Clv_Queja }}</td>
               <td>{{x.Usuario}}</td>
               <td>
-                <a title="Consultar memoria técnica" ui-sref="home.memoria.detallememoriaServicio({ id: x.IdMemoriaTecnica})" class="btn ink-reaction  btn-xs btn-default"><i class="md md-content-paste"></i> CONSULTAR</a>
-                <a ng-disabled="x.Folio.length > 0" permission permission-only="'memoriastecnicasreportesUpdate'" title="Editar memoria técnica" ui-sref="home.memoria.editarmemoriaServicio({ id: x.IdMemoriaTecnica})" ng-disabled="x.Clv_QUEJA>0"
-                  class="btn ink-reaction  btn-xs btn-warning" ng-click="$ctrl.editarEntrada(x.Consecutivo)"><i class="fa fa-edit"></i> Editar</a>
+                <button title="Consultar memoria técnica" ui-sref="home.memoria.detallememoriaServicio({ id: x.IdMemoriaTecnica})" class="btn ink-reaction  btn-xs btn-default"><i class="md md-content-paste"></i> CONSULTAR</button>
+                <button ng-disabled="(x.Folio.length > 0 && x.RolUsuario != 1)" title="Editar memoria técnica" ui-sref="home.memoria.editarmemoriaServicio({ id: x.IdMemoriaTecnica})" 
+                  class="btn ink-reaction  btn-xs btn-warning" ><i class="fa fa-edit"></i> Editar</button>
               </td>
               <td>
                 <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.reportepdf(x.IdMemoriaTecnica)"><i class="fa fa-file-pdf-o"  aria-hidden="true"></i> pdf</button>
                 <button type="button" class="btn btn-default btn-xs" ng-click="$ctrl.getreportexls(x.IdMemoriaTecnica)"><i class="fa fa-file-excel-o"  aria-hidden="true"></i> xls</button>
-                
               </td>
             </tr>
           </tbody>
