@@ -47,6 +47,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
           vm.CheckMemoria = (user.CheckMemoria === null) ? false : user.CheckMemoria;
           vm.Cliente=user.Cliente;
           vm.Activo = (user.Estado === null) ? false : user.Estado;
+          vm.LUITerminal = user.LUITerminal;
           if(user.Cliente){
             GetObtieneCompaniasUsuario();
           }else{
@@ -150,6 +151,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
         obj.CheckMemoria = vm.CheckMemoria;
         obj.Cliente=vm.Cliente;
         obj.Estado = vm.Activo;
+        obj.LUITerminal = vm.LUITerminal;
         usuarioFactory.UpdateUsuario(obj).then(function (data) {
           $state.go('home.provision.usuarios');
           ngNotify.set('Usuario editado correctamente.', 'success');
@@ -169,6 +171,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
       obj.CheckMemoria = vm.CheckMemoria;
       obj.Cliente=vm.Cliente;
       obj.Estado = vm.Activo;
+      obj.LUITerminal = vm.LUITerminal;
       //console.log(obj);
       usuarioFactory.UpdateUsuario(obj).then(function (data) {
         $state.go('home.provision.usuarios');

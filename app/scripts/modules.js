@@ -37,7 +37,7 @@ angular.module('softvFrostApp')
 		},
 		{
 			name: 'login',
-			url: '/auth/login?esn',
+			url: '/auth/login?ESN&antenna_size',
 			data: {
 				pageTitle: 'BIENVENIDO | BOSS'
 			},

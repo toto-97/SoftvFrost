@@ -31,8 +31,8 @@ angular.module('softvFrostApp')
  
  
       svc.getUrlHughesService = function () {
-        //return 'http://189.254.231.35:9092/SoftvFrostAPI';
-        return "http://localhost:21590/SoftvFrostAPI";
+        return 'http://189.254.231.35:9092/SoftvFrostAPI';
+        //return 'http://localhost:21590/SoftvFrostAPI';
       };
  
       svc.getUrlBeams = function () {
@@ -51,32 +51,34 @@ angular.module('softvFrostApp')
   
     //rutas locales
      svc.getUrl = function () {
-      return  'http://localhost:64481/SoftvWCFService.svc';
-      //return 'http://192.168.50.200:3000/SoftvWCFService.svc';//Normal Eric
-      //return 'http://192.168.50.102:8020/SoftvWCFService.svc';//Dev Jano
+      //return  'http://localhost:64481/SoftvWCFService.svc';
+      return 'http://192.168.50.200:3000/SoftvWCFService.svc';
       //return 'http://172.16.126.44:8089/SoftvWCFService.svc';
-
+      //return  'http://localhost:80/SoftvWCFService.svc';
     };
 
     svc.getUrlReportes = function () {
-      //return 'http://192.168.50.200:3000';//Normal Eric
-      return  'http://localhost:64481';
-      //return 'http://192.168.50.102:8020';//Dev Jano
+      return 'http://192.168.50.200:3000';
+      //return  'http://localhost:64481/SoftvWCFService.svc';
+      //return  'http://localhost:80';
     };
 
     svc.getUrlmemoriatecnica = function () {
       return 'http://192.168.50.200:3500/SoftvWCFService.svc';
       //return 'http://localhost:64482/SoftvWCFService.svc';
+      //return 'http://localhost:85/SoftvWCFService.svc';
     };
 
     svc.getUrlmemoriatecnicareportes = function () {
       return 'http://192.168.50.200:3500';
       //return 'http://localhost:64482';
+      //return 'http://localhost:85';
     };
 
     svc.getUrlmemoriatecnicaImages = function () {
       return 'http://192.168.50.200:3500/MemoriaTecnica';
       //return 'http://localhost:64482/MemoriaTecnica';
+      //return 'http://localhost:85/MemoriaTecnica';
     };
 
     svc.getUrlHughesService = function () {//SoftvForstAPI local
@@ -92,6 +94,7 @@ angular.module('softvFrostApp')
     svc.getUrlHughesMonitoreo = function () {
       //return 'http://localhost:50914/api';
       return 'http://192.168.50.200:3000/BossMonitoreo/api';
+      //return 'http://localhost:90/api';
     };
 
     svc.getType = function () {

@@ -2,7 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaServicioCtrl',
-    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, catalogosMemoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
+    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, catalogosMemoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification, $uibModal) {
 
       var ref = firebase
         .database()
@@ -711,31 +711,49 @@ angular
       }
 
       function obtenfolio() {
-
-        memoriaServicioFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
-          .then(function (response) {
-
-            var id = vm.IdMemoriaTecnica;
-            GetdataFire().then(function (result) {
-              result.forEach(function (item, index) {
-                if (parseInt(item.Id) === parseInt(id)) {
-                  deleteFile(index).then(function (result) {
-
-                  });
-
-                }
-              });
-
-            });
-
-
-            vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaServicioResult;
-            vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
-            vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-            vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-
+        if (vm.generafolio) {
+          //Preguntamos si están seguros de generar folio
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'views/memorias/ModalPreguntaFolio.html',
+            controller: 'ModalPreguntaFolioCtrl',
+            controllerAs: '$ctrl',
+            backdrop: 'static',
+            keyboard: false,
+            size: "md",
+            resolve: {
+              /*Lista: function () {
+                return vm.CambioDeEquipos;
+              }*/
+            }
           });
-
+          modalInstance.result.then(function (item) {
+            if (item) {
+              memoriaServicioFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
+                .then(function (response) {
+                  var id = vm.IdMemoriaTecnica;
+                  GetdataFire().then(function (result) {
+                    result.forEach(function (item, index) {
+                      if (parseInt(item.Id) === parseInt(id)) {
+                        deleteFile(index).then(function (result) {
+                        });
+                      }
+                    });
+                  });
+                  vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaServicioResult;
+                  vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
+                  vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+                  vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+                });
+            }
+            else {
+              vm.generafolio = false;
+            }
+          }, function () {
+          });
+        }
       }
 
       function detalleTecnico() {

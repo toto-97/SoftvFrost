@@ -1,23 +1,26 @@
 'use strict';
 angular.module('softvFrostApp').controller('activacionCtrl', activacionCtrl);
 
-function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $stateParams,globalService) {
+function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $stateParams, globalService, $interval, $window) {
   this.$onInit = function () {
-    if ($stateParams.esn != undefined) {
-      vm.ESN = $stateParams.esn;
+    if($stateParams.ESN != undefined && $stateParams.ESN != '' && $stateParams.antenna_size != undefined && $stateParams.antenna_size != ''){
+			$window.open('http://189.254.231.35/ovttool/#!/home/monitoreo/validation?esn=' + $stateParams.ESN, '_self');
+		}
+    if ($stateParams.ESN != undefined) {
+      vm.ESN = $stateParams.ESN;
       vm.bockEsn = true;
     }
   }
 
-  function activarTerminal() {   
+  function activarTerminal() {
     terminalFactory.getTerminalById(vm.SAN).then(function (data) {
       if (data.GetByTerminalResult.Estatus === 'Activa' || data.GetByTerminalResult.Estatus == 'Pendiente') {
-        
+
         var parametros = new Object();
         parametros.telefono = vm.suscriptor.Telefono;
-        parametros.SAN = vm.Terminal.SANCompleto;       
+        parametros.SAN = vm.Terminal.SANCompleto;
         parametros.ESN = vm.ESN;
-        terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {         
+        terminalFactory.hughesActivarTerminal(parametros).then(function (hughesData) {
           //Guarda el movimiento
           var Obj2 = new Object();
           Obj2.objMovimiento = new Object();
@@ -53,21 +56,38 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
             Obj3.objTerminal.FechaSuspension = vm.Terminal.FechaSuspension;
             Obj3.objTerminal.ESN = vm.ESN;
             Obj3.objTerminal.Comentarios = vm.Terminal.Comentarios;
-           
+
             terminalFactory.updateTerminal(Obj3).then(function (data) {
               ngNotify.set('La terminal se ha activado correctamente', 'success');
             });
             vm.PIN = "";
             vm.SAN = "";
+            vm.Suscriptor = '';
+            vm.Referencia = '';
             //Ponemos el movimiento como  exitoso
             Obj2.objMovimiento.Exitoso = 1;
           }
           terminalFactory.addMovimiento(Obj2).then(function (dataMovimiento) {
+            //Deshabilitamos el botón después de cada activar por 30 sec
+            var SECOND = 1000; // PRIVATE
+            var MINUTE = SECOND * 60;
+            var HOUR = MINUTE * 60;
+            var DAY = HOUR * 24;
+            vm.ActivarBoton = false;
+            vm.count = 0;
+            var oneTimer = $interval(function () {
+              if (vm.count >= 30) {
+                $interval.cancel(oneTimer);
+                vm.ActivarBoton = true;
+              } else {
+                vm.count++;
+              }
+            }, 1 * SECOND);
+
           });
         });
       }
-      else
-      {
+      else {
         ngNotify.set('La terminal no se encuentra en Estatus Pendiente', 'error');
       }
     });
@@ -76,24 +96,48 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
   function validarSAN() {
     //Nos traemos los datos de la terminal
     terminalFactory.getTerminalById(vm.SAN).then(function (data) {
+      console.log('terminal',data);
       if (data.GetByTerminalResult == null) {
         vm.PIN = "";
         ngNotify.set('No existe una terminal con el SAN ingresado', 'error');
       } else {
         vm.Terminal = data.GetByTerminalResult;
+        vm.Referencia = vm.Terminal.Comentarios;
         if (vm.Terminal.Estatus == 'Activa' || vm.Terminal.Estatus == 'Pendiente') {
           if (vm.Terminal.Estatus == 'Activa') {
             ngNotify.set('La terminal está Activa, solo debe activar si la terminal tiene activado Swap', 'info');
           }
           //Nos traemos los datos del cliente para obtener el PIN
           terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
+            console.log('suscriptor',data);
             vm.suscriptor = data.GetSuscriptorResult;
+            vm.Suscriptor = vm.suscriptor.Nombre + ' ' + vm.suscriptor.Apellido;
+            //console.log('vm.suscriptor',vm.suscriptor);
             //El PIN son los últimos cuatro dígitos del teléfono del cliente
             vm.PIN = vm.suscriptor.Telefono.substring(6, 10);
+
+
+            //Prueba
+            /*var SECOND = 1000; // PRIVATE
+            var MINUTE = SECOND * 60;
+            var HOUR = MINUTE * 60;
+            var DAY = HOUR * 24;
+            vm.ActivarBoton = false;
+            vm.count = 0;
+            var oneTimer = $interval(function () {
+              if (vm.count >= 30) {
+                $interval.cancel(oneTimer);
+                vm.ActivarBoton = true;
+              } else {
+                vm.count++;
+              }
+            }, 1 * SECOND);*/
           });
         }
         else {
           vm.PIN = "";
+          vm.Suscriptor = '';
+          vm.Referencia = '';
           ngNotify.set('La terminal no se encuentra en Estatus Pendiente', 'error');
         }
       }
@@ -113,4 +157,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
   vm.activarTerminal = activarTerminal;
   vm.validarSAN = validarSAN;
   vm.bockEsn = false;
+  vm.ActivarBoton = true;
+  vm.Referencia = '';
+  vm.Suscriptor = '';
 }

@@ -34,8 +34,8 @@
             <div class="tools">
                 <div class="panel-group" id="suscriptor">
                     <div class="card panel">
-                        <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#suscriptor" data-target="#suscriptor-1"
-                            aria-expanded="false">
+                        <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#suscriptor"
+                            data-target="#suscriptor-1" aria-expanded="false">
                             <header>Filtros</header>
                             <div class="tools">
                                 <a class="btn btn-icon-toggle">
@@ -53,8 +53,8 @@
                                                     <input type="checkbox" ng-model="$ctrl.SANActivo">
                                                     <span></span>SAN</label>
                                             </div>
-                                            <input ng-disabled="!$ctrl.SANActivo" style="margin: 20px" type="text" class="form-control input-sm" ng-model="$ctrl.SAN"
-                                                placeholder="SAN">
+                                            <input ng-disabled="!$ctrl.SANActivo" style="margin: 20px" type="text"
+                                                class="form-control input-sm" ng-model="$ctrl.SAN" placeholder="SAN">
                                         </div>
                                     </div>
                                     <div class="col-md-4" style="padding: 10px;">
@@ -64,8 +64,15 @@
                                                     <input type="checkbox" ng-model="$ctrl.ESNActivo">
                                                     <span></span>ESN</label>
                                             </div>
-                                            <input ng-disabled="!$ctrl.ESNActivo" style="margin: 20px" type="text" class="form-control input-sm" ng-model="$ctrl.ESN"
-                                                placeholder="ESN">
+                                            <input ng-disabled="!$ctrl.ESNActivo" style="margin: 20px" type="text"
+                                                class="form-control input-sm" ng-model="$ctrl.ESN" placeholder="ESN">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" style="margin-bottom: 10px;">
+                                        <div class="col-md-12 text-center">
+                                            <label class="checkbox-inline checkbox-styled checkbox-success text-md">
+                                                <input type="checkbox" ng-model="$ctrl.SinApagadas">
+                                                <span></span>Sin terminales apagadas</label>
                                         </div>
                                     </div>
                                 </div>
@@ -94,18 +101,21 @@
                                             <div class="row" style="margin: 20px">
                                                 <div class="col-md-6">
                                                     Fecha Inicial:
-                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaInicio" type="date" ng-disabled="!$ctrl.FechasActivo" />
+                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaInicio"
+                                                        type="date" ng-disabled="!$ctrl.FechasActivo" />
                                                 </div>
                                                 <div class="col-md-6">
                                                     Fecha Final:
-                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaFin" type="date" ng-disabled="!$ctrl.FechasActivo" />
+                                                    <input class="form-control input-sm" ng-model="$ctrl.FechaFin" type="date"
+                                                        ng-disabled="!$ctrl.FechasActivo" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-3" style="margin-bottom: 10px;">
                                         <div class="col-md-12 text-center">
-                                            <button class="btn btn-success btn-md" ng-click="$ctrl.GeneraReporte()" type="button">Generar Reporte</button>
+                                            <button class="btn btn-success btn-md" ng-click="$ctrl.GeneraReporte()"
+                                                type="button">Generar Reporte</button>
                                         </div>
                                     </div>
                                 </div>
@@ -150,8 +160,8 @@
                             <th>configuredIpv6Subnet</th>
                             <th>stateCode</th>
                             <th>stateCodeDescription</th>
-                            <th>FechaPeticion </th>
-
+                            <th>Fecha Petición </th>
+                            <th>Hora Petición</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -184,7 +194,7 @@
                             <th>{{ x.stateCode }}</th>
                             <th>{{ x.stateCodeDescription }}</th>
                             <th>{{ x.FechaPeticion }}</th>
-
+                            <th>{{ x.HoraPeticion }}</th>
                         </tr>
                     </tbody>
                 </table>
@@ -197,8 +207,9 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-block ink-reaction btn-success" csv-column-order="$ctrl.csvorder" csv-header="$ctrl.csvheader"
-                        ng-csv="$ctrl.resultados" filename="ReportePAJ.csv" field-separator="," decimal-separator="." add-bom="true">
+                    <button type="button" class="btn btn-block ink-reaction btn-success" csv-column-order="$ctrl.csvorder"
+                        csv-header="$ctrl.csvheader" ng-csv="$ctrl.resultados" filename="ReportePAJ.csv"
+                        field-separator="," decimal-separator="." add-bom="true">
                         <i class="fa fa-file-excel-o"></i> Exportar CSV</button>
                 </div>
             </div>

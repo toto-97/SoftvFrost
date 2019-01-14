@@ -365,7 +365,7 @@ angular.module('softvFrostApp')
 		}
 		factory.on = function () {
 
-			console.log($localStorage.currentUser.menu);
+			//console.log($localStorage.currentUser.menu);
 			$localStorage.currentUser.menu.forEach(function (item) {
 
 				var titulo = removeDiacritics(item.Title);
@@ -492,7 +492,7 @@ angular.module('softvFrostApp')
 						}
 					});
 				}
-				if (item.Title === 'Memoria') {
+				if (item.Title === 'Memoria Técnica') {
 					item.MenuChild.forEach(function (item) {
 						var itemTitle = removeDiacritics(item.Title);
 						if (item.OptAdd) {

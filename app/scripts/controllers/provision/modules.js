@@ -211,7 +211,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 				}
 			}
 		},
-		url: '/provision/activacion?esn',
+		url: '/provision/activacion?ESN&antenna_size',
 		templateUrl: 'views/provision/activacion.html',
 		controller: 'activacionCtrl',
 		controllerAs: '$ctrl'

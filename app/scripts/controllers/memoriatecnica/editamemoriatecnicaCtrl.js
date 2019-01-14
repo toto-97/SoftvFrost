@@ -2,7 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaCtrl',
-    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, catalogosMemoriaFactory, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
+    function ($state, ngNotify, memoriaFactory, moment, firebase, $uibModal, $firebaseArray, $localStorage, $stateParams, $filter, catalogosMemoriaFactory, FileUploader, globalService, Lightbox, $q, Notification) {
 
       var ref = firebase
         .database()
@@ -744,6 +744,7 @@ angular
         vm.Reubicacion = det.Reubicacion;
         vm.SAN = det.SAN;
         vm.sqf = det.SQF;
+        console.log('1',det);
         vm.plan = det.Servicio;
         vm.siteid = det.SiteId;
         vm.SiteSurvey = det.SiteSurvey;
@@ -764,6 +765,7 @@ angular
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
         vm.IdAntena = det.IdAntena;
+        console.log('2',det);
         if (vm.OrdenInstalacion) {
           vm.CambioDeEquipos = false;
           if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
@@ -774,6 +776,7 @@ angular
           }
         }
         else {
+          console.log('3',det);
           vm.CambioDeEquipos = true;
           vm.ActivaFechaActivacion = false;
           vm.modem = det.Modem == undefined ? '' : det.Modem;
@@ -786,6 +789,7 @@ angular
         if (vm.IdAntena == 0) {
           vm.MuestraComboAntena = false;
         }
+        console.log('4',det);
         vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
         vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
         vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
@@ -806,31 +810,49 @@ angular
       }
 
       function obtenfolio() {
-
-        memoriaFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
-          .then(function (response) {
-
-            var id = vm.IdMemoriaTecnica;
-            GetdataFire().then(function (result) {
-              result.forEach(function (item, index) {
-                if (parseInt(item.Id) === parseInt(id)) {
-                  deleteFile(index).then(function (result) {
-
-                  });
-
-                }
-              });
-
-            });
-
-
-            vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
-            vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
-            vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-            vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-
+        if (vm.generafolio) {
+          //Preguntamos si están seguros de generar folio
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'views/memorias/ModalPreguntaFolio.html',
+            controller: 'ModalPreguntaFolioCtrl',
+            controllerAs: '$ctrl',
+            backdrop: 'static',
+            keyboard: false,
+            size: "md",
+            resolve: {
+              /*Lista: function () {
+                return vm.CambioDeEquipos;
+              }*/
+            }
           });
-
+          modalInstance.result.then(function (item) {
+            if (item) {
+              memoriaFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
+                .then(function (response) {
+                  var id = vm.IdMemoriaTecnica;
+                  GetdataFire().then(function (result) {
+                    result.forEach(function (item, index) {
+                      if (parseInt(item.Id) === parseInt(id)) {
+                        deleteFile(index).then(function (result) {
+                        });
+                      }
+                    });
+                  });
+                  vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
+                  vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
+                  vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+                  vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+                });
+            }
+            else {
+              vm.generafolio = false;
+            }
+          }, function () {
+          });
+        }
       }
 
       function detalleTecnico() {
@@ -907,6 +929,7 @@ angular
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = false;
+      vm.FiltrarLista = FiltrarLista;
       vm.MuestraComboAntena = true;
       vm.ActualizarDatosHughes = ActualizarDatosHughes;
       vm.EliminaMemoria = EliminaMemoria;
@@ -1051,6 +1074,46 @@ angular
         fileItem._file.tipo = vm.tipoimagen.Nombre;
         fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
       };
+
+      function FiltrarLista(Lista, Titulo) {
+        var modalInstance = $uibModal.open({
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'views/memorias/ModalFiltrarLista.html',
+          controller: 'ModalFiltrarListaCtrl',
+          controllerAs: '$ctrl',
+          backdrop: 'static',
+          keyboard: false,
+          size: "sm",
+          resolve: {
+            Lista: function () {
+              return Lista;
+            },
+            Titulo: function () {
+              return Titulo;
+            }
+          }
+        });
+        modalInstance.result.then(function (item) {
+          if (Titulo == 'Series Módem') {
+            vm.modem = item;
+          }
+          else if (Titulo == 'Series Antena') {
+            vm.antena = item;
+          }
+          else if (Titulo == 'Series UPS') {
+            vm.upsserie = item;
+          }
+          else if (Titulo == 'Series Radio') {
+            vm.serieradio = item;
+          }
+          else if (Titulo == 'Series Router') {
+            vm.serierouter = item;
+          }
+        }, function () {
+        });
+      }
 
       vm.uploaderVS.onAfterAddingFile = function (fileItem) {
         fileItem.file.idtipo = vm.tipoimagenValidacion.IdTipo;

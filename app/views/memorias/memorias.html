@@ -23,7 +23,7 @@
     </header>
     <div class="tools">
       <div class="btn-group">
-        <a class="btn btn-primary btn-sm" ui-sref="home.memoria.nuevamemoria" title="Crear una nueva memoria técnica"> nueva memoria</a>
+        <a class="btn btn-primary btn-sm" ui-sref="home.memoria.nuevamemoria" permission permission-only="'memoriatecnicaserviciosAdd'" title="Crear una nueva memoria técnica"> nueva memoria</a>
       </div>
     </div>
   </div>
@@ -95,9 +95,7 @@
               <uib-tab index="1" heading="Avanzado">
                 <div class="row">
                   <br>
-
-
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="col-md-8">
                       <strong>SAN</strong>
                       <input type="number" class="form-control input-sm" name="san" ng-model="$ctrl.SAN" placeholder="">
@@ -108,7 +106,7 @@
                     </div>
 
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="col-md-8">
                       <strong>Cliente </strong>
                       <input type="text" class="form-control input-sm" ng-model="$ctrl.cliente" name="cliente" placeholder="">
@@ -118,7 +116,7 @@
                       <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(5)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <div class="col-md-8">
                       <strong>Usuario</strong>
                       <input type="text" class="form-control input-sm" ng-model="$ctrl.tecnico" name="tecnico" placeholder="">
@@ -127,6 +125,35 @@
                       <br>
                       <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(6)"><i class="fa fa-search"></i> Buscar</button>
                     </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="col-md-8">
+                      <strong>Serie Capturada</strong>
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.serie" name="serie" placeholder="">
+                    </div>
+                    <div class="col-md-4">
+                      <br>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(8)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <br>
+                  <div class="col-md-5">
+                    <div class="col-md-8">
+                      <strong>Instalador</strong>
+                      <select ng-options="item as item.Nombre for item in $ctrl.listTecnicos track by item.IdEntidad" class="form-control input-sm"
+                        ng-model="$ctrl.instalador" name="nombreinstalador" validate-on="dirty"
+                        invalid-message="'El nombre es obligatorio'" required>
+                        <option value="">Selecciona</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <br>
+                      <button type="button" class="btn btn-xs btn-primary" ng-click="$ctrl.FiltrarLista()"><i class="fa fa-binoculars"></i></button>
+                      <button type="button" class="btn btn-xs btn-info" ng-click="$ctrl.BuscaMemoriaTecnica(9)"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+
                   </div>
                 </div>
               </uib-tab>
@@ -169,7 +196,7 @@
               <td>{{x.Usuario}}</td>
               <td>
                 <button class="btn ink-reaction  btn-xs btn-default" title="Consultar memoria técnica" ui-sref="home.memoria.detallememoria({ id: x.IdMemoriaTecnica})"><i class="md md-content-paste"></i> CONSULTAR</button>
-                <button ng-disabled="(x.Folio.length > 0 && x.RolUsuario != 1)" title="Editar memoria técnica" ui-sref="home.memoria.editarmemoria({ id: x.IdMemoriaTecnica})" 
+                <button ng-disabled="((x.Folio.length > 0 && x.RolUsuario != 1) || x.StatusOrden == 'E')" title="Editar memoria técnica" ui-sref="home.memoria.editarmemoria({ id: x.IdMemoriaTecnica})" 
                   class="btn ink-reaction  btn-xs btn-warning"><i class="fa fa-edit"></i> Editar</button>
               </td>
               <td>

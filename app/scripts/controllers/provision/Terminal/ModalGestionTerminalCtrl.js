@@ -345,7 +345,6 @@ angular
                 }
               });
             });
-
           } else if (vm.Comando.IdComando === 2) //Suspender terminal
           {
             var parametros = {};
