@@ -2,8 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaServicioCtrl',
-    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification, $uibModal) {
-    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, catalogosMemoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
+    function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, catalogosMemoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification, $uibModal) {
 
       var ref = firebase
         .database()

@@ -619,8 +619,8 @@ angular
         'SAN': object.SAN,
         'Cliente': object.Cliente,
         'Contrato': object.Contrato,
-        'Tecnico': object.Tecnico
-
+        'Tecnico': object.Tecnico,
+        'IdTecnico':object.IdTecnico
       };
       $http.post(globalService.getUrl() + paths.BuscaMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);

@@ -14,11 +14,21 @@ angular
 
         function searchCode(query) {
             vm.ListaFiltro = [];
-            vm.ListaTodos.forEach(function (item) {
-                if(item.Descripcion.includes(query)){
-                    vm.ListaFiltro.push(item);
-                }
-            });
+            if (Titulo == 'Instalador') {
+                vm.ListaTodos.forEach(function (item) {
+                    var desAux = item.Descripcion.toLowerCase();
+                    if (desAux.includes(query.toLowerCase())) {
+                        vm.ListaFiltro.push(item);
+                    }
+                });
+            }
+            else {
+                vm.ListaTodos.forEach(function (item) {
+                    if (item.Descripcion.includes(query)) {
+                        vm.ListaFiltro.push(item);
+                    }
+                });
+            }
         }
 
         function ok() {

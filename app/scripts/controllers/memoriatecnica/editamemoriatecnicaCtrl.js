@@ -2,8 +2,7 @@
 angular
   .module('softvFrostApp')
   .controller('editamemoriatecnicaCtrl',
-    function ($state, ngNotify, memoriaFactory, moment, firebase, $firebaseArray, $localStorage, $stateParams, catalogosMemoriaFactory, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
-    function ($state, ngNotify, memoriaFactory, moment, firebase, $uibModal, $firebaseArray, $localStorage, $stateParams, $filter, FileUploader, globalService, Lightbox, $q, Notification) {
+    function ($state, ngNotify, memoriaFactory, moment, firebase, $uibModal, $firebaseArray, $localStorage, $stateParams, $filter, catalogosMemoriaFactory, FileUploader, globalService, Lightbox, $q, Notification) {
 
       var ref = firebase
         .database()
@@ -745,6 +744,7 @@ angular
         vm.Reubicacion = det.Reubicacion;
         vm.SAN = det.SAN;
         vm.sqf = det.SQF;
+        console.log('1',det);
         vm.plan = det.Servicio;
         vm.siteid = det.SiteId;
         vm.SiteSurvey = det.SiteSurvey;
@@ -765,6 +765,7 @@ angular
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
         vm.IdAntena = det.IdAntena;
+        console.log('2',det);
         if (vm.OrdenInstalacion) {
           vm.CambioDeEquipos = false;
           if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
@@ -775,6 +776,7 @@ angular
           }
         }
         else {
+          console.log('3',det);
           vm.CambioDeEquipos = true;
           vm.ActivaFechaActivacion = false;
           vm.modem = det.Modem == undefined ? '' : det.Modem;
@@ -787,6 +789,7 @@ angular
         if (vm.IdAntena == 0) {
           vm.MuestraComboAntena = false;
         }
+        console.log('4',det);
         vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
         vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
         vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
