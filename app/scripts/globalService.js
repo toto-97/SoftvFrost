@@ -59,7 +59,7 @@ angular.module('softvFrostApp')
 
     svc.getUrlReportes = function () {
       return 'http://192.168.50.200:3000';
-      //return  'http://localhost:64481/SoftvWCFService.svc';
+      //return  'http://localhost:64481/';
       //return  'http://localhost:80';
     };
 

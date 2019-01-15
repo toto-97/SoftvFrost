@@ -25,7 +25,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.nuevamemoria',
       data: {
-        pageTitle: 'SOFTV | NUEVA MEMORIA TELEFÓNICA',
+        pageTitle: 'SOFTV | NUEVA MEMORIA TÉCNICA',
       },
       url: '/memoriastecnicas/nuevamemoria',
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
@@ -35,7 +35,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.detallememoria',
       data: {
-        pageTitle: 'SOFTV | DETALLE MEMORIA TECNICA',
+        pageTitle: 'SOFTV | DETALLE MEMORIA TÉCNICA',
       },
       url: '/memoriastecnicas/detalle/:id',
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
@@ -45,7 +45,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.editarmemoria',
       data: {
-        pageTitle: 'SOFTV | EDITAR MEMORIA TECNICA',
+        pageTitle: 'SOFTV | EDITAR MEMORIA TÉCNICA',
       },
       url: '/memoriastecnicas/edit/:id',
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
@@ -55,7 +55,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.bitacora',
       data: {
-        pageTitle: 'SOFTV | BITACORA',
+        pageTitle: 'SOFTV | BITÁCORA',
       },
       url: '/bitacora',
       templateUrl: 'views/memorias/bitacora.html',
@@ -75,7 +75,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.reporte',
       data: {
-        pageTitle: 'SOFTV | MANUALES',
+        pageTitle: 'SOFTV | REPORTE MT',
       },
       url: '/reportememoria',
       templateUrl: 'views/memorias/reporteMemoria.html',

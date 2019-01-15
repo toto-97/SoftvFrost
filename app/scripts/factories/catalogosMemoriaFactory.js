@@ -8,7 +8,51 @@ angular.module('softvFrostApp')
             GetEliminaTipoImagen: '/CatalogosMemoriaTecnica/GetEliminaTipoImagen',
             GetGuardaAntenas: '/CatalogosMemoriaTecnica/GetGuardaAntenas',
             GetObtieneAntenasCatalogo: '/CatalogosMemoriaTecnica/GetObtieneAntenasCatalogo',
-            GetEliminaAntena: '/CatalogosMemoriaTecnica/GetEliminaAntena'
+            GetEliminaAntena: '/CatalogosMemoriaTecnica/GetEliminaAntena',
+            GetObtieneManuales: '/CatalogosMemoriaTecnica/GetObtieneManuales',
+            GetGuardaManuales: '/GuardaImagenesMemoriaTecnica/GetGuardaManuales2'
+        };
+
+        factory.GetGuardaManuales = function (file, Manuales, options, eliminadas) {
+            var deferred = $q.defer();
+            var data = new FormData();
+            for (var i = 0; i < file.length; i++) {
+                data.append('file' + i, file[i]);
+            }
+            data.append('Manuales', JSON.stringify(Manuales));
+            data.append('options', JSON.stringify(options));
+            data.append('eliminadas', JSON.stringify(eliminadas));
+
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token,
+                    'Content-Type': undefined
+                }
+            };
+            //console.log(data);
+            //console.log(config);
+            $http.post(globalService.getUrlmemoriatecnica() + paths.GetGuardaManuales, data, config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        };
+
+        factory.GetObtieneManuales = function () {
+            var deferred = $q.defer();
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.get(globalService.getUrl() + paths.GetObtieneManuales, config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (data) {
+                deferred.reject(data);
+            });
+            return deferred.promise;
         };
 
         factory.GetEliminaAntena = function (parametros) {

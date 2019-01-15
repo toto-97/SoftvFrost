@@ -247,6 +247,22 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 		templateUrl: 'views/configuracion/Antena.html',
 		controller: 'AntenaCtrl',
 		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.provision.manuales',
+		data: {
+			pageTitle: 'BOSS | MANUALES',
+			permissions: {
+				only: ['manualesSelect'],
+				options: {
+					reload: true
+				}
+			}
+		},
+		url: '/configuracion/catalogosMemoria/manuales',
+		templateUrl: 'views/configuracion/Manuales.html',
+		controller: 'ManualesCatalogoCtrl',
+		controllerAs: '$ctrl'
 	}
 	];
 
