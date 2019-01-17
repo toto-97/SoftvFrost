@@ -43,7 +43,6 @@ angular
 
       function initialData() {
 
-
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
           //vm.tiposresp = response.GetObtieneTiposImagenesListResult;
           vm.tiposresp = [];
@@ -724,7 +723,15 @@ angular
         vm.numerofolio = det.Folio ? det.Folio : '';
         vm.mensajefolio = (vm.numerofolio.length > 0) ? 'Folio generado' : 'Generar Folio';
         vm.generafolio = (vm.numerofolio.length > 0) ? true : false;
-        vm.blockgenerafolio = (vm.numerofolio.length > 0) ? true : false;
+        
+        //console.log('det',det);
+        vm.numerofolioVS = det.FolioVS ? det.FolioVS : '';
+        vm.mensajefolioVS = (vm.numerofolioVS.length > 0) ? 'Folio generado' : 'Generar Folio Validación en Sitio';
+        vm.generafolioVS = (vm.numerofolioVS.length > 0) ? true : false;
+        vm.blockgenerafolioVS = (vm.numerofolioVS.length > 0) ? true : false;
+        vm.blockgenerafolio = (vm.numerofolio.length > 0)  || (vm.numerofolioVS.length == 0) ? true : false;
+
+        //console.log('1',det);
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
@@ -744,7 +751,6 @@ angular
         vm.Reubicacion = det.Reubicacion;
         vm.SAN = det.SAN;
         vm.sqf = det.SQF;
-        console.log('1',det);
         vm.plan = det.Servicio;
         vm.siteid = det.SiteId;
         vm.SiteSurvey = det.SiteSurvey;
@@ -765,7 +771,7 @@ angular
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
         vm.IdAntena = det.IdAntena;
-        console.log('2',det);
+        //console.log('2',det);
         if (vm.OrdenInstalacion) {
           vm.CambioDeEquipos = false;
           if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
@@ -776,7 +782,7 @@ angular
           }
         }
         else {
-          console.log('3',det);
+          //console.log('3',det);
           vm.CambioDeEquipos = true;
           vm.ActivaFechaActivacion = false;
           vm.modem = det.Modem == undefined ? '' : det.Modem;
@@ -789,7 +795,7 @@ angular
         if (vm.IdAntena == 0) {
           vm.MuestraComboAntena = false;
         }
-        console.log('4',det);
+        //console.log('4',det);
         vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
         vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
         vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
@@ -855,6 +861,134 @@ angular
         }
       }
 
+      function obtenfolioVS() {
+        if (vm.generafolioVS) {
+          /*var aux = {};
+          aux.domicilionotificacion = vm.domicilionotificacion;
+          aux.localidad = vm.localidad;
+          aux.PersonaValidaServicio = vm.PersonaValidaServicio;
+          aux.recibe = vm.recibe;
+          aux.estatustecnico = vm.estatustecnico;
+          aux.latitud = vm.latitud;
+          aux.longitud = vm.longitud;
+          aux.velocidad = vm.velocidad;
+          aux.CodigodeEstado = vm.CodigodeEstado;
+          aux.SQFVS = vm.SQFVS;
+          aux.TransmitRate = vm.TransmitRate;
+          aux.PowerAttenuation = vm.PowerAttenuation;
+          aux.PruebaACP = vm.PruebaACP;
+          aux.VoltajeComercialNT = vm.VoltajeComercialNT;
+          aux.VoltajeComercialFT = vm.VoltajeComercialFT;
+          aux.VoltajeComercialFN = vm.VoltajeComercialFN;
+          console.log('aux',aux);*/
+
+          //Vamos a validar que estén los datos requeridos para este folio
+          /*if (vm.domicilionotificacion != undefined && vm.domicilionotificacion.length > 0 &&
+            vm.localidad != undefined && vm.localidad.length > 0 &&
+            vm.PersonaValidaServicio != undefined && vm.PersonaValidaServicio.length > 0 &&
+            vm.recibe != undefined && vm.recibe.length > 0 &&
+            vm.estatustecnico != undefined &&
+            vm.latitud != undefined && vm.latitud.length > 0 &&
+            vm.longitud != undefined && vm.longitud.length > 0 &&
+            vm.velocidad != undefined && vm.velocidad.length > 0 &&
+            vm.CodigodeEstado != undefined && vm.CodigodeEstado.length > 0 &&
+            vm.SQFVS != undefined && vm.SQFVS.length > 0 &&
+            vm.TransmitRate != undefined && vm.TransmitRate.length > 0 &&
+            vm.PowerAttenuation != undefined &&
+            vm.PruebaACP != undefined && vm.PruebaACP.length > 0 &&
+            vm.VoltajeComercialNT != undefined && vm.VoltajeComercialNT.length > 0 &&
+            vm.VoltajeComercialFT != undefined && vm.VoltajeComercialFT.length > 0 &&
+            vm.VoltajeComercialFN != undefined && vm.VoltajeComercialFN.length > 0
+          )*/
+          if (vm.domicilionotificacion != '' &&
+            vm.localidad != '' &&
+            vm.PersonaValidaServicio != '' &&
+            vm.recibe != '' &&
+            vm.estatustecnico != undefined &&
+            vm.latitud != '' &&
+            vm.longitud != '' &&
+            vm.velocidad != '' &&
+            vm.CodigodeEstado != '' &&
+            vm.SQFVS != '' &&
+            vm.TransmitRate != '' &&
+            vm.PowerAttenuation != undefined &&
+            vm.PruebaACP != '' &&
+            vm.VoltajeComercialNT != '' &&
+            vm.VoltajeComercialFT != '' &&
+            vm.VoltajeComercialFN != ''
+          ) {
+            //Checamos que haya al menos una imagen
+            var existe = false;
+            var salir = false;
+            vm.tiposrespValidacion.forEach(function (tipoAux) {
+              existe = false;
+              vm.Lista_evidenciasVS.forEach(function (imgAux) {
+                if(imgAux.Tipo_ == tipoAux.Nombre){
+                  existe = true;
+                  return;
+                }
+              });
+              if(!existe){
+                vm.generafolioVS = false;
+                ngNotify.set('No se ha completado la información necesaria para generar el folio', 'warn');
+                salir = true;
+                return;
+              }
+            });
+            if (salir){
+              return;
+            }
+            //Preguntamos si están seguros de generar folio
+            var modalInstance = $uibModal.open({
+              animation: true,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'views/memorias/ModalPreguntaFolio.html',
+              controller: 'ModalPreguntaFolioCtrl',
+              controllerAs: '$ctrl',
+              backdrop: 'static',
+              keyboard: false,
+              size: "md",
+              resolve: {
+                /*Lista: function () {
+                  return vm.CambioDeEquipos;
+                }*/
+              }
+            });
+            modalInstance.result.then(function (item) {
+              if (item) {
+                memoriaFactory.GetGeneraFolioMemoriaTecnicaVS(vm.IdMemoriaTecnica)
+                  .then(function (response) {
+                    var id = vm.IdMemoriaTecnica;
+                    /*GetdataFire().then(function (result) {
+                      result.forEach(function (item, index) {
+                        if (parseInt(item.Id) === parseInt(id)) {
+                          deleteFile(index).then(function (result) {
+                          });
+                        }
+                      });
+                    });*/
+                    vm.numerofolioVS = response.GetGeneraFolioMemoriaTecnicaVSResult;
+                    vm.mensajefolioVS = (vm.numerofolioVS.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
+                    vm.generafolioVS = (vm.numerofolioVS.trim().length > 0) ? true : false;
+                    vm.blockgenerafolioVS = (vm.numerofolioVS.trim().length > 0) ? true : false;
+                    vm.blockgenerafolio = (vm.numerofolio.length > 0)  || (vm.numerofolioVS.length == 0) ? true : false;
+                  });
+              }
+              else {
+                vm.generafolioVS = false;
+              }
+            }, function () {
+            });
+          }
+          else{
+            vm.generafolioVS = false;
+            ngNotify.set('No se ha completado la información necesaria para generar el folio', 'warn');
+            return;
+          }
+        }
+      }
+
       function detalleTecnico() {
         vm.listModem = [];
         vm.listRadio = [];
@@ -917,6 +1051,7 @@ angular
       vm.BorraImagen = BorraImagen;
       vm.BorraImagenVS = BorraImagenVS;
       vm.obtenfolio = obtenfolio;
+      vm.obtenfolioVS = obtenfolioVS;
       vm.aparatosdigitales = [];
       vm.digitales_eliminados = [];
       vm.eliminaaparatodig = eliminaaparatodig;
@@ -927,6 +1062,7 @@ angular
       vm.notas = [];
       vm.notas_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
+      vm.permitecheckVS = $localStorage.currentUser.CheckValidacionSitio;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = false;
       vm.FiltrarLista = FiltrarLista;

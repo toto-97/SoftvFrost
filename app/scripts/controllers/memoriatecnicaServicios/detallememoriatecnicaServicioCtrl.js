@@ -7,13 +7,22 @@ angular
         memoriaServicioFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
           detalle(data.GetObtieneMemoriaTecnicaServicioResult[0]);
           memoriaServicioFactory.GetObtieneImagenesMemoriaTecnica(vm.id).then(function (response) {
-            vm.Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaServicioResult;
-            vm.Lista_evidencias.forEach(function (item) {
-              item.Ruta = item.Ruta;
-              item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
-              item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
-              item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
-            });
+            vm.Lista_evidenciasVS = [];
+              vm.Lista_evidencias = [];
+              var Lista_evidencias = response.GetObtieneImagenesMemoriaTecnicaServicioResult;
+              Lista_evidencias.forEach(function (item) {
+                item.Ruta = item.Ruta;
+                item.url = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+                item.thumbUrl = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+                item.RutaCompleta = globalService.getUrlmemoriatecnicaImages() + '/' + item.Ruta;
+                item.Opcion = 2;
+                if (item.ValidacionEnSitio) {
+                  vm.Lista_evidenciasVS.push(item);
+                }
+                else {
+                  vm.Lista_evidencias.push(item);
+                }
+              });
 
             memoriaServicioFactory.GetObtieneObservacionesMemoriaTecnica(vm.id).then(function (result) {
               var notas = result.GetObtieneObservacionesMemoriaTecnicaServicioResult;
@@ -216,6 +225,7 @@ angular
         //vm.fechaactivacion = det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
         vm.numerofolio = det.Folio;
+        vm.numerofolioVS = det.FolioVS ? det.FolioVS : '';
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
@@ -259,6 +269,21 @@ angular
         vm.tamanoantena = det.Antena;
         vm.upsserie = det.UPS;
         vm.serieradio = det.Radio;
+        vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
+        vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
+        vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
+        vm.PowerAttenuation = det.PowerAttenuation == undefined ? '' : det.PowerAttenuation;
+        if (vm.PowerAttenuation.length > 0) {
+          vm.PowerAttenuations.forEach(function (item, index) {
+            if (item.Descripcion === det.PowerAttenuation) {
+              vm.PowerAttenuation = item;
+            }
+          });
+        }
+        vm.PruebaACP = det.PruebaACP == undefined ? '' : det.PruebaACP;
+        vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
+        vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
+        vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
         console.log('det',det);
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
 
@@ -283,5 +308,84 @@ angular
       vm.titulo = 'Detalle de memoria técnica de reporte #' + vm.id;
       vm.detalle = true;
       vm.CambioDeEquipos = false;
-
+      vm.PowerAttenuations = [
+        {
+          'IdPower': 4,
+          'Descripcion': '1 db'
+        },
+        {
+          'IdPower': 6,
+          'Descripcion': '2 db'
+        },
+        {
+          'IdPower': 1,
+          'Descripcion': '3 db'
+        },
+        {
+          'IdPower': 3,
+          'Descripcion': '4 db'
+        },
+        {
+          'IdPower': 2,
+          'Descripcion': '5 db'
+        },
+        {
+          'IdPower': 5,
+          'Descripcion': '6 db'
+        },
+        {
+          'IdPower': 7,
+          'Descripcion': '7 db'
+        },
+        {
+          'IdPower': 8,
+          'Descripcion': '8 db'
+        },
+        {
+          'IdPower': 9,
+          'Descripcion': '9 db'
+        },
+        {
+          'IdPower': 10,
+          'Descripcion': '10 db'
+        },
+        {
+          'IdPower': 11,
+          'Descripcion': 'Mayor > 10 db'
+        }
+      ];
+      vm.EquiposSustituir = [
+        {
+          'IdEquipo': 4,
+          'Nombre': 'STB'
+        },
+        {
+          'IdEquipo': 6,
+          'Nombre': 'UPS'
+        },
+        {
+          'IdEquipo': 1,
+          'Nombre': 'Modem'
+        },
+        {
+          'IdEquipo': 3,
+          'Nombre': 'Router'
+        },
+        {
+          'IdEquipo': 2,
+          'Nombre': 'Radio'
+        },
+        {
+          'IdEquipo': 5,
+          'Nombre': 'Antena Internet'
+        },
+        {
+          'IdEquipo': 7,
+          'Nombre': 'LNB'
+        },
+        {
+          'IdEquipo': 8,
+          'Nombre': 'Antena Digital'
+        },
+      ];
     });

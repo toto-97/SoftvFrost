@@ -243,6 +243,7 @@ angular
         //vm.fechaactivacion = det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
         vm.numerofolio = det.Folio;
+        vm.numerofolioVS = det.FolioVS ? det.FolioVS : '';
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;

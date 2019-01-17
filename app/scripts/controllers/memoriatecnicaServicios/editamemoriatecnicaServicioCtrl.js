@@ -632,10 +632,17 @@ angular
         //console.log('Prueba',fecAux);
         vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
         vm.fechasitio = det.FechaVisita;
-        vm.numerofolio = det.Folio == null ? '' : det.Folio;
+        vm.numerofolio = det.Folio ? det.Folio : '';
         vm.mensajefolio = (vm.numerofolio.length > 0) ? 'Folio generado' : 'Generar Folio';
         vm.generafolio = (vm.numerofolio.length > 0) ? true : false;
-        vm.blockgenerafolio = (vm.numerofolio.length > 0) ? true : false;
+        
+        //console.log('det',det);
+        vm.numerofolioVS = det.FolioVS ? det.FolioVS : '';
+        vm.mensajefolioVS = (vm.numerofolioVS.length > 0) ? 'Folio generado' : 'Generar Folio Validación en Sitio';
+        vm.generafolioVS = (vm.numerofolioVS.length > 0) ? true : false;
+        vm.blockgenerafolioVS = (vm.numerofolioVS.length > 0) ? true : false;
+        vm.blockgenerafolio = (vm.numerofolio.length > 0)  || (vm.numerofolioVS.length == 0) ? true : false;
+
         vm.horallegada = det.HoraLlegada;
         vm.horasalida = det.HoraSalida;
         vm.IdMemoriaTecnica = det.IdMemoriaTecnica;
@@ -756,6 +763,108 @@ angular
         }
       }
 
+      function obtenfolioVS() {
+        if (vm.generafolioVS) {
+          //Vamos a validar que estén los datos requeridos para este folio
+          /*if (vm.domicilionotificacion != undefined && vm.domicilionotificacion.length > 0 &&
+            vm.localidad != undefined && vm.localidad.length > 0 &&
+            vm.PersonaValidaServicio != undefined && vm.PersonaValidaServicio.length > 0 &&
+            vm.recibe != undefined && vm.recibe.length > 0 &&
+            vm.estatustecnico != undefined &&
+            vm.latitud != undefined && vm.latitud.length > 0 &&
+            vm.longitud != undefined && vm.longitud.length > 0 &&
+            vm.velocidad != undefined && vm.velocidad.length > 0 &&
+            vm.CodigodeEstado != undefined && vm.CodigodeEstado.length > 0 &&
+            vm.SQFVS != undefined && vm.SQFVS.length > 0 &&
+            vm.TransmitRate != undefined && vm.TransmitRate.length > 0 &&
+            vm.PowerAttenuation != undefined &&
+            vm.PruebaACP != undefined && vm.PruebaACP.length > 0 &&
+            vm.VoltajeComercialNT != undefined && vm.VoltajeComercialNT.length > 0 &&
+            vm.VoltajeComercialFT != undefined && vm.VoltajeComercialFT.length > 0 &&
+            vm.VoltajeComercialFN != undefined && vm.VoltajeComercialFN.length > 0
+          )*/
+          if (vm.domicilionotificacion != '' &&
+            vm.localidad != '' &&
+            vm.PersonaValidaServicio != '' &&
+            vm.recibe != '' &&
+            vm.estatustecnico != undefined &&
+            vm.latitud != '' &&
+            vm.longitud != '' &&
+            vm.velocidad != '' &&
+            vm.CodigodeEstado != '' &&
+            vm.SQFVS != '' &&
+            vm.TransmitRate != '' &&
+            vm.PowerAttenuation != undefined &&
+            vm.PruebaACP != '' &&
+            vm.VoltajeComercialNT != '' &&
+            vm.VoltajeComercialFT != '' &&
+            vm.VoltajeComercialFN != ''
+          ) {
+            //Checamos que haya al menos una imagen
+            var existe = false;
+            var salir = false;
+            vm.tiposrespValidacion.forEach(function (tipoAux) {
+              existe = false;
+              vm.Lista_evidenciasVS.forEach(function (imgAux) {
+                if(imgAux.Tipo_ == tipoAux.Nombre){
+                  existe = true;
+                  return;
+                }
+              });
+              if(!existe){
+                vm.generafolioVS = false;
+                ngNotify.set('No se ha completado la información necesaria para generar el folio', 'warn');
+                salir = true;
+                return;
+              }
+            });
+            if (salir){
+              return;
+            }
+            //Preguntamos si están seguros de generar folio
+            var modalInstance = $uibModal.open({
+              animation: true,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'views/memorias/ModalPreguntaFolio.html',
+              controller: 'ModalPreguntaFolioCtrl',
+              controllerAs: '$ctrl',
+              backdrop: 'static',
+              keyboard: false,
+              size: "md",
+              resolve: {
+                /*Lista: function () {
+                  return vm.CambioDeEquipos;
+                }*/
+              }
+            });
+            modalInstance.result.then(function (item) {
+              if (item) {
+                memoriaServicioFactory.GetGeneraFolioMemoriaTecnicaVS(vm.IdMemoriaTecnica)
+                  .then(function (response) {
+                    var id = vm.IdMemoriaTecnica;
+                    
+                    vm.numerofolioVS = response.GetGeneraFolioMemoriaTecnicaVSServicioResult;
+                    vm.mensajefolioVS = (vm.numerofolioVS.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
+                    vm.generafolioVS = (vm.numerofolioVS.trim().length > 0) ? true : false;
+                    vm.blockgenerafolioVS = (vm.numerofolioVS.trim().length > 0) ? true : false;
+                    vm.blockgenerafolio = (vm.numerofolio.length > 0)  || (vm.numerofolioVS.length == 0) ? true : false;
+                  });
+              }
+              else {
+                vm.generafolioVS = false;
+              }
+            }, function () {
+            });
+          }
+          else{
+            vm.generafolioVS = false;
+            ngNotify.set('No se ha completado la información necesaria para generar el folio', 'warn');
+            return;
+          }
+        }
+      }
+
       function detalleTecnico() {
         vm.listModem = [];
         vm.listRadio = [];
@@ -816,6 +925,7 @@ angular
       vm.Imagenes_eliminadas = [];
       vm.BorraImagen = BorraImagen;
       vm.obtenfolio = obtenfolio;
+      vm.obtenfolioVS = obtenfolioVS;
       vm.aparatosdigitales = [];
       vm.digitales_eliminados = [];
       vm.eliminaaparatodig = eliminaaparatodig;
@@ -826,6 +936,7 @@ angular
       vm.notas = [];
       vm.notas_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
+      vm.permitecheckVS = $localStorage.currentUser.CheckValidacionSitio;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = true;
       vm.MuestraComboAntena = false;

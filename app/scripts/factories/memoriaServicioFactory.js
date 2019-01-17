@@ -31,7 +31,29 @@ angular
       GetObtieneObservacionesMemoriaTecnicaPestana:'/GuardaObservacionMemoriaTecnicaServicio/GetObtieneObservacionesMemoriaTecnicaPestanaServicio',
       GetReporteMemoriaDetallado: '/BuscaMemoriaTecnicaServicio/GetReporteMemoriaDetalladoServicio',
       GetObtieneDatosHughes: '/BuscaMemoriaTecnicaServicio/GetObtieneDatosHughesServicio',
-      GetEliminaMemoriaTecnica: '/GuardaMemoriaTecnicaServicio/GetEliminaMemoriaTecnicaServicio'
+      GetEliminaMemoriaTecnica: '/GuardaMemoriaTecnicaServicio/GetEliminaMemoriaTecnicaServicio',
+      GetGeneraFolioMemoriaTecnicaVS: '/BuscaMemoriaTecnicaServicio/GetGeneraFolioMemoriaTecnicaVSServicio',
+    };
+
+    factory.GetGeneraFolioMemoriaTecnicaVS = function (IdMemoriaTecnica) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'IdMemoriaTecnica': IdMemoriaTecnica,
+        'IdUsuario': $localStorage.currentUser.idUsuario
+
+      };
+      $http.post(globalService.getUrl() + paths.GetGeneraFolioMemoriaTecnicaVS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     };
 
     factory.GetEliminaMemoriaTecnica = function (Parametros) {

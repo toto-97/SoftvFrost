@@ -6,17 +6,17 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
   function init() {
     var id = $stateParams.id;
     rolFactory.GetRoleById(id).then(function (data) {
-     
+     console.log(data);
       vm.Rol = data.GetRoleByIdResult
       vm.Estatus = vm.Rol.Estado;
       vm.Nombre = vm.Rol.Nombre;
       vm.Descripcion = vm.Rol.Descripcion;
       vm.IdRol = vm.Rol.IdRol;
-      
-     
+      vm.CheckVS = vm.Rol.CheckValidacionSitio;
     });
 
     terminalFactory.getComandoList().then(function (data) {     
+      console.log(data);
       vm.comandos = data.GetComandoListResult;
       rolFactory.GetRoleCommands(vm.IdRol).then(function (data) {
         for (var a = 0; a < vm.comandos.length; a++) {
@@ -37,7 +37,7 @@ function EditaRolCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams
     obj.Nombre = vm.Nombre;
     obj.Descripcion = vm.Descripcion;
     obj.Estado = vm.Estatus;
-    
+    obj.CheckValidacionSitio = vm.CheckVS;
  
     rolFactory.UpdateRole(obj).then(function (data) {
 
