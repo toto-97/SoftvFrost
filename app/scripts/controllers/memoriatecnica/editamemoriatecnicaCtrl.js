@@ -885,8 +885,11 @@ angular
         parametros.IdMemoriaTecnica = vm.IdMemoriaTecnica;
         parametros.IdUsuario = $localStorage.currentUser.idUsuario;
         memoriaFactory.GetEliminaMemoriaTecnica(parametros).then(function (response) {
-          if (response.GetEliminaMemoriaTecnicaResult > 0) {
-            ngNotify.set('Solo es posible eliminar las memorias técnicas que no estén foliadas y la orden pendiente', 'error');
+          if (response.GetEliminaMemoriaTecnicaResult == 1) {
+            ngNotify.set('Solo es posible eliminar las memorias técnicas que no estén foliadas.', 'error');
+          }
+          else if (response.GetEliminaMemoriaTecnicaResult == 2){
+            ngNotify.set('No cuenta con los permisos necesarios para usar esta opción.', 'error');
           }
           else {
             ngNotify.set('La memoria técnica se ha eliminado correctamente', 'success');
