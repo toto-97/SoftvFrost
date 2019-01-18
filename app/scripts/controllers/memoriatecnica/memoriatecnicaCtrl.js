@@ -25,7 +25,8 @@ angular
         'Contrato': (op === 7) ? vm.contrato : '',
         'Tecnico': (op === 6) ? vm.tecnico : '',
         'SerieAparato': (op === 8) ? vm.serie : '',
-        'IdTecnico': (op === 9) ? vm.instalador.IdEntidad : 0
+        'IdTecnico': (op === 9) ? vm.instalador.IdEntidad : 0,
+        'Estatus': (op === 10) ? vm.Estatus.Nombre : ''
       };
       memoriaFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {
@@ -209,4 +210,16 @@ angular
     vm.deletechild = deletechild;
     initialData();
     vm.FiltrarLista = FiltrarLista;
+    vm.EstatusMemoriaTecnica= [{
+      'Nombre': 'Pendiente'
+    },
+    {
+      'Nombre': 'Revisión'
+    },
+    {
+      'Nombre': 'Rechazada'
+    },
+    {
+      'Nombre': 'Foliada'
+    }];
   });

@@ -89,7 +89,7 @@
       <div class="tools">
         <div class="btn-group">
           <button class="btn btn-info btn-sm" ng-show="($ctrl.showeliminar && $ctrl.numerofolioVS.length == 0)" title="Enviar a revisar memoria técnica" style="margin-right:10px;"
-            type="submit">
+            ng-click="$ctrl.EnviarRevisar()">
             Enviar a Revisar</button>
           <button class="btn btn-primary btn-sm" ng-show="$ctrl.showguardar" title="Crear una nueva memoria técnica" style="margin-right:10px;"
             type="submit">

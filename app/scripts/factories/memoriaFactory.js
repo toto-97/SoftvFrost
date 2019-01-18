@@ -668,7 +668,8 @@ angular
         'Contrato': object.Contrato,
         'Tecnico': object.Tecnico,
         'SerieAparato':object.SerieAparato,
-        'IdTecnico':object.IdTecnico
+        'IdTecnico':object.IdTecnico,
+        'Estatus':object.Estatus
       };
       $http.post(globalService.getUrl() + paths.BuscaMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);

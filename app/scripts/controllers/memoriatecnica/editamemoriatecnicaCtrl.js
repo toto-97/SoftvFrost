@@ -1029,6 +1029,10 @@ angular
         });
       }
 
+      function EnviarRevisar(){
+        
+      }
+
 
       var vm = this;
       vm.eliminaNota = eliminaNota;
@@ -1063,12 +1067,14 @@ angular
       vm.notas_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.permitecheckVS = $localStorage.currentUser.CheckValidacionSitio;
+      vm.IdRol = $localStorage.currentUser.IdRol;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = false;
       vm.FiltrarLista = FiltrarLista;
       vm.MuestraComboAntena = true;
       vm.ActualizarDatosHughes = ActualizarDatosHughes;
       vm.EliminaMemoria = EliminaMemoria;
+      vm.EnviarRevisar = EnviarRevisar;
       vm.PowerAttenuations = [
         {
           'IdPower': 4,
