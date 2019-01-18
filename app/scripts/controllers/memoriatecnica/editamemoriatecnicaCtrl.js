@@ -969,7 +969,7 @@ angular
                       });
                     });*/
                     vm.numerofolioVS = response.GetGeneraFolioMemoriaTecnicaVSResult;
-                    vm.mensajefolioVS = (vm.numerofolioVS.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
+                    vm.mensajefolioVS = (vm.numerofolioVS.trim().length > 0) ? 'Folio generado' : 'Generar Folio Validación en Sitio';
                     vm.generafolioVS = (vm.numerofolioVS.trim().length > 0) ? true : false;
                     vm.blockgenerafolioVS = (vm.numerofolioVS.trim().length > 0) ? true : false;
                     vm.blockgenerafolio = (vm.numerofolio.length > 0)  || (vm.numerofolioVS.length == 0) ? true : false;

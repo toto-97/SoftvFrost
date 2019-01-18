@@ -88,13 +88,13 @@
       </header>
       <div class="tools">
         <div class="btn-group">
-          <!--<button class="btn btn-info btn-sm" ng-show="$ctrl.showeliminar" title="Enviar a revisar memoria técnica"
+          <button class="btn btn-info btn-sm" ng-show="($ctrl.showeliminar && $ctrl.numerofolioVS.length == 0)" title="Enviar a revisar memoria técnica" style="margin-right:10px;"
             type="submit">
-            Enviar a Revisar</button>-->
-          <button class="btn btn-primary btn-sm" ng-show="$ctrl.showguardar" title="Crear una nueva memoria técnica"
+            Enviar a Revisar</button>
+          <button class="btn btn-primary btn-sm" ng-show="$ctrl.showguardar" title="Crear una nueva memoria técnica" style="margin-right:10px;"
             type="submit">
             Guardar</button>
-          <button title="Eliminar Memoria Técnica" type="button" class="btn btn-danger btn-sm" ng-show="$ctrl.showeliminar"
+          <button title="Eliminar Memoria Técnica" type="button" class="btn btn-danger btn-sm" ng-show="$ctrl.showeliminar" style="margin-right:10px;"
             name="button" ng-click="$ctrl.EliminaMemoria()">Eliminar</button>
           <button title="Regresar a atenciones telefónicas" type="button" ui-sref="home.memoria.memoriastecnicas" class="btn btn-default-bright btn-sm"
             name="button">Salir</button>

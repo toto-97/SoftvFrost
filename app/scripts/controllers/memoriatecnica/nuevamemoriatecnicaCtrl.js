@@ -32,7 +32,9 @@ angular
     vm.validar = validar;
     vm.generafolio = false;
     vm.mensajefolio = "Generar Folio";
+    vm.mensajefolioVS = "Generar Folio Validación en Sitio";
     vm.blockgenerafolio = true;
+    vm.blockgenerafolioVS = true;
     vm.titulo = "Registro de memoria técnica de servicio";
     vm.addAparatodig = addAparatodig;
     vm.eliminaaparatodig = eliminaaparatodig;
@@ -138,6 +140,7 @@ angular
       vm.horallegada = moment().format('HH:mm');
       vm.usuariosistema = $localStorage.currentUser.usuario;
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
+      vm.permitecheckVS = $localStorage.currentUser.CheckValidacionSitio;
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
         vm.tiposresp = [];
         vm.tiposrespValidacion = [];
