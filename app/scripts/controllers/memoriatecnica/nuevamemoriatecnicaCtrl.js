@@ -480,7 +480,7 @@ angular
         Notification({ message: 'Hay información en el apartado de Mediciones Eléctricas que no se han capturado', title: 'Atención' }, 'warning');
       }
 
-      if (!vm.modem || !vm.serieradio || !vm.serierouter || !vm.marcarouter || !vm.tamanoantena || !vm.sqf || !vm.antena
+      if (!vm.modem || !vm.serieradio || !vm.serierouter || !vm.marcarouter || !vm.sqf || !vm.antena
       ) {
         Notification({ message: 'Hay información en el apartado de Datos de equipo y desempeño que no se han capturado', title: 'Atención' }, 'warning');
       }
@@ -539,7 +539,7 @@ angular
           VUPSFaseTierra: (vm.upcfasetierra) ? vm.upcfasetierra : "",
           VUPSFaseNeutro: (vm.upcfaseneutro) ? vm.upcfaseneutro : "",
           Modem: (vm.modem) ? vm.modem.Descripcion : "",
-          Antena: (vm.antenaTamano.Nombre) ? vm.antenaTamano.Nombre : "",
+          Antena: (vm.antenaTamano) ? vm.antenaTamano.Nombre : "",
           SQF: (vm.sqf) ? vm.sqf : "",
           Radio: (vm.serieradio) ? vm.serieradio.Descripcion : "",
           Router: (vm.serierouter) ? vm.serierouter.Descripcion : "",
@@ -563,11 +563,11 @@ angular
           IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
           IdTecnico: vm.instalador.IdEntidad,
           AntenaSerie: (vm.antena) ? vm.antena.Descripcion : '',
-          IdAntena: vm.antenaTamano.IdAntena ? vm.antenaTamano.IdAntena : 0,
+          IdAntena: vm.antenaTamano ? vm.antenaTamano.IdAntena : 0,
           CodigoEstado: vm.CodigodeEstado,
           SQFVS: vm.SQFVS,
           TransmitRate: vm.TransmitRate,
-          PowerAttenuation: vm.PowerAttenuation.Descripcion,
+          PowerAttenuation: vm.PowerAttenuation ? vm.PowerAttenuation.Descripcion : "",
           PruebaACP: vm.PruebaACP,
           VoltajeComercialNT: vm.VoltajeComercialNT,
           VoltajeComercialFT: vm.VoltajeComercialFT,
@@ -639,7 +639,7 @@ angular
           CodigoEstado: vm.CodigodeEstado,
           SQFVS: vm.SQFVS,
           TransmitRate: vm.TransmitRate,
-          PowerAttenuation: vm.PowerAttenuation.Descripcion,
+          PowerAttenuation: vm.PowerAttenuation ? vm.PowerAttenuation.Descripcion : "",
           PruebaACP: vm.PruebaACP,
           VoltajeComercialNT: vm.VoltajeComercialNT,
           VoltajeComercialFT: vm.VoltajeComercialFT,

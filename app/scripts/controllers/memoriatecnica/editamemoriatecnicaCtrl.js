@@ -539,7 +539,7 @@ angular
             'CodigoEstado': vm.CodigodeEstado,
             'SQFVS': vm.SQFVS,
             'TransmitRate': vm.TransmitRate,
-            'PowerAttenuation': vm.PowerAttenuation.Descripcion,
+            'PowerAttenuation': vm.PowerAttenuation ? vm.PowerAttenuation.Descripcion : "",
             'PruebaACP': vm.PruebaACP,
             'VoltajeComercialNT': vm.VoltajeComercialNT,
             'VoltajeComercialFT': vm.VoltajeComercialFT,
@@ -610,7 +610,7 @@ angular
             'CodigoEstado': vm.CodigodeEstado,
             'SQFVS': vm.SQFVS,
             'TransmitRate': vm.TransmitRate,
-            'PowerAttenuation': vm.PowerAttenuation.Descripcion,
+            'PowerAttenuation': vm.PowerAttenuation ? vm.PowerAttenuation.Descripcion : "",
             'PruebaACP': vm.PruebaACP,
             'VoltajeComercialNT': vm.VoltajeComercialNT,
             'VoltajeComercialFT': vm.VoltajeComercialFT,
@@ -786,7 +786,7 @@ angular
           vm.upsserie = det.UPS == undefined ? '' : det.Modem;
           vm.serieradio = det.Radio == undefined ? '' : det.Modem;
         }
-        if (vm.IdAntena == 0) {
+        if (vm.IdAntena == 0 && vm.tamanoantena.length > 0) {
           vm.MuestraComboAntena = false;
         }
         console.log('4',det);

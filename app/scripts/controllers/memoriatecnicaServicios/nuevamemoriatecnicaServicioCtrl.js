@@ -511,7 +511,7 @@ angular
         CodigoEstado: vm.CodigodeEstado,
         SQFVS: vm.SQFVS,
         TransmitRate: vm.TransmitRate,
-        PowerAttenuation: vm.PowerAttenuation.Descripcion,
+        PowerAttenuation: vm.PowerAttenuation ? vm.PowerAttenuation.Descripcion : "",
         PruebaACP: vm.PruebaACP,
         VoltajeComercialNT: vm.VoltajeComercialNT,
         VoltajeComercialFT: vm.VoltajeComercialFT,
