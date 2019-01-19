@@ -700,6 +700,7 @@ angular
       }
 
       function detalle(det) {
+        console.log('detalle');
         vm.NoSTB = det.NoSTB;
         vm.Apuntamiento = det.Apuntamiento;
         vm.tamanoantena = det.Antena;
@@ -717,6 +718,8 @@ angular
         vm.estado = det.Estado;
         vm.estatustecnico = det.EstatusTecnico;
         vm.fechacaptura = det.Fecha;
+
+        console.log('detalle 1');
         var fecAux = moment(det.FechaActivacion, 'DD-MM-YYYY').toDate();
         //console.log('Prueba',fecAux);
         vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
@@ -765,8 +768,9 @@ angular
         vm.IdEstatusTecnico = det.IdEstatusTecnico;
         vm.IdTipoServicio = det.IdTipoServicio;
         vm.IdAntena = det.IdAntena;
-        console.log('2',det);
+        console.log('detalle 2');
         if (vm.OrdenInstalacion) {
+          console.log('detalle 3');
           vm.CambioDeEquipos = false;
           if (det.Proveedor == 'AZ3' || det.Proveedor == 'Norte' || det.Proveedor == 'AZ5') {
             vm.ActivaFechaActivacion = true;
@@ -776,7 +780,7 @@ angular
           }
         }
         else {
-          console.log('3',det);
+          console.log('detalle 4');
           vm.CambioDeEquipos = true;
           vm.ActivaFechaActivacion = false;
           vm.modem = det.Modem == undefined ? '' : det.Modem;
@@ -786,10 +790,15 @@ angular
           vm.upsserie = det.UPS == undefined ? '' : det.Modem;
           vm.serieradio = det.Radio == undefined ? '' : det.Modem;
         }
-        if (vm.IdAntena == 0 && vm.tamanoantena.length > 0) {
-          vm.MuestraComboAntena = false;
+        console.log('detalle A');
+        console.log(vm.IdAntena,vm.tamanoantena);
+        if(vm.tamanoantena != null){
+          if (vm.IdAntena == 0 && vm.tamanoantena.length > 0) {
+            vm.MuestraComboAntena = false;
+          }
         }
-        console.log('4',det);
+        
+        console.log('detalle B');
         vm.CodigodeEstado = det.CodigoEstado == undefined ? '' : det.CodigoEstado;
         vm.SQFVS = det.SQFVS == undefined ? '' : det.SQFVS;
         vm.TransmitRate = det.TransmitRate == undefined ? '' : det.TransmitRate;
@@ -801,10 +810,13 @@ angular
             }
           });
         }
+
+        console.log('detalle 4');
         vm.PruebaACP = det.PruebaACP == undefined ? '' : det.PruebaACP;
         vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
         vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
         vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
+        console.log('aqui es ' ,vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS)
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
         vm.titulo = 'Edición de memoria técnica de servicio #' + vm.IdMemoriaTecnica;
       }
