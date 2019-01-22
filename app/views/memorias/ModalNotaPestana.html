@@ -1,0 +1,84 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="modal-title">
+        <i class="fa fa-thumb-tack"></i> Notas de {{ $ctrl.Pestana }} : Memoria Técnica de Servicio
+        {{$ctrl.IdMemoriaTecnica}}</h4>
+</div>
+<div class="modal-body">
+    <div class="col-md-12" style="padding:30px;">
+        <div class="col-md-5">
+            <p class="text-primary">Agrega Nota: </p>
+            <textarea placeholder="Agrega aqui el contenido de la nota....." class="form-control" ng-model="$ctrl.detallenota"
+                rows="3">
+                      </textarea>
+            <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.guardaNota()" style="margin-top:10px;">
+                <i class="fa fa-save"></i> Agregar</button>
+        </div>
+        <div class="col-md-7" style="overflow-y: scroll; max-height: 400px;">
+
+            <div class="tab-pane" id="activity">
+                <ul class="timeline collapse-lg timeline-hairline">
+                    <li class="timeline-inverted" ng-repeat="x in $ctrl.notas_pestana">
+                        <div class="timeline-circ circ-xl style-primary">
+                            <i class="md md-event"></i>
+                        </div>
+                        <div class="timeline-entry">
+                            <div class="card style-default-light">
+                                <div class="card-body small-padding">
+                                    <!-- <div class="col-md-8">
+    
+                                   </div>
+                                   <div class="col-md-4"></div>-->
+                                    <p>
+                                        <em>{{x.Observacion}}</em>
+                                    </p>
+                                    <span class="text-medium">Nota de
+                                        <span class="text-primary">{{x.Nombre}}</span>
+                                    </span>
+                                    <br>
+                                    <span class="opacity-50">
+                                        {{x.Fecha}}
+                                    </span>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="$ctrl.eliminaNota($index)">
+                                        <i class="fa fa-trash"></i>Eliminar nota</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--end .timeline-entry -->
+                    </li>
+
+                    <li class="timeline-inverted" ng-repeat="x in $ctrl.notas_pestana_ant">
+                        <div class="timeline-circ circ-xl style-primary">
+                            <i class="md md-event"></i>
+                        </div>
+                        <div class="timeline-entry">
+                            <div class="card style-default-light">
+                                <div class="card-body small-padding">
+                                    <p>
+                                        <em>{{x.Observacion}}</em>
+                                    </p>
+                                    <span class="text-medium">Nota de
+                                        <span class="text-primary">{{x.Nombre}}</span>
+                                    </span>
+                                    <br>
+                                    <span class="opacity-50">
+                                        {{x.Fecha}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end .timeline-entry -->
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cerrar</button>
+    <button class="btn btn-success btn-sm" type="button" ng-click="$ctrl.ok()">Aceptar</button>
+</div>

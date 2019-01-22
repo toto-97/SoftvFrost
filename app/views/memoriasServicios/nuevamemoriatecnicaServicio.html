@@ -88,11 +88,14 @@
       </header>
       <div class="tools">
         <div class="btn-group">
+          <button class="btn btn-info btn-sm" type="button" ng-show="($ctrl.showeliminar && $ctrl.numerofolioVS.length > 0 && $ctrl.Estatus != 'Revisión')"
+            title="Enviar a revisar memoria técnica" style="margin-right:10px;" ng-click="$ctrl.EnviarRevisar()">
+            Enviar a Revisar</button>
           <button class="btn btn-primary btn-sm" ng-show="$ctrl.showguardar" title="Crear una nueva memoria técnica"
-            type="submit">
+            type="submit"  style="margin-right:10px;" >
             Guardar</button>
           <button title="Eliminar Memoria Técnica" type="button" class="btn btn-danger btn-sm" ng-show="$ctrl.showeliminar"
-            name="button" ng-click="$ctrl.EliminaMemoria()">Eliminar</button>
+            name="button" ng-click="$ctrl.EliminaMemoria()"  style="margin-right:10px;">Eliminar</button>
           <button title="Regresar a atenciones telefónicas" type="button" ui-sref="home.memoria.memoriastecnicasServicio"
             class="btn btn-default-bright btn-sm" name="button">Salir</button>
         </div>
@@ -126,7 +129,8 @@
               </div>
               <div class="col-sm-3" ng-if="$ctrl.permitecheckVS">
                 <label class="checkbox-inline checkbox-styled checkbox-info">
-                  <input type="checkbox" ng-model="$ctrl.generafolioVS" name="folioVScheck" ng-disabled="$ctrl.blockgenerafolioVS" ng-change="$ctrl.obtenfolioVS()">
+                  <input type="checkbox" ng-model="$ctrl.generafolioVS" name="folioVScheck" ng-disabled="$ctrl.blockgenerafolioVS"
+                    ng-change="$ctrl.obtenfolioVS()">
                   <span>{{$ctrl.mensajefolioVS}}</span>
                 </label>
               </div>
@@ -481,7 +485,8 @@
                       <div class="form-group row ">
                         <label class="col-sm-5 control-label">Código de Estado</label>
                         <div class="col-sm-7">
-                          <input type="text" class="form-control input-sm" ng-disabled="true" name="CodigodeEstado" ng-model="$ctrl.CodigodeEstado">
+                          <input type="text" class="form-control input-sm" ng-disabled="true" name="CodigodeEstado"
+                            ng-model="$ctrl.CodigodeEstado">
                         </div>
                       </div>
                       <div class="form-group row ">
@@ -492,7 +497,8 @@
                       </div>
                     </div>
                     <div class="col-md-2">
-                      <button type="button" title="Actualizar datos" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.ActualizarDatosHughes()"><i class="fa fa-retweet"></i></button>
+                      <button type="button" title="Actualizar datos" class="btn ink-reaction btn-xs btn-info" ng-click="$ctrl.ActualizarDatosHughes()"><i
+                          class="fa fa-retweet"></i></button>
                     </div>
                   </div>
                   <div class="form-group row ">
@@ -504,8 +510,8 @@
                   <div class="form-group row ">
                     <label class="col-sm-5 control-label">Power Attenuation</label>
                     <div class="col-sm-7">
-                      <select ng-options="item as item.Descripcion for item in $ctrl.PowerAttenuations track by item.IdPower" class="form-control input-sm"
-                        validate-on="dirty" name="PowerAttenuation" ng-model="$ctrl.PowerAttenuation">
+                      <select ng-options="item as item.Descripcion for item in $ctrl.PowerAttenuations track by item.IdPower"
+                        class="form-control input-sm" validate-on="dirty" name="PowerAttenuation" ng-model="$ctrl.PowerAttenuation">
                         <option value="">- selecciona -</option>
                       </select>
                     </div>
@@ -553,7 +559,8 @@
                       <br>
                       <div class="fileUpload btn btn-sm btn-primary" ng-show="$ctrl.tipoimagenValidacion">
                         <span>Elegir archivos</span>
-                        <input type="file" multiple="multiple" id="file" nv-file-select uploader="$ctrl.uploaderVS" class="upload" />
+                        <input type="file" multiple="multiple" id="file" nv-file-select uploader="$ctrl.uploaderVS"
+                          class="upload" />
                       </div>
                     </div>
                     <div class="col-md-12" style="overflow-y: scroll; max-height: 350px;">
@@ -597,28 +604,30 @@
                     <div class="col-md-12" style="overflow-y: scroll; max-height: 350px;">
                       <table class="table">
                         <thead>
-  
+
                           <th>Tipo de imagen</th>
                           <th>preview</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="x in $ctrl.Lista_evidenciasVS">
-  
+
                             <td>{{x.Tipo_}}</td>
                             <td>
-  
-                              <img class="img-thumbnail" ng-click="$ctrl.openLightboxModal($index)" ng-src="{{x.RutaCompleta}}" alt="" style="width: 100px; height: 100px; ">
+
+                              <img class="img-thumbnail" ng-click="$ctrl.openLightboxModal($index)" ng-src="{{x.RutaCompleta}}"
+                                alt="" style="width: 100px; height: 100px; ">
                             </td>
                             <td>
-                              <button type="button" ng-click="$ctrl.BorraImagenVS($index)" ng-disabled="$ctrl.detalle" class="btn btn-xs btn-danger">
+                              <button type="button" ng-click="$ctrl.BorraImagenVS($index)" ng-disabled="$ctrl.detalle"
+                                class="btn btn-xs btn-danger">
                                 <i class="fa fa-trash"></i> Eliminar</button>
                             </td>
                           </tr>
                         </tbody>
-  
+
                       </table>
                     </div>
-  
+
                   </div>
                 </div>
               </div>

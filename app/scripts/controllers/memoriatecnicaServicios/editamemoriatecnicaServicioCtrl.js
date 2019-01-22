@@ -713,6 +713,7 @@ angular
         vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
         vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
         vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
+        vm.Estatus = det.Estatus;
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
         vm.titulo = 'Edición de memoria técnica de reporte #' + vm.IdMemoriaTecnica;
       }
@@ -905,6 +906,28 @@ angular
         });
       }
 
+      function EnviarRevisar() {
+        var parametros = {};
+        parametros.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+        parametros.Estatus = 'Revisión';
+        memoriaServicioFactory.GetActualizaEstatusMemoriaTecnica(parametros).then(function (response) {
+
+          var ref = firebase.database().ref().child("messages");
+          vm.messages = $firebaseArray(ref);
+          vm.messages.$add({
+            Id: vm.IdMemoriaTecnica,
+            Fecha: moment().format("L"),
+            Hora: moment().format("LT"),
+            Mensaje: 'Se ha enviado a revisión memoria técnica de reporte ',
+            Tipo: 1,
+            SAN: vm.SAN
+
+          });
+          ngNotify.set('La memoria técnica de reporte se ha enviado a revisión', 'success');
+          $state.go('home.memoria.memoriastecnicasServicio');
+        });
+      }
+
       var vm = this;
       vm.eliminaNota = eliminaNota;
       vm.uploader = new FileUploader();
@@ -937,12 +960,14 @@ angular
       vm.notas_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.permitecheckVS = $localStorage.currentUser.CheckValidacionSitio;
+      vm.IdRol = $localStorage.currentUser.IdRol;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = true;
       vm.MuestraComboAntena = false;
       vm.ActualizarDatosHughes = ActualizarDatosHughes;
       vm.EliminaMemoria = EliminaMemoria;
       vm.BorraImagenVS = BorraImagenVS;
+      vm.EnviarRevisar = EnviarRevisar;
       vm.PowerAttenuations = [
         {
           'IdPower': 4,
