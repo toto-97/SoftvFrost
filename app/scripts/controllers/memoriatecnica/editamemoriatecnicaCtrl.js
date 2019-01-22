@@ -124,7 +124,6 @@ angular
                           vm.estatustecnico = vm.listEstatus[index];
                         }
                       });
-
                       memoriaFactory.GetTipoServicio().then(function (tipos) {
                         vm.listTiposerv = tipos.GetTipoServicioResult;
                         vm.listTiposerv.forEach(function (item, index) {
@@ -132,7 +131,8 @@ angular
                             vm.tiposervicio = vm.listTiposerv[index];
                           }
                         });
-                        if (vm.IdAntena > 0) {
+                        //console.log('vm.tamanoantena',vm.tamanoantena);
+                        //if (vm.IdAntena > 0 && vm.tamanoantena == null) {
                           catalogosMemoriaFactory.GetObtieneAntenasCatalogo().then(function (data) {
                             var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
                             vm.antenasTamanos = [];
@@ -148,7 +148,7 @@ angular
                               }
                             });
                           });
-                        }
+                        //}
                       });
                     });
                   });
@@ -786,7 +786,7 @@ angular
           vm.modem = det.Modem == undefined ? '' : det.Modem;
           vm.antena = det.AntenaSerie == undefined ? '' : det.Modem;
           vm.serierouter = det.Router == undefined ? '' : det.Modem;
-          vm.tamanoantena = det.Antena == undefined ? '' : det.Modem;
+          vm.tamanoantena = det.Antena == undefined ? '' : det.Antena;
           vm.upsserie = det.UPS == undefined ? '' : det.Modem;
           vm.serieradio = det.Radio == undefined ? '' : det.Modem;
         }
