@@ -36,19 +36,26 @@
           <ul class="dropdown-menu animation-expand" style="width: 500px; height: 350px; overflow: auto">
             <li class="dropdown-header">Mensajes de hoy</li>
             <li>
-              <a ng-if="x.Tipo==1" class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoria({ id: x.Id})" ng-repeat="x in $ctrl.messages">
+              <a ng-if="x.Tipo==1  && $ctrl.IdRol != 4" class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoria({ id: x.Id})"
+                ng-repeat="x in $ctrl.messages">
                 <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
                 <strong>{{x.Mensaje}} # {{x.Id}}</strong><br>
                 <strong>SAN: {{x.SAN}}</strong><br>
                 <small>{{x.Fecha}} {{x.Hora}}</small>
 
               </a>
-              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==2" class="alert alert-callout alert-warning">
+              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==2  && $ctrl.IdRol != 4" class="alert alert-callout alert-warning">
                 <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
                 <strong style="font-size: 10px;">{{x.Mensaje}} </strong><br>
                 <p> # {{x.Id}}</p>
                 <small>{{x.Fecha}} {{x.Hora}}</small>
+              </a>
 
+              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==11 && $ctrl.IdRol == 4 && $ctrl.IdUsuario == x.SAN" class="alert alert-callout alert-warning"
+                ui-sref="home.memoria.editarmemoria({ id: x.Id})">
+                <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
+                <strong style="font-size: 10px;">{{x.Mensaje}} # {{x.Id}}</strong><br>
+                <small>{{x.Fecha}} {{x.Hora}}</small>
               </a>
             </li>
 
@@ -119,13 +126,16 @@
           <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;"
             ng-if="x.MenuChild.length > 0">
             <li ng-repeat="y in x.MenuChild | orderBy:'SortOrder'" ng-class="{'gui-folder': y.MenuChild.length > 0}">
-              <a ui-sref="{{ y.Class }}" ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length == 0 && y.OptSelect == true"><span class="title">{{ y.Title }}</span></a>
-              <a ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length > 0"><span class="title">{{ y.Title }}</span></a>
+              <a ui-sref="{{ y.Class }}" ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length == 0 && y.OptSelect == true"><span
+                  class="title">{{ y.Title }}</span></a>
+              <a ng-class="{active:$state.includes(y.Class)}" ng-if="y.MenuChild.length > 0"><span class="title">{{
+                  y.Title }}</span></a>
 
               <ul style="overflow: hidden; height: 308px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;"
                 ng-if="y.MenuChild.length > 0">
                 <li ng-repeat="z in y.MenuChild">
-                  <a ui-sref="{{ z.Class }}" ng-class="{active:$state.includes(z.Class)}"><span class="title">{{ z.Title }}</span></a>
+                  <a ui-sref="{{ z.Class }}" ng-class="{active:$state.includes(z.Class)}"><span class="title">{{
+                      z.Title }}</span></a>
                 </li>
               </ul>
             </li>

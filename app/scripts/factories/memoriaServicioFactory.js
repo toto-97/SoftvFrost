@@ -33,7 +33,27 @@ angular
       GetObtieneDatosHughes: '/BuscaMemoriaTecnicaServicio/GetObtieneDatosHughesServicio',
       GetEliminaMemoriaTecnica: '/GuardaMemoriaTecnicaServicio/GetEliminaMemoriaTecnicaServicio',
       GetGeneraFolioMemoriaTecnicaVS: '/BuscaMemoriaTecnicaServicio/GetGeneraFolioMemoriaTecnicaVSServicio',
-      GetActualizaEstatusMemoriaTecnica: '/GuardaMemoriaTecnicaServicio/GetActualizaEstatusMemoriaTecnicaServicio'
+      GetActualizaEstatusMemoriaTecnica: '/GuardaMemoriaTecnicaServicio/GetActualizaEstatusMemoriaTecnicaServicio',
+      GetGuardaObservacionMemoriaTecnicaListPestana: '/GuardaObservacionMemoriaTecnicaServicio/GetGuardaObservacionMemoriaTecnicaListPestanaServicio',
+    };
+
+    factory.GetGuardaObservacionMemoriaTecnicaListPestana = function (notas) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'notas':notas       
+      };
+      $http.post(globalService.getUrl() + paths.GetGuardaObservacionMemoriaTecnicaListPestana, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     };
 
     factory.GetActualizaEstatusMemoriaTecnica = function (Parametros) {

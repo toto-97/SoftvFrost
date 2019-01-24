@@ -150,7 +150,7 @@ angular
                               //console.log(result);
                               var notas_pestana = result.GetObtieneObservacionesMemoriaTecnicaPestanaResult;
                               notas_pestana.forEach(function (item) {
-          
+
                                 var obj = {};
                                 obj.Observacion = item.Observacion;
                                 obj.IdUsuario = 0;
@@ -159,7 +159,7 @@ angular
                                 obj.Nombre = item.Nombre;
                                 obj.Pestana = item.Pestana;
                                 vm.notas_pestana_ant.push(obj);
-          
+
                               });
                             });
                           });
@@ -438,48 +438,6 @@ angular
 
       function guardar() {
 
-
-        if (!vm.vcneutrotierra || !vm.vcfasetierra || !vm.vcfaseneutro) {
-
-          Notification({
-            message: 'hay información en el apartado de Mediciones Eléctricas que no se han capturado',
-            title: 'Atención'
-          }, 'warning');
-        }
-
-        if (!vm.modem || !vm.serieradio || !vm.serierouter || !vm.marcarouter || !vm.tamanoantena || !vm.sqf || !vm.antena) {
-          Notification({
-            message: 'hay información en el apartado de Datos de equipo y desempeño que no se han capturado',
-            title: 'Atención'
-          }, 'warning');
-        }
-
-        if (!vm.Instalacion && !vm.Mantenimiento && !vm.CambioComponentes &&
-          !vm.SiteSurvey && !vm.InstalacionDemo && !vm.Reubicacion && !vm.Apuntamiento) {
-          Notification({
-            message: 'Se debe seleccionar por lo menos un tipo de trabajo realizado',
-            title: 'Atención'
-          }, 'warning');
-        }
-        var tipos = vm.tiposresp;
-        vm.uploader.queue.forEach(function (f) {
-          tipos.forEach(function (item, index) {
-            if (f._file.idtipo === item.IdTipo) {
-              if (index > -1) {
-                tipos.splice(index, 1);
-              }
-            }
-          })
-        });
-
-        if (tipos.length > 0) {
-          Notification({
-            message: '**No todos los rubros en la carga de imagenes  estan completados',
-            title: 'Atención'
-          }, 'warning');
-
-        }
-
         var IdAntenaAux = 0;
         var tamanoantenaAux = 0;
         if (vm.IdAntena > 0) {
@@ -558,7 +516,17 @@ angular
             'PruebaACP': vm.PruebaACP,
             'VoltajeComercialNT': vm.VoltajeComercialNT,
             'VoltajeComercialFT': vm.VoltajeComercialFT,
-            'VoltajeComercialFN': vm.VoltajeComercialFN
+            'VoltajeComercialFN': vm.VoltajeComercialFN,
+            'CheckDatosSitio': vm.CheckDatosSitio,
+            'CheckValidacionSitio': vm.CheckValidacionSitio,
+            'CheckTrabajosRealizados': vm.CheckTrabajosRealizados,
+            'CheckMedicionesElectricas': vm.CheckMedicionesElectricas,
+            'CheckDatosEquipoDesempeno': vm.CheckDatosEquipoDesempeno,
+            'CheckDesempeno': vm.CheckDesempeno,
+            'CheckCambioEquipos': vm.CheckCambioEquipos,
+            'CheckEquiposDigitales': vm.CheckEquiposDigitales,
+            'CheckCargaImagenes': vm.CheckCargaImagenes
+
           };
         } else {
           var obj = {
@@ -629,7 +597,16 @@ angular
             'PruebaACP': vm.PruebaACP,
             'VoltajeComercialNT': vm.VoltajeComercialNT,
             'VoltajeComercialFT': vm.VoltajeComercialFT,
-            'VoltajeComercialFN': vm.VoltajeComercialFN
+            'VoltajeComercialFN': vm.VoltajeComercialFN,
+            'CheckDatosSitio': vm.CheckDatosSitio,
+            'CheckValidacionSitio': vm.CheckValidacionSitio,
+            'CheckTrabajosRealizados': vm.CheckTrabajosRealizados,
+            'CheckMedicionesElectricas': vm.CheckMedicionesElectricas,
+            'CheckDatosEquipoDesempeno': vm.CheckDatosEquipoDesempeno,
+            'CheckDesempeno': vm.CheckDesempeno,
+            'CheckCambioEquipos': vm.CheckCambioEquipos,
+            'CheckEquiposDigitales': vm.CheckEquiposDigitales,
+            'CheckCargaImagenes': vm.CheckCargaImagenes
           };
         }
 
@@ -832,54 +809,78 @@ angular
         vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
         vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
         vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
+
         vm.Estatus = det.Estatus;
+        vm.CheckDatosSitio = det.CheckDatosSitio;
+        vm.CheckValidacionSitio = det.CheckValidacionSitio;
+        vm.CheckTrabajosRealizados = det.CheckTrabajosRealizados;
+        vm.CheckMedicionesElectricas = det.CheckMedicionesElectricas;
+        vm.CheckDatosEquipoDesempeno = det.CheckDatosEquipoDesempeno;
+        vm.CheckDesempeno = det.CheckDesempeno;
+        vm.CheckCambioEquipos = det.CheckCambioEquipos;
+        vm.CheckEquiposDigitales = det.CheckEquiposDigitales;
+        vm.CheckCargaImagenes = det.CheckCargaImagenes;
+        //console.log(det);
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
         vm.titulo = 'Edición de memoria técnica de servicio #' + vm.IdMemoriaTecnica;
       }
 
       function obtenfolio() {
         if (vm.generafolio) {
-          //Preguntamos si están seguros de generar folio
-          var modalInstance = $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: 'views/memorias/ModalPreguntaFolio.html',
-            controller: 'ModalPreguntaFolioCtrl',
-            controllerAs: '$ctrl',
-            backdrop: 'static',
-            keyboard: false,
-            size: "md",
-            resolve: {
-              /*Lista: function () {
-                return vm.CambioDeEquipos;
-              }*/
-            }
-          });
-          modalInstance.result.then(function (item) {
-            if (item) {
-              memoriaFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
-                .then(function (response) {
-                  var id = vm.IdMemoriaTecnica;
-                  GetdataFire().then(function (result) {
-                    result.forEach(function (item, index) {
-                      if (parseInt(item.Id) === parseInt(id)) {
-                        deleteFile(index).then(function (result) {
-                        });
-                      }
+          //Tiene que tener todos los checks de pestanas
+          if (vm.CheckDatosSitio && vm.CheckValidacionSitio && vm.CheckTrabajosRealizados
+            && vm.CheckMedicionesElectricas
+            && (vm.CheckDatosEquipoDesempeno || !vm.OrdenInstalacion)
+            && (vm.CheckDesempeno || vm.OrdenInstalacion)
+            && (vm.CheckCambioEquipos || !vm.CambioDeEquipos)
+            && (vm.CheckEquiposDigitales || !vm.Combo)
+            && vm.CheckCargaImagenes) {
+            //Preguntamos si están seguros de generar folio
+            var modalInstance = $uibModal.open({
+              animation: true,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'views/memorias/ModalPreguntaFolio.html',
+              controller: 'ModalPreguntaFolioCtrl',
+              controllerAs: '$ctrl',
+              backdrop: 'static',
+              keyboard: false,
+              size: "md",
+              resolve: {
+                /*Lista: function () {
+                  return vm.CambioDeEquipos;
+                }*/
+              }
+            });
+            modalInstance.result.then(function (item) {
+              if (item) {
+                memoriaFactory.GetGeneraFolioMemoriaTecnica(vm.IdMemoriaTecnica)
+                  .then(function (response) {
+                    var id = vm.IdMemoriaTecnica;
+                    GetdataFire().then(function (result) {
+                      result.forEach(function (item, index) {
+                        if (parseInt(item.Id) === parseInt(id)) {
+                          deleteFile(index).then(function (result) {
+                          });
+                        }
+                      });
                     });
+                    vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
+                    vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
+                    vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+                    vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
                   });
-                  vm.numerofolio = response.GetGeneraFolioMemoriaTecnicaResult;
-                  vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
-                  vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-                  vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
-                });
-            }
-            else {
-              vm.generafolio = false;
-            }
-          }, function () {
-          });
+              }
+              else {
+                vm.generafolio = false;
+              }
+            }, function () {
+            });
+          }
+          else {
+            vm.generafolio = false;
+            ngNotify.set('No se ha dado check a todas las pestañas de la memoria técnica', 'warn');
+          }
         }
       }
 
@@ -1057,6 +1058,16 @@ angular
         parametros.Estatus = 'Revisión';
         memoriaFactory.GetActualizaEstatusMemoriaTecnica(parametros).then(function (response) {
 
+          GetdataFire().then(function (result) {
+            result.forEach(function (item, index) {
+              if (parseInt(item.Id) === parseInt(vm.IdMemoriaTecnica) && item.Tipo == 11) {
+                //console.log('item', item);
+                deleteFile(index).then(function (result) {
+                });
+              }
+            });
+          });
+
           var ref = firebase.database().ref().child("messages");
           vm.messages = $firebaseArray(ref);
           vm.messages.$add({
@@ -1073,7 +1084,7 @@ angular
         });
       }
 
-      function NotasPestana(Pestana){
+      function NotasPestana(Pestana) {
         /*console.log('vm.IdMemoriaTecnica',vm.IdMemoriaTecnica);
         console.log('Pestana',Pestana);
         console.log('vm.notas_pestana',vm.notas_pestana);
@@ -1110,6 +1121,167 @@ angular
         });
       }
 
+      function CheckPestanasDatosSitio() {
+        if (vm.CheckDatosSitio) {
+          vm.CheckDatosSitio = false;
+        }
+        else {
+          vm.CheckDatosSitio = true;
+        }
+      }
+
+      function CheckPestanasValidacionSitio() {
+        if (vm.CheckValidacionSitio) {
+          vm.CheckValidacionSitio = false;
+        }
+        else {
+          vm.CheckValidacionSitio = true;
+        }
+      }
+
+      function CheckPestanasTrabajosRealizados() {
+        if (vm.CheckTrabajosRealizados) {
+          vm.CheckTrabajosRealizados = false;
+        }
+        else {
+          if (!vm.Instalacion && !vm.Mantenimiento && !vm.CambioComponentes &&
+            !vm.SiteSurvey && !vm.InstalacionDemo && !vm.Reubicacion && !vm.Apuntamiento) {
+            Notification({
+              message: 'Se debe seleccionar por lo menos un tipo de trabajo realizado',
+              title: 'Atención'
+            }, 'warning');
+            vm.CheckTrabajosRealizados = false;
+          }
+          else{
+            vm.CheckTrabajosRealizados = true;
+          }
+        }
+      }
+
+      function CheckPestanasMedicionesElectricas() {
+        if (vm.CheckMedicionesElectricas) {
+          vm.CheckMedicionesElectricas = false;
+        }
+        else {
+          if (!vm.vcneutrotierra || !vm.vcfasetierra || !vm.vcfaseneutro) {
+
+            Notification({
+              message: 'Hay información que no se ha capturado',
+              title: 'Atención'
+            }, 'warning');
+            vm.CheckMedicionesElectricas = false;
+          }
+          else{
+            vm.CheckMedicionesElectricas = true;
+          }
+        }
+      }
+
+      function CheckPestanasDatosEquipoDesempeno() {
+        if (vm.CheckDatosEquipoDesempeno) {
+          vm.CheckDatosEquipoDesempeno = false;
+        }
+        else {
+          if (!vm.modem || !vm.serieradio || !vm.serierouter || !vm.marcarouter || !vm.tamanoantena || !vm.sqf || !vm.antena) {
+            Notification({
+              message: 'Hay información que no se ha capturado',
+              title: 'Atención'
+            }, 'warning');
+            vm.CheckDatosEquipoDesempeno = false;
+          }
+          else{
+            vm.CheckDatosEquipoDesempeno = true;
+          }
+        }
+      }
+
+      function CheckPestanasDesempeno() {
+        if (vm.CheckDesempeno) {
+          vm.CheckDesempeno = false;
+        }
+        else {
+          vm.CheckDesempeno = true;
+        }
+      }
+
+      function CheckPestanasCambioEquipos() {
+        if (vm.CheckCambioEquipos) {
+          vm.CheckCambioEquipos = false;
+        }
+        else {
+          vm.CheckCambioEquipos = true;
+        }
+      }
+
+      function CheckPestanasEquiposDigitales() {
+        if (vm.CheckEquiposDigitales) {
+          vm.CheckEquiposDigitales = false;
+        }
+        else {
+          vm.CheckEquiposDigitales = true;
+        }
+      }
+
+      function CheckPestanasCargaImagenes() {
+        if (vm.CheckCargaImagenes) {
+          vm.CheckCargaImagenes = false;
+        }
+        else {
+          var tipos = vm.tiposresp;
+          vm.uploader.queue.forEach(function (f) {
+            tipos.forEach(function (item, index) {
+              if (f._file.idtipo === item.IdTipo) {
+                if (index > -1) {
+                  tipos.splice(index, 1);
+                }
+              }
+            })
+          });
+
+          if (tipos.length > 0) {
+            Notification({
+              message: 'No todos los rubros en la carga de imágenes estan completos',
+              title: 'Atención'
+            }, 'warning');
+            vm.CheckCargaImagenes = false;
+          }
+          else{
+            vm.CheckCargaImagenes = true;
+          }
+        }
+      }
+
+      function Rechazar() {
+        var parametros = {};
+        parametros.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+        parametros.Estatus = 'Rechazada';
+        memoriaFactory.GetActualizaEstatusMemoriaTecnica(parametros).then(function (response) {
+
+          GetdataFire().then(function (result) {
+            result.forEach(function (item, index) {
+              if (parseInt(item.Id) === parseInt(vm.IdMemoriaTecnica) && item.Tipo == 1) {
+                //console.log('item', item);
+                deleteFile(index).then(function (result) {
+                });
+              }
+            });
+          });
+          //alert('sdf');
+          var ref = firebase.database().ref().child("messages");
+          vm.messages = $firebaseArray(ref);
+          vm.messages.$add({
+            Id: vm.IdMemoriaTecnica,
+            Fecha: moment().format("L"),
+            Hora: moment().format("LT"),
+            Mensaje: 'Se ha rechazado la memoria técnica',
+            Tipo: 11,
+            SAN: vm.IdUsuario
+
+          });
+          ngNotify.set('La memoria técnica se ha rechazado', 'success');
+          $state.go('home.memoria.memoriastecnicas');
+        });
+      }
 
       var vm = this;
       vm.eliminaNota = eliminaNota;
@@ -1155,6 +1327,27 @@ angular
       vm.EliminaMemoria = EliminaMemoria;
       vm.EnviarRevisar = EnviarRevisar;
       vm.NotasPestana = NotasPestana;
+
+      vm.CheckDatosSitio = false;
+      vm.CheckPestanasDatosSitio = CheckPestanasDatosSitio;
+      vm.CheckValidacionSitio = false;
+      vm.CheckPestanasValidacionSitio = CheckPestanasValidacionSitio;
+      vm.CheckTrabajosRealizados = false;
+      vm.CheckPestanasTrabajosRealizados = CheckPestanasTrabajosRealizados;
+      vm.CheckMedicionesElectricas = false;
+      vm.CheckPestanasMedicionesElectricas = CheckPestanasMedicionesElectricas;
+      vm.CheckDatosEquipoDesempeno = false;
+      vm.CheckPestanasDatosEquipoDesempeno = CheckPestanasDatosEquipoDesempeno;
+      vm.CheckDesempeno = false;
+      vm.CheckPestanasDesempeno = CheckPestanasDesempeno;
+      vm.CheckCambioEquipos = false;
+      vm.CheckPestanasCambioEquipos = CheckPestanasCambioEquipos;
+      vm.CheckEquiposDigitales = false;
+      vm.CheckPestanasEquiposDigitales = CheckPestanasEquiposDigitales;
+      vm.CheckCargaImagenes = false;
+      vm.CheckPestanasCargaImagenes = CheckPestanasCargaImagenes;
+
+      vm.Rechazar = Rechazar;
       vm.PowerAttenuations = [
         {
           'IdPower': 4,

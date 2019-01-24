@@ -29,7 +29,8 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
      };
      firebase.initializeApp(config);*/
   this.$onInit = function () {
-
+    vm.IdRol = $localStorage.currentUser.idRol;
+    vm.IdUsuario = $localStorage.currentUser.idUsuario;
 
     if ($localStorage.currentUser) {
       vm.menus = $localStorage.currentUser.menu;
@@ -41,20 +42,19 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
           }
         });
 
-
-        if ($localStorage.currentUser.Recibemensaje === true) {
+        if ($localStorage.currentUser.Recibemensaje === true || $localStorage.currentUser.idRol == 4) {
           var ref = firebase
             .database()
             .ref()
             .child('messages');
           vm.messages = $firebaseArray(ref);
+          console.log('vm.messages',vm.messages);
           vm.messages.$loaded().then(function (notes) {
             vm.count = notes.length;
           });
           var first = true;
-
           ref.on('child_removed', function (snapshot) {
-            console.log(snapshot);
+            //console.log(snapshot);
             vm.messages.$loaded().then(function (notes) {
               vm.count = notes.length;
             });
@@ -86,11 +86,52 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
               }
             });
           });
-
-
-
-
         }
+        /*if ($localStorage.currentUser.idRol == 4) {
+          var ref = firebase
+            .database()
+            .ref()
+            .child('messages');
+          vm.messages = $firebaseArray(ref);
+          console.log('vm.messages',vm.messages);
+          vm.messages.$loaded().then(function (notes) {
+            vm.count = notes.length;
+          });
+          var first = true;
+          ref.on('child_removed', function (snapshot) {
+            //console.log(snapshot);
+            vm.messages.$loaded().then(function (notes) {
+              vm.count = notes.length;
+            });
+          });
+          ref.once('value', function (snap) {
+
+            //TODO: display initial state...
+            // Object.keys not supported in IE 8, but has a polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+            var keys = Object.keys(snap.val() || {});
+            var lastIdInSnapshot = keys[keys.length - 1];
+           
+            ref.orderByKey().startAt(lastIdInSnapshot).on('child_added', function (newMessSnapshot) {
+             console.log(newMessSnapshot);
+              if (snap.key === lastIdInSnapshot) {
+                return;
+              }
+              if (first) {
+                first = false;
+              } else {
+                vm.messages.$loaded().then(function (notes) {
+                  vm.count = notes.length;
+                    ngNotify.set('<i class="fa fa-bell"></i> tienes una nueva notificación', {
+                    theme: 'pitchy',
+                    html: true,
+                    type: 'success'
+                  });
+                });
+
+              }
+            });
+          });
+        }*/
       });
     } else {
       $location.path('/auth/login');

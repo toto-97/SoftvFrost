@@ -146,7 +146,22 @@ angular
                             });
                           });
                         }*/
+                        memoriaServicioFactory.GetObtieneObservacionesMemoriaTecnicaPestana(vm.id).then(function (result) {
+                          //console.log(result);
+                          var notas_pestana = result.GetObtieneObservacionesMemoriaTecnicaPestanaServicioResult;
+                          notas_pestana.forEach(function (item) {
 
+                            var obj = {};
+                            obj.Observacion = item.Observacion;
+                            obj.IdUsuario = 0;
+                            obj.IdObservacion = 0;
+                            obj.Fecha = item.Fecha;
+                            obj.Nombre = item.Nombre;
+                            obj.Pestana = item.Pestana;
+                            vm.notas_pestana_ant.push(obj);
+
+                          });
+                        });
                       });
                     });
 
@@ -528,7 +543,16 @@ angular
           'PruebaACP': vm.PruebaACP,
           'VoltajeComercialNT': vm.VoltajeComercialNT,
           'VoltajeComercialFT': vm.VoltajeComercialFT,
-          'VoltajeComercialFN': vm.VoltajeComercialFN
+          'VoltajeComercialFN': vm.VoltajeComercialFN,
+          'CheckDatosSitio' : vm.CheckDatosSitio,
+            'CheckValidacionSitio' : vm.CheckValidacionSitio,
+            'CheckTrabajosRealizados' : vm.CheckTrabajosRealizados,
+            'CheckMedicionesElectricas' : vm.CheckMedicionesElectricas,
+            'CheckDatosEquipoDesempeno' : vm.CheckDatosEquipoDesempeno,
+            'CheckDesempeno' : vm.CheckDesempeno,
+            'CheckCambioEquipos' : vm.CheckCambioEquipos,
+            'CheckEquiposDigitales' : vm.CheckEquiposDigitales,
+            'CheckCargaImagenes' : vm.CheckCargaImagenes
         };
 
         var file_options = [];
@@ -596,7 +620,12 @@ angular
                 memoriaServicioFactory.GetGuardaObservacionMemoriaTecnicaList(vm.notas).then(function (resp) { });
               }
 
-
+              if (vm.notas_pestana.length > 0) {
+                vm.notas_pestana.forEach(function (item) {
+                  item.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+                });
+                memoriaServicioFactory.GetGuardaObservacionMemoriaTecnicaListPestana(vm.notas_pestana).then(function (resp) { });
+              }
 
               memoriaServicioFactory.GuardaImagenesMemoriaTecnica(files, vm.IdMemoriaTecnica, file_options, vm.Imagenes_eliminadas).then(function (data) {
                 vm.uploader.clearQueue();
@@ -714,6 +743,15 @@ angular
         vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
         vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
         vm.Estatus = det.Estatus;
+        vm.CheckDatosSitio = det.CheckDatosSitio;
+        vm.CheckValidacionSitio = det.CheckValidacionSitio;
+        vm.CheckTrabajosRealizados = det.CheckTrabajosRealizados;
+        vm.CheckMedicionesElectricas = det.CheckMedicionesElectricas;
+        vm.CheckDatosEquipoDesempeno = det.CheckDatosEquipoDesempeno;
+        vm.CheckDesempeno = det.CheckDesempeno;
+        vm.CheckCambioEquipos = det.CheckCambioEquipos;
+        vm.CheckEquiposDigitales = det.CheckEquiposDigitales;
+        vm.CheckCargaImagenes = det.CheckCargaImagenes;
         getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
         vm.titulo = 'Edición de memoria técnica de reporte #' + vm.IdMemoriaTecnica;
       }
@@ -927,6 +965,125 @@ angular
           $state.go('home.memoria.memoriastecnicasServicio');
         });
       }
+      
+      function NotasPestana(Pestana) {
+        /*console.log('vm.IdMemoriaTecnica',vm.IdMemoriaTecnica);
+        console.log('Pestana',Pestana);
+        console.log('vm.notas_pestana',vm.notas_pestana);
+        console.log('vm.notas_pestana_ant',vm.notas_pestana_ant);*/
+        //Preguntamos si están seguros de generar folio
+        var modalInstance = $uibModal.open({
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: 'views/memorias/ModalNotaPestana.html',
+          controller: 'ModalNotaPestanaCtrl',
+          controllerAs: '$ctrl',
+          backdrop: 'static',
+          keyboard: false,
+          size: "lg",
+          resolve: {
+            IdMemoriaTecnica: function () {
+              return vm.IdMemoriaTecnica;
+            },
+            Pestana: function () {
+              return Pestana;
+            },
+            notas_pestana: function () {
+              return vm.notas_pestana;
+            },
+            notas_pestana_ant: function () {
+              return vm.notas_pestana_ant;
+            }
+          }
+        });
+        modalInstance.result.then(function (Lista) {
+          vm.notas_pestana = Lista;
+        }, function () {
+        });
+      }
+
+      function CheckPestanasDatosSitio() {
+        if(vm.CheckDatosSitio){
+          vm.CheckDatosSitio = false;
+        }
+        else{
+          vm.CheckDatosSitio = true;
+        }
+      }
+
+      function CheckPestanasValidacionSitio() {
+        if(vm.CheckValidacionSitio){
+          vm.CheckValidacionSitio = false;
+        }
+        else{
+          vm.CheckValidacionSitio = true;
+        }
+      }
+
+      function CheckPestanasTrabajosRealizados() {
+        if(vm.CheckTrabajosRealizados){
+          vm.CheckTrabajosRealizados = false;
+        }
+        else{
+          vm.CheckTrabajosRealizados = true;
+        }
+      }
+
+      function CheckPestanasMedicionesElectricas() {
+        if(vm.CheckMedicionesElectricas){
+          vm.CheckMedicionesElectricas = false;
+        }
+        else{
+          vm.CheckMedicionesElectricas = true;
+        }
+      }
+
+      function CheckPestanasDatosEquipoDesempeno() {
+        if(vm.CheckDatosEquipoDesempeno){
+          vm.CheckDatosEquipoDesempeno = false;
+        }
+        else{
+          vm.CheckDatosEquipoDesempeno = true;
+        }
+      }
+
+      function CheckPestanasDesempeno() {
+        if(vm.CheckDesempeno){
+          vm.CheckDesempeno = false;
+        }
+        else{
+          vm.CheckDesempeno = true;
+        }
+      }
+
+      function CheckPestanasCambioEquipos() {
+        if(vm.CheckCambioEquipos){
+          vm.CheckCambioEquipos = false;
+        }
+        else{
+          vm.CheckCambioEquipos = true;
+        }
+      }
+
+      function CheckPestanasEquiposDigitales() {
+        if(vm.CheckEquiposDigitales){
+          vm.CheckEquiposDigitales = false;
+        }
+        else{
+          vm.CheckEquiposDigitales = true;
+        }
+      }
+
+      function CheckPestanasCargaImagenes() {
+        if(vm.CheckCargaImagenes){
+          vm.CheckCargaImagenes = false;
+        }
+        else{
+          vm.CheckCargaImagenes = true;
+        }
+      }
+
 
       var vm = this;
       vm.eliminaNota = eliminaNota;
@@ -958,6 +1115,8 @@ angular
       vm.guardaNota = guardaNota;
       vm.notas = [];
       vm.notas_ant = [];
+      vm.notas_pestana = [];
+      vm.notas_pestana_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.permitecheckVS = $localStorage.currentUser.CheckValidacionSitio;
       vm.IdRol = $localStorage.currentUser.IdRol;
@@ -968,6 +1127,26 @@ angular
       vm.EliminaMemoria = EliminaMemoria;
       vm.BorraImagenVS = BorraImagenVS;
       vm.EnviarRevisar = EnviarRevisar;
+      vm.NotasPestana = NotasPestana;
+
+      vm.CheckDatosSitio = false;
+      vm.CheckPestanasDatosSitio = CheckPestanasDatosSitio;
+      vm.CheckValidacionSitio = false;
+      vm.CheckPestanasValidacionSitio = CheckPestanasValidacionSitio;
+      vm.CheckTrabajosRealizados = false;
+      vm.CheckPestanasTrabajosRealizados = CheckPestanasTrabajosRealizados;
+      vm.CheckMedicionesElectricas = false;
+      vm.CheckPestanasMedicionesElectricas = CheckPestanasMedicionesElectricas;
+      vm.CheckDatosEquipoDesempeno = false;
+      vm.CheckPestanasDatosEquipoDesempeno = CheckPestanasDatosEquipoDesempeno;
+      vm.CheckDesempeno = false;
+      vm.CheckPestanasDesempeno = CheckPestanasDesempeno;
+      vm.CheckCambioEquipos = false;
+      vm.CheckPestanasCambioEquipos = CheckPestanasCambioEquipos;
+      vm.CheckEquiposDigitales = false;
+      vm.CheckPestanasEquiposDigitales = CheckPestanasEquiposDigitales;
+      vm.CheckCargaImagenes = false;
+      vm.CheckPestanasCargaImagenes = CheckPestanasCargaImagenes;
       vm.PowerAttenuations = [
         {
           'IdPower': 4,

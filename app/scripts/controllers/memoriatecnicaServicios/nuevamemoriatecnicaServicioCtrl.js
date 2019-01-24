@@ -47,6 +47,7 @@ angular
     vm.CambioDeEquipos = true;
     vm.ActualizarDatosHughes = ActualizarDatosHughes;
     vm.showeliminar = false;
+    vm.Estatus = 'Nueva';
     vm.PowerAttenuations = [
       {
         'IdPower': 4,

@@ -51,6 +51,7 @@ angular
     vm.OrdenInstalacion = true;
     vm.ActualizarDatosHughes = ActualizarDatosHughes;
     vm.showeliminar = false;
+    vm.Estatus = 'Pendiente';
     vm.PowerAttenuations = [
       {
         'IdPower': 4,
@@ -720,7 +721,7 @@ angular
                 memoriaFactory.GetGuardaObservacionMemoriaTecnicaList(vm.notas).then(function (resp) { });
               }
 
-              var ref = firebase.database().ref().child("messages");
+              /*var ref = firebase.database().ref().child("messages");
               vm.messages = $firebaseArray(ref);
               vm.messages.$add({
                 Id: vm.IdMemoriaTecnica,
@@ -730,7 +731,7 @@ angular
                 Tipo: 1,
                 SAN: vm.SAN
 
-              });
+              });*/
               ngNotify.set("La memoria técnica se ha guardado correctamente", "success");
               $state.go("home.memoria.memoriastecnicas");
             });
