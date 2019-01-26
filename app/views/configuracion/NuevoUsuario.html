@@ -1,4 +1,5 @@
-<form angular-validator-submit="$ctrl.GuardarUsuario()" name="myForm" class="form-horizontal" novalidate angular-validator>
+<form angular-validator-submit="$ctrl.GuardarUsuario()" name="myForm" class="form-horizontal" novalidate
+  angular-validator>
   <div class="card" style="margin-top:20px; ">
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
       <header>
@@ -19,25 +20,28 @@
         <div class="col-md-3">
           <div class="col-md-12">
             <b>Nombre</b>
-            <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.Nombre" required-message="'Este campo es obligatorio.'"
-              required>
+            <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.Nombre"
+              required-message="'Este campo es obligatorio.'" required>
           </div>
           <div class="col-md-12">
             <b>Usuario</b>
-            <input type="text" class="form-control" ng-change="$ctrl.existe()" ng-model="$ctrl.Descripcion" name="descripcion" validate-on="dirty"
-              required-message="'Este campo es obligatorio.'" required ng-disabled="$ctrl.userText">
-            <small style="color:red" ng-show="$ctrl.isDuplicate">El nombre de usuario ya esta registrado, por favor introduce uno diferente.</small>
+            <input type="text" class="form-control" ng-change="$ctrl.existe()" ng-model="$ctrl.Descripcion" name="descripcion"
+              validate-on="dirty" required-message="'Este campo es obligatorio.'" required ng-disabled="$ctrl.userText">
+            <small style="color:red" ng-show="$ctrl.isDuplicate">El nombre de usuario ya esta registrado, por favor
+              introduce uno diferente.</small>
           </div>
           <div class="col-md-12">
             <b>Correo</b>
-            <input type="email" class="form-control" ng-model="$ctrl.Correo" placeholder="correo@mail.com" name="correo" validate-on="dirty"
-              invalid-message="'Formato de correo inválido.'" required-message="'Este campo es obligatorio.'" required>
+            <input type="email" class="form-control" ng-model="$ctrl.Correo" placeholder="correo@mail.com" name="correo"
+              validate-on="dirty" invalid-message="'Formato de correo inválido.'" required-message="'Este campo es obligatorio.'"
+              required>
           </div>
           <div class="col-md-12">
             <br>
             <b>Selecciona Rol</b>
-            <select class="form-control" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol" name="rol" ng-model="$ctrl.Rol"
-              name="rol" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
+            <select class="form-control" ng-options="item as item.Nombre for item in $ctrl.Roles track by item.IdRol"
+              name="rol" ng-model="$ctrl.Rol" name="rol" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+              required>
               <option value="">selecciona</option>
             </select>
           </div>
@@ -48,7 +52,8 @@
             <div class="col-md-8">
               <b>
                 <i class="fa fa-key"></i> ¿Necesitas modificar la contraseña?</b>
-              <input type="password" class="form-control" ng-model="$ctrl.PassValidate" name="contrasenaanterior" placeholder="contraseña anterior">
+              <input type="password" class="form-control" ng-model="$ctrl.PassValidate" name="contrasenaanterior"
+                placeholder="contraseña anterior">
             </div>
             <div class="col-md-4">
               <br>
@@ -58,13 +63,14 @@
           <div class="row" ng-show="$ctrl.passwordPanel">
             <div class="col-md-12">
               <b>Contraseña</b>
-              <input ng-if="$ctrl.editar == true" type="Password" class="form-control" ng-model="$ctrl.Contrasena" name="contra" validate-on="dirty"
-                required-message="'Este campo es obligatorio.'" placeholder="Ingresa una contraseña segura" required>
+              <input ng-if="$ctrl.editar == true" type="Password" class="form-control" ng-model="$ctrl.Contrasena" name="contra"
+                validate-on="dirty" required-message="'Este campo es obligatorio.'" placeholder="Ingresa una contraseña segura"
+                required>
             </div>
             <div class="col-md-12">
               <b>Repite la contraseña</b>
-              <input ng-if="$ctrl.editar == true" type="Password" class="form-control" ng-model="$ctrl.Contrasena2" name="contrarepite" validate-on="dirty"
-                required-message="'Este campo es obligatorio.'" required>
+              <input ng-if="$ctrl.editar == true" type="Password" class="form-control" ng-model="$ctrl.Contrasena2"
+                name="contrarepite" validate-on="dirty" required-message="'Este campo es obligatorio.'" required>
             </div>
 
           </div>
@@ -115,23 +121,22 @@
           <p>Selecciona que plazas tendrá acceso el usuario para ejecución de procesos en el sistema</p>
           <div class="col-md-12">
             <label>Distribuidor</label>
-            
-              <select name="distribuidor"
-              ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clave"
+
+            <select name="distribuidor" ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clave"
               class="form-control input-sm" ng-model="$ctrl.distribuidorcliente" ng-change="$ctrl.getplazasClienteDisp()">
-                  <option value=""> Selecciona distribuidor</option>
-                 </select>
+              <option value=""> Selecciona distribuidor</option>
+            </select>
           </div>
           <div class="col-md-12">
-            <label>Plazas</label>            
-              <select name="plazacliente" 
-              ng-options="item as item.Plaza for item in $ctrl.PlazasClienteDis track by item.IdCompania"              
+            <label>Plazas</label>
+            <select name="plazacliente" ng-options="item as item.Plaza for item in $ctrl.PlazasClienteDis track by item.IdCompania"
               class="form-control input-sm" ng-model="$ctrl.plazaCliente">
-                  <option value=""> Selecciona plazas</option>
-                 </select>
+              <option value=""> Selecciona plazas</option>
+            </select>
           </div>
           <div class="col-md-12">
-            <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.guardaRelacionCliente()"> Agregar relación</button>
+            <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.guardaRelacionCliente()"> Agregar
+              relación</button>
           </div>
           <div class="col-md-12" style="max-height:300px; overflow-y:scroll">
             <table class="table">
@@ -141,48 +146,45 @@
                 <th>Opciones</th>
               </thead>
               <tbody>
-                <tr ng-repeat="x in $ctrl.relacionCliente"> 
-                   <td>{{x.Distribuidor}}</td>
-                   <td>{{x.Plaza}}</td>
-                   <td><button class="btn btn-danger btn-xs" type="button" ng-click="$ctrl.eliminaRelacionCliente(x)"><i class="fa fa-trash"></i> Eliminar</button></td>
+                <tr ng-repeat="x in $ctrl.relacionCliente">
+                  <td>{{x.Distribuidor}}</td>
+                  <td>{{x.Plaza}}</td>
+                  <td><button class="btn btn-danger btn-xs" type="button" ng-click="$ctrl.eliminaRelacionCliente(x)"><i
+                        class="fa fa-trash"></i> Eliminar</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
         </div>
-        <div class="col-md-6" ng-if="$ctrl.Id>0 && $ctrl.Cliente==false" >
-          <p>Selecciona que técnicos tendrá acceso el usuario para ejecución de procesos en el sistema  </p>
+        <div class="col-md-6" ng-if="$ctrl.Id>0 && $ctrl.Cliente==false">
+          <p>Selecciona que técnicos tendrá acceso el usuario para ejecución de procesos en el sistema </p>
           <div class="col-md-12">
             <label>Distribuidor</label>
-            
-              <select name="distribuidor2"
-              ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clave"
+
+            <select name="distribuidor2" ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clave"
               class="form-control input-sm" ng-model="$ctrl.distribuidor" ng-change="$ctrl.getplazas()">
-                  <option value=""> Selecciona distribuidor</option>
-                 </select>
+              <option value=""> Selecciona distribuidor</option>
+            </select>
           </div>
           <div class="col-md-12">
             <label>Plazas</label>
-            
-              <select name="plazas" 
-              ng-options="item as item.Nombre for item in $ctrl.Plazas track by item.Clave"
-              ng-change="$ctrl.getTecnicosDisponibles()"
-              class="form-control input-sm" ng-model="$ctrl.plaza">
-                  <option value=""> Selecciona plazas</option>
-                 </select>
+
+            <select name="plazas" ng-options="item as item.Nombre for item in $ctrl.Plazas track by item.Clave"
+              ng-change="$ctrl.getTecnicosDisponibles()" class="form-control input-sm" ng-model="$ctrl.plaza">
+              <option value=""> Selecciona plazas</option>
+            </select>
           </div>
           <div class="col-md-8">
-              <label>Técnico</label>
-              <select name="tecnico" class="form-control input-sm"
-              ng-options="item as item.Nombre for item in $ctrl.tecnicoslibres track by item.IdEntidad"
+            <label>Técnico</label>
+            <select name="tecnico" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.tecnicoslibres track by item.IdEntidad"
               ng-model="$ctrl.tecnicolibre">
-                  <option value=""> Selecciona técnico</option>
-                </select>
+              <option value=""> Selecciona técnico</option>
+            </select>
           </div>
           <div class="col-md-4">
             <br>
-           <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.guardaRelacion()"> Agregar relación</button>
+            <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.guardaRelacion()"> Agregar relación</button>
           </div>
           <div class="col-md-12" style="max-height:300px; overflow-y:scroll">
             <table class="table">
@@ -192,17 +194,47 @@
                 <th>Opciones</th>
               </thead>
               <tbody>
-                <tr ng-repeat="x in $ctrl.tecnicosUsuario"> 
-                   <td>{{x.IdEntidad}}</td>
-                   <td>{{x.Nombre}}</td>
-                   <td><button class="btn btn-danger btn-xs" type="button" ng-click="$ctrl.eliminaRelacion(x)"><i class="fa fa-trash"></i> Eliminar</button></td>
+                <tr ng-repeat="x in $ctrl.tecnicosUsuario">
+                  <td>{{x.IdEntidad}}</td>
+                  <td>{{x.Nombre}}</td>
+                  <td><button class="btn btn-danger btn-xs" type="button" ng-click="$ctrl.eliminaRelacion(x)"><i class="fa fa-trash"></i>
+                      Eliminar</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-       
-       
+        <div class="col-md-6" ng-if="$ctrl.Id>0 && $ctrl.RolSupervidor == true" style="border-top: 2px solid red; margin-top: 15px;">
+          <p>Selecciona los instaladores que estarán ligados al supervisor</p>
+          <div class="col-md-8">
+            <label>Instalador</label>
+            <select name="distribuidor" ng-options="item as item.Nombre for item in $ctrl.Instaladores | orderBy: 'Nombre' track by item.IdUsuario"
+              class="form-control input-sm" ng-model="$ctrl.Instalador">
+              <option value=""> Selecciona</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.GuardaRelacionInstalador()"> Agregar
+              relación</button>
+          </div>
+          <div class="col-md-12" style="max-height:300px; overflow-y:scroll">
+            <table class="table">
+              <thead>
+                <th>Nombre</th>
+                <th>Opciones</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="x in $ctrl.RelacionInstaladoresSupervisor | orderBy:x.Nombre">
+                  <td>{{x.Nombre}}</td>
+                  <td><button class="btn btn-danger btn-xs" type="button" ng-click="$ctrl.EliminaRelacionInstalador(x)"><i
+                        class="fa fa-trash"></i> Eliminar</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
 
       </div>
 

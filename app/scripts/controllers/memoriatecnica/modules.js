@@ -8,7 +8,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.memoriastecnicas',
       data: {
-        pageTitle: 'SOFTV | MEMORIA TECNICA',
+        pageTitle: 'BOSS | MEMORIA TECNICA',
         permissions: {
           //only: ['memoriaSelect'],
           options: {
@@ -25,7 +25,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.nuevamemoria',
       data: {
-        pageTitle: 'SOFTV | NUEVA MEMORIA TÉCNICA',
+        pageTitle: 'BOSS | NUEVA MEMORIA TÉCNICA',
       },
       url: '/memoriastecnicas/nuevamemoria',
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
@@ -35,7 +35,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.detallememoria',
       data: {
-        pageTitle: 'SOFTV | DETALLE MEMORIA TÉCNICA',
+        pageTitle: 'BOSS | DETALLE MEMORIA TÉCNICA',
       },
       url: '/memoriastecnicas/detalle/:id',
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
@@ -45,7 +45,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.editarmemoria',
       data: {
-        pageTitle: 'SOFTV | EDITAR MEMORIA TÉCNICA',
+        pageTitle: 'BOSS | EDITAR MEMORIA TÉCNICA',
       },
       url: '/memoriastecnicas/edit/:id',
       templateUrl: 'views/memorias/nuevamemoriatecnica.html',
@@ -55,7 +55,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.bitacora',
       data: {
-        pageTitle: 'SOFTV | BITÁCORA',
+        pageTitle: 'BOSS | BITÁCORA',
       },
       url: '/bitacora',
       templateUrl: 'views/memorias/bitacora.html',
@@ -65,7 +65,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.manuales',
       data: {
-        pageTitle: 'SOFTV | MANUALES',
+        pageTitle: 'BOSS | MANUALES',
       },
       url: '/manuales',
       templateUrl: 'views/memorias/manuales.html',
@@ -75,7 +75,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.reporte',
       data: {
-        pageTitle: 'SOFTV | REPORTE MT',
+        pageTitle: 'BOSS | REPORTE MT',
       },
       url: '/reportememoria',
       templateUrl: 'views/memorias/reporteMemoria.html',
@@ -86,7 +86,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.memoriastecnicasServicio',
       data: {
-        pageTitle: 'SOFTV | MEMORIA TECNICA SERVICIO',
+        pageTitle: 'BOSS | MEMORIA TECNICA SERVICIO',
         permissions: {
           //only: ['memoriaSelect'],
           options: {
@@ -103,7 +103,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.nuevamemoriaServicio',
       data: {
-        pageTitle: 'SOFTV | NUEVA MEMORIA SERVICIO',
+        pageTitle: 'BOSS | NUEVA MEMORIA SERVICIO',
       },
       url: '/memoriastecnicasServicio/nuevamemoria',
       templateUrl: 'views/memoriasServicios/nuevamemoriatecnicaServicio.html',
@@ -113,7 +113,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.detallememoriaServicio',
       data: {
-        pageTitle: 'SOFTV | DETALLE MEMORIA TECNICA SERVICIO',
+        pageTitle: 'BOSS | DETALLE MEMORIA TECNICA SERVICIO',
       },
       url: '/memoriastecnicasServicio/detalle/:id',
       templateUrl: 'views/memoriasServicios/nuevamemoriatecnicaServicio.html',
@@ -123,7 +123,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.editarmemoriaServicio',
       data: {
-        pageTitle: 'SOFTV | EDITAR MEMORIA TECNICA SERVICIO',
+        pageTitle: 'BOSS | EDITAR MEMORIA TECNICA SERVICIO',
       },
       url: '/memoriastecnicasServicio/edit/:id',
       templateUrl: 'views/memoriasServicios/nuevamemoriatecnicaServicio.html',
@@ -133,7 +133,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.bitacoraServicio',
       data: {
-        pageTitle: 'SOFTV | BITACORA SERVICIO',
+        pageTitle: 'BOSS | BITACORA SERVICIO',
       },
       url: '/bitacoraServicios',
       templateUrl: 'views/memoriasServicios/bitacoraServicio.html',
@@ -143,11 +143,44 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.reporteServicio',
       data: {
-        pageTitle: 'SOFTV | REPORTE',
+        pageTitle: 'BOSS | REPORTE',
       },
       url: '/reportememoriaServicio',
       templateUrl: 'views/memoriasServicios/reporteMemoriaServicio.html',
       controller: 'reporteMemoriaServicioCtrl',
+      controllerAs: '$ctrl'
+    }
+    ,
+    {
+      name: 'home.memoria.reporterechazada',
+      data: {
+        pageTitle: 'BOSS | MT Servicio Rechazadas',
+        permissions: {
+          only: ['memoriastecnicasrechazadasserviciosSelect'],
+          options: {
+            reload: false
+          }
+        }
+      },
+      url: '/ReporteMemoriasRechazadas',
+      templateUrl: 'views/memorias/ReporteMemoriasRechazadas.html',
+      controller: 'ReporteMemoriasRechazadasCtrl',
+      controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.reporterechazadaservicio',
+      data: {
+        pageTitle: 'BOSS | MT Reporte Rechazadas',
+        permissions: {
+          only: ['memoriastecnicasrechazadasreportesSelect'],
+          options: {
+            reload: false
+          }
+        }
+      },
+      url: '/ReporteMemoriasRechazadasReportes',
+      templateUrl: 'views/memoriasServicios/ReporteMemoriasRechazadasServicio.html',
+      controller: 'ReporteMemoriasRechazadasServicioCtrl',
       controllerAs: '$ctrl'
     }
   ];

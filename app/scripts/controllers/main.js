@@ -15,8 +15,9 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
   $firebaseArray,
   firebase,
   //toaster,
-  ngNotify
-  
+  ngNotify,
+  usuarioFactory,
+  globalService
 ) {
   this.awesomeThings = ['HTML5 Boilerplate', 'AngularJS', 'Karma'];
   /* var config = {
@@ -31,6 +32,7 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
   this.$onInit = function () {
     vm.IdRol = $localStorage.currentUser.idRol;
     vm.IdUsuario = $localStorage.currentUser.idUsuario;
+    vm.IdRolSuperInstalador = globalService.IdSupervisorInstalador();
 
     if ($localStorage.currentUser) {
       vm.menus = $localStorage.currentUser.menu;
@@ -41,102 +43,152 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
             vm.rol = item.Nombre;
           }
         });
-
-        if ($localStorage.currentUser.Recibemensaje === true || $localStorage.currentUser.idRol == 4) {
-          var ref = firebase
-            .database()
-            .ref()
-            .child('messages');
-          vm.messages = $firebaseArray(ref);
-          console.log('vm.messages',vm.messages);
-          vm.messages.$loaded().then(function (notes) {
-            vm.count = notes.length;
-          });
-          var first = true;
-          ref.on('child_removed', function (snapshot) {
-            //console.log(snapshot);
+        var parametros = {};
+        parametros.IdUsuario = $localStorage.currentUser.idUsuario;
+        usuarioFactory.GetObtieneInstaladoresSupervisor(parametros).then(function (data) {
+          vm.RelacionInstaladoresSupervisor = data.GetObtieneInstaladoresSupervisorResult;
+          console.log('vm.RelacionInstaladoresSupervisor', vm.RelacionInstaladoresSupervisor);
+          if ($localStorage.currentUser.Recibemensaje === true || $localStorage.currentUser.idRol == 4 || $localStorage.currentUser.idRol == vm.IdRolSuperInstalador) {
+            var ref = firebase
+              .database()
+              .ref()
+              .child('messages');
+            vm.messages = $firebaseArray(ref);
             vm.messages.$loaded().then(function (notes) {
-              vm.count = notes.length;
-            });
-          });
-          ref.once('value', function (snap) {
-
-            //TODO: display initial state...
-            // Object.keys not supported in IE 8, but has a polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-            var keys = Object.keys(snap.val() || {});
-            var lastIdInSnapshot = keys[keys.length - 1];
-           
-            ref.orderByKey().startAt(lastIdInSnapshot).on('child_added', function (newMessSnapshot) {
-             console.log(newMessSnapshot);
-              if (snap.key === lastIdInSnapshot) {
-                return;
-              }
-              if (first) {
-                first = false;
-              } else {
-                vm.messages.$loaded().then(function (notes) {
-                  vm.count = notes.length;
-                    ngNotify.set('<i class="fa fa-bell"></i> tienes una nueva notificación', {
-                    theme: 'pitchy',
-                    html: true,
-                    type: 'success'
-                  });
+              //vm.count = notes.length;
+              if(vm.IdRol == vm.IdRolSuperInstalador){//Supervisor instalador
+                vm.count = 0;
+                var messagesAux = [];
+                notes.forEach(function (item) {
+                  if((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)){
+                    vm.count = vm.count + 1;
+                    messagesAux.push(item);
+                  }
                 });
-
+                vm.messages = messagesAux;
               }
-            });
-          });
-        }
-        /*if ($localStorage.currentUser.idRol == 4) {
-          var ref = firebase
-            .database()
-            .ref()
-            .child('messages');
-          vm.messages = $firebaseArray(ref);
-          console.log('vm.messages',vm.messages);
-          vm.messages.$loaded().then(function (notes) {
-            vm.count = notes.length;
-          });
-          var first = true;
-          ref.on('child_removed', function (snapshot) {
-            //console.log(snapshot);
-            vm.messages.$loaded().then(function (notes) {
-              vm.count = notes.length;
-            });
-          });
-          ref.once('value', function (snap) {
-
-            //TODO: display initial state...
-            // Object.keys not supported in IE 8, but has a polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-            var keys = Object.keys(snap.val() || {});
-            var lastIdInSnapshot = keys[keys.length - 1];
-           
-            ref.orderByKey().startAt(lastIdInSnapshot).on('child_added', function (newMessSnapshot) {
-             console.log(newMessSnapshot);
-              if (snap.key === lastIdInSnapshot) {
-                return;
-              }
-              if (first) {
-                first = false;
-              } else {
-                vm.messages.$loaded().then(function (notes) {
-                  vm.count = notes.length;
-                    ngNotify.set('<i class="fa fa-bell"></i> tienes una nueva notificación', {
-                    theme: 'pitchy',
-                    html: true,
-                    type: 'success'
-                  });
+              else if(vm.IdRol == 4){//Instalador
+                vm.count = 0;
+                notes.forEach(function (item) {
+                  if((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario){
+                    vm.count = vm.count + 1;
+                  }
                 });
-
+              }
+              else{
+                vm.count = 0;
+                notes.forEach(function (item) {
+                  if(item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3){
+                    vm.count = vm.count + 1;
+                  }
+                });
               }
             });
-          });
-        }*/
+            var first = true;
+            ref.on('child_removed', function (snapshot) {
+              vm.messages.$loaded().then(function (notes) {
+                //vm.count = notes.length;
+                if(vm.IdRol == vm.IdRolSuperInstalador){//Supervisor instalador
+                  vm.count = 0;
+                  var messagesAux = [];
+                  notes.forEach(function (item) {
+                    if((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)){
+                      vm.count = vm.count + 1;
+                      messagesAux.push(item);
+                    }
+                  });
+                  vm.messages = messagesAux;
+                }
+                else if(vm.IdRol == 4){//Instalador
+                  vm.count = 0;
+                  notes.forEach(function (item) {
+                    if((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario){
+                      vm.count = vm.count + 1;
+                    }
+                  });
+                }
+                else{
+                  vm.count = 0;
+                  notes.forEach(function (item) {
+                    if(item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3){
+                      vm.count = vm.count + 1;
+                    }
+                  });
+                }
+              });
+            });
+            ref.once('value', function (snap) {
+
+              //TODO: display initial state...
+              // Object.keys not supported in IE 8, but has a polyfill: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+              var keys = Object.keys(snap.val() || {});
+              var lastIdInSnapshot = keys[keys.length - 1];
+
+              ref.orderByKey().startAt(lastIdInSnapshot).on('child_added', function (newMessSnapshot) {
+                if (snap.key === lastIdInSnapshot) {
+                  return;
+                }
+                if (first) {
+                  first = false;
+                } else {
+                  vm.messages.$loaded().then(function (notes) {
+                    if(vm.IdRol == vm.IdRolSuperInstalador){//Supervisor instalador
+                      vm.count = 0;
+                      var messagesAux = [];
+                      notes.forEach(function (item) {
+                        if((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)){
+                          vm.count = vm.count + 1;
+                          messagesAux.push(item);
+                        }
+                      });
+                      vm.messages = messagesAux;
+                    }
+                    else if(vm.IdRol == 4){//Instalador
+                      vm.count = 0;
+                      notes.forEach(function (item) {
+                        if((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario){
+                          vm.count = vm.count + 1;
+                        }
+                      });
+                    }
+                    else{
+                      vm.count = 0;
+                      notes.forEach(function (item) {
+                        if(item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3){
+                          vm.count = vm.count + 1;
+                        }
+                      });
+                    }
+                    //vm.count = notes.length;
+                    ngNotify.set('<i class="fa fa-bell"></i> tienes una nueva notificación', {
+                      theme: 'pitchy',
+                      html: true,
+                      type: 'success'
+                    });
+                  });
+                }
+              });
+            });
+          }
+        });
       });
     } else {
       $location.path('/auth/login');
     }
   };
+
+  function ExisteInstalador(IdUsuario){
+    var existe = false;
+    vm.RelacionInstaladoresSupervisor.forEach(function (item) {
+      if(item.IdUsuario == IdUsuario){
+        existe = true;
+      }
+    });
+    if(vm.IdUsuario == IdUsuario){
+      existe = true;
+    }
+    return existe;
+  }
 
   function logOut() {
     delete $localStorage.currentUser;
@@ -144,4 +196,5 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
   }
   var vm = this;
   vm.logOut = logOut;
+  vm.ExisteInstalador = ExisteInstalador;
 });

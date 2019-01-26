@@ -16,13 +16,13 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 	vm.getTecnicosDisponibles = getTecnicosDisponibles;
 	vm.guardaRelacion = guardaRelacion;
 	vm.eliminaRelacion = eliminaRelacion;
-	vm.getplazasClienteDisp=getplazasClienteDisp;
-	vm.guardaRelacionCliente=guardaRelacionCliente;
-	vm.eliminaRelacionCliente=eliminaRelacionCliente;
+	vm.getplazasClienteDisp = getplazasClienteDisp;
+	vm.guardaRelacionCliente = guardaRelacionCliente;
+	vm.eliminaRelacionCliente = eliminaRelacionCliente;
 	vm.btnsubmit = true;
 	vm.Id = 0;
 	vm.Activo = true;
-
+	vm.RolSupervidor = false;
 	this.$onInit = function () {
 		rolFactory.GetRoleList().then(function (data) {
 			vm.Roles = data.GetRoleListResult;
@@ -50,46 +50,46 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 
 	}
-	function getplazasClienteDisp(){
-		usuarioFactory.GetObtieneCompaniasLibres(vm.Id,vm.distribuidorcliente.Clave).then(function (data) {
+	function getplazasClienteDisp() {
+		usuarioFactory.GetObtieneCompaniasLibres(vm.Id, vm.distribuidorcliente.Clave).then(function (data) {
 			vm.PlazasClienteDis = data.GetObtieneCompaniasLibresResult;
-		});		
-	}
-
-	function GetObtieneCompaniasUsuario(){
-		usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function(result){
-          vm.relacionCliente=result.GetObtieneCompaniasUsuarioResult;
 		});
 	}
 
-	function guardaRelacionCliente(){
-		var arr=[];
+	function GetObtieneCompaniasUsuario() {
+		usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function (result) {
+			vm.relacionCliente = result.GetObtieneCompaniasUsuarioResult;
+		});
+	}
+
+	function guardaRelacionCliente() {
+		var arr = [];
 		arr.push({
-			'IdCompania':vm.plazaCliente.IdCompania,
-			'Accion':1
+			'IdCompania': vm.plazaCliente.IdCompania,
+			'Accion': 1
 		})
-		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
-			  ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente');
-			  getplazasClienteDisp();
-			  GetObtieneCompaniasUsuario();
+		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id, arr).then(function (result) {
+			ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente');
+			getplazasClienteDisp();
+			GetObtieneCompaniasUsuario();
 		});
 	}
 
-	function eliminaRelacionCliente(x){
-		var arr=[];
+	function eliminaRelacionCliente(x) {
+		var arr = [];
 		arr.push({
-			'IdCompania':x.IdCompania,
-			'Accion':2
+			'IdCompania': x.IdCompania,
+			'Accion': 2
 		})
-		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
-			  ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente');
-			  getplazasClienteDisp();
-			  GetObtieneCompaniasUsuario();
+		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id, arr).then(function (result) {
+			ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente');
+			getplazasClienteDisp();
+			GetObtieneCompaniasUsuario();
 		});
 	}
 
 
-	function eliminaRelacion(item) {		
+	function eliminaRelacion(item) {
 		var tecnicos = [];
 		var tec = {
 			'IdEntidad': item.IdEntidad,
@@ -98,11 +98,11 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		}
 		tecnicos.push(tec);
 		usuarioFactory.GetGuardaRelacionUsuarioTecnico(vm.Id, tecnicos).then(function (result) {
-			getUsuariostecnicos();			
+			getUsuariostecnicos();
 		});
 	}
 
-	
+
 
 	function guardaRelacion() {
 		var tecnicos = [];
@@ -131,12 +131,25 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 				obj.Password = vm.Contrasena;
 				obj.RecibeMensaje = vm.RecibeMensaje;
 				obj.CheckMemoria = vm.CheckMemoria;
-				obj.Cliente=vm.Cliente;
+				obj.Cliente = vm.Cliente;
 				obj.Estado = vm.Activo;
 				obj.LUITerminal = vm.LUITerminal;
 				usuarioFactory.AddUsuario(obj).then(function (data) {
 					vm.Id = data.AddUsuarioResult;
 					vm.btnsubmit = false;
+					if (globalService.IdSupervisorInstalador() == vm.Rol.IdRol) {
+						vm.RolSupervidor = true;
+						GetObtieneInstaladoresSupervisor();
+						usuarioFactory.getUsuarioList().then(function (data) {
+							var Usuarios = data.GetUsuarioListResult;
+							vm.Instaladores = [];
+							Usuarios.forEach(function (item) {
+								if (item.IdRol == 4 && item.Estado) {
+									vm.Instaladores.push(item);
+								}
+							});
+						});
+					}
 					if (vm.Cliente) {
 						ngNotify.set('Usuario agregado correctamente.\n ahora puedes agregar relación de plazas y usuarios', 'success');
 					} else {

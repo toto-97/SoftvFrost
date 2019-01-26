@@ -4,6 +4,9 @@ angular.module('softvFrostApp')
   .service('globalService', function () {
     var svc = {};
 
+    svc.IdSupervisorInstalador = function () {
+      return  21;
+    }; 
     //firebase
     //bossfirebase@gmail.com
     //0601x-2L

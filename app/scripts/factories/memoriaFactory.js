@@ -36,6 +36,40 @@ angular
       GetGeneraFolioMemoriaTecnicaVS: '/BuscaMemoriaTecnica/GetGeneraFolioMemoriaTecnicaVS',
       GetActualizaEstatusMemoriaTecnica: '/GuardaMemoriaTecnica/GetActualizaEstatusMemoriaTecnica',
       GetGuardaObservacionMemoriaTecnicaListPestana: '/GuardaObservacionMemoriaTecnica/GetGuardaObservacionMemoriaTecnicaListPestana',
+      GetReporteMemoriasRechazadas: '/BuscaMemoriaTecnica/GetReporteMemoriasRechazadas',
+      GetReporteMemoriasRechazadasExcel: '/BuscaMemoriaTecnica/GetReporteMemoriasRechazadasExcel'
+    };
+
+    factory.GetReporteMemoriasRechazadasExcel = function (Parametros) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetReporteMemoriasRechazadasExcel, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.GetReporteMemoriasRechazadas = function (Parametros) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetReporteMemoriasRechazadas, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
     };
 
     factory.GetGuardaObservacionMemoriaTecnicaListPestana = function (notas) {

@@ -36,23 +36,53 @@
           <ul class="dropdown-menu animation-expand" style="width: 500px; height: 350px; overflow: auto">
             <li class="dropdown-header">Mensajes de hoy</li>
             <li>
+              <!--Notificaciones del noc de revisión ordenes-->
               <a ng-if="x.Tipo==1  && $ctrl.IdRol != 4" class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoria({ id: x.Id})"
                 ng-repeat="x in $ctrl.messages">
                 <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
                 <strong>{{x.Mensaje}} # {{x.Id}}</strong><br>
                 <strong>SAN: {{x.SAN}}</strong><br>
                 <small>{{x.Fecha}} {{x.Hora}}</small>
-
               </a>
+              <!--Notificaciones de reportes-->
               <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==2  && $ctrl.IdRol != 4" class="alert alert-callout alert-warning">
                 <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
                 <strong style="font-size: 10px;">{{x.Mensaje}} </strong><br>
                 <p> # {{x.Id}}</p>
                 <small>{{x.Fecha}} {{x.Hora}}</small>
               </a>
-
-              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==11 && $ctrl.IdRol == 4 && $ctrl.IdUsuario == x.SAN" class="alert alert-callout alert-warning"
-                ui-sref="home.memoria.editarmemoria({ id: x.Id})">
+              <!--Notificaciones del noc de revisión quejas-->
+              <a ng-if="x.Tipo==3  && $ctrl.IdRol != 4" class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoriaServicio({ id: x.Id})"
+                ng-repeat="x in $ctrl.messages">
+                <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
+                <strong>{{x.Mensaje}} # {{x.Id}}</strong><br>
+                <strong>SAN: {{x.SAN}}</strong><br>
+                <small>{{x.Fecha}} {{x.Hora}}</small>
+              </a>
+              <!--Notificaciones de instalador de rechazo de ordenes-->
+              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==11 && $ctrl.IdRol == 4 && $ctrl.IdUsuario == x.SAN"
+                class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoria({ id: x.Id})">
+                <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
+                <strong style="font-size: 10px;">{{x.Mensaje}} # {{x.Id}}</strong><br>
+                <small>{{x.Fecha}} {{x.Hora}}</small>
+              </a>
+              <!--Notificaciones de instalador de rechazo de quejas-->
+              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==12 && $ctrl.IdRol == 4 && $ctrl.IdUsuario == x.SAN"
+                class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoriaServicio({ id: x.Id})">
+                <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
+                <strong style="font-size: 10px;">{{x.Mensaje}} # {{x.Id}}</strong><br>
+                <small>{{x.Fecha}} {{x.Hora}}</small>
+              </a>
+              <!--Notificaciones de supervisor instalador de rechazo de ordenes-->
+              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==11 && $ctrl.IdRol == $ctrl.IdRolSuperInstalador"
+                class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoria({ id: x.Id})">
+                <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
+                <strong style="font-size: 10px;">{{x.Mensaje}} # {{x.Id}}</strong><br>
+                <small>{{x.Fecha}} {{x.Hora}}</small>
+              </a>
+              <!--Notificaciones de supervisor instalador de rechazo de quejas-->
+              <a ng-repeat="x in $ctrl.messages" ng-if="x.Tipo==12 && $ctrl.IdRol == $ctrl.IdRolSuperInstalador"
+                class="alert alert-callout alert-warning" ui-sref="home.memoria.editarmemoriaServicio({ id: x.Id})">
                 <img class="pull-right img-circle dropdown-avatar" src="../../assets/img/avatar2.jpg?1404026449" alt="">
                 <strong style="font-size: 10px;">{{x.Mensaje}} # {{x.Id}}</strong><br>
                 <small>{{x.Fecha}} {{x.Hora}}</small>

@@ -16,7 +16,41 @@ angular.module('softvFrostApp')
 			GetGuardaRelacionUsuarioTecnico:'/Usuario/GetGuardaRelacionUsuarioTecnico',
 			GetObtieneCompaniasUsuario:'/Usuario/GetObtieneCompaniasUsuario',
 			GetObtieneCompaniasLibres:'/Usuario/GetObtieneCompaniasLibres',
-			GetGuardaRelacionUsuarioCompania:'/Usuario/GetGuardaRelacionUsuarioCompania'
+			GetGuardaRelacionUsuarioCompania:'/Usuario/GetGuardaRelacionUsuarioCompania',
+			GetGuardaRelacionInstaladorSupervisor:'/Usuario/GetGuardaRelacionInstaladorSupervisor',
+			GetObtieneInstaladoresSupervisor:'/Usuario/GetObtieneInstaladoresSupervisor'
+		};
+
+		factory.GetObtieneInstaladoresSupervisor = function (Parametros) {
+			var deferred = $q.defer();
+			
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetObtieneInstaladoresSupervisor, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		};
+
+		factory.GetGuardaRelacionInstaladorSupervisor = function (Parametros) {
+			var deferred = $q.defer();
+			
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetGuardaRelacionInstaladorSupervisor, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
 		};
 		
 		factory.GetGuardaRelacionUsuarioCompania = function (IdUsuario,companias) {

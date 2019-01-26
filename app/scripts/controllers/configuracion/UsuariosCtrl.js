@@ -8,7 +8,7 @@ function UsuariosCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 
 	this.$onInit = function () {
 		usuarioFactory.getUsuarioList().then(function (data) {
-			vm.Usuarios = data.GetUsuarioListResult;		
+			vm.Usuarios = data.GetUsuarioListResult;
 		});
 		rolFactory.GetRoleList().then(function (data) {
 			vm.Roles = data.GetRoleListResult;

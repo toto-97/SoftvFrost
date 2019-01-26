@@ -8,7 +8,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.memoriastecnicasServicio',
       data: {
-        pageTitle: 'SOFTV | MEMORIA TECNICA SERVICIO',
+        pageTitle: 'BOSS | MEMORIA TECNICA SERVICIO',
         permissions: {
           //only: ['memoriaSelect'],
           options: {
@@ -25,7 +25,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.nuevamemoriaServicio',
       data: {
-        pageTitle: 'SOFTV | NUEVA MEMORIA SERVICIO',
+        pageTitle: 'BOSS | NUEVA MEMORIA SERVICIO',
       },
       url: '/memoriastecnicasServicio/nuevamemoria',
       templateUrl: 'views/memorias/nuevamemoriatecnicaServicio.html',
@@ -35,7 +35,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.detallememoriaServicio',
       data: {
-        pageTitle: 'SOFTV | DETALLE MEMORIA TECNICA SERVICIO',
+        pageTitle: 'BOSS | DETALLE MEMORIA TECNICA SERVICIO',
       },
       url: '/memoriastecnicasServicio/detalle/:id',
       templateUrl: 'views/memorias/nuevamemoriatecnicaServicio.html',
@@ -45,7 +45,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.editarmemoriaServicio',
       data: {
-        pageTitle: 'SOFTV | EDITAR MEMORIA TECNICA SERVICIO',
+        pageTitle: 'BOSS | EDITAR MEMORIA TECNICA SERVICIO',
       },
       url: '/memoriastecnicasServicio/edit/:id',
       templateUrl: 'views/memorias/nuevamemoriatecnicaServicio.html',
@@ -55,7 +55,7 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.bitacoraServicio',
       data: {
-        pageTitle: 'SOFTV | BITACORA SERVICIO',
+        pageTitle: 'BOSS | BITACORA SERVICIO',
       },
       url: '/bitacora',
       templateUrl: 'views/memorias/bitacoraServicio.html',
@@ -65,11 +65,27 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
     {
       name: 'home.memoria.reporteServicio',
       data: {
-        pageTitle: 'SOFTV | REPORTE',
+        pageTitle: 'BOSS | REPORTE',
       },
       url: '/reportememoriaServicio',
       templateUrl: 'views/memorias/reporteMemoriaServicio.html',
       controller: 'reporteMemoriaServicioCtrl',
+      controllerAs: '$ctrl'
+    },
+    {
+      name: 'home.memoria.reporterechazadaservicio',
+      data: {
+        pageTitle: 'BOSS | MT Reporte Rechazadas',
+        permissions: {
+          only: ['memoriastecnicasrechazadasreportesSelect'],
+          options: {
+            reload: false
+          }
+        }
+      },
+      url: '/ReporteMemoriasRechazadasReportes',
+      templateUrl: 'views/memoriasServicios/ReporteMemoriasRechazadasServicio.html',
+      controller: 'ReporteMemoriasRechazadasServicioCtrl',
       controllerAs: '$ctrl'
     }
 

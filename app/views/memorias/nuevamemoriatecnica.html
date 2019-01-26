@@ -92,7 +92,7 @@
             title="Enviar a revisar memoria técnica" style="margin-right:10px;" ng-click="$ctrl.EnviarRevisar()">
             Enviar a Revisar</button>
           <button class="btn btn-warning btn-sm" type="button" ng-show="($ctrl.Estatus == 'Revisión') && ($ctrl.IdRol != 4 && $ctrl.IdRol != 5)"
-            title="Rechazar memoria técnica" style="margin-right:10px;" ng-click="$ctrl.Rechazar()">
+            title="Rechazar Memoria Técnica" style="margin-right:10px;" ng-click="$ctrl.Rechazar()">
             Rechazar</button>
           <button class="btn btn-primary btn-sm" ng-show="$ctrl.showguardar" title="Crear una nueva memoria técnica"
             style="margin-right:10px;" type="submit">
@@ -484,7 +484,7 @@
 
 
             </uib-tab>
-            <uib-tab index="1" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab index="1" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckValidacionSitio">
               <uib-tab-heading> Validación en Sitio
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Validación en Sitio')">
@@ -648,7 +648,7 @@
                 </div>
               </div>
             </uib-tab>
-            <uib-tab index="2" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab index="2" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckTrabajosRealizados">
               <uib-tab-heading> Trabajos Realizados
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Trabajos Realizados')">
@@ -737,7 +737,7 @@
 
 
             </uib-tab>
-            <uib-tab index="3" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab index="3" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckMedicionesElectricas">
               <uib-tab-heading> Mediciones Eléctricas
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Mediciones Eléctricas')">
@@ -809,7 +809,7 @@
 
 
             </uib-tab>
-            <uib-tab index="4" heading="" ng-if="$ctrl.OrdenInstalacion" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab index="4" heading="" ng-if="$ctrl.OrdenInstalacion" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosEquipoDesempeno">
               <uib-tab-heading> Datos de Equipo y Desempeño
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Datos de Equipo y Desempeño')">
@@ -944,7 +944,7 @@
               </div>
 
             </uib-tab>
-            <uib-tab index="5" heading="" ng-if="!$ctrl.OrdenInstalacion" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab index="5" heading="" ng-if="!$ctrl.OrdenInstalacion" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDesempeno">
               <uib-tab-heading> Desempeño
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Desempeño')">
@@ -1073,7 +1073,7 @@
               </div>
 
             </uib-tab>
-            <uib-tab index="6" heading="" ng-if="$ctrl.CambioDeEquipos" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab index="6" heading="" ng-if="$ctrl.CambioDeEquipos" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckCambioEquipos">
               <uib-tab-heading> Cambio de Equipos
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Cambio de Equipos')">
@@ -1150,7 +1150,7 @@
               </div>
 
             </uib-tab>
-            <uib-tab ng-if="$ctrl.Combo==true" index="7" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab ng-if="$ctrl.Combo==true" index="7" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckEquiposDigitales">
               <uib-tab-heading> Equipos Digitales
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Equipos Digitales')">
@@ -1203,7 +1203,7 @@
               </div>
 
             </uib-tab>
-            <uib-tab index="8" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckDatosSitio">
+            <uib-tab index="8" heading="" ng-disabled="$ctrl.IdRol == 4 && $ctrl.CheckCargaImagenes">
               <uib-tab-heading> Carga de Imágenes
                 <button ng-show="$ctrl.Estatus != 'Pendiente'" class="btn ink-reaction btn-floating-action btn-xs btn-primary-light"
                   type="button" ng-click="$ctrl.NotasPestana('Carga de Imágenes')">

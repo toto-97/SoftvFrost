@@ -1,7 +1,7 @@
 'use strict';
 angular.module('softvFrostApp').controller('EditaUsuarioCtrl', EditaUsuarioCtrl);
 
-function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams) {
+function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $stateParams, globalService) {
   var vm = this;
   vm.titulo = 'Edita Usuario';
   vm.passwordPanel = false;
@@ -16,14 +16,17 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
   vm.getTecnicosDisponibles = getTecnicosDisponibles;
   vm.guardaRelacion = guardaRelacion;
   vm.eliminaRelacion = eliminaRelacion;
-  vm.getplazasClienteDisp=getplazasClienteDisp;
-  vm.guardaRelacionCliente=guardaRelacionCliente;
-  vm.eliminaRelacionCliente=eliminaRelacionCliente;
+  vm.getplazasClienteDisp = getplazasClienteDisp;
+  vm.guardaRelacionCliente = guardaRelacionCliente;
+  vm.eliminaRelacionCliente = eliminaRelacionCliente;
   vm.btnsubmit = true;
-  vm.obtendetalle=obtendetalle;
+  vm.obtendetalle = obtendetalle;
   vm.Activo = false;
-
-
+  vm.GetObtieneInstaladoresSupervisor = GetObtieneInstaladoresSupervisor;
+  vm.EliminaRelacionInstalador = EliminaRelacionInstalador;
+  vm.GuardaRelacionInstalador = GuardaRelacionInstalador;
+  vm.RolSupervidor = false;
+  
   this.$onInit = function () {
     var userid = $stateParams.id;
     usuarioFactory.GetDistribuidores().then(function (data) {
@@ -38,6 +41,19 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
               vm.Rol = vm.Roles[a];
             }
           }
+          if (globalService.IdSupervisorInstalador() == user.IdRol) {
+            vm.RolSupervidor = true;
+            GetObtieneInstaladoresSupervisor();
+            usuarioFactory.getUsuarioList().then(function (data) {
+              var Usuarios = data.GetUsuarioListResult;
+              vm.Instaladores = [];
+              Usuarios.forEach(function (item) {
+                if (item.IdRol == 4 && item.Estado) {
+                  vm.Instaladores.push(item);
+                }
+              });
+            });
+          }
           vm.Nombre = user.Nombre;
           vm.Correo = user.Email;
           vm.Descripcion = user.Usuario;
@@ -45,40 +61,70 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
           vm.Contrasena = user.Password;
           vm.RecibeMensaje = (user.RecibeMensaje === null) ? false : user.RecibeMensaje;
           vm.CheckMemoria = (user.CheckMemoria === null) ? false : user.CheckMemoria;
-          vm.Cliente=user.Cliente;
+          vm.Cliente = user.Cliente;
           vm.Activo = (user.Estado === null) ? false : user.Estado;
           vm.LUITerminal = user.LUITerminal;
-          if(user.Cliente){
+          if (user.Cliente) {
             GetObtieneCompaniasUsuario();
-          }else{
+          } else {
             getUsuariostecnicos();
           }
-          
+
         });
       });
     });
   }
 
-  function getplazasClienteDisp(){
-		usuarioFactory.GetObtieneCompaniasLibres(vm.Id,vm.distribuidorcliente.Clave).then(function (data) {
-			vm.PlazasClienteDis = data.GetObtieneCompaniasLibresResult;
-		});		
-	}
+  function GetObtieneInstaladoresSupervisor() {
+    var parametros = {};
+    parametros.IdUsuario = vm.Id;
+    usuarioFactory.GetObtieneInstaladoresSupervisor(parametros).then(function (data) {
+      vm.RelacionInstaladoresSupervisor = data.GetObtieneInstaladoresSupervisorResult;
+    });
+  }
+
+  function GuardaRelacionInstalador() {
+    var parametros = {};
+    parametros.IdUsuario = vm.Id;
+    parametros.IdInstalador = vm.Instalador.IdUsuario;
+    parametros.Accion = 1;
+    usuarioFactory.GetGuardaRelacionInstaladorSupervisor(parametros).then(function (data) {
+      GetObtieneInstaladoresSupervisor();
+      ngNotify.set('La relación Instalador-Supervisor se ha actualizado correctamente', 'success');
+    });
+  }
+
+  function EliminaRelacionInstalador(Instalador) {
+    var parametros = {};
+    parametros.IdUsuario = vm.Id;
+    parametros.IdInstalador = Instalador.IdUsuario;
+    parametros.Accion = 2;
+    usuarioFactory.GetGuardaRelacionInstaladorSupervisor(parametros).then(function (data) {
+      GetObtieneInstaladoresSupervisor();
+      ngNotify.set('La relación Instalador-Supervisor se ha actualizado correctamente', 'success');
+    });
+  }
+
+  function getplazasClienteDisp() {
+    usuarioFactory.GetObtieneCompaniasLibres(vm.Id, vm.distribuidorcliente.Clave).then(function (data) {
+      vm.PlazasClienteDis = data.GetObtieneCompaniasLibresResult;
+    });
+  }
 
 
 
-	function guardaRelacionCliente(){
-		var arr=[];
-		arr.push({
-			'IdCompania':vm.plazaCliente.IdCompania,
-			'Accion':1
-		})
-		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
-			  ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente','success');
-			  getplazasClienteDisp();
-			  GetObtieneCompaniasUsuario();
-		});
-	}
+  function guardaRelacionCliente() {
+    var arr = [];
+    arr.push({
+      'IdCompania': vm.plazaCliente.IdCompania,
+      'Accion': 1
+    })
+    usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id, arr).then(function (result) {
+      ngNotify.set('La relación Usuario-Plaza se ha guardado correctamente', 'success');
+      getplazasClienteDisp();
+      GetObtieneCompaniasUsuario();
+    });
+  }
 
 
   function eliminaRelacion(item) {
@@ -127,13 +173,13 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
   }
 
 
-  function obtendetalle(){
-    if(vm.Cliente){
+  function obtendetalle() {
+    if (vm.Cliente) {
       GetObtieneCompaniasUsuario();
-    }else{
+    } else {
       getUsuariostecnicos();
     }
- }
+  }
 
 
 
@@ -149,7 +195,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
         obj.Password = vm.Contrasena;
         obj.RecibeMensaje = vm.RecibeMensaje;
         obj.CheckMemoria = vm.CheckMemoria;
-        obj.Cliente=vm.Cliente;
+        obj.Cliente = vm.Cliente;
         obj.Estado = vm.Activo;
         obj.LUITerminal = vm.LUITerminal;
         usuarioFactory.UpdateUsuario(obj).then(function (data) {
@@ -169,7 +215,7 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
       obj.Password = vm.Contrasena;
       obj.RecibeMensaje = vm.RecibeMensaje;
       obj.CheckMemoria = vm.CheckMemoria;
-      obj.Cliente=vm.Cliente;
+      obj.Cliente = vm.Cliente;
       obj.Estado = vm.Activo;
       obj.LUITerminal = vm.LUITerminal;
       //console.log(obj);
@@ -182,24 +228,24 @@ function EditaUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify, $statePa
 
   }
 
-	function eliminaRelacionCliente(x){
-		var arr=[];
-		arr.push({
-			'IdCompania':x.IdCompania,
-			'Accion':2
-		})
-		usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id,arr).then(function(result){
-			  ngNotify.set('La relación Usuario-Plaza se ha eliminado correctamente','warn');
-			  getplazasClienteDisp();
-			  GetObtieneCompaniasUsuario();
-		});
+  function eliminaRelacionCliente(x) {
+    var arr = [];
+    arr.push({
+      'IdCompania': x.IdCompania,
+      'Accion': 2
+    })
+    usuarioFactory.GetGuardaRelacionUsuarioCompania(vm.Id, arr).then(function (result) {
+      ngNotify.set('La relación Usuario-Plaza se ha eliminado correctamente', 'warn');
+      getplazasClienteDisp();
+      GetObtieneCompaniasUsuario();
+    });
   }
-  
-  function GetObtieneCompaniasUsuario(){
-		usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function(result){
-          vm.relacionCliente=result.GetObtieneCompaniasUsuarioResult;
-		});
-	}
+
+  function GetObtieneCompaniasUsuario() {
+    usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function (result) {
+      vm.relacionCliente = result.GetObtieneCompaniasUsuarioResult;
+    });
+  }
 
 
   function ValidaPass() {

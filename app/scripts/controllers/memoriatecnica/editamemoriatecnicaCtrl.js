@@ -859,7 +859,8 @@ angular
                     var id = vm.IdMemoriaTecnica;
                     GetdataFire().then(function (result) {
                       result.forEach(function (item, index) {
-                        if (parseInt(item.Id) === parseInt(id)) {
+                        if (parseInt(item.Id) === parseInt(vm.IdMemoriaTecnica) && item.Tipo == 1) {
+                          //console.log('item', item);
                           deleteFile(index).then(function (result) {
                           });
                         }
@@ -869,6 +870,12 @@ angular
                     vm.mensajefolio = (vm.numerofolio.trim().length > 0) ? 'Folio generado' : 'Generar Folio';
                     vm.generafolio = (vm.numerofolio.trim().length > 0) ? true : false;
                     vm.blockgenerafolio = (vm.numerofolio.trim().length > 0) ? true : false;
+
+                    var parametros = {};
+                    parametros.IdMemoriaTecnica = vm.IdMemoriaTecnica;
+                    parametros.Estatus = 'Foliada';
+                    memoriaFactory.GetActualizaEstatusMemoriaTecnica(parametros).then(function (response) {
+                    });
                   });
               }
               else {
@@ -1318,7 +1325,7 @@ angular
       vm.notas_pestana_ant = [];
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       vm.permitecheckVS = $localStorage.currentUser.CheckValidacionSitio;
-      vm.IdRol = $localStorage.currentUser.IdRol;
+      vm.IdRol = $localStorage.currentUser.idRol;
       vm.ActivaFechaActivacion = false;
       vm.CambioDeEquipos = false;
       vm.FiltrarLista = FiltrarLista;
