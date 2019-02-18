@@ -115,20 +115,15 @@ angular.module('softvFrostApp')
 		};
 
 
-		factory.mostrarReporteMovimientos = function (idAux, fechaInicioYMD, fechaFinYMD) {
+		factory.mostrarReporteMovimientos = function (parametros) {
 
 			var deferred = $q.defer();
-			var Parametros = {
-				'idAux': idAux,
-				'fechaInicio': fechaInicioYMD,
-				'fechaFin': fechaFinYMD
-			};
 			var config = {
 				headers: {
 					'Authorization': $localStorage.currentUser.token
 				}
 			};
-			$http.post(globalService.getUrl() + paths.mostrarReporteMovimientos, JSON.stringify(Parametros), config).then(function (response) {
+			$http.post(globalService.getUrl() + paths.mostrarReporteMovimientos, JSON.stringify(parametros), config).then(function (response) {
 				deferred.resolve(response.data);
 			}).catch(function (response) {
 				deferred.reject(response.data);
