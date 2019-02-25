@@ -33,7 +33,7 @@ angular
         } else if (vm.Terminal.Estatus == "Pendiente") { //Pendiente
           obtieneIndex("Suspender Terminal");
           obtieneIndex("Reactivar Terminal");
-          obtieneIndex("Cancelar Terminal");
+          //obtieneIndex("Cancelar Terminal");
           obtieneIndex("Crear Terminal");
           obtieneIndex("Cambiar servicio");
           obtieneIndex("Ver status de Movimiento");
@@ -99,7 +99,7 @@ angular
         } else if (vm.Terminal.Estatus === "Cancelada") { //Cancelada
           obtieneIndex("Suspender Terminal");
           obtieneIndex("Reactivar Terminal");
-          obtieneIndex("Cancelar Terminal");
+          //obtieneIndex("Cancelar Terminal");
           obtieneIndex("Crear Terminal");
           obtieneIndex("Cambiar servicio");
           obtieneIndex("Ver status de Movimiento");

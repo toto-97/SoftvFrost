@@ -18,6 +18,7 @@
     <div class="col-md-12">
       <p ng-if="ctrl.movimiento.IdComando != 5 && ctrl.movimiento.IdComando != 6"><b>Comando: </b>{{ ctrl.movimiento.Comando }}</p>
       <p ng-if="ctrl.movimiento.IdComando == 5"><b>Comando: </b>{{ ctrl.movimiento.Comando }} - {{ ctrl.movimiento.Detalle1 }}</p>
+      <p ng-if="ctrl.movimiento.IdComando == 8"><b>Comando: </b>{{ ctrl.movimiento.Comando }} - Movimiento #{{ ctrl.movimiento.Detalle1 }}</p>
       <p ng-if="ctrl.movimiento.IdComando == 6"><b>Comando: </b>{{ ctrl.movimiento.Comando }}  {{ ctrl.movimiento.Detalle1 }} - {{ ctrl.movimiento.Detalle2 }}</p>
       <p ng-if="ctrl.movimiento.IdComando == 11"><b>Comando: </b>{{ ctrl.movimiento.Comando }}  {{ ctrl.movimiento.Detalle1 }} - {{ ctrl.movimiento.Detalle2 }}</p>
       <p><b>Fecha: </b>{{ ctrl.movimiento.Fecha }}</p>
@@ -50,5 +51,6 @@
   </div>
 </div>
 <div class="modal-footer">
+    <button ng-show="(ctrl.movimiento.IdComando == 6)" class="btn btn-danger" type="button" ng-click="ctrl.CancelarMovimiento()">Cancelar</button>
   <button class="btn btn-default" type="button" ng-click="ctrl.cancel()">Cerrar</button>
 </div>
