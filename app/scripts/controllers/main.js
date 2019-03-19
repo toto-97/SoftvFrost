@@ -47,7 +47,6 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
         parametros.IdUsuario = $localStorage.currentUser.idUsuario;
         usuarioFactory.GetObtieneInstaladoresSupervisor(parametros).then(function (data) {
           vm.RelacionInstaladoresSupervisor = data.GetObtieneInstaladoresSupervisorResult;
-          console.log('vm.RelacionInstaladoresSupervisor', vm.RelacionInstaladoresSupervisor);
           if ($localStorage.currentUser.Recibemensaje === true || $localStorage.currentUser.idRol == 4 || $localStorage.currentUser.idRol == vm.IdRolSuperInstalador) {
             var ref = firebase
               .database()
@@ -55,30 +54,39 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
               .child('messages');
             vm.messages = $firebaseArray(ref);
             vm.messages.$loaded().then(function (notes) {
+              //Vamos a quitar los repetidos
+              vm.notesAux = [];
+              notes.forEach(function (item) {
+                if (!ExisteElemento(item)) {
+                  vm.notesAux.push(item);
+                }
+              });
+              vm.messages = vm.notesAux;
+              notes = vm.notesAux;
               //vm.count = notes.length;
-              if(vm.IdRol == vm.IdRolSuperInstalador){//Supervisor instalador
+              if (vm.IdRol == vm.IdRolSuperInstalador) {//Supervisor instalador
                 vm.count = 0;
                 var messagesAux = [];
                 notes.forEach(function (item) {
-                  if((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)){
+                  if ((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)) {
                     vm.count = vm.count + 1;
                     messagesAux.push(item);
                   }
                 });
                 vm.messages = messagesAux;
               }
-              else if(vm.IdRol == 4){//Instalador
+              else if (vm.IdRol == 4) {//Instalador
                 vm.count = 0;
                 notes.forEach(function (item) {
-                  if((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario){
+                  if ((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario) {
                     vm.count = vm.count + 1;
                   }
                 });
               }
-              else{
+              else {
                 vm.count = 0;
                 notes.forEach(function (item) {
-                  if(item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3){
+                  if (item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3) {
                     vm.count = vm.count + 1;
                   }
                 });
@@ -87,30 +95,39 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
             var first = true;
             ref.on('child_removed', function (snapshot) {
               vm.messages.$loaded().then(function (notes) {
+                //Vamos a quitar los repetidos
+                vm.notesAux = [];
+                notes.forEach(function (item) {
+                  if (!ExisteElemento(item)) {
+                    vm.notesAux.push(item);
+                  }
+                });
+                vm.messages = vm.notesAux;
+                notes = vm.notesAux;
                 //vm.count = notes.length;
-                if(vm.IdRol == vm.IdRolSuperInstalador){//Supervisor instalador
+                if (vm.IdRol == vm.IdRolSuperInstalador) {//Supervisor instalador
                   vm.count = 0;
                   var messagesAux = [];
                   notes.forEach(function (item) {
-                    if((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)){
+                    if ((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)) {
                       vm.count = vm.count + 1;
                       messagesAux.push(item);
                     }
                   });
                   vm.messages = messagesAux;
                 }
-                else if(vm.IdRol == 4){//Instalador
+                else if (vm.IdRol == 4) {//Instalador
                   vm.count = 0;
                   notes.forEach(function (item) {
-                    if((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario){
+                    if ((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario) {
                       vm.count = vm.count + 1;
                     }
                   });
                 }
-                else{
+                else {
                   vm.count = 0;
                   notes.forEach(function (item) {
-                    if(item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3){
+                    if (item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3) {
                       vm.count = vm.count + 1;
                     }
                   });
@@ -132,29 +149,38 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
                   first = false;
                 } else {
                   vm.messages.$loaded().then(function (notes) {
-                    if(vm.IdRol == vm.IdRolSuperInstalador){//Supervisor instalador
+                    //Vamos a quitar los repetidos
+                    vm.notesAux = [];
+                    notes.forEach(function (item) {
+                      if (!ExisteElemento(item)) {
+                        vm.notesAux.push(item);
+                      }
+                    });
+                    vm.messages = vm.notesAux;
+                    notes = vm.notesAux;
+                    if (vm.IdRol == vm.IdRolSuperInstalador) {//Supervisor instalador
                       vm.count = 0;
                       var messagesAux = [];
                       notes.forEach(function (item) {
-                        if((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)){
+                        if ((item.Tipo == 12 || item.Tipo == 11) && ExisteInstalador(item.SAN)) {
                           vm.count = vm.count + 1;
                           messagesAux.push(item);
                         }
                       });
                       vm.messages = messagesAux;
                     }
-                    else if(vm.IdRol == 4){//Instalador
+                    else if (vm.IdRol == 4) {//Instalador
                       vm.count = 0;
                       notes.forEach(function (item) {
-                        if((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario){
+                        if ((item.Tipo == 12 || item.Tipo == 11) && item.SAN == vm.IdUsuario) {
                           vm.count = vm.count + 1;
                         }
                       });
                     }
-                    else{
+                    else {
                       vm.count = 0;
                       notes.forEach(function (item) {
-                        if(item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3){
+                        if (item.Tipo == 1 || item.Tipo == 2 || item.Tipo == 3) {
                           vm.count = vm.count + 1;
                         }
                       });
@@ -177,16 +203,27 @@ angular.module('softvFrostApp').controller('MainCtrl', function (
     }
   };
 
-  function ExisteInstalador(IdUsuario){
+  function ExisteInstalador(IdUsuario) {
     var existe = false;
     vm.RelacionInstaladoresSupervisor.forEach(function (item) {
-      if(item.IdUsuario == IdUsuario){
+      if (item.IdUsuario == IdUsuario) {
         existe = true;
       }
     });
-    if(vm.IdUsuario == IdUsuario){
+    if (vm.IdUsuario == IdUsuario) {
       existe = true;
     }
+    return existe;
+  }
+
+  function ExisteElemento(itemBuscar) {
+    var existe = false;
+    vm.notesAux.forEach(function (item) {
+      if (itemBuscar.Id == item.Id && itemBuscar.Tipo == item.Tipo) {
+        existe = true;
+        return;
+      }
+    });
     return existe;
   }
 

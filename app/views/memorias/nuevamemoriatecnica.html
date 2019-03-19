@@ -88,7 +88,7 @@
       </header>
       <div class="tools">
         <div class="btn-group">
-          <button class="btn btn-info btn-sm" type="button" ng-show="($ctrl.showeliminar && $ctrl.numerofolioVS.length > 0 && $ctrl.Estatus != 'Revisión'&& $ctrl.Estatus != 'Foliada')"
+          <button class="btn btn-info btn-sm" type="button" ng-show="($ctrl.showeliminar && $ctrl.numerofolioVS.length == 0 && $ctrl.Estatus != 'Revisión'&& $ctrl.Estatus != 'Foliada')"
             title="Enviar a revisar memoria técnica" style="margin-right:10px;" ng-click="$ctrl.EnviarRevisar()">
             Enviar a Revisar</button>
           <button class="btn btn-warning btn-sm" type="button" ng-show="($ctrl.Estatus == 'Revisión') && ($ctrl.IdRol != 4 && $ctrl.IdRol != 5)"
@@ -616,7 +616,7 @@
                   </div>
                   <div class="col-md-6  text-center">
                     <h4 class="text-center text-danger">
-                      <i class="fa fa-picture-o"></i> Imagenes cargadas</h4>
+                      <i class="fa fa-picture-o"></i> Imágenes cargadas</h4>
                     <div class="col-md-12" style="overflow-y: scroll; max-height: 350px;">
                       <table class="table">
                         <thead>
