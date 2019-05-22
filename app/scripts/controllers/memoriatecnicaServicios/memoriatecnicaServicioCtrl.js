@@ -2,10 +2,15 @@
 angular
   .module('softvFrostApp')
   .controller('memoriatecnicaServicioCtrl', function ($state, ngNotify, memoriaFactory, memoriaServicioFactory, moment, $firebaseArray,
-    firebase, globalService, $q, $window) {
+    firebase, globalService, $q, $window, $localStorage, $uibModal) {
 
     function initialData() {
+      vm.RolUsuario = $localStorage.currentUser.idRol;
       BuscaMemoriaTecnica(0);
+      memoriaServicioFactory.GetTecnicosMemoriaTecnica(0, 'B', 0).then(function (tecnicos) {
+        //console.log(tecnicos);
+        vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaServicioResult;
+      });
     }
 
     function BuscaMemoriaTecnica(op) {
@@ -18,12 +23,16 @@ angular
         'SAN': (op === 4) ? vm.SAN : 0,
         'Cliente': (op === 5) ? vm.cliente : '',
         'Contrato': (op === 7) ? vm.contrato : '',
-        'Tecnico': (op === 6) ? vm.tecnico : ''
+        'Tecnico': (op === 6) ? vm.tecnico : '',
+        'IdTecnico': (op === 9) ? vm.instalador.IdEntidad : 0
       };
       memoriaServicioFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {
+          console.log('BuscaMemoriaTecnica',data);
           vm.memorias = data.GetBuscaMemoriaTecnicaListServicioResult;
-         
+          vm.memorias.forEach(function (item, index) {
+            item.RolUsuario = vm.RolUsuario;
+          });
         });
     }
 
@@ -156,7 +165,39 @@ angular
     }
 
 
-
+    function FiltrarLista() {
+      var Lista = [];
+      vm.listTecnicos.forEach(function (item) {
+        var itemAux = {};
+        itemAux.Descripcion = item.Nombre;
+        itemAux.IdEntidad = item.IdEntidad;
+        Lista.push(itemAux);
+      });
+      var Titulo = 'Instalador';
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/memorias/ModalFiltrarLista.html',
+        controller: 'ModalFiltrarListaCtrl',
+        controllerAs: '$ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: "md",
+        resolve: {
+          Lista: function () {
+            return Lista;
+          },
+          Titulo: function () {
+            return Titulo;
+          }
+        }
+      });
+      modalInstance.result.then(function (item) {
+        vm.instalador = item;
+      }, function () {
+      });
+    }
 
     var vm = this;
     vm.op = 0;
@@ -166,4 +207,5 @@ angular
     vm.add = add;
     vm.deletechild = deletechild;
     initialData();
+    vm.FiltrarLista = FiltrarLista;
   });

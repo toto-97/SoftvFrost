@@ -44,7 +44,55 @@ angular
     vm.detalleTecnico = detalleTecnico;
     initialData();
     vm.ActivaFechaActivacion = false;
-    vm.CambioDeEquipos = false;
+    vm.CambioDeEquipos = true;
+    vm.ActualizarDatosHughes = ActualizarDatosHughes;
+    vm.showeliminar = false;
+    vm.PowerAttenuations = [
+      {
+        'IdPower': 4,
+        'Descripcion': '1 db'
+      },
+      {
+        'IdPower': 6,
+        'Descripcion': '2 db'
+      },
+      {
+        'IdPower': 1,
+        'Descripcion': '3 db'
+      },
+      {
+        'IdPower': 3,
+        'Descripcion': '4 db'
+      },
+      {
+        'IdPower': 2,
+        'Descripcion': '5 db'
+      },
+      {
+        'IdPower': 5,
+        'Descripcion': '6 db'
+      },
+      {
+        'IdPower': 7,
+        'Descripcion': '7 db'
+      },
+      {
+        'IdPower': 8,
+        'Descripcion': '8 db'
+      },
+      {
+        'IdPower': 9,
+        'Descripcion': '9 db'
+      },
+      {
+        'IdPower': 10,
+        'Descripcion': '10 db'
+      },
+      {
+        'IdPower': 11,
+        'Descripcion': 'Mayor > 10 db'
+      }
+    ];
     vm.EquiposSustituir = [
       {
         'IdEquipo': 4,
@@ -87,7 +135,17 @@ angular
       vm.usuariosistema = $localStorage.currentUser.usuario;
       vm.permitecheck = $localStorage.currentUser.CheckMemoria;
       memoriaFactory.ObtieneTiposImagenes().then(function (response) {
-        vm.tiposresp = response.GetObtieneTiposImagenesListResult;
+        vm.tiposresp = [];
+        vm.tiposrespValidacion = [];
+        var tipos = response.GetObtieneTiposImagenesListResult;
+        tipos.forEach(function (item) {
+          if (item.ValidacionEnSitio) {
+            vm.tiposrespValidacion.push(item);
+          }
+          else {
+            vm.tiposresp.push(item);
+          }
+        });
         memoriaFactory.GetEstatusTecnico().then(function (estatus) {
           vm.listEstatus = estatus.GetEstatusTecnicoResult;
           memoriaFactory.GetTipoServicio().then(function (tipos) {
@@ -115,7 +173,7 @@ angular
       vm.SAN = results.SAN;
       vm.plan = results.Servicio;
       vm.telefono = results.Telefono;
-      vm.Combo = results.Combo;
+      vm.Combo = false;//results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB = results.NoSTB;
       vm.modem = results.Modem;
@@ -182,6 +240,34 @@ angular
       ]
     });
 
+    vm.uploaderVS = new FileUploader({
+      filters: [{
+        name: "yourName1", fn: function (item) {
+          var count = 0;
+          var count2 = 0;
+          vm.uploaderVS.queue.forEach(function (f) {
+            count += f._file.name === item.name ? 1 : 0;
+            count2 += f._file.idtipo === vm.tipoimagenValidacion.IdTipo ? 1 : 0;
+          });
+          if (count > 0) {
+            ngNotify.set("Un archivo con ese mismo nombre ya fue seleccionado", "warn");
+            return false;
+          }
+          if (count2 > 1) {
+            ngNotify.set("Solo se pueden subir 2 imágenes de un mismo rubro", "warn");
+            return false;
+          }
+
+          else {
+            return true;
+          }
+        }
+      },
+
+
+      ]
+    });
+
     function validaAparatodig(serie) {
       var count = 0;
       vm.aparatosdigitales.forEach(function (item) { count += (item.SerieAnterior === serie) ? 1 : 0; });
@@ -226,6 +312,14 @@ angular
       fileItem.file.tipo = vm.tipoimagen.Nombre;
       fileItem._file.idtipo = vm.tipoimagen.IdTipo;
       fileItem._file.tipo = vm.tipoimagen.Nombre;
+      fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
+    };
+
+    vm.uploaderVS.onAfterAddingFile = function (fileItem) {
+      fileItem.file.idtipo = vm.tipoimagenValidacion.IdTipo;
+      fileItem.file.tipo = vm.tipoimagenValidacion.Nombre;
+      fileItem._file.idtipo = vm.tipoimagenValidacion.IdTipo;
+      fileItem._file.tipo = vm.tipoimagenValidacion.Nombre;
       fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
     };
 
@@ -413,13 +507,37 @@ angular
         IdEstatusTecnico: (vm.estatustecnico) ? vm.estatustecnico.IdEstatusTecnico : 0,
         IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
         IdTecnico: vm.instalador.IdEntidad,
-        AntenaSerie: (vm.antena) ? vm.antena : ''
+        AntenaSerie: (vm.antena) ? vm.antena : '',
+        CodigoEstado: vm.CodigodeEstado,
+        SQFVS: vm.SQFVS,
+        TransmitRate: vm.TransmitRate,
+        PowerAttenuation: vm.PowerAttenuation ? vm.PowerAttenuation.Descripcion : "",
+        PruebaACP: vm.PruebaACP,
+        VoltajeComercialNT: vm.VoltajeComercialNT,
+        VoltajeComercialFT: vm.VoltajeComercialFT,
+        VoltajeComercialFN: vm.VoltajeComercialFN
       };
 
       var file_options = [];
       var files = [];
       var tipos = [];
       vm.uploader.queue.forEach(function (f) {
+
+        var options = {
+          IdImagen: 0,
+          Accion: 1,
+          Tipo: f._file.idtipo,
+          Nombre: f._file.name,
+          IdUsuario: $localStorage.currentUser.idUsuario
+        };
+        file_options.push(options);
+        tipos.push(f._file.idtipo);
+        files.push(f._file);
+
+      });
+
+      //Imagenes de pestaña de Valdiacion en Sitio
+      vm.uploaderVS.queue.forEach(function (f) {
 
         var options = {
           IdImagen: 0,
@@ -487,6 +605,15 @@ angular
           });
         });
 
+      });
+    }
+
+    function ActualizarDatosHughes() {
+      var parametros = {};
+      parametros.Clv_Queja = vm.numeroqueja;
+      memoriaServicioFactory.GetObtieneDatosHughes(parametros).then(function (result) {
+        vm.SQFVS = result.GetObtieneDatosHughesServicioResult.SQF;
+        vm.CodigodeEstado = result.GetObtieneDatosHughesServicioResult.CodigoEstado;
       });
     }
   });

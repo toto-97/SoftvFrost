@@ -39,7 +39,21 @@ angular.module('softvFrostApp')
 			GetActualizaPoolTerminal: '/Terminal/GetActualizaPoolTerminal',
 			GetDatosIPTerminal: '/Terminal/GetDatosIPTerminal',
 			GetValidaSANUsuario:'/Terminal/GetValidaSANUsuario',
-			GetValidaCambioIP:'/Terminal/GetValidaCambioIP'
+			GetValidaCambioIP:'/Terminal/GetValidaCambioIP',
+			hughesCancelarCambioServicio: '/CancelarCambioServicio'
+		};
+
+		factory.hughesCancelarCambioServicio = function(obj) {
+			var deferred = $q.defer();
+			var parametros = JSON.stringify(obj);
+			//jQuery.support.cors = true;
+			$http.post(globalService.getUrlHughesService() + paths.hughesCancelarCambioServicio, parametros).then(function(response) {
+				deferred.resolve(response.data);
+			}).catch(function(data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
 		};
 
 		factory.GetValidaCambioIP = function(Parametros) {

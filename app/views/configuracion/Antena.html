@@ -2,12 +2,11 @@
 
     <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
         <header>
-            <strong style="font-weight:bold; border:none; margin-left:10px;">Tipo Imagen</strong>
+            <strong style="font-weight:bold; border:none; margin-left:10px;">Antena</strong>
             <br />
             <small class="text-muted" style="font-size:14px; margin-left:10px;">
                 <a href="#">
-                    <i class="fa fa-home" aria-hidden="true"></i> Configuración</a>> Catálogos Memoria Técnica > Tipo Imagen
-                <a href="#" class="paginaActiva">Configuración</a>
+                    <i class="fa fa-home" aria-hidden="true"></i> Configuración</a>> Catálogos Memoria Técnica > Antena
             </small>
 
         </header>
@@ -36,24 +35,17 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Activo</th>
-                            <th>Validación en Sitio</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="x in $ctrl.Tipos|itemsPerPage:10">
+                        <tr dir-paginate="x in $ctrl.Antenas|itemsPerPage:10">
                             <td>
                                 <input type="text" style="font-size:12px;" name="nombre" validate-on="dirty" class="form-control" ng-model="x.Nombre">
                             </td>
                             <td class="text-center">
                                 <label class="checkbox-inline checkbox-styled checkbox-primary">
-                                    <input type="checkbox" ng-model="x.Activo" value="{{ x.IdTipo }}" ng-checked="x.Activo">
-                                    <span></span>
-                                </label>
-                            </td>
-                            <td class="text-center">
-                                <label class="checkbox-inline checkbox-styled checkbox-primary">
-                                    <input type="checkbox" ng-model="x.ValidacionEnSitio" value="{{ x.IdTipo }}" ng-checked="x.ValidacionEnSitio">
+                                    <input type="checkbox" ng-model="x.Activo" value="{{ x.IdAntena }}" ng-checked="x.Activo">
                                     <span></span>
                                 </label>
                             </td>

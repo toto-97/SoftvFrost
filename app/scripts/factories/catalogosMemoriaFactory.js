@@ -5,7 +5,55 @@ angular.module('softvFrostApp')
         var paths = {
             GetGuardaTipoImagen: '/CatalogosMemoriaTecnica/GetGuardaTipoImagen',
             GetObtieneTipoImagenesCatalogo: '/CatalogosMemoriaTecnica/GetObtieneTipoImagenesCatalogo',
-            GetEliminaTipoImagen: '/CatalogosMemoriaTecnica/GetEliminaTipoImagen'
+            GetEliminaTipoImagen: '/CatalogosMemoriaTecnica/GetEliminaTipoImagen',
+            GetGuardaAntenas: '/CatalogosMemoriaTecnica/GetGuardaAntenas',
+            GetObtieneAntenasCatalogo: '/CatalogosMemoriaTecnica/GetObtieneAntenasCatalogo',
+            GetEliminaAntena: '/CatalogosMemoriaTecnica/GetEliminaAntena'
+        };
+
+        factory.GetEliminaAntena = function (parametros) {
+            var deferred = $q.defer();
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.post(globalService.getUrl() + paths.GetEliminaAntena, JSON.stringify(parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (data) {
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetObtieneAntenasCatalogo = function () {
+            var deferred = $q.defer();
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.get(globalService.getUrl() + paths.GetObtieneAntenasCatalogo, config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (data) {
+                deferred.reject(data);
+            });
+            return deferred.promise;
+        };
+
+        factory.GetGuardaAntenas = function (parametros) {
+            var deferred = $q.defer();
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.post(globalService.getUrl() + paths.GetGuardaAntenas, JSON.stringify(parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (data) {
+                deferred.reject(data);
+            });
+            return deferred.promise;
         };
 
         factory.GetGuardaTipoImagen = function (parametros) {

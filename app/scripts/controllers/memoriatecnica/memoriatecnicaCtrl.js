@@ -2,10 +2,15 @@
 angular
   .module('softvFrostApp')
   .controller('memoriatecnicaCtrl', function ($state, ngNotify, memoriaFactory, moment, $firebaseArray,
-    firebase, globalService, $q, $window) {
+    firebase, globalService, $q, $window, $localStorage, $uibModal) {
 
     function initialData() {
+      vm.RolUsuario = $localStorage.currentUser.idRol;
       BuscaMemoriaTecnica(0);
+      memoriaFactory.GetTecnicosMemoriaTecnica(0, 'B', 0).then(function (tecnicos) {
+        //console.log(tecnicos);
+        vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;
+      });
     }
 
     function BuscaMemoriaTecnica(op) {
@@ -19,12 +24,16 @@ angular
         'Cliente': (op === 5) ? vm.cliente : '',
         'Contrato': (op === 7) ? vm.contrato : '',
         'Tecnico': (op === 6) ? vm.tecnico : '',
-        'SerieAparato': (op === 8) ? vm.serie : ''
+        'SerieAparato': (op === 8) ? vm.serie : '',
+        'IdTecnico': (op === 9) ? vm.instalador.IdEntidad : 0
       };
       memoriaFactory.BuscaMemoriaTecnica(params)
         .then(function (data) {
+          //console.log('BuscaMemoriaTecnica', data);
           vm.memorias = data.GetBuscaMemoriaTecnicaListResult;
-         
+          vm.memorias.forEach(function (item, index) {
+            item.RolUsuario = vm.RolUsuario;
+          });
         });
     }
 
@@ -33,7 +42,7 @@ angular
 
       vm.url = '';
       memoriaFactory.GetReportepdf(id).then(function (data) {
-       
+
 
         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportepdfResult;
         //  $window.open( vm.url, '_self');
@@ -74,7 +83,7 @@ angular
     function getreportexls(id) {
       vm.url = '';
       memoriaFactory.GetReportexls(id).then(function (data) {
-      
+
         vm.url = globalService.getUrlmemoriatecnicareportes() + '/ReportesPDF/' + data.GetReportexlsResult;
         $window.open(vm.url, '_self');
 
@@ -110,7 +119,7 @@ angular
         result.forEach(function (item, index) {
           if (parseInt(item.Id) === parseInt(id)) {
             deleteFile(index).then(function (result) {
-            
+
             });
 
           }
@@ -156,7 +165,39 @@ angular
 
     }
 
-
+    function FiltrarLista() {
+      var Lista = [];
+      vm.listTecnicos.forEach(function (item) {
+        var itemAux = {};
+        itemAux.Descripcion = item.Nombre;
+        itemAux.IdEntidad = item.IdEntidad;
+        Lista.push(itemAux);
+      });
+      var Titulo = 'Instalador';
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/memorias/ModalFiltrarLista.html',
+        controller: 'ModalFiltrarListaCtrl',
+        controllerAs: '$ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        size: "md",
+        resolve: {
+          Lista: function () {
+            return Lista;
+          },
+          Titulo: function () {
+            return Titulo;
+          }
+        }
+      });
+      modalInstance.result.then(function (item) {
+        vm.instalador = item;
+      }, function () {
+      });
+    }
 
 
     var vm = this;
@@ -167,4 +208,5 @@ angular
     vm.add = add;
     vm.deletechild = deletechild;
     initialData();
+    vm.FiltrarLista = FiltrarLista;
   });

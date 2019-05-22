@@ -27,8 +27,81 @@ angular
       GetEstatusTecnico: '/ObtieneTiposImagenes/GetEstatusTecnico',
       GetTecnicosMemoriaTecnica: '/ObtieneTiposImagenes/GetTecnicosMemoriaTecnicaServicio',
       GetAparatosActuales: '/ObtieneTiposImagenes/GetAparatosActualesServicio',
-      GetAparatosTecnico: '/ObtieneTiposImagenes/GetAparatosTecnicoServicio'
+      GetAparatosTecnico: '/ObtieneTiposImagenes/GetAparatosTecnicoServicio',
+      GetObtieneObservacionesMemoriaTecnicaPestana:'/GuardaObservacionMemoriaTecnicaServicio/GetObtieneObservacionesMemoriaTecnicaPestanaServicio',
+      GetReporteMemoriaDetallado: '/BuscaMemoriaTecnicaServicio/GetReporteMemoriaDetalladoServicio',
+      GetObtieneDatosHughes: '/BuscaMemoriaTecnicaServicio/GetObtieneDatosHughesServicio',
+      GetEliminaMemoriaTecnica: '/GuardaMemoriaTecnicaServicio/GetEliminaMemoriaTecnicaServicio'
     };
+
+    factory.GetEliminaMemoriaTecnica = function (Parametros) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetEliminaMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.GetObtieneDatosHughes = function (Parametros) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetObtieneDatosHughes, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.GetReporteMemoriaDetallado = function () {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+
+      $http.get(globalService.getUrl() + paths.GetReporteMemoriaDetallado, config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.GetObtieneObservacionesMemoriaTecnicaPestana = function (IdMemoriaTecnica) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      var Parametros = {
+        'IdMemoriaTecnica': IdMemoriaTecnica
+      };
+      $http.post(globalService.getUrl() + paths.GetObtieneObservacionesMemoriaTecnicaPestana, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (data) {
+        deferred.reject(data);
+      });
+
+      return deferred.promise;
+    };
+
 
     factory.GetAparatosActuales = function (Tipo, ClvQueja, IdTecnico, IdMemoriaTecnica) {
       var deferred = $q.defer();
@@ -546,8 +619,8 @@ angular
         'SAN': object.SAN,
         'Cliente': object.Cliente,
         'Contrato': object.Contrato,
-        'Tecnico': object.Tecnico
-
+        'Tecnico': object.Tecnico,
+        'IdTecnico':object.IdTecnico
       };
       $http.post(globalService.getUrl() + paths.BuscaMemoriaTecnica, JSON.stringify(Parametros), config).then(function (response) {
         deferred.resolve(response.data);
