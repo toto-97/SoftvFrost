@@ -2,103 +2,105 @@
     <div class="card" style="margin-top:20px; ">
         <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
             <header>
-                <strong style="font-weight:bold; border:none; margin-left:10px;">Nuevo Pool Direcciones IP</strong>
-                <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Configuración de Direcciones IP>Consulta Pool Direcciones IP</small>
+                <strong style="font-weight:bold; border:none; margin-left:10px;">Edición Pool Direcciones IP</strong>
+                <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Configuración de Direcciones IP>Edición Pool Direcciones IP</small>
             </header>
             <div class="tools">
                 <button class="btn btn-default btn-sm" ui-sref="home.configuracionip.pools">Cancelar</button>
-                <button class="btn btn-error btn-sm" ng-click="$ctrl.EliminaPool()">Eliminar</button>
+                <button class="btn btn-success btn-sm" ng-click="$ctrl.GuardaPool()">Guardar</button>
+                <button class="btn btn-danger btn-sm" ng-click="$ctrl.EliminaPool()">Eliminar</button>
             </div>
         </div>
         <div class="card-body" style="margin-bottom:100px;">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <b>SubRed</b>
+                            <input type="text" name="nombre" validate-on="dirty" disabled class="form-control"
+                                ng-model="$ctrl.IP" required-message="'Este campo es obligatorio.'"
+                                placeholder="192.168.10.0" required>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Máscara de Red</b>
+                            <input type="text" class="form-control" ng-change="$ctrl.existe()"
+                                ng-model="$ctrl.MascaraRed" name="descripcion" validate-on="dirty"
+                                required-message="'Este campo es obligatorio.'" required placeholder="19">
+                        </div>
+                        <div class="col-md-3">
+                            <b>Beam</b>
+                            <select class="form-control" disabled
+                                ng-options="item as item.BeamId for item in $ctrl.Beams track by item.BeamId"
+                                ng-model="$ctrl.Beam" name="rol" validate-on="dirty"
+                                required-message="'Este campo es obligatorio.'" required>
+                                <option value="">selecciona</option>
+                            </select>
+                        </div>
 
-            <div class="row ">
-                <div class="col-md-4">
-                    <b>SubRed</b>
-                    <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.IP" required-message="'Este campo es obligatorio.'"
-                        placeholder="192.168.10.0" required>
+                    </div>
+                    <div class="col-md-12 " style="margin-top:10px;">
+                        <div class="col-md-6">
+                            <b>SubRed IPv6</b>
+                            <input type="text" disabled name="nombre" validate-on="dirty" class="form-control"
+                                ng-model="$ctrl.IPv6" required-message="'Este campo es obligatorio.'"
+                                placeholder="2001:0db8:85a3::1319:8a2e:0370:7344" required>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Máscara de Red v6</b>
+                            <input type="text" class="form-control" ng-model="$ctrl.MascaraIPv6" name="descripcion"
+                                validate-on="dirty" required-message="'Este campo es obligatorio.'" required
+                                placeholder="19">
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top:10px;">
+                        <div class="col-md-4">
+                            <b>Máscara de Red v4 de Terminales</b>
+                            <input type="text" disabled class="form-control" ng-model="$ctrl.MascaraRed4Terminal"
+                                name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+                                required placeholder="19">
+                        </div>
+                        <div class="col-md-4">
+                            <b>Máscara de Red v6 de Terminales</b>
+                            <input type="text" disabled class="form-control" ng-model="$ctrl.MascaraRed6Terminal"
+                                name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
+                                required placeholder="19">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <b>Máscara de Red</b>
-                    <input type="text" class="form-control" ng-model="$ctrl.MascaraRed" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
-                        required placeholder="19">
-                </div>
-                <div class="col-md-2">
-                    <b>Beam</b>
-                    <input type="text" class="form-control" ng-model="$ctrl.Beam" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
-                        required placeholder="19">
-                </div>
-                <div class="col-md-4">
-                    <b>Servicio</b>
-                    <input type="text" class="form-control" ng-model="$ctrl.Servicio" name="descripcion" validate-on="dirty" required-message="'Este campo es obligatorio.'"
-                        required placeholder="19">
+                <div class="col-md-4" >
+                    <div class="col-md-11">
+                        <div class="col-md-12">
+                            <b>Servicio</b>
+                            <select class="form-control"
+                                ng-options="item as item.Nombre for item in $ctrl.Servicios track by item.IdServicio"
+                                ng-model="$ctrl.Servicio" name="rol" >
+                                <option value="">selecciona</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12" style="max-height:300px; overflow-y:scroll;margin-top: 15px;">
+                            <b>Servicios Asignados</b>
+                            <table class="table">
+                                <thead>
+                                    <th>Servicio</th>
+                                    <th>Opciones</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in $ctrl.ServiciosAsignados">
+                                        <td>{{x.Nombre}}</td>
+                                        <td><button class="btn btn-danger btn-xs" type="button"
+                                                ng-click="$ctrl.EliminaServicio(x)"><i class="fa fa-trash"></i>
+                                                Eliminar</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-1" style="margin-top: 10px;">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success btn-xs" ng-click="$ctrl.AgregarServicio()"><i class="fa fa-plus-circle"></i> Agregar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row " style="margin-top:10px;">
-                <div class="col-md-4">
-                    <b>SubRed IPv6</b>
-                    <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.IPv6" required-message="'Este campo es obligatorio.'"
-                        placeholder="192.168.10.0" required>
-                </div>
-                <div class="col-md-2">
-                    <b>Máscara de Red v6</b>
-                    <input type="text" class="form-control" ng-model="$ctrl.MascaraIPv6" name="descripcion" validate-on="dirty"
-                        required-message="'Este campo es obligatorio.'" required placeholder="19">
-                </div>
-            </div>
-            <div class="row " style="margin-top:10px;">
-                <div class="col-md-2">
-                    <b>Máscara de Red v4 de Terminales</b>
-                    <input type="text" class="form-control" ng-model="$ctrl.MascaraRed4Terminal" name="descripcion" validate-on="dirty"
-                        required-message="'Este campo es obligatorio.'" required placeholder="19">
-                </div>
-                <div class="col-md-2">
-                    <b>Máscara de Red v6 de Terminales</b>
-                    <input type="text" class="form-control" ng-model="$ctrl.MascaraRed6Terminal" name="descripcion" validate-on="dirty"
-                        required-message="'Este campo es obligatorio.'" required placeholder="19">
-                </div>
-            </div>
-
-            <!--<div class="row">
-                <div class="col-md-6">
-                    <br />
-                    <b>Listado de IPs Asignadas</b>
-                    <table st-table="$ctrl.displayedCollection" st-safe-src="$ctrl.rowCollection" class="table table-striped" st-filtered-collection="$ctrl.filteredCollection">
-                        <thead>
-                            <tr>
-                                <th st-sort="IP">IP</th>
-                                <th st-sort="SAN">SAN</th>
-                                <th st-sort="Referencia">Referencia</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <input st-search="IP" placeholder="IP" class="input-sm form-control" type="search" />
-                                </th>
-                                <th>
-                                    <input st-search="SAN" placeholder="SAN" class="input-sm form-control" type="search" />
-                                </th>
-                                <th>
-                                    <input st-search="Referencia" placeholder="Referencia" class="input-sm form-control" type="search" />
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr dir-paginate="row in $ctrl.displayedCollection|orderBy:sortKey:reverse|itemsPerPage:10">
-                                <td>{{row.IP}}</td>
-                                <td>{{row.SAN}}</td>
-                                <td>{{row.Referencia}}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="18" class="text-left">
-                                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
-                                    </dir-pagination-controls>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>-->
         </div>
 </form>

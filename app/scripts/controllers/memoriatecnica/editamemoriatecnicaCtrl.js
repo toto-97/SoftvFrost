@@ -404,8 +404,10 @@ angular
             obj.IdMemoriaTecnica = vm.id;
             obj.IdUsuario = $localStorage.currentUser.idUsuario;
             obj.Opcion = 3;
-
+            console.log('vm.AparatosAnterior',vm.AparatosAnterior);
+            console.log('vm.AparatoAnterior',vm.AparatoAnterior);
             vm.cambios.push(obj);
+            console.log('vm.cambios',vm.cambios);
           } else {
             ngNotify.set('Las series no pueden ser iguales', 'error');
           }

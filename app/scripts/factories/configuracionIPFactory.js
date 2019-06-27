@@ -11,8 +11,41 @@ angular.module('softvFrostApp')
       obtieneIPsPool: '/ObtieneIPsPool/GetObtieneIPsPoolList',
       eliminaPoolIP: '/EliminaPoolIP/GetEliminaPoolIPList',
       posiblesPool: '/PoolsPosiblesSAN/GetPoolsPosiblesSANList',
-      IPActualSAN: '/IPActualSAN/GetIPActualSANList'
+      IPActualSAN: '/IPActualSAN/GetIPActualSANList',
+      GetObtieneServiciosPoolIP: '/ObtieneDatosPool/GetObtieneServiciosPoolIP',
+      GetEditaPool: '/GuardaPool/GetEditaPool',
     };
+
+    factory.GetEditaPool = function(parametros) {
+        var deferred = $q.defer();
+        var config = {
+            headers: {
+                'Authorization': $localStorage.currentUser.token
+            }
+        };
+        $http.post(globalService.getUrl() + paths.GetEditaPool, JSON.stringify(parametros), config).then(function(response) {
+            deferred.resolve(response.data);
+        }).catch(function(data) {
+            deferred.reject(data);
+        });
+        return deferred.promise;
+    };
+
+    factory.GetObtieneServiciosPoolIP = function(parametros) {
+        var deferred = $q.defer();
+        var config = {
+            headers: {
+                'Authorization': $localStorage.currentUser.token
+            }
+        };
+        $http.post(globalService.getUrl() + paths.GetObtieneServiciosPoolIP, JSON.stringify(parametros), config).then(function(response) {
+            deferred.resolve(response.data);
+        }).catch(function(data) {
+            deferred.reject(data);
+        });
+        return deferred.promise;
+    };
+
 
     factory.GetBeamList = function () {
       var deferred = $q.defer();
