@@ -781,16 +781,26 @@ angular
             vm.ActivaFechaActivacion = false;
           }
         }
+        else if (det.CAMDO){
+          vm.CambioDeEquipos = false;
+          vm.ActivaFechaActivacion = false;
+          vm.modem = det.Modem == undefined ? '' : det.Modem;
+          vm.antena = det.AntenaSerie == undefined ? '' : det.AntenaSerie;
+          vm.serierouter = det.Router == undefined ? '' : det.Router;
+          vm.tamanoantena = det.Antena == undefined ? '' : det.Antena;
+          vm.upsserie = det.UPS == undefined ? '' : det.UPS;
+          vm.serieradio = det.Radio == undefined ? '' : det.Radio;
+        }
         else {
           console.log('detalle 4');
           vm.CambioDeEquipos = true;
           vm.ActivaFechaActivacion = false;
           vm.modem = det.Modem == undefined ? '' : det.Modem;
-          vm.antena = det.AntenaSerie == undefined ? '' : det.Modem;
-          vm.serierouter = det.Router == undefined ? '' : det.Modem;
+          vm.antena = det.AntenaSerie == undefined ? '' : det.AntenaSerie;
+          vm.serierouter = det.Router == undefined ? '' : det.Router;
           vm.tamanoantena = det.Antena == undefined ? '' : det.Antena;
-          vm.upsserie = det.UPS == undefined ? '' : det.Modem;
-          vm.serieradio = det.Radio == undefined ? '' : det.Modem;
+          vm.upsserie = det.UPS == undefined ? '' : det.UPS;
+          vm.serieradio = det.Radio == undefined ? '' : det.Radio;
         }
         console.log('detalle A');
         console.log(vm.IdAntena,vm.tamanoantena);

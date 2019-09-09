@@ -7,7 +7,8 @@ angular
     OVTFactory,
     ngNotify,
     globalService,
-    terminalFactory
+    terminalFactory,
+    $localStorage
   ) {
     this.$onInit = function () {
       diagnosticFactory.getLoginUid().then(function (data) {
@@ -17,6 +18,7 @@ angular
         $(".diagnosis").collapse();
         $(".table-info").collapse();
       });
+      vm.IdRol = $localStorage.currentUser.idRol;
     };
 
     function hughesGetSanCompuesto(obj) {

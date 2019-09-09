@@ -447,7 +447,7 @@
         </div>
       </div>
       <div id="table-info-1" class="collapse table-info" aria-expanded="false">
-        <div class="col-md-12" style="margin-left:10px;">
+        <div class="col-md-12" style="margin-left:10px;" ng-if="($ctrl.IdRol == 1 || $ctrl.IdRol == 2 || $ctrl.IdRol == 7)">
           <button class="btn btn-sm btn-default" ng-click="$ctrl.acctionButtons('Current_Stats')">Get Curren Stats</button>
           <button class="btn btn-sm btn-default" ng-click="$ctrl.acctionButtons('Force_range')">Force Range</button>
           <button class="btn btn-sm btn-default" ng-click="$ctrl.acctionButtons('Clear_Term_Stats')">Clear Terminal Stats</button>
