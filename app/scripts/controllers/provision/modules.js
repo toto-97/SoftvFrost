@@ -247,6 +247,54 @@ angular.module('softvFrostApp').config(function ($stateProvider) {
 		templateUrl: 'views/configuracion/Antena.html',
 		controller: 'AntenaCtrl',
 		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.provision.servicios',
+		data: {
+			pageTitle: 'BOSS | SERVICIOS',
+			permissions: {
+				only: ['serviciosSelect'],
+				options: {
+					reload: true
+				}
+			}
+		},
+		url: '/configuracion/servicios',
+		templateUrl: 'views/configuracion/Servicio.html',
+		controller: 'ServicioCtrl',
+		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.provision.nuevoServicio',
+		data: {
+			pageTitle: 'BOSS | SERVICIOS',
+			permissions: {
+				only: ['serviciosAdd'],
+				options: {
+					reload: true
+				}
+			}
+		},
+		url: '/configuracion/servicios/nuevo',
+		templateUrl: 'views/configuracion/NuevoServicio.html',
+		controller: 'NuevoServicioCtrl',
+		controllerAs: '$ctrl'
+	},
+	{
+		name: 'home.provision.editaServicio',
+		data: {
+			pageTitle: 'BOSS | SERVICIOS',
+			permissions: {
+				only: ['serviciosUpdate'],
+				options: {
+					reload: true
+				}
+			}
+		},
+		url: '/configuracion/servicios/edita/:id',
+		templateUrl: 'views/configuracion/NuevoServicio.html',
+		controller: 'EditaServicioCtrl',
+		controllerAs: '$ctrl'
 	}
 	];
 

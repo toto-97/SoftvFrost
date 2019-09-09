@@ -40,7 +40,81 @@ angular.module('softvFrostApp')
 			GetDatosIPTerminal: '/Terminal/GetDatosIPTerminal',
 			GetValidaSANUsuario:'/Terminal/GetValidaSANUsuario',
 			GetValidaCambioIP:'/Terminal/GetValidaCambioIP',
-			hughesCancelarCambioServicio: '/CancelarCambioServicio'
+			hughesCancelarCambioServicio: '/CancelarCambioServicio',
+			UpdateServicios: '/Servicio/GetUpdateServicios',
+			AddServicios: '/Servicio/GetAddServicios',
+			GetServicioById: '/Servicio/GetDeepServicio'
+		};
+
+		factory.GetServicioById = function (Parametros) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetServicioById, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.AddServicios = function (object) {
+			var deferred = $q.defer();
+			var Parametros = {
+
+				'objServicio': {
+					'Nombre': object.Nombre,
+					'ProgramCode': object.ProgramCode,
+					'Plan': object.Plan,
+					'PartnerId': object.PartnerId,
+					'Package': object.Package,
+					'Activo': object.Activo
+				}
+			};
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.AddServicios, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+		factory.UpdateServicios = function (object) {
+			var deferred = $q.defer();
+			var Parametros = {
+
+				'objServicio': {
+					'IdServicio': object.IdServicio,
+					'Nombre': object.Nombre,
+					'ProgramCode': object.ProgramCode,
+					'Plan': object.Plan,
+					'PartnerId': object.PartnerId,
+					'Package': object.Package,
+					'Activo': object.Activo
+				}
+			};
+			//console.log('objeto enviado',Parametros);
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.UpdateServicios, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
 		};
 
 		factory.hughesCancelarCambioServicio = function(obj) {

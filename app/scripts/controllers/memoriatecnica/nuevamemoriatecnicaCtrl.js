@@ -143,10 +143,10 @@ angular
         vm.tiposrespValidacion = [];
         var tipos = response.GetObtieneTiposImagenesListResult;
         tipos.forEach(function (item) {
-          if(item.ValidacionEnSitio){
+          if (item.ValidacionEnSitio) {
             vm.tiposrespValidacion.push(item);
           }
-          else{
+          else {
             vm.tiposresp.push(item);
           }
         });
@@ -158,7 +158,7 @@ angular
               var antenasTamanos = data.GetObtieneAntenasCatalogoResult;
               vm.antenasTamanos = [];
               antenasTamanos.forEach(function (item) {
-                if(item.Activo){
+                if (item.Activo) {
                   vm.antenasTamanos.push(item);
                 }
               });
@@ -189,11 +189,11 @@ angular
       vm.Combo = results.Combo;
       vm.codigopostal = results.CodigoPostal;
       vm.NoSTB = results.NoSTB;
-      console.log('results.FechaActivacion',results.FechaActivacion);
+      console.log('results.FechaActivacion', results.FechaActivacion);
       var fecAux = moment(results.FechaActivacion, 'MM-DD-YYYY').toDate();
-      console.log('fecAux',fecAux);
+      console.log('fecAux', fecAux);
       vm.fechaactivacion = new Date(fecAux);//$filter('date')(det.FechaActivacion, 'dd/MM/yyyy');//det.FechaActivacion;
-      console.log('vm.fechaactivacion',vm.fechaactivacion);
+      console.log('vm.fechaactivacion', vm.fechaactivacion);
       if (!vm.OrdenInstalacion) {
         vm.modem = results.Modem;
         vm.antena = results.AntenaSerie;
@@ -212,7 +212,7 @@ angular
 
     function validar() {
       memoriaFactory.GetObtieneDatosPorOrden(vm.numeroorden).then(function (result) {
-        //console.log('GetObtieneDatosPorOrden', result);
+        console.log('GetObtieneDatosPorOrden', result);
         if (result.GetObtieneDatosPorOrdenResult.length > 0) {
           if (result.GetObtieneDatosPorOrdenResult[0].Error > 0) {
             ngNotify.set(result.GetObtieneDatosPorOrdenResult[0].Msg, "error");
@@ -231,8 +231,14 @@ angular
               }
             }
             else {
-              vm.ActivaFechaActivacion = false;
-              vm.CambioDeEquipos = true;
+              if (result.GetObtieneDatosPorOrdenResult[0].CAMDO) {
+                vm.ActivaFechaActivacion = false;
+                vm.CambioDeEquipos = false;
+              }
+              else {
+                vm.ActivaFechaActivacion = false;
+                vm.CambioDeEquipos = true;
+              }
             }
           }
         } else {
@@ -635,7 +641,7 @@ angular
           IdTipoServicio: (vm.tiposervicio) ? vm.tiposervicio.IdTipoServicio : 0,
           IdTecnico: vm.instalador.IdEntidad,
           AntenaSerie: (vm.antena) ? vm.antena.Descripcion : '',
-          IdAntena:  0,
+          IdAntena: 0,
           CodigoEstado: vm.CodigodeEstado,
           SQFVS: vm.SQFVS,
           TransmitRate: vm.TransmitRate,
@@ -777,7 +783,7 @@ angular
       });
     }
 
-    function ActualizarDatosHughes(){
+    function ActualizarDatosHughes() {
       var parametros = {};
       parametros.Clv_Orden = vm.numeroorden;
       memoriaFactory.GetObtieneDatosHughes(parametros).then(function (result) {

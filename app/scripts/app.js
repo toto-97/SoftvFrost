@@ -146,7 +146,7 @@ angular
         var fire = $injector.get("firebase");
 
         //TESTING
-          
+        
       var config = {
         apiKey: "AIzaSyBFtB3eFrr1Br5ohphAGtQ5c8ONQQw5C-Y",
         authDomain: "boss-5fbab.firebaseapp.com",
@@ -157,9 +157,9 @@ angular
       }; 
   
 
-
-        //PRODUCTION
 /*
+        //PRODUCTION
+
          var config = {
           apiKey: "AIzaSyAYdB8E1qTsBG9BN3bcbsPgnatIALFHalg",
           authDomain: "boss-10e7a.firebaseapp.com",

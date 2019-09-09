@@ -1,0 +1,60 @@
+<form angular-validator-submit="$ctrl.GuardarServicio()" name="myForm" class="form-horizontal" novalidate
+  angular-validator>
+  <div class="card" style="margin-top:20px; ">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">{{$ctrl.titulo}}</strong>
+        <br />
+        <small class="text-muted" style="font-size:14px; margin-left:10px;">
+          <i class="fa fa-home" aria-hidden="true"></i> Configuración>{{$ctrl.titulo}}</small>
+      </header>
+      <div class="tools">
+        <button class="btn btn-default btn-sm" ui-sref="home.provision.servicios">Cancelar</button>
+        <button class="btn btn-success btn-sm" type="submit">Guardar</button>
+      </div>
+    </div>
+    <div class="card-body" style="margin-bottom:100px;">
+
+      <div class="row ">
+
+        <div class="col-md-4">
+          <div class="col-md-12">
+            <b>Nombre</b>
+            <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.Nombre"
+              required-message="'Este campo es obligatorio.'" required>
+          </div>
+          <div class="col-md-12">
+            <b>Program Code</b>
+            <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.ProgramCode"
+              required-message="'Este campo es obligatorio.'" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-12">
+            <b>Plan</b>
+            <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.Plan"
+              required-message="'Este campo es obligatorio.'" required>
+          </div>
+          <div class="col-md-12">
+            <b>Partner Id</b>
+            <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.PartnerId"
+              required-message="'Este campo es obligatorio.'" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="col-md-12">
+            <b>Package</b>
+            <input type="text" name="nombre" validate-on="dirty" class="form-control" ng-model="$ctrl.Package"
+              required-message="'Este campo es obligatorio.'" required>
+          </div>
+          <div class="col-md-12">
+            <br>
+            <label class="checkbox-inline checkbox-styled checkbox-success">
+              <input type="checkbox" ng-model="$ctrl.Activo" name="Activo">
+              <span>Activo </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
