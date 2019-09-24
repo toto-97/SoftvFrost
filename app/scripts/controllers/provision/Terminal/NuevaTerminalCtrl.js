@@ -64,9 +64,9 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 				vm.Email = vm.datosSus.Email;
 			});
 		}
-		terminalFactory.getServicioListByProgramCode('TEVPGCD').then(function (dataServicios) {
+		/*terminalFactory.getServicioListByProgramCode('TEVPGCD').then(function (dataServicios) {
 			vm.Servicios = dataServicios.GetServicioListByProgramCodeResult;
-		});
+		});*/
 	}
 
 	function BuscaSuscriptor() {
@@ -197,6 +197,15 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		vm.CP = detalle.CP;
 		vm.Telefono = detalle.Telefono;
 		vm.Email = detalle.Email;
+		vm.Referencia = detalle.Referencia;
+
+		//Nos traemos los servicios dependiendo de la referencia del suscriptor seleccionado
+		var parametros = {};
+		parametros.IdSuscriptor = vm.IdSuscriptor;
+		terminalFactory.GetServiciosPorSucriptor(parametros).then(function (dataServicios) {
+			vm.Servicios = dataServicios.GetServiciosPorSucriptorResult;
+		});
+		
 	});
 
 	$rootScope.$on('get_LatLong', function (e, detalle) {

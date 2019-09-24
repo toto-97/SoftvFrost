@@ -2,7 +2,8 @@
 	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
 		<header>
 			<strong style="font-weight:bold; border:none; margin-left:10px;">Activación de Terminales</strong>
-			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home"
+					aria-hidden="true"></i>
 				Provisión>Activación</small>
 		</header>
 		<div class="tools">
@@ -13,39 +14,45 @@
 	<div class="section-body">
 		<div class="col-md-12">
 			<div class="col-md-6">
-				<form angular-validator-submit="$ctrl.activarTerminal()" name="myForm" class="form-horizontal" novalidate
-				 angular-validator>
+				<form angular-validator-submit="$ctrl.activarTerminal()" name="myForm" class="form-horizontal"
+					novalidate angular-validator>
 					<div class="panel form-element-padding">
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-8">
 									<b>SAN</b><br>
-									<input type="text" class="form-control input-sm" placeholder="SAN" name="san" required-message="'Este campo es obligatorio.'"
-									 validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.SAN">
+									<input type="text" class="form-control input-sm" placeholder="SAN" name="san"
+										required-message="'Este campo es obligatorio.'" validate-on="dirty" required
+										validate-on="dirty" ng-model="$ctrl.SAN">
 								</div>
 								<div class="col-md-2" style="margin-top:20px;">
-									<button class="btn btn-primary btn-sm" ng-click="$ctrl.validarSAN()"><i class="fa fa-search"></i> Validar SAN</button>
+									<button class="btn btn-primary btn-sm" ng-click="$ctrl.validarSAN()"><i
+											class="fa fa-search"></i> Validar SAN</button>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-8">
 									<b>PIN</b><br>
-									<input type="text" ng-disabled="true" class="form-control input-sm" placeholder="PIN" name="pin"
-									 required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.PIN">
+									<input type="text" class="form-control input-sm" placeholder="PIN" name="pin"
+										maxlength="4" required-message="'Este campo es obligatorio.'"
+										validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.PIN">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-8">
 									<b>ESN</b><br>
-									<input type="text" class="form-control input-sm" ng-disabled="$ctrl.bockEsn" placeholder="ESN" name="esn"
-									 required-message="'Este campo es obligatorio.'" validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.ESN">
+									<input type="text" class="form-control input-sm" ng-disabled="$ctrl.bockEsn"
+										placeholder="ESN" name="esn" required-message="'Este campo es obligatorio.'"
+										validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.ESN">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-left">
 									<br>
-									<button class="btn btn-raised btn-success btn-sm" type="submit" ng-disabled="!$ctrl.ActivarBoton">Activar</button>
-									<a class="text-danger" ng-if="!$ctrl.ActivarBoton"><i class="fa fa-info"></i> Botón de activación desactivado.
+									<button class="btn btn-raised btn-success btn-sm" type="submit"
+										ng-disabled="!$ctrl.ActivarBoton">Activar</button>
+									<a class="text-danger" ng-if="!$ctrl.ActivarBoton"><i class="fa fa-info"></i> Botón
+										de activación desactivado.
 										Se habilitará nuevamente en {{ 30 - $ctrl.count}}. </a>
 								</div>
 							</div>
@@ -55,12 +62,117 @@
 			</div>
 			<div class="col-md-5" style="margin-top: 15px;">
 				<div class="alert alert-callout alert-danger no-margin">
-					<strong class="pull-right text-danger text-lg">Información de SAN  <i class="fa fa-binoculars"></i></strong>
+					<strong class="pull-right text-danger text-lg">Información de SAN <i
+							class="fa fa-binoculars"></i></strong>
 					<strong class="text-xl">{{$ctrl.Referencia}}</strong><br>
-					<span class="opacity-50">{{$ctrl.Suscriptor}}</span>
+					<!--<span class="opacity-50">{{$ctrl.Suscriptor}}</span>-->
 					<div class="stick-bottom-left-right">
 						<div class="progress progress-hairline no-margin">
 							<div class="progress-bar progress-bar-danger" style="width:43%"></div>
+						</div>
+					</div>
+				</div>
+				<div ng-if="$ctrl.MuestraInformacion">
+					<div class="col-md-12" style="margin-top:15px;">
+						<div class="col-md-3">
+							<b style="font-size:14px;">Suscriptor:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.Suscriptor}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">Servicio:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.Servicio}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">Referencia:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.Referencia}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">ESN:</b><br>
+							<p style="font-size:14px;">{{$ctrl.Terminal.ESN}}</p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-3">
+							<b style="font-size:14px;">Fecha Alta:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.FechaAlta}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">Fecha Baja:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.FechaSuspension}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">Latitud:</b><br>
+							<p style="font-size:14px;">{{$ctrl.Terminal.Latitud}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">Longitud:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.Longitud}}</p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-3">
+							<b style="font-size:14px;">Status:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.Estatus}}</p>
+						</div>
+
+						<div class="col-md-3">
+							<b style="font-size:14px;">Fap Status:</b>
+							<p style="font-size:14px;">{{$ctrl.FapStatus}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">SatelliteID:</b>
+							<p style="font-size:14px;">{{$ctrl.Terminal.SatellitedID}}</p>
+						</div>
+						<div class="col-md-3">
+							<b style="font-size:14px;">BeamID:</b><br>
+							<p style="font-size:14px;">{{$ctrl.Terminal.BeamID}}</p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<b style="font-size:14px;">Comentarios:</b><br>
+						<textarea ng-model="$ctrl.Terminal.Comentarios" disabled class="form-control input-sm">
+
+					   </textarea>
+					</div>
+
+					<div class="col-md-12">
+						<div class="text-center">
+							<h5><b>Consumo de Terminal (MB)</b></h5>
+						</div>
+						<div class="col-md-4">
+							<b style="font-size:14px;">Disponible:</b><br>
+							<p style="font-size:14px;">{{$ctrl.Consumo.Disponible}}</p>
+						</div>
+						<div class="col-md-4">
+							<b style="font-size:14px;">Consumo:</b><br>
+							<p style="font-size:14px;">{{$ctrl.Consumo.Consumido}}</p>
+						</div>
+						<div class="col-md-4">
+							<b style="font-size:14px;">Día de relleno:</b><br>
+							<p style="font-size:14px;">{{$ctrl.Consumo.DiaRelleno}}</p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-4">
+							<b style="font-size:14px;">Token disponible:</b><br>
+							<p style="font-size:14px;">{{$ctrl.Token}}</p>
+						</div>
+					</div>
+
+					<div class="col-md-12">
+						<div class="text-center">
+							<h5><b>IP de Terminal : Empresarial</b></h5>
+						</div>
+						<div class="col-md-6">
+							<b style="font-size:14px;">SubRed IPv4:</b><br>
+							<p style="font-size:14px;">
+								{{$ctrl.DatosIP.IPTerminal + '/' + $ctrl.DatosIP.MascaraRed4Terminal}}
+							</p>
+						</div>
+						<div class="col-md-4">
+							<b style="font-size:14px;">SubRed IPv6:</b><br>
+							<p style="font-size:14px;">
+								{{$ctrl.DatosIP.IPv6Terminal + '/' + $ctrl.DatosIP.MascaraRed6Terminal}}</p>
 						</div>
 					</div>
 				</div>

@@ -30,6 +30,7 @@ angular
           obtieneIndex("Mover");
           obtieneIndex("Token");
           obtieneIndex("Cambio de IP");
+          obtieneIndex("Cambio Día de Relleno");
         } else if (vm.Terminal.Estatus == "Pendiente") { //Pendiente
           obtieneIndex("Suspender Terminal");
           obtieneIndex("Reactivar Terminal");
@@ -42,12 +43,14 @@ angular
           obtieneIndex("Swap");
           obtieneIndex("Mover");
           obtieneIndex("Token");
+          obtieneIndex("Cambio Día de Relleno");
         } else if (vm.Terminal.Estatus === "Activa") { //Activa
           obtieneIndex("Crear Terminal");
           obtieneIndex("Reactivar Terminal");
           obtieneIndex("Ver status de Movimiento");
           obtieneIndex("Cancelar Movimiento");
           obtieneIndex("Activar terminal");
+          obtieneIndex("Cambio Día de Relleno");
           terminalFactory.getServicioList().then(function (data) {
             vm.Servicios = data.GetServicioListResult;
           });
@@ -83,6 +86,7 @@ angular
           obtieneIndex("Cancelar Movimiento");
           obtieneIndex("Activar terminal");
           obtieneIndex("Cambio de IP");
+          obtieneIndex("Cambio Día de Relleno");
           //Nos vamos a traer el fap status y el consumo
           var obj = {};
           obj.SAN = vm.Terminal.SANCompleto;
@@ -109,6 +113,7 @@ angular
           obtieneIndex("Mover");
           obtieneIndex("Token");
           obtieneIndex("Cambio de IP");
+          obtieneIndex("Cambio Día de Relleno");
         }
       });
     }

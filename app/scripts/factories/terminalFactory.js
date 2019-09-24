@@ -43,7 +43,41 @@ angular.module('softvFrostApp')
 			hughesCancelarCambioServicio: '/CancelarCambioServicio',
 			UpdateServicios: '/Servicio/GetUpdateServicios',
 			AddServicios: '/Servicio/GetAddServicios',
-			GetServicioById: '/Servicio/GetDeepServicio'
+			GetServicioById: '/Servicio/GetDeepServicio',
+			GetServiciosPorSucriptor: '/Servicio/GetServiciosPorSucriptor',
+			GetValidaTerminalActivacion:'/Terminal/GetValidaTerminalActivacion'
+		};
+
+		factory.GetValidaTerminalActivacion = function (Parametros) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetValidaTerminalActivacion, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
+		};
+
+		factory.GetServiciosPorSucriptor = function (Parametros) {
+			var deferred = $q.defer();
+			var config = {
+				headers: {
+					'Authorization': $localStorage.currentUser.token
+				}
+			};
+			$http.post(globalService.getUrl() + paths.GetServiciosPorSucriptor, JSON.stringify(Parametros), config).then(function (response) {
+				deferred.resolve(response.data);
+			}).catch(function (data) {
+				deferred.reject(data);
+			});
+			return deferred.promise;
+
 		};
 
 		factory.GetServicioById = function (Parametros) {
