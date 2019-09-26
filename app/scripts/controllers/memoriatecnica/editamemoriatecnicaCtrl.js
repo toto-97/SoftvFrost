@@ -255,10 +255,10 @@ angular
           }
           else {
             memoriaFactory.GetAparatosActuales(vm.EquipoSustituir.IdEquipo, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatosActuales) {
-              //console.log('aparatosActuales',aparatosActuales);
+              console.log('aparatosActuales',aparatosActuales);
               vm.AparatosAnterior = aparatosActuales.GetAparatosActualesResult;
               memoriaFactory.GetAparatosTecnicoCambio(vm.EquipoSustituir.IdEquipo, vm.numeroorden, vm.instalador.IdEntidad, 0).then(function (aparatos) {
-                //console.log('aparatos',aparatos);
+                console.log('aparatos',aparatos);
                 vm.AparatosNuevo = aparatos.GetAparatosTecnicoCambioResult;
               });
             });
