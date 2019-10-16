@@ -74,7 +74,7 @@ angular.module('softvFrostApp')
     //CSV 
     vm.order = [ 'SAN', 'IdSuscriptor', 'Suscriptor', 'Referencia', 'PlanDeServicio', 'Beam', 'SatellitedID',
     'ESN', 'Estatus', 'EstTecnico', 'Latitud', 'Longitud', 'FechaAlta','FechaActivacion', 'FechaSuspension', 'FechaCancelacion',
-   'ConsumoAnytime','ConsumoBonus','TokenDisp'];
+   'ConsumoAnytime','ConsumoBonus','TokenDisp','DiaRelleno'];
 
 
     // CREAR CSV 
@@ -128,7 +128,8 @@ angular.module('softvFrostApp')
             "SAN": "SAN",
             "Suscriptor": "Suscriptor",
             "Referencia":"Referencia",
-            "TokenDisp": "Token Disp (Gb)"
+            "TokenDisp": "Token Disp (Gb)",
+            "DiaRelleno": "DiaRelleno"
                 }];
     } 
 
@@ -189,7 +190,7 @@ angular.module('softvFrostApp')
 
     var cols = 17;
     var columns = ["SAN", "Id Suscriptor", "Suscriptor", "Referencia", "Plan de Servicio",  "Beam", "Satellite", "ESN", "Est. Comercial", 
-                    "Est. FAP", "Latitud", "Longitud", "Fecha Alta", "Fecha Activación", "Fecha Suspensión", "Fecha Cancelación",  "Consumo Anytime (Gb)",  "Consumo Bonus (Gb)", "Token Disp (Gb)"];
+                    "Est. FAP", "Latitud", "Longitud", "Fecha Alta", "Fecha Activación", "Fecha Suspensión", "Fecha Cancelación",  "Consumo Anytime (Gb)",  "Consumo Bonus (Gb)", "Token Disp (Gb)", "Día de Relleno"];
 
     
     for( var i=r; i<ro; i++ ) {         
@@ -221,6 +222,7 @@ angular.module('softvFrostApp')
             rows[i][16] = vm.rowCollection4[i].ConsumoAnytime;
             rows[i][17] = vm.rowCollection4[i].ConsumoBonus;
             rows[i][18] = vm.rowCollection4[i].TokenDisp;    
+            rows[i][19] = vm.rowCollection4[i].DiaRelleno;    
         }else 
         {           
             rows[i][0] = vm.displayedCollection4[i].SAN;
@@ -243,6 +245,7 @@ angular.module('softvFrostApp')
             rows[i][16] = vm.displayedCollection4[i].ConsumoAnytime;
             rows[i][17] = vm.displayedCollection4[i].ConsumoBonus;
             rows[i][18] = vm.displayedCollection4[i].TokenDisp;  
+            rows[i][19] = vm.displayedCollection4[i].DiaRelleno;  
         } 
     } 
 

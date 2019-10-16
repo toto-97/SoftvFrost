@@ -285,24 +285,46 @@
                         rows="3"></textarea>
                     </div>
                   </div>
+                  <div class="form-group row ">
+                    <b class="col-sm-12 text-center text-info"> Datos de la persona que atiende al técnico en sitio</b>
+                  </div>
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Nombre de la Persona</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="NombreAtiendeSitio" ng-model="$ctrl.PersonaAtiendeSitio">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Teléfono (Para llamada de Whatsapp)</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="TelefonoAtiendeSitio" ng-model="$ctrl.TelefonoAtiendeSitio"
+                      ui-mask="999-999-9999" minlength="10" ui-mask-placeholder ui-mask-placeholder-char="_">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Celular</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control input-sm" name="CelularAtiendeSitio" ng-model="$ctrl.CelularAtiendeSitio"
+                      ui-mask="999-999-9999" minlength="10" ui-mask-placeholder ui-mask-placeholder-char="_">
+                    </div>
+                  </div>
+
+                  <div class="form-group row ">
+                    <label class="col-sm-5 control-label">Email</label>
+                    <div class="col-sm-7">
+                      <input type="email" class="form-control input-sm" name="EmailAtiendeSitio" ng-model="$ctrl.EmailAtiendeSitio"
+                      validate-on="dirty" invalid-message="'Formato de correo no valido.'">
+                    </div>
+                  </div>
                   <!-- <div class="form-group row ">
                     <label class="col-sm-5 control-label">site ID</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control input-sm" name="siteid" placeholder="" ng-model="$ctrl.siteid" />
                     </div>
                   </div>-->
-
-
-
-
-
-
-
-
                 </div>
-
-
-
                 <div class="col-md-4">
 
                   <div class="form-group row ">

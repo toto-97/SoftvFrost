@@ -151,7 +151,7 @@ angular.module('softvFrostApp')
 
 
     //CSV 
-    vm.order = [ 'SAN', 'Estado', 'Beam', 'SatellitedID', 'PlanServ', 'ESN', 'IdSuscriptor', 'EstadoFap', 'Ipv4', 'Ipv6', 'AssocTime', 'Latitud','Longitud', 'AvailTokens','TxBytes','RxBytes'];
+    vm.order = [ 'SAN', 'Estado', 'Beam', 'SatellitedID', 'PlanServ', 'ESN', 'IdSuscriptor', 'EstadoFap', 'Ipv4', 'Ipv6', 'AssocTime', 'Latitud','Longitud', 'AvailTokens','TxBytes','RxBytes','DiaRelleno'];
 
     // CREAR CSV 
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
@@ -223,7 +223,8 @@ angular.module('softvFrostApp')
             "Longitud": "Longitud", 
             "AvailTokens": "Avail Tokens",               
             "TxBytes": "TXBytes",
-            "RxBytes": "RXBytes"
+            "RxBytes": "RXBytes",
+            "DiaRelleno": "Día de Relleno"
             }];
     } 
 
@@ -247,7 +248,7 @@ function createPdfTodo(pdfAcrear){
 
     var cols = 16; 
     var columns = ["SAN", "Estado", "Beam", "Satellite", "Plan de Servicio", "ESN", "Id Suscriptor", "Estado FAP", "IPV4", "IPV6", 
-                    "Assoc Time", "Latitud", "Longitud", "Avail Tokens", "TXBytes", "RXBytes"];
+                    "Assoc Time", "Latitud", "Longitud", "Avail Tokens", "TXBytes", "RXBytes", "Día de Relleno"];
 
    
     for( var i=r; i<ro; i++ ) {         
@@ -275,6 +276,7 @@ function createPdfTodo(pdfAcrear){
             rows[i][13] = vm.rowCollection4[i].AvailTokens;
             rows[i][14] = vm.rowCollection4[i].TxBytes;
             rows[i][15] = vm.rowCollection4[i].RxBytes;  
+            rows[i][16] = vm.rowCollection4[i].DiaRelleno;  
         }else //VISIBLE DATA
         {           
             rows[i][0] = vm.displayedCollection4[i].SAN;
@@ -293,6 +295,7 @@ function createPdfTodo(pdfAcrear){
             rows[i][13] = vm.displayedCollection4[i].AvailTokens;
             rows[i][14] = vm.displayedCollection4[i].TxBytes;
             rows[i][15] = vm.displayedCollection4[i].RxBytes;    
+            rows[i][16] = vm.displayedCollection4[i].DiaRelleno;  
         } 
     } 
 

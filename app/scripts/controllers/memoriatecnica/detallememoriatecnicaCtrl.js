@@ -292,12 +292,12 @@ angular
         else {
           vm.CambioDeEquipos = true;
           vm.ActivaFechaActivacion = false;
-          vm.modem = det.Modem;
-          vm.antena = det.AntenaSerie;
-          vm.serierouter = det.Router;
-          vm.tamanoantena = det.Antena;
-          vm.upsserie = det.UPS;
-          vm.serieradio = det.Radio;
+          vm.modem = det.Modem == undefined ? '' : det.Modem;
+          vm.antena = det.AntenaSerie == undefined ? '' : det.AntenaSerie;
+          vm.serierouter = det.Router == undefined ? '' : det.Router;
+          vm.tamanoantena = det.Antena == undefined ? '' : det.Antena;
+          vm.upsserie = det.UPS == undefined ? '' : det.UPS;
+          vm.serieradio = det.Radio == undefined ? '' : det.Radio;
         }
         if (vm.IdAntena == 0) {
           vm.MuestraComboAntena = false;
@@ -317,7 +317,13 @@ angular
         vm.VoltajeComercialNT = det.VoltajeComercialNT == undefined ? '' : det.VoltajeComercialNT;
         vm.VoltajeComercialFT = det.VoltajeComercialFT == undefined ? '' : det.VoltajeComercialFT;
         vm.VoltajeComercialFN = det.VoltajeComercialFN == undefined ? '' : det.VoltajeComercialFN;
-        getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
+        vm.PersonaAtiendeSitio = det.PersonaAtiendeSitio == undefined ? '' : det.PersonaAtiendeSitio;
+        vm.TelefonoAtiendeSitio = det.TelefonoAtiendeSitio == undefined ? '' : det.TelefonoAtiendeSitio;
+        vm.CelularAtiendeSitio = det.CelularAtiendeSitio == undefined ? '' : det.CelularAtiendeSitio;
+        vm.EmailAtiendeSitio = det.EmailAtiendeSitio == undefined ? '' : det.EmailAtiendeSitio;
+        if (vm.OrdenInstalacion) {
+          getTecnicos(vm.contratocompania.split('-')[1], det.IdTecnico, det.Modem, det.Radio, det.Router, det.AntenaSerie, det.UPS);
+        }
 
       }
 

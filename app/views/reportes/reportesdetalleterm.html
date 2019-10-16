@@ -199,6 +199,8 @@
                 <th st-sort="AvailTokens">Avail <br/>Tokens</th> 
                 <th st-sort="TxBytes">TXBytes</th> 
                 <th st-sort="RxBytes">RXBytes</th> 
+                <th st-sort="FechaActivacion">Fecha Activación</th> 
+                <th st-sort="DiaRelleno">Día Relleno</th> 
               </tr>
               <!--<tr>
                 <th colspan="5"><input st-search="" class="form-control" placeholder="global search ..." type="text"/></th>
@@ -251,6 +253,12 @@
                 <th>
                   <input st-search="RxBytes" placeholder="RxBytes" class="input-sm form-control" type="search" />
                 </th> 
+                <th>
+                  <input st-search="FechaActivacion" placeholder="FechaActivacion" class="input-sm form-control" type="search" />
+                </th> 
+                <th>
+                  <input st-search="DiaRelleno" placeholder="DiaRelleno" class="input-sm form-control" type="search" />
+                </th> 
               </tr>
 
               </thead><!-- <td>{{row.SAN | uppercase}}</td> -->
@@ -285,6 +293,8 @@
                         <td>{{row.AvailTokens}}</td>
                         <td>{{row.TxBytes}}</td>
                         <td>{{row.RxBytes}}</td>
+                        <td>{{row.FechaActivacion}}</td>
+                        <td>{{row.DiaRelleno}}</td>
                       </tr>             
                 </tbody>
                   <tfoot>

@@ -481,6 +481,12 @@ angular
     }
 
     function guardar() {
+      if((vm.PersonaAtiendeSitio == undefined || vm.TelefonoAtiendeSitio == undefined || vm.CelularAtiendeSitio == undefined  || vm.EmailAtiendeSitio == undefined) ||
+      (vm.PersonaAtiendeSitio == '' || vm.TelefonoAtiendeSitio == ''|| vm.CelularAtiendeSitio == ''  || vm.EmailAtiendeSitio == ''))
+      {
+        ngNotify.set("Es necesario capturar los datos de la persona que atiende en sitio para poder continuar", "warning");
+        return;
+      }
 
       if (!vm.vcneutrotierra || !vm.vcfasetierra || !vm.vcfaseneutro) {
         Notification({ message: 'Hay información en el apartado de Mediciones Eléctricas que no se han capturado', title: 'Atención' }, 'warning');
@@ -577,7 +583,11 @@ angular
           PruebaACP: vm.PruebaACP,
           VoltajeComercialNT: vm.VoltajeComercialNT,
           VoltajeComercialFT: vm.VoltajeComercialFT,
-          VoltajeComercialFN: vm.VoltajeComercialFN
+          VoltajeComercialFN: vm.VoltajeComercialFN,
+          PersonaAtiendeSitio: vm.PersonaAtiendeSitio,
+          TelefonoAtiendeSitio: vm.TelefonoAtiendeSitio,
+          CelularAtiendeSitio: vm.CelularAtiendeSitio,
+          EmailAtiendeSitio: vm.EmailAtiendeSitio
         };
       }
       else {
@@ -649,7 +659,11 @@ angular
           PruebaACP: vm.PruebaACP,
           VoltajeComercialNT: vm.VoltajeComercialNT,
           VoltajeComercialFT: vm.VoltajeComercialFT,
-          VoltajeComercialFN: vm.VoltajeComercialFN
+          VoltajeComercialFN: vm.VoltajeComercialFN,
+          PersonaAtiendeSitio: vm.PersonaAtiendeSitio,
+          TelefonoAtiendeSitio: vm.TelefonoAtiendeSitio,
+          CelularAtiendeSitio: vm.CelularAtiendeSitio,
+          EmailAtiendeSitio: vm.EmailAtiendeSitio
         };
       }
 

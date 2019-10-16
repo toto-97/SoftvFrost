@@ -26,14 +26,14 @@
 										validate-on="dirty" ng-model="$ctrl.SAN">
 								</div>
 								<div class="col-md-2" style="margin-top:20px;">
-									<button class="btn btn-primary btn-sm" ng-click="$ctrl.validarSAN()"><i
+									<button type="button" class="btn btn-primary btn-sm" ng-click="$ctrl.validarSAN()"><i
 											class="fa fa-search"></i> Validar SAN</button>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-8">
 									<b>PIN</b><br>
-									<input type="text" class="form-control input-sm" placeholder="PIN" name="pin"
+									<input type="text" class="form-control input-sm" placeholder="PIN" name="pin" ng-disabled="!$ctrl.ActivaControlesActivacion"
 										maxlength="4" required-message="'Este campo es obligatorio.'"
 										validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.PIN">
 								</div>
@@ -41,7 +41,8 @@
 							<div class="row">
 								<div class="col-md-8">
 									<b>ESN</b><br>
-									<input type="text" class="form-control input-sm" ng-disabled="$ctrl.bockEsn"
+									<!--ng-disabled="$ctrl.bockEsn"-->
+									<input type="text" class="form-control input-sm"  ng-disabled="!$ctrl.ActivaControlesActivacion"
 										placeholder="ESN" name="esn" required-message="'Este campo es obligatorio.'"
 										validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.ESN">
 								</div>
@@ -49,8 +50,8 @@
 							<div class="row">
 								<div class="col-md-12 text-left">
 									<br>
-									<button class="btn btn-raised btn-success btn-sm" type="submit"
-										ng-disabled="!$ctrl.ActivarBoton">Activar</button>
+									<button class="btn btn-raised btn-success btn-sm" type="submit" ng-disabled="!$ctrl.ActivaControlesActivacion || !$ctrl.ActivarBoton"
+										>Activar</button>
 									<a class="text-danger" ng-if="!$ctrl.ActivarBoton"><i class="fa fa-info"></i> Botón
 										de activación desactivado.
 										Se habilitará nuevamente en {{ 30 - $ctrl.count}}. </a>
