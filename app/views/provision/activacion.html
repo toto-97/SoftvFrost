@@ -35,7 +35,7 @@
 									<b>PIN</b><br>
 									<input type="text" class="form-control input-sm" placeholder="PIN" name="pin" ng-disabled="!$ctrl.ActivaControlesActivacion"
 										maxlength="4" required-message="'Este campo es obligatorio.'"
-										validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.PIN">
+										validate-on="dirty" required ng-model="$ctrl.PIN" onkeyup="this.value=this.value.replace(/[^\d]/,'')">
 								</div>
 							</div>
 							<div class="row">
@@ -44,7 +44,7 @@
 									<!--ng-disabled="$ctrl.bockEsn"-->
 									<input type="text" class="form-control input-sm"  ng-disabled="!$ctrl.ActivaControlesActivacion"
 										placeholder="ESN" name="esn" required-message="'Este campo es obligatorio.'"
-										validate-on="dirty" required validate-on="dirty" ng-model="$ctrl.ESN">
+										validate-on="dirty" required ng-model="$ctrl.ESN">
 								</div>
 							</div>
 							<div class="row">
@@ -66,7 +66,7 @@
 					<strong class="pull-right text-danger text-lg">Información de SAN <i
 							class="fa fa-binoculars"></i></strong>
 					<strong class="text-xl">{{$ctrl.Referencia}}</strong><br>
-					<!--<span class="opacity-50">{{$ctrl.Suscriptor}}</span>-->
+					<span class="opacity-50">{{$ctrl.Suscriptor}}</span>
 					<div class="stick-bottom-left-right">
 						<div class="progress progress-hairline no-margin">
 							<div class="progress-bar progress-bar-danger" style="width:43%"></div>

@@ -101,7 +101,46 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
       ngNotify.set('El PIN debe ser de cuatro dígitos', 'error');
     }
   }
-
+  /*
+    function activarTerminal() {
+  
+  
+      terminalFactory.getTerminalById(vm.SAN).then(function (data2) {
+        vm.Terminal = data2.GetByTerminalResult;
+  
+        vm.MuestraInformacion = true;
+  
+        var obj = {};
+        obj.SAN = vm.Terminal.SANCompleto;
+        terminalFactory.hughesConsumoDeTerminal(obj).then(function (hughesData) {
+          vm.Consumo = {};
+          vm.Consumo.Disponible = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.AnyTimeBandwidthAvailable;
+          vm.Consumo.Consumido = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.AnyTimeBandwidthUsed;
+          vm.Consumo.DiaRelleno = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.RefillDayOfMonth;
+          vm.Token = hughesData.envEnvelope.envBody.GetBandwidthInfoResponseMsg.TokenBandwidthAvailable;
+  
+          terminalFactory.hughesFapStatus(obj).then(function (hughesData2) {
+            if (hughesData2.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == -1) {
+              vm.FapStatus = "Not Activated";
+            } else if (hughesData2.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == 0) {
+              vm.FapStatus = "Unthrottled";
+            } else if (hughesData2.envEnvelope.envBody.GetFAPStatusResponseMsg.FAPStatus == 1) {
+              vm.FapStatus = "Throttled";
+            }
+  
+            var paramAux = {};
+            paramAux.SAN = vm.Terminal.SAN;
+            terminalFactory.GetDatosIPTerminal(paramAux).then(function (data) {
+              vm.DatosIP = data.GetDatosIPTerminalResult;
+              ngNotify.set('Terminal activada exitosamente', 'success');
+            });
+          });
+        });
+      });
+  
+  
+    }
+  */
 
   /* Versión anterior de activación
   function activarTerminal() {
@@ -202,7 +241,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
           vm.Terminal = data.GetValidaTerminalActivacionResult;
           vm.Referencia = vm.Terminal.Comentarios;
 
-          ngNotify.set('La terminal está Activa, solo debe activar si la terminal tiene activado Swap', 'info');
+          //ngNotify.set('La terminal está Activa, solo debe activar si la terminal tiene activado Swap', 'info');
 
           if (vm.Terminal.Estatus == 'Activa') {
             ngNotify.set('La terminal está Activa, solo debe activar si la terminal tiene activado Swap', 'info');
@@ -210,9 +249,10 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
           //Nos traemos los datos del cliente para obtener el PIN
           terminalFactory.getSuscriptorById(vm.Terminal.IdSuscriptor).then(function (data) {
             vm.suscriptor = data.GetSuscriptorResult;
-            //vm.Suscriptor = vm.suscriptor.Nombre + ' ' + vm.suscriptor.Apellido;
+            vm.Suscriptor = vm.suscriptor.Nombre + ' ' + vm.suscriptor.Apellido;
             //El PIN son los últimos cuatro dígitos del teléfono del cliente
             vm.PINValidar = vm.suscriptor.Telefono.substring(6, 10);
+            vm.Referencia = vm.suscriptor.Referencia;
             vm.ActivaControlesActivacion = true;
           });
 

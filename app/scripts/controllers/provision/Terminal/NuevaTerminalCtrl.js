@@ -204,6 +204,9 @@ function NuevaTerminalCtrl(terminalFactory, SuscriptorFactory, $uibModal, $rootS
 		parametros.IdSuscriptor = vm.IdSuscriptor;
 		terminalFactory.GetServiciosPorSucriptor(parametros).then(function (dataServicios) {
 			vm.Servicios = dataServicios.GetServiciosPorSucriptorResult;
+			if(vm.Servicios.length == 1){
+				vm.Servicio = vm.Servicios[0];
+			}
 		});
 		
 	});
