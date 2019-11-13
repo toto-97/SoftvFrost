@@ -13,6 +13,7 @@ angular.module('softvFrostApp')
     vm.Notas = Notas;
     vm.ReporteDetallado = ReporteDetallado;
 
+    /// Genera un XLXS con los detalles de la memoria de servicio 
     function ReporteDetallado() {
       memoriaServicioFactory.GetReporteMemoriaDetallado().then(function (data) {
         console.log(data);
@@ -44,6 +45,7 @@ angular.module('softvFrostApp')
       });
     }
 
+    /// Abre un html para agregar observaciones de los servicios
     function Notas(IdMemoriaTecnica) {
       var modalInstance = $uibModal.open({
         animation: true,
@@ -63,12 +65,14 @@ angular.module('softvFrostApp')
       });
     }
 
+    /// Obtiene la informacion del reporte de memoria
     function Getdata() {
       memoriaServicioFactory.GetReporteMemoria().then(function (data) {
         vm.rowCollection4 = data.GetReporteMemoriaServicioResult;
       });
     }
 
+    /// Crea ina imagen como un link
     function getImageDataURL() {
       var url = document.getElementById("pdflogoimage").src;
       var data, canvas, ctx;
@@ -86,9 +90,7 @@ angular.module('softvFrostApp')
       img.src = url;
     }
 
-
-
-
+    /// Da formato al CSV
     function crearTodoAsCsv(crear) {
 
       var info = (crear === 'todo') ? vm.rowCollection4 : vm.displayedCollection4;
@@ -123,12 +125,7 @@ angular.module('softvFrostApp')
       });
     };
 
-
-
-
-
-
-
+    ///Crea el PDF con toda la memoria del servicio
     function createPdfTodo(pdfAcrear) {
       var rows = [];
       var columns = ['Reporte', 'Folio', 'Usuario', 'Fecha Check', 'Fecha Ejecucion', 'Distribuidor', 'Plaza', 'Plataforma', 'Estatus'];

@@ -10,6 +10,7 @@ angular.module('softvFrostApp').controller('DetalleTerminalCtrl', function (
   NgMap) {
   var vm = this;
 
+  /// Hace una conexion al factory para obtener informacion de las terminales
   this.$onInit = function () {
     mapaBeamFactory.GetTerminalStatus($stateParams.id).then(function (response) {
       var dato = JSON.parse(response)

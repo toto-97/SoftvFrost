@@ -9,7 +9,7 @@ angular
         .ref()
         .child('messages');
 
-      /// 
+      /// Obtiene los datos del archivo
       function GetdataFire() {
         var defered = $q.defer();
         var promise = defered.promise;
@@ -26,6 +26,7 @@ angular
         return promise;
       }
 
+      /// Elimina los datos del archivo
       function deleteFile(index) {
         var defered = $q.defer();
         var promise = defered.promise;
@@ -42,9 +43,8 @@ angular
 
       }
 
+      /// Inicia los datos de la memoria tecnica
       function initialData() {
-
-
         memoriaFactory.ObtieneTiposImagenes().then(function (response) {
           vm.tiposresp = [];
           vm.tiposrespValidacion = [];
@@ -161,7 +161,7 @@ angular
         });
       }
 
-
+      /// Valida el tecnico seleccionado
       function getApartos(modem, radio, router, antena, ups, idtecnico) {
         /*
         memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
@@ -263,7 +263,7 @@ angular
         }
       }
 
-
+      /// Busca un tecnico especifico
       function getTecnicos(id, idtecnico, Modem, Radio, Router, Antena, UPS) {
         memoriaServicioFactory.GetTecnicosMemoriaTecnica(id, 'M', vm.IdMemoriaTecnica).then(function (tecnicos) {
           vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaServicioResult;
@@ -276,6 +276,7 @@ angular
         });
       }
 
+      /// Almacena las observaciones de las notas
       function guardaNota() {
         var obj = {};
         obj.Observacion = vm.detallenota;
@@ -286,6 +287,7 @@ angular
         vm.notas.push(obj);
       }
 
+      /// Valida la existencia de un aparato
       function validaAparatodig(serie) {
         var count = 0;
         vm.aparatosdigitales.forEach(function (item) {
@@ -294,9 +296,8 @@ angular
         return (count > 0) ? true : false;
       }
 
-
+      /// Agrega mas aparatos 
       function addAparatodig() {
-
         if (vm.aparatosdigitales.length + 1 <= vm.NoSTB) {
           if (!validaAparatodig(vm.DTH.Descripcion)) {
             var obj = {};
@@ -331,7 +332,7 @@ angular
 
             } */
 
-
+      /// Elimina la imagen de la lista de evidencias
       function BorraImagen(index) {
         if (index > -1) {
           var obj = vm.Lista_evidencias[index];
@@ -342,6 +343,7 @@ angular
         }
       }
 
+      /// Elimina la imagen de la lista de evidencias
       function BorraImagenVS(index) {
         if (index > -1) {
           var obj = vm.Lista_evidenciasVS[index];
@@ -352,7 +354,7 @@ angular
         }
       }
 
-
+      /// Sustituye o elimina un aparato 
       function eliminaaparato(index) {
         if (index > -1) {
           var obj = vm.cambios[index];
@@ -361,11 +363,11 @@ angular
             obj.Opcion = 2;
             obj.IdUsuario = $localStorage.currentUser.idUsuario;
             vm.cambios_eliminados.push(obj);
-
           }
         }
       }
 
+      /// Sustituye o elimina un aparato
       function eliminaaparatodig(index) {
         if (index > -1) {
           var obj = vm.aparatosdigitales[index];
@@ -379,7 +381,7 @@ angular
         }
       }
 
-
+      /// Valida los cambios hechos a los datos de un aparato
       function cambioAparato() {
         if (vm.AparatoAnterior && vm.EquipoSustituir && vm.AparatoNuevo) {
           if (vm.AparatoAnterior.Descripcion !== vm.AparatoNuevo.Descripcion) {
@@ -412,12 +414,12 @@ angular
         }
       }
 
-
+      /// Valida que las variables no tenga valores nulos
       function isvalid(value) {
         return (value !== undefined && value !== '' && value !== null) ? true : false;
       }
 
-
+      /// Valida y guarda los datos de la memoria tecnica
       function guardar() {
 
         if ((vm.PersonaAtiendeSitio == undefined || vm.TelefonoAtiendeSitio == undefined || vm.CelularAtiendeSitio == undefined || vm.EmailAtiendeSitio == undefined) ||
@@ -620,6 +622,7 @@ angular
 
       }
 
+      /// Muestra los detalles de la memoria de un servicio
       function detalle(det) {
         vm.NoSTB = det.NoSTB;
         vm.Apuntamiento = det.Apuntamiento;
@@ -724,6 +727,7 @@ angular
         vm.titulo = 'Edición de memoria técnica de reporte #' + vm.IdMemoriaTecnica;
       }
 
+      /// Abre un nuevo HTML para obtener un folio
       function obtenfolio() {
         if (vm.generafolio) {
           //Preguntamos si están seguros de generar folio
@@ -770,6 +774,7 @@ angular
         }
       }
 
+      /// Obtiene los datos de la instalacion de un aparato
       function detalleTecnico() {
         vm.listModem = [];
         vm.listRadio = [];
@@ -780,21 +785,19 @@ angular
         getApartos('', '', '', '', '', vm.instalador.IdEntidad);
       }
 
-
-
-
       var openLightboxModal =
         function (index) {
           Lightbox.openModal(vm.Lista_evidencias, index);
         };
 
-
+      /// Guarda la nota a eliminar
       function eliminaNota(index) {
         if (index > -1) {
           vm.notas.splice(index, 1);
         }
       }
 
+      /// Valida las memorias tecnicas que se quieran eliminar
       function EliminaMemoria() {
         var parametros = {};
         parametros.IdMemoriaTecnica = vm.IdMemoriaTecnica;
@@ -1000,6 +1003,7 @@ angular
         fileItem.IdUsuario = $localStorage.currentUser.idUsuario;
       };
 
+      /// Actualiza los datos de los Hughes
       function ActualizarDatosHughes() {
         var parametros = {};
         parametros.Clv_Queja = vm.numeroqueja;
