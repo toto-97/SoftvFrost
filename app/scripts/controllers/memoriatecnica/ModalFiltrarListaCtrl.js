@@ -2,16 +2,20 @@
 angular
     .module('softvFrostApp')
     .controller('ModalFiltrarListaCtrl', function ($uibModalInstance, Lista, Titulo) {
+
+        /// Obtiene los filtros para mostar la informacion
         this.$onInit = function () {
             vm.ListaTodos = Lista;
             vm.ListaFiltro = Lista;
             vm.Titulo = Titulo;
         }
 
+        /// Cancela la consulta
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
+        /// Determina el tipo de busqueda que se realizara
         function searchCode(query) {
             vm.ListaFiltro = [];
             if (Titulo == 'Instalador') {
@@ -31,10 +35,12 @@ angular
             }
         }
 
+        /// Cancela la operacion
         function ok() {
             $uibModalInstance.dismiss('cancel');
         }
 
+        /// Selecciona un filtro del html
         function seleccionar(item) {
             $uibModalInstance.close(item);
         }

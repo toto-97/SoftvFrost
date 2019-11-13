@@ -9,6 +9,8 @@ function editaPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory, $sta
     vm.EliminaServicio = EliminaServicio;
     vm.ServiciosAsignados = [];
     vm.ContieneFree = false;
+
+    /// Funcion inicial para obtener los datos del pool para el html
     this.$onInit = function () {
         var params = {};
         params.Clv_Pool = $stateParams.id;
@@ -49,6 +51,7 @@ function editaPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory, $sta
         });
     }
 
+    /// Guarda un servicio y mandda un mensaje de exito
     function AgregarServicio() {
         if (vm.Servicio != undefined) {
             var bnd = true;
@@ -77,6 +80,7 @@ function editaPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory, $sta
         }
     }
 
+    /// Busca el servicio para eliminarlo
     function EliminaServicio(Servicio) {
         if (Servicio.IdServicio == 0) {
             vm.ContieneFree = false;
@@ -91,6 +95,7 @@ function editaPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory, $sta
         vm.ServiciosAsignados.splice(indexAux, 1);
     }
 
+    /// Valida la IP Adress 
     function ValidateIPaddress(ipaddress) {
         if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {
             return (true)
@@ -98,6 +103,7 @@ function editaPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory, $sta
         return (false)
     }
 
+    /// Elimina los datos de un pool
     function EliminaPool() {
         var params = {};
         params.Clv_Pool = $stateParams.id;
@@ -112,6 +118,7 @@ function editaPoolsCtrl($state, ngNotify, $timeout, configuracionIPFactory, $sta
         });
     }
 
+    /// Actialuza los datos del pool
     function GuardaPool() {
         if (ValidateIPaddress(vm.IP)) {
             if (vm.MascaraRed > 0 && vm.MascaraRed <= 32) {

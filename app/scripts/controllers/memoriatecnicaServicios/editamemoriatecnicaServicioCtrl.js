@@ -9,6 +9,7 @@ angular
         .ref()
         .child('messages');
 
+      /// 
       function GetdataFire() {
         var defered = $q.defer();
         var promise = defered.promise;

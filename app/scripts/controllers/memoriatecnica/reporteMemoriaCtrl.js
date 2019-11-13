@@ -13,6 +13,7 @@ angular.module('softvFrostApp')
     vm.Notas = Notas;
     vm.ReporteDetallado = ReporteDetallado;
 
+    /// Crea un xlsx con los datos de del reporte
     function ReporteDetallado() {
       memoriaFactory.GetReporteMemoriaDetallado().then(function (data) {
         console.log(data);
@@ -44,6 +45,7 @@ angular.module('softvFrostApp')
       });
     }
 
+    ///  Abre un nuevo html para la ver los detalles de la memoria
     function Notas(IdMemoriaTecnica) {
       var modalInstance = $uibModal.open({
         animation: true,
@@ -63,12 +65,14 @@ angular.module('softvFrostApp')
       });
     }
 
+    /// Obtiene los datos del reporte de memoria
     function Getdata() {
       memoriaFactory.GetReporteMemoria().then(function (data) {
         vm.rowCollection4 = data.GetReporteMemoriaResult;
       });
     }
 
+    /// Crea una imagen como un link
     function getImageDataURL() {
       var url = document.getElementById("pdflogoimage").src;
       var data, canvas, ctx;
@@ -86,9 +90,7 @@ angular.module('softvFrostApp')
       img.src = url;
     }
 
-
-
-
+    /// Crea los CSV
     function crearTodoAsCsv(crear) {
 
       var info = (crear === 'todo') ? vm.rowCollection4 : vm.displayedCollection4;
@@ -124,12 +126,7 @@ angular.module('softvFrostApp')
       });
     };
 
-
-
-
-
-
-
+    /// Crea un PDF
     function createPdfTodo(pdfAcrear) {
       var rows = [];
       var columns = ['Clv_orden', 'Folio', 'Usuario', 'Fecha Activacion', 'Fecha Check', 'Fecha Ejecucion', 'Distribuidor', 'Plaza', 'Plataforma', 'Estatus'];

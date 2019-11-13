@@ -3,6 +3,7 @@ angular
     .module('softvFrostApp')
     .controller('ModalMemoriaDetalladoCtrl', function ($uibModalInstance, IdMemoriaTecnica, memoriaFactory) {
         
+        /// Obtiene las observaciones de la memoria tecnica
         function init() {
             vm.IdMemoriaTecnica = IdMemoriaTecnica;
             console.log("asdads");
@@ -25,11 +26,12 @@ angular
             });
         }
 
+        /// Cancela la operacion
         function cancel() {
             $uibModalInstance.dismiss('cancel');
         }
 
-
+        /// Cancela la operacion
         function ok() {
             $uibModalInstance.dismiss('cancel');
         }

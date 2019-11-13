@@ -3,12 +3,14 @@ angular.module('softvFrostApp').controller('NuevoRolCtrl', NuevoRolCtrl);
 
 function NuevoRolCtrl(usuarioFactory, rolFactory, $state, ngNotify,terminalFactory) {
 
+  /// Busca hacer la conexion con el factory
   function init() {
   terminalFactory.getComandoList().then(function(data){  
       vm.comandos=data.GetComandoListResult;
     });
   };
 
+  /// Guarda el rol y envia un mensaje de exito
   function GuardarRol() {
     var obj = {};
     obj.Nombre = vm.Nombre;

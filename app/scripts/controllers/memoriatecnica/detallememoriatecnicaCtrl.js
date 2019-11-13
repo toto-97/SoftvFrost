@@ -3,6 +3,8 @@ angular
   .module('softvFrostApp')
   .controller('detallememoriatecnicaCtrl',
     function ($state, ngNotify, memoriaFactory, $localStorage, $stateParams, FileUploader, globalService, Lightbox) {
+
+      /// Funcion inicial para obtener los datos de la memoria tecnica, los equipos y los servicios
       function initialData() {
         memoriaFactory.GetObtieneMemoriaTecnica(vm.id).then(function (data) {
 
@@ -106,6 +108,7 @@ angular
         });
       }
 
+      /// Obtiene los datos de los aparatos
       function getApartos(modem, radio, router, antena, ups, idtecnico) {
 
         memoriaFactory.GetAparatosTecnico(1, vm.numeroorden, idtecnico, vm.IdMemoriaTecnica).then(function (aparatos) {
@@ -205,7 +208,7 @@ angular
         });
       }
 
-
+      /// Obtiene los datos del tecnico de instalacion
       function getTecnicos(id, idtecnico, Modem, Radio, Router, Antena, UPS) {
         memoriaFactory.GetTecnicosMemoriaTecnica(id, 'C', vm.IdMemoriaTecnica).then(function (tecnicos) {
           vm.listTecnicos = tecnicos.GetTecnicosMemoriaTecnicaResult;
@@ -219,6 +222,7 @@ angular
         });
       }
 
+      /// Obtiene los detallesde los clientes, los tecnicos y los aparatos
       function detalle(det) {
         vm.usuariosistema = det.Instalador;
         vm.Apuntamiento = det.Apuntamiento;
@@ -327,6 +331,7 @@ angular
 
       }
 
+      /// Actualiza los datos de los Hughes
       function ActualizarDatosHughes() {
         var parametros = {};
         parametros.Clv_Orden = vm.numeroorden;

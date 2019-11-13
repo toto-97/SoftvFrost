@@ -23,6 +23,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 	vm.Id = 0;
 	vm.Activo = true;
 
+	/// Busca la conexion al factory del rol
 	this.$onInit = function () {
 		rolFactory.GetRoleList().then(function (data) {
 			vm.Roles = data.GetRoleListResult;
@@ -32,36 +33,43 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	};
 
+	/// Obtiene los tecnicos desponibles dependiendo de la plaza y el distribuidor
 	function getTecnicosDisponibles() {
 		usuarioFactory.GetObtieneTecnicosLibres(vm.Id, vm.plaza.Clave, vm.distribuidor.Clave).then(function (data) {
 			vm.tecnicoslibres = data.GetObtieneTecnicosLibresResult;
 		});
 	}
 
+	/// Obtiene una lista de plazas de un distribuidor determinado
 	function getplazas() {
 		usuarioFactory.GetPlazas(vm.distribuidor.Clave).then(function (data) {
 			vm.Plazas = data.GetPlazasResult;
 		});
 	}
 
+	/// Obtiene los ususaios que son tecnicos
 	function getUsuariostecnicos() {
 		usuarioFactory.GetObtieneTecnicosUsuario(vm.Id).then(function (data) {
 			vm.tecnicosUsuario = data.GetObtieneTecnicosUsuarioResult;
 		});
 
 	}
+
+	/// Obtiene las plazas relacionadas a un cliente
 	function getplazasClienteDisp(){
 		usuarioFactory.GetObtieneCompaniasLibres(vm.Id,vm.distribuidorcliente.Clave).then(function (data) {
 			vm.PlazasClienteDis = data.GetObtieneCompaniasLibresResult;
 		});		
 	}
 
+	/// Obtiene las compañias relacionadas con un usuario
 	function GetObtieneCompaniasUsuario(){
 		usuarioFactory.GetObtieneCompaniasUsuario(vm.Id).then(function(result){
           vm.relacionCliente=result.GetObtieneCompaniasUsuarioResult;
 		});
 	}
 
+	/// Gaurda una relacion entre una plaza y un usuario 
 	function guardaRelacionCliente(){
 		var arr=[];
 		arr.push({
@@ -75,6 +83,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	}
 
+	/// Elimina la relacion entre una plaza y un usuario
 	function eliminaRelacionCliente(x){
 		var arr=[];
 		arr.push({
@@ -88,7 +97,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	}
 
-
+	/// Elimina la relacion con un usuaio y una entidad
 	function eliminaRelacion(item) {		
 		var tecnicos = [];
 		var tec = {
@@ -102,8 +111,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	}
 
-	
-
+	/// Guarda la relacion con un usuaio y una entidad
 	function guardaRelacion() {
 		var tecnicos = [];
 		var tec = {
@@ -118,6 +126,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		});
 	}
 
+	/// Valida los datos ingresados para guardar un usuario
 	function GuardarUsuario() {
 		if (vm.isDuplicate) {
 			ngNotify.set('Por favor introduce un nombre de usuario válido.', 'error');
@@ -151,6 +160,7 @@ function NuevoUsuarioCtrl(usuarioFactory, rolFactory, $state, ngNotify) {
 		}
 	}
 
+	/// Valida si existe un usuario
 	function existe() {
 		usuarioFactory.existeUsuario(vm.Descripcion).then(function (data) {
 			if (data.GetExisteUserResult.Bnd == 1) {

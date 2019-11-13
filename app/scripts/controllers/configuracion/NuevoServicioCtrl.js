@@ -6,6 +6,7 @@ function NuevoServicioCtrl(terminalFactory, rolFactory, $state, ngNotify) {
     vm.titulo = 'Nuevo Servicio';
     vm.GuardarServicio = GuardarServicio;
 
+    /// Verifica si existe un servicio para guardarlo
     function GuardarServicio() {
         var obj = {};
         obj.Nombre = vm.Nombre;

@@ -3,11 +3,13 @@ angular
   .module('softvFrostApp')
   .controller('bitacoraServicioCtrl', function ($state, ngNotify, memoriaServicioFactory, $localStorage) {
 
+    /// Busca ciertos tipos de tados de la bitacora
     function Init() {
 
       Obtenbitacora(0);
     }
 
+    /// Obttiene los datos de la bitacora
     function Obtenbitacora(op) {
       var obj = {
         'Idmemoria': (op === 0) ? vm.Idmemoria : 0,
