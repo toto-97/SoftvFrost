@@ -2,6 +2,8 @@
 angular
   .module('softvFrostApp')
   .controller('ModalPreguntaAtencionCtrl', function ($uibModalInstance, $uibModal, $rootScope, ngNotify, $localStorage, $state, detalle, quejasFactory) {
+    
+    /// Verifica el tipo de servicio que se hara
     this.$onInit = function () {
       if (detalle.Modulo === 'Atencion') {
         vm.Titulo = 'Atencion telefónica';
@@ -17,6 +19,7 @@ angular
       }
     }
 
+    /// Acepta el servicio que seleccione el usuario
     function ok() {
       if (detalle.Modulo === 'Atencion') {
         $uibModalInstance.dismiss('cancel');
@@ -27,6 +30,7 @@ angular
       }
     }
 
+    /// Cancela la operacion
     function cancel() {
       $uibModalInstance.dismiss('cancel');
       if (detalle.Modulo === 'Atencion' && detalle.Op === 1) {

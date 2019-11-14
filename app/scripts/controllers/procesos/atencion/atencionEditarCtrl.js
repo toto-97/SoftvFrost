@@ -2,6 +2,8 @@
 angular
   .module('softvFrostApp')
   .controller('AtencionEditarCtrl', function ($uibModal, atencionFactory, $state, $stateParams, ngNotify) {
+
+    /// Busca los datos inicial requeridos por el HTML
     function initialData() {
       atencionFactory.serviciosNuevo().then(function (data) {
         vm.servicios = data.GetMuestraTipSerPrincipal2ListResult;
@@ -52,9 +54,6 @@ angular
               }
             });
 
-
-
-
             atencionFactory.GetClasificacionProblemas().then(function (data) {
 
               vm.clasificacionProblemas = data.GetuspConsultaTblClasificacionProblemasListResult;
@@ -76,9 +75,6 @@ angular
 
             });
 
-
-
-
             vm.DireccionCliente = "Calle: " + detalle.CALLE + " #" + detalle.NUMERO + " Colonia: " + detalle.COLONIA + " Ciudad:" + detalle.CIUDAD;
             atencionFactory.getServiciosCliente(contrato).then(function (data) {
               vm.ServiciosCliente = data.GetDameSerDelCliFacListResult;
@@ -93,19 +89,21 @@ angular
       });
     }
 
+    /// Obtienes las clasificaciones de las quejas
     function GetclasificacionQuejas() {
       atencionFactory.getclasificacionQuejas().then(function (data) {
         vm.Departamentos = data.GetMUESTRACLASIFICACIONQUEJASListResult;
       });
     }
 
+    /// Obtiene las prioridades de las quejas
     function GetprioridadQueja() {
       atencionFactory.GetprioridadQueja().then(function (data) {
         vm.Prioridades = data.GetSoftv_GetPrioridadQuejaListResult;
       });
     }
 
-
+    /// Abre la informacion de los tickets de un clinte
     function abrirPagos() {
       if (vm.GlobalContrato == null) {
         ngNotify.set('Establezca el contrato del cliente para obtener información', 'error');
@@ -129,7 +127,7 @@ angular
       });
     }
 
-
+    /// Abre un HTML con la informacion desglosada de una queja
     function abrirDetalleQueja() {
       var detalle = {};
       detalle.Clv_Queja = vm.clv_queja;
@@ -153,6 +151,7 @@ angular
       });
     }
 
+    /// Genera un reporte de un contrato
     function generaReporte() {
       vm.MostrarEditar = false;
       if (vm.GlobalContrato == null) {
@@ -178,6 +177,7 @@ angular
       }
     }
 
+    /// Abre un HTML con el desglose de un cobro de un contrato
     function abrirDetalleCobro() {
       if (vm.GlobalContrato == null) {
         ngNotify.set('Establezca el contrato del cliente para obtener la información', 'error');
@@ -201,6 +201,7 @@ angular
       });
     }
 
+    /// Abre un HTML con el desglose de un contrato
     function openHistorial() {
       if (vm.GlobalContrato == null) {
         ngNotify.set('Establezca el contrato del cliente para Obtener información', 'error');
@@ -224,6 +225,7 @@ angular
       });
     }
 
+    /// Abre la agenda con los datos de su factory
     function abrirAgenda() {
       var atencion = (vm.tipoAtencion == 'telefonica') ? 'S' : 'T';
       var options = {};
@@ -254,7 +256,8 @@ angular
         }
       });
     }
-
+  
+    /// Redacta la descrpcion de una queja
     function EditaLlamada() {
 
       if (vm.DescripcionProblema == null || vm.DescripcionProblema == '') {
@@ -305,9 +308,11 @@ angular
         }
 
       });
+    }
+    
+    */
 
-    }*/
-
+    /// Valida los datoa de la queja
     function ValidaOrdenQuejas() {
 
       if (vm.DescripcionProblema == null || vm.DescripcionProblema == '') {
@@ -329,6 +334,7 @@ angular
         });
     }
 
+    /// Cancela la operacion de quejas
     function CancelaReporte() {
       $state.go('home.procesos.atencion');
     }

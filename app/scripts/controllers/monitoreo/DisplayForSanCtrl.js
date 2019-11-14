@@ -6,6 +6,7 @@ angular
 		vm.displayTest = displayTest;
 		vm.validate = validate;
 
+		/// Valida los login
 		function validate() {
 			diagnosticFactory.getLoginUid().then(function (data) {
 				vm.token = data[0].loginuuid;
@@ -36,6 +37,7 @@ angular
 			});
 		}
 
+		/// Obtiene el tipo del servicio
 		function hughesGetSanCompuesto(obj) {
 			var a = obj.toString();
 			var i;
@@ -45,6 +47,7 @@ angular
 			return globalService.getType() + a;
 		};
 
+		/// Habre el test de velocidad
 		function displayTest() {
 			var san = vm.SAN;
 			displayFactory.speed(vm.token, san).then(function (data) {

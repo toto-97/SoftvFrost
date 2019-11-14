@@ -3,6 +3,7 @@ angular
 	.module('softvFrostApp')
 	.controller('ModalBuscaClienteCtrl', function ($uibModalInstance, $uibModal, atencionFactory, $rootScope, ngNotify, $localStorage, options) {
 
+		/// Carga la informacion de los clientes
 		function initialData() {
 			var obje = {};
 			obje.servicio = options.CLV_TIPSER;
@@ -20,6 +21,7 @@ angular
 			});
 		}
 
+		/// Busca un contrato
 		function BusquedaporContrato() {
 			if (!(/^\d{1,9}-\d{1,9}$/.test(vm.BUcontrato))) {
 			
@@ -43,6 +45,7 @@ angular
 			}
 		}
 
+		/// Busca un clinte con un nombre en especifico
 		function BusquedaporNombre() {
 			var obje = {};
 			obje.nombre = vm.BUnombre;
@@ -63,6 +66,7 @@ angular
 			});
 		}
 
+		/// Busca un clinte con una direccion en especifico
 		function BusquedaporDireccion() {
 			var obje = {};
 			obje.servicio = options.CLV_TIPSER;
@@ -83,6 +87,7 @@ angular
 			});
 		}
 
+		/// Busca un clinte con un aparato en especifico
 		function BusquedaporAparato() {
 			var obje = {};
 			obje.servicio = options.CLV_TIPSER;
@@ -101,11 +106,13 @@ angular
 			});
 		}
 
+		/// Verifica el cliente seleccionado por el usuario
 		function Seleccionar(cliente) {
 			$uibModalInstance.dismiss('cancel');
 			$rootScope.$emit('cliente_seleccionado', cliente);
 		}
 
+		/// Cancela la operacion
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
 		}

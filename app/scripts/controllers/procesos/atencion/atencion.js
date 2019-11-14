@@ -8,6 +8,8 @@ angular
     $localStorage,
     $uibModal
   ) {
+
+    /// Obtiene la informacion inicial desde los factorys
     function initialData() {
       atencionFactory.getPlazas().then(function(data) {
         vm.plazas = data.GetMuestra_Compania_RelUsuarioListResult;
@@ -49,6 +51,7 @@ angular
       });
     }
 
+    /// Cambia los valores para la creacion de reportes
     function cambioReporte(x) {
       if (x == 1) {
         vm.contrato = "";
@@ -59,6 +62,7 @@ angular
       }
     }
 
+    /// Inicia los valores de los servicios
     function cambioServicio() {
       if (vm.selectedServicio == undefined) {
         var tServicio = 0;
@@ -97,6 +101,7 @@ angular
       });
     }
 
+    /// Verifica los parametros para buscar los reportes
     function buscarReporte() {
       if (
         vm.selectedPlaza == undefined ||
@@ -143,6 +148,7 @@ angular
       }
     }
 
+    /// Busca un contrato dependiendo de su numero
     function buscarContrato() {
       if (!/^\d{1,9}-\d{1,9}$/.test(vm.contrato)) {
         ngNotify.set(
@@ -190,6 +196,7 @@ angular
       }
     }
 
+    /// Busca un usuario por nombre
     function buscarNombres() {
       if (vm.nombre == undefined || vm.nombre == "") {
         var nombreB = "";
@@ -261,6 +268,7 @@ angular
       }
     }
 
+    /// Hace el cambio de plaza
     function cambioPlaza() {
       if (vm.selectedPlaza == undefined) {
         var plaza = 0;
@@ -299,6 +307,7 @@ angular
       });
     }
 
+    /// Muestra los datos de un contrato por colonia
     function buscarColonia() {
       var servicio =
         (vm.selectedServicio == null) | (vm.selectedServicio == undefined)
@@ -337,6 +346,7 @@ angular
       });
     }
 
+    /// Busca los contratos por usuario
     function bucarUsuario() {
       if (
         vm.selectedUsuario == undefined ||
@@ -378,10 +388,12 @@ angular
       }
     }
 
+    /// Muestra los detalles del contrato
     function DetalleLlamada(obj) {
       abrirDetalle(obj.Contrato, obj.llamada, obj.Clv_TipSer);
     }
 
+    /// Abre el HTML de los detalles de llamadas
     function abrirDetalle(contrato, llamada, servicio) {
       var options = {};
       options.contrato = contrato;
@@ -405,6 +417,7 @@ angular
       });
     }
 
+    /// Cambia a los contratos con reporte
     function cambiaConReporte() {
       if (vm.selectedUsuario == undefined) {
         var usuario = 0;
@@ -450,6 +463,7 @@ angular
       });
     }
 
+    /// Cambia a los contratos sin reporte
     function cambiaSinReporte() {
       if (vm.selectedUsuario == undefined) {
         var usuario = 0;
@@ -496,6 +510,7 @@ angular
         vm.conReporte = false;
       });
     }
+
     var vm = this;
     vm.cambioReporte = cambioReporte;
     vm.buscarReporte = buscarReporte;

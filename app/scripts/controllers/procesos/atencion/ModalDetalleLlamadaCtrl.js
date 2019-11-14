@@ -2,6 +2,8 @@
 angular
   .module('softvFrostApp')
   .controller('ModalDetalleLlamadaCtrl', function ($uibModalInstance, $uibModal, options, atencionFactory, $rootScope, ngNotify, $localStorage) {
+    
+    /// Busca las llamadas por los clientes
     function initialData() {
       atencionFactory.ConsultaLLamada(options.llamada).then(function (data) {
         
@@ -36,6 +38,7 @@ angular
       });
     }
 
+    /// Cancela la operacion
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }

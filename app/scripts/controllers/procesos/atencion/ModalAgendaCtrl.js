@@ -3,6 +3,7 @@ angular
   .module('softvFrostApp')
   .controller('ModalAgendaCtrl', function ($uibModalInstance, $uibModal, options, quejasFactory, atencionFactory, $rootScope, ngNotify, $localStorage, $state) {
 
+    /// Obtiene la informacion de  los tecnicos
     function initialData() {
       atencionFactory.MuestraTecnicosAlmacen(options.Contrato).then(function (data) {
         vm.Tecnicos = data.GetMuestra_Tecnicos_AlmacenListResult;
@@ -13,11 +14,13 @@ angular
 
     }
 
+    /// Valida la fecha ingresada
     function toDate(dateStr) {
       var parts = dateStr.split("/");
       return new Date(parts[2], parts[1] - 1, parts[0]);
     }
 
+    /// Valida los parametros para el reporte
     function ok() {
       var _fechaHoy = new Date();
       var d = _fechaHoy.getDate();
@@ -98,6 +101,7 @@ angular
       }
     }
 
+    /// Abre el HTML para dar de alta una queja
     function singleQueja(clave) {
       vm.animationsEnabled = true;
       var modalInstance = $uibModal.open({
@@ -119,6 +123,7 @@ angular
       });
     }
 
+    /// Cancela la operacion 
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }
