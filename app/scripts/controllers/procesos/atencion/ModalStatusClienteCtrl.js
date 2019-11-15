@@ -3,6 +3,7 @@ angular
   .module('softvFrostApp')
   .controller('ModalStatusClienteCtrl', function ($uibModalInstance, atencionFactory, status) {
 
+    /// Especifica el status de un cliente
     function initialData() {
     
       vm.mensaje = '';
@@ -20,6 +21,7 @@ angular
 
     }
 
+    /// Cierra el HTML con el status del cliente
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }

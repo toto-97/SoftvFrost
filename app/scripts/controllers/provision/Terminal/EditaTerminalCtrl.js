@@ -1,6 +1,8 @@
 'use strict';
 
 function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $rootScope, ngNotify, $stateParams, $state) {
+	
+	/// Busca las terminales
 	this.$onInit = function() {
 		terminalFactory.getTerminalById($stateParams.Id).then(function(data) {
 			if (data.GetByTerminalResult == null) {
@@ -37,6 +39,7 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 		});
 	}
 
+	/// Abre la ventana para buscar un suscriptor
 	function BuscaSuscriptor() {
 		vm.animationsEnabled = true;
 		var modalInstance = $uibModal.open({
@@ -52,6 +55,7 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 		});
 	}
 
+	/// Abre la ventana para buscar la longitud y latitud
 	function BuscaLatLong() {
 		var obj = {
 			lat: vm.Latitud,
@@ -74,6 +78,7 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 			}
 		});
 	}
+
 	$rootScope.$on('cliente_seleccionado', function(e, detalle) {
 		vm.IdSuscriptor = detalle.IdSuscriptor;
 		vm.NombreSuscriptor = detalle.Nombre + '' + detalle.Apellido;
@@ -84,6 +89,7 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 		vm.Longuitud = detalle[1];
 	});
 
+	/// Actualiza los datos de la terminal
 	function EditaTerminal() {
 		var obj = {
 			'objTerminal': {
@@ -105,9 +111,6 @@ function EditaTerminalCtrl(terminalFactory, nuevoSuscriptorFactory, $uibModal, $
 			$state.go('home.provision.terminales');
 		});
 	}
-
-
-
 
 	var vm = this;
 	vm.titulo = "Edita Terminal";

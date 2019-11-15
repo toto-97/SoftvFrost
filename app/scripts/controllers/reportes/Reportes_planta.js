@@ -12,8 +12,7 @@ angular.module('softvFrostApp')
     var img = new Image();
     img.crossOrigin = "";  
   
-
-
+    /// Llama a las funciones para llenar de informacion la ventana
     this.$onInit = function() {
 
         getImageDataURL();             
@@ -33,16 +32,18 @@ angular.module('softvFrostApp')
         ReportePlanta();
     }
     
+    /// Carga las rutas
     function reloadRoute() {
         $state.reload(); 
     };
-                   
+       
+    /// Elimina los filtros para las migraciones
     vm.limpiarFiltros = limpiarFiltros;
     function limpiarFiltros(){
         reloadRoute();
     }
 
-
+    /// Coloca las imagenes para crear un pdf
     function getImageDataURL() 
     {             
         
@@ -68,16 +69,13 @@ angular.module('softvFrostApp')
         
     }
 
-
-
-
     //CSV 
     vm.order = [ 'SAN', 'IdSuscriptor', 'Suscriptor', 'Referencia', 'PlanDeServicio', 'Beam', 'SatellitedID',
     'ESN', 'Estatus', 'EstTecnico', 'Latitud', 'Longitud', 'FechaAlta','FechaActivacion', 'FechaSuspension', 'FechaCancelacion',
    'ConsumoAnytime','ConsumoBonus','TokenDisp','DiaRelleno'];
 
 
-    // CREAR CSV 
+    // Crea un CSV 
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
     function crearVisibleAsCsv() {
         $timeout(function() {
@@ -102,8 +100,7 @@ angular.module('softvFrostApp')
       });
     };
 
-
-
+    /// Da formato a la informacion de la ventana
     function initArray (){
       vm.arrayReporte = []; 
          // ENCABEZADOS
@@ -134,7 +131,7 @@ angular.module('softvFrostApp')
     } 
 
 
-    // CREAR CSV 
+    // Crea un CSV 
     vm.crearTodoAsCsv = crearTodoAsCsv;
     function crearTodoAsCsv() {
       $timeout(function() {
@@ -158,19 +155,7 @@ angular.module('softvFrostApp')
       });
     };
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // Create TABLE PDF 
+    // Crea un PDF 
     vm.createPdfTodo = createPdfTodo;
     function createPdfTodo(pdfAcrear){
 

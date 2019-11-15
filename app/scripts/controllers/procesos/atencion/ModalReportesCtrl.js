@@ -3,6 +3,7 @@ angular
 	.module('softvFrostApp')
 	.controller('ModalReportesCtrl', function($uibModal, $uibModalInstance, cajasFactory, contrato) {
 
+		/// Obtiene la lista de clientes y srvicios desde el factory
 		function initialData() {
 			cajasFactory.dameServiciosCliente().then(function(data) {
 				vm.serviciosCliente = data.GetMuestraTipSerPrincipalListResult;
@@ -11,6 +12,7 @@ angular
 			});
 		}
 
+		/// Obtiene el historial de quejas
 		function getReportes() {
 			cajasFactory.dameHistorialQuejas(contrato, vm.selectStatus, vm.selectServicio.Clv_TipSerPrincipal).then(function(data) {
 				if (data.GetBuscaQuejasLListResult.length == 0) {
@@ -23,6 +25,7 @@ angular
 			});
 		}
 
+		/// Muestra las queja 
 		function singleQueja(clave) {
 			vm.animationsEnabled = true;
 			var modalInstance = $uibModal.open({
@@ -44,6 +47,7 @@ angular
 			});
 		}
 
+		/// Cancela la operacion
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
 		}

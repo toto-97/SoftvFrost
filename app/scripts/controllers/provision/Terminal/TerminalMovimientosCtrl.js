@@ -7,12 +7,14 @@ function TerminalMovimientosCtrl($uibModalInstance, $uibModal, terminal, termina
 	vm.cancel = cancel;
 	vm.detalleMovimiento = detalleMovimiento;
 
+	/// Busca los movimientos para SAN
 	this.$onInit = function () {
 		terminalFactory.getMovimientosBySan(terminal.SAN).then(function (data) {
 			vm.movimientos = data.GetMovimientoListBySANResult;
 		});
 	}
 
+	/// Abre la ventana para ver los detalles de los movimientos
 	function detalleMovimiento(movimiento) {
 		var modalInstance = $uibModal.open({
 			animation: true,
@@ -32,6 +34,7 @@ function TerminalMovimientosCtrl($uibModalInstance, $uibModal, terminal, termina
 		});
 	}
 
+	/// Cancela la operacion
 	function cancel() {
 		$uibModalInstance.dismiss('cancel');
 	}

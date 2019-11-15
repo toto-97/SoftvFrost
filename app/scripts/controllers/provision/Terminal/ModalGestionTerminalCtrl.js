@@ -4,6 +4,7 @@ angular
   .module('softvFrostApp')
   .controller('ModalGestionTerminalCtrl', function ($filter, $uibModalInstance, $uibModal, terminalFactory, terminal, $rootScope, ngNotify, globalService, configuracionIPFactory) {
 
+    /// Extraemos los datos de las terminales
     function initialData() {
       vm.Terminal = terminal;
       //console.log(vm.Terminal);
@@ -118,6 +119,7 @@ angular
       });
     }
 
+    /// Busca el id de una terminal
     function obtieneIndex(cadena) {
       var indexAux = 0;
       vm.Comandos.forEach(function (item, index) {
@@ -128,6 +130,7 @@ angular
       vm.Comandos.splice(indexAux, 1);
     }
 
+    /// Realiza las configuraciones de ip en las terminales
     function aplicaComando() {
 
       var parametros = {};
@@ -1162,14 +1165,17 @@ angular
       });
     }
 
+    /// No se usa
     function ok() {
 
     }
 
+    /// Cancela la operacion
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }
 
+    /// Obtiene los SAN 
     function hughesGetSanCompuesto(obj) {
       var a = obj.toString();
       var i;
@@ -1179,6 +1185,7 @@ angular
       return globalService.getType() + a;
     };
 
+    /// Abre una venana para buscar longitud y latitud
     function BuscaLatLong() {
       var obj = {
         lat: 23.96617587126503,
@@ -1201,12 +1208,12 @@ angular
         }
       });
     }
-
     $rootScope.$on('get_LatLong', function (e, detalle) {
       vm.LatitudNueva = detalle[0];
       vm.LongitudNueva = detalle[1];
     });
 
+    /// Valida que un servicio este dentro del perimetro adecuado
     function ValidarServicio() {
       if ((vm.LatitudNueva != '' && vm.LongitudNueva != '') && (vm.LatitudNueva != null && vm.LongitudNueva != null)) {
         var parametros = {};
@@ -1230,10 +1237,12 @@ angular
       }
     }
 
+    /// No se usa
     function CambioComando() {
 
     }
 
+    /// Valida los ips de las terminales
     function ValidarIPs() {
 
       if (vm.IPv4Nueva != undefined && vm.IPv4Nueva != '' && vm.IPv6Nueva != undefined && vm.IPv6Nueva != '' && vm.MascaraRed4Nueva != undefined && vm.MascaraRed4Nueva != '' && vm.MascaraRed6Nueva != undefined && vm.MascaraRed6Nueva != '') {

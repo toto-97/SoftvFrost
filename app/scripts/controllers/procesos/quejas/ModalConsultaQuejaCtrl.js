@@ -3,6 +3,7 @@ angular
   .module('softvFrostApp')
   .controller('ModalConsultaQuejaCtrl', function ($uibModalInstance, $uibModal, $rootScope, ngNotify, $localStorage, $state, detalle, atencionFactory, quejasFactory) {
 
+    /// Verifica el tipod e informacion que se mostrara
     function initialData() {
       vm.clv_queja = detalle.Clv_Queja;
       vm.contrato = detalle.Contrato;
@@ -108,18 +109,8 @@ angular
                   });
                 });
 
-
-
-
               });
             });
-
-
-
-
-
-
-
 
           });
 
@@ -135,14 +126,17 @@ angular
       });
     }
 
+    ///
     function ok() {
 
     }
 
+    /// Cierra el HTML de la consulta
     function Eliminar() {
       $uibModalInstance.dismiss('cancel');
     }
 
+    /// Cierra el HTML de la consulta
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }

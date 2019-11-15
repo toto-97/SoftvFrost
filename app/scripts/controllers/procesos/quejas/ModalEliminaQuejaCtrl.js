@@ -7,6 +7,7 @@ angular
 			console.log(vm.Clv_Queja);
 		}
 
+		/// Varifica si se puede eliminar la queja
 		function Eliminar() {
 			quejasFactory.EliminaQueja(vm.Clv_Queja).then(function(data) {
 				var response = data.GetDeepuspBorraQuejasOrdenesResult;
@@ -20,10 +21,9 @@ angular
 					$uibModalInstance.dismiss('cancel');
 				}
 			});
-
-
 		}
 
+		/// Cierra el HTML de eliminar la queja
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
 		}

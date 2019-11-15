@@ -15,22 +15,24 @@ angular.module('softvFrostApp')
     var img = new Image();
     img.crossOrigin = "";  
 
-
+    /// Llama a las funciones para llenar de informacion la ventana
     this.$onInit = function() {
         getImageDataURL();
         getReporteDatosDelSuscriptor();   
     }
 
+    /// Carga las rutas
     function reloadRoute() {
         $state.reload(); 
     };
 
     vm.limpiarFiltros = limpiarFiltros;
+    /// Elimina los filtros para los suscriptores
     function limpiarFiltros(){
         reloadRoute();
     }
 
-
+    /// Coloca las imagenes para crear un pdf
     function getImageDataURL() 
     {            
       
@@ -54,14 +56,11 @@ angular.module('softvFrostApp')
         img.src = url;  
     }
 
-
-
-
     var arrayDatos = [];   
     vm.getReporteDatosDelSuscriptor = getReporteDatosDelSuscriptor;
+    /// Obtiene los reportes de los suscriptores 
     function getReporteDatosDelSuscriptor()
     {                     
-       
         reportesFactory.mostrarReporteDatosDelSuscriptor(idAux).then(function(data) {    
             arrayDatos = data.GetReporte_DatosDelSuscriptorResult;
             vm.itemsByPage = 5; 
@@ -73,6 +72,7 @@ angular.module('softvFrostApp')
    
 
     vm.clearInicio = clearInicio;
+    /// Limpia la informacion de laventana
     function clearInicio(){
         fechaInicioYMD = null;
         vm.fechaInicio = fechaInicioYMD;        
@@ -80,6 +80,7 @@ angular.module('softvFrostApp')
     }
 
     vm.clearFin = clearFin;
+    /// Limpia la informacion de laventana
     function clearFin(){
         vm.fechaFin = null;
         fechaFinYMD = null; 
@@ -90,7 +91,7 @@ angular.module('softvFrostApp')
     //CSV 
     vm.order = [ 'SAN', 'IdSuscriptor', 'Referencia', 'Nombre', 'Estado', 'Municipio', 'Colonia', 'Calle', 'NumeroExt', 'CP','Telefono','Celular','Email'];
 
-    // CREAR CSV 
+    /// Crea el CSV 
     vm.crearVisibleAsCsv = crearVisibleAsCsv;
     function crearVisibleAsCsv() {
         $timeout(function() {
@@ -115,7 +116,7 @@ angular.module('softvFrostApp')
     };
 
 
-    // CREAR CSV 
+    // Crea el CSV 
     vm.crearTodoAsCsv = crearTodoAsCsv;
     function crearTodoAsCsv() {
       $timeout(function() {
@@ -163,7 +164,7 @@ angular.module('softvFrostApp')
     } 
 
 
-// Create TABLE PDF 
+// Crea un PDF 
 vm.createPdfTodo = createPdfTodo;
 function createPdfTodo(pdfAcrear){
 

@@ -3,6 +3,7 @@ angular
   .module('softvFrostApp')
   .controller('ModalAgendaQuejaCtrl', function ($uibModalInstance, ordenesFactory, $uibModal, $rootScope, atencionFactory, ngNotify, $localStorage, $state, options) {
 
+    /// verifica la informacion ah extraer
     function initialData() {
       console.log(options);
 
@@ -34,10 +35,12 @@ angular
 
     }
 
+    /// Acepta los cambios en la citas de las quejas
     function ok() {
       $uibModalInstance.dismiss('cancel');
     }
 
+    /// Cierra el HTML
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }

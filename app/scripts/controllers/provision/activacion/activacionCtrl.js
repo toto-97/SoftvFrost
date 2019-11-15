@@ -2,6 +2,8 @@
 angular.module('softvFrostApp').controller('activacionCtrl', activacionCtrl);
 
 function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $stateParams, globalService, $interval, $window, $localStorage) {
+  
+  /// Abre las validaciones para activar una terminal
   this.$onInit = function () {
     if ($stateParams.ESN != undefined && $stateParams.ESN != '' && $stateParams.antenna_size != undefined && $stateParams.antenna_size != '') {
       $window.open('http://189.254.231.35/ovttool/#!/home/monitoreo/validation?esn=' + $stateParams.ESN, '_self');
@@ -15,6 +17,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
     vm.ActivaControlesActivacion = false;
   }
 
+  /// Realiza las modificaciones necesarias para activar la terminal
   function activarTerminal() {
     if (vm.PIN.length == 4) {
       if (vm.PINValidar == vm.PIN) {
@@ -227,6 +230,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
   }
   */
 
+  /// valida si es posible la activacion de la terminal
   function validarSAN() {
     //Nos traemos los datos de la terminal
     var obj = {};
@@ -265,6 +269,7 @@ function activacionCtrl(terminalFactory, $uibModal, $state, ngNotify, $filter, $
     });
   }
 
+  /// Verifica los SAN compuestos 
   function hughesGetSanCompuesto(obj) {
     var a = obj.toString();
     var i;

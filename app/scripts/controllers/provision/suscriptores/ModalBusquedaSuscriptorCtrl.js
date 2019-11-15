@@ -3,16 +3,19 @@ angular
 	.module('softvFrostApp')
 	.controller('ModalBusquedaSuscriptorCtrl', function($uibModalInstance, $uibModal, SuscriptorFactory, $rootScope,$localStorage) {
 
+		/// Obtiene una lista de los suscriptores
 		function initialData() {
 			SuscriptorFactory.getSuscriptorList().then(function(data) {
 				vm.suscriptores = data.GetSuscriptorListResult;
 			});
 		}
 
+		/// No se usa
 		function ok() {
 
 		}
 
+		/// Valida el cliente seleccionado
 		function SeleccionarSusc(x) {
 
 			$uibModalInstance.dismiss('cancel');
@@ -20,6 +23,7 @@ angular
 
 		}
 
+		/// Busca un clinete por su id
 		function cambiarBusqueda(id) {
 			vm.tipoBusqueda = 0;
 			if (id == 1) {
@@ -39,6 +43,7 @@ angular
 			}
 		}
 
+		/// Busca un suscriptor en especial
 		function buscar() {
 			if (vm.tipoBusqueda == 1) {
 				vm.busObj = {
@@ -82,8 +87,7 @@ angular
 			}
 		}
 
-
-
+		/// Cacela la operacion de busqueda
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
 		}

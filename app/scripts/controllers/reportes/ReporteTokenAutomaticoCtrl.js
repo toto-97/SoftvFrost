@@ -2,6 +2,8 @@
 angular.module('softvFrostApp').controller('ReporteTokenAutomaticoCtrl', ReporteTokenAutomaticoCtrl);
 
 function ReporteTokenAutomaticoCtrl($uibModal, $state, $stateParams, reportesFactory, usuarioFactory, ngNotify) {
+    
+    /// Busca la informacion para el reporte
     this.$onInit = function () {
         vm.PlazasSeleccionadas = [];
         usuarioFactory.GetDistribuidores().then(function (data) {
@@ -9,6 +11,7 @@ function ReporteTokenAutomaticoCtrl($uibModal, $state, $stateParams, reportesFac
         });
     }
 
+    /// Busca las plazas para mostrarla
     function ObtienePlazas() {
         usuarioFactory.GetPlazas(vm.distribuidor.Clave).then(function (data) {
             vm.Plazas = data.GetPlazasResult;
@@ -16,6 +19,7 @@ function ReporteTokenAutomaticoCtrl($uibModal, $state, $stateParams, reportesFac
         });
     }
 
+    ///Genera un reporte a partir de los filtros 
     function GeneraReporte() {
         if((vm.FechasActivo && (vm.FechaInicio == undefined || vm.FechaFin == undefined)) || (vm.DistribuidorActivo && vm.PlazasSeleccionadas.length == 0))
         {
@@ -64,6 +68,7 @@ function ReporteTokenAutomaticoCtrl($uibModal, $state, $stateParams, reportesFac
         }
     }
 
+    /// Agrega plazas al reporte
     function AgregaPlaza(Clave) {
         var indexAux = 0;
         vm.Plazas.forEach(function (item, index) {
@@ -75,6 +80,7 @@ function ReporteTokenAutomaticoCtrl($uibModal, $state, $stateParams, reportesFac
         vm.Plazas.splice(indexAux, 1);
     }
 
+    /// Oculta ciertas plazas
     function QuitarPlaza(Clave) {
         var indexAux = 0;
         vm.PlazasSeleccionadas.forEach(function (item, index) {
@@ -86,6 +92,7 @@ function ReporteTokenAutomaticoCtrl($uibModal, $state, $stateParams, reportesFac
         vm.PlazasSeleccionadas.splice(indexAux, 1);
     }
 
+    /// Busca todas las plazas
     function TodasPlazas() {
         vm.Plazas.forEach(function (item, index) {
             vm.PlazasSeleccionadas.push(item);

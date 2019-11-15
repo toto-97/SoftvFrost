@@ -6,6 +6,7 @@ function DetalleMovimientoCtrl($uibModalInstance, movimiento, terminalFactory, $
     vm.cancel = cancel;
     vm.CancelarMovimiento = CancelarMovimiento;
 
+    /// Obtien los detalles de los movimiento hechos
     this.$onInit = function () {
         terminalFactory.detalleMovimiento(movimiento.IdMovimiento).then(function (data) {
 
@@ -19,10 +20,12 @@ function DetalleMovimientoCtrl($uibModalInstance, movimiento, terminalFactory, $
         });
     }
 
+    /// Cancela la consulta
     function cancel() {
         $uibModalInstance.dismiss('cancel');
     }
 
+    /// Cancela y borra un movimiento seleccionado
     function CancelarMovimiento() {
         var parametros = {};
         parametros.SAN = vm.movimiento.SAN;

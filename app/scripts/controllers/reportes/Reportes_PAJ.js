@@ -2,10 +2,13 @@
 angular.module('softvFrostApp').controller('Reportes_PAJ', Reportes_PAJ);
 
 function Reportes_PAJ($uibModal, $state, $stateParams, reportesFactory) {
+
+  /// No se usa
   this.$onInit = function () {
 
   }
 
+  /// Genera un reporte de PAJ
   function GeneraReporte() {
     var parametros = {};
     if (vm.SANActivo) {

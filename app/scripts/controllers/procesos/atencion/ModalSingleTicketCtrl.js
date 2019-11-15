@@ -3,6 +3,7 @@ angular
 	.module('softvFrostApp')
 	.controller('ModalSingleTicketCtrl', function($uibModalInstance, cajasFactory, factura, imprimir) {
 
+		/// Obtiene la informacion de los ticket
 		function initialData() {
 			cajasFactory.dameTicket(factura).then(function(data) {
 				vm.datosTicket = data.GetCrearTicketTableListResult[0];
@@ -13,10 +14,12 @@ angular
 			vm.mostrarImprimir = imprimir;
 		}
 
+		/// Cierra el HTML con la informacion del ticket
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
 		}
 
+		/// Imprime la informacion en un DIV en el HTML
 		function printDiv(divName) {
 			var printContents = document.getElementById(divName).innerHTML;
 			var popupWin = window.open('', '_blank', 'width=1000,height=700');

@@ -3,12 +3,14 @@ angular.module('softvFrostApp').controller('NuevoSuscriptorCtrl', NuevoSuscripto
 
 function NuevoSuscriptorCtrl(nuevoSuscriptorFactory, ngNotify, $state) {
 
+	/// Busca y regresa los estados
 	this.$onInit = function() {
 		nuevoSuscriptorFactory.getEstados().then(function(data) {
 			vm.estados = data.GetEstadoListResult;
 		});
 	}
 
+	/// Agrega un nuevo suscrptor
 	function guardar() {
 		var susc = {
 			nombre: vm.nombre,

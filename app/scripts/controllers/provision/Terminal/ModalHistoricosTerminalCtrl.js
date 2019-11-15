@@ -4,6 +4,7 @@ angular
 	.module('softvFrostApp')
 	.controller('ModalHistoricosTerminalCtrl', function ($filter, $uibModalInstance, $uibModal, terminalFactory, terminal, $rootScope, ngNotify) {
 
+		/// Inicializa los datos de las terminales
 		function initialData() {
 			vm.Terminal = terminal;
 			var Obj2 = new Object();
@@ -14,10 +15,12 @@ angular
 			});
 		}
 
+		/// No se utiliza
 		function ok() {
 
 		}
 
+		/// Gracifa la informacion de las terminales
 		function graficar() {
 			var Obj2 = new Object();
 			Obj2.FechaInicio = $filter('date')(vm.FechaInicio, 'dd/MM/yyyy HH:mm:ss');
@@ -28,6 +31,7 @@ angular
 			});
 		}
 
+		/// Cancela la operacion 
 		function cancel() {
 			$uibModalInstance.dismiss('cancel');
 		}

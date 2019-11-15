@@ -3,6 +3,7 @@ angular
 	.module('softvFrostApp')
 	.controller('quejasCtrl', function ($state, ngNotify, $location, $uibModal, quejasFactory) {
 
+		/// Busca los contratos y sus datos dependiendo a los servicios y las plazas
 		function InitalData() {
 
 			quejasFactory.MuestraPlazas().then(function (data) {
@@ -49,6 +50,7 @@ angular
 			});
 		}
 
+		/// Muestra los datos de una queja en especifico
 		function ObtenQuejas(object) {
 			vm.ListaQuejas = [];
 			var Parametros = {
@@ -71,6 +73,8 @@ angular
 			};
 
 		}
+		
+		/// Busca los reportes de un servicio en especial
 		function BuscaReporte() {
 			if (vm.Servicio == null) {
 				ngNotify.set('Por favor seleccione un tipo de servicio.', 'warn');
@@ -110,6 +114,7 @@ angular
 			vm.Reporte = "";
 		}
 
+		/// Busac un contrato de una compañia
 		function BuscaContrato() {
 			if (vm.Servicio === null || vm.Plaza === null) {
 				ngNotify.set('Por favor seleccione una compañía y un tipo de servicio.', 'warn');
@@ -148,6 +153,7 @@ angular
 			vm.Contrato = '';
 		}
 
+		/// Busca una queja por nombre de cliente
 		function BuscaporNombre() {
 			if (vm.Nombre === undefined || vm.Nombre === '') {
 				var NombreB = '';
@@ -209,6 +215,7 @@ angular
 			vm.AMaterno = '';
 		}
 
+		/// Busca los reportes por una direccion en especial
 		function BuscaporDireccion() {
 
 			if(!(/^\d{1,9}/.test(vm.Numero))){
@@ -259,6 +266,7 @@ angular
 			vm.Colonia.clvColonia = vm.Colonia.clvColonia[0];
 		}
 
+		/// Cambia de los registros una compañia
 		function CambioPlaza(x) {
 			quejasFactory.ObtenColonias(x.id_compania).then(function (data) {
 				vm.Colonias = data.GetuspConsultaColoniasListResult;
@@ -294,6 +302,7 @@ angular
 			});
 		}
 
+		/// Cambia de los registros un servicio
 		function CambioServicio(x) {
 			var Parametros = {
 				'Clv_TipSer': vm.Servicio.Clv_TipSerPrincipal,
@@ -325,6 +334,7 @@ angular
 			});
 		}
 
+		/// Cambia de los registros una status
 		function CambioStatus() {
 
 			var Parametros = {
@@ -358,6 +368,7 @@ angular
 
 		}
 
+		/// Cambia de los registros un nivel
 		function CambioNivel() {
 			var Parametros = {
 				'Clv_TipSer': 0,
@@ -382,6 +393,7 @@ angular
 			});
 		}
 
+		/// Busca los reportes por un STB en especial
 		function BuscaporSTB() {
 			if (vm.STB == null || vm.STB == "") {
 				ngNotify.set('Ingresa una Serie de STB válida.', 'warn');
@@ -418,6 +430,7 @@ angular
 			}
 		}
 
+		/// Busca los reportes por un ticket en especial
 		function BuscaporTicket() {
 
 			if (vm.Ticket == null || vm.Ticket == "") {
@@ -455,6 +468,7 @@ angular
 			vm.Ticket = "";
 		}
 
+		/// Abre una ventana con los datos de la bonificacion
 		function abrirBonificacion(object) {
 			var detalle = {};
 			detalle.Block = false;
@@ -478,6 +492,7 @@ angular
 			});
 		}
 
+		/// abre una ventana con los detalles de una queja
 		function abrirDetalleQueja(details) {
 			var detalle = {};
 			detalle.Clv_Queja = details.Clv_Queja;
@@ -501,6 +516,7 @@ angular
 			});
 		}
 
+		/// Da seguimiento al proceso de quejas
 		function EjecutaQueja(id, contrato, servicio) {
 
 			$state.go('home.procesos.ejecutaqueja', {
@@ -510,6 +526,7 @@ angular
 			});
 		}
 
+		/// Elimina el registro de una queja
 		function EliminaQueja(details) {
 			var detalle = {};
 			detalle.Clv_Queja = details.Clv_Queja;
